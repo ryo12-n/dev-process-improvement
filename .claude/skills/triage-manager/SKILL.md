@@ -11,6 +11,12 @@ user-invocable: true
 
 ---
 
+## セッション開始時のブランチ整理
+
+セッション開始時、作業フローに入る前に `.claude/rules/session-start-branch-cleanup.md` のフローを実行する。前セッションの未プッシュコミットやPR未作成の状態を整理してから作業を開始すること。
+
+---
+
 ## 作業フロー
 
 1. `triage/_template/` を `triage/YYYYMMDD/` にコピーしてセッションフォルダを作成する
