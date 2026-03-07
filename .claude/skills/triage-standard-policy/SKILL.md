@@ -154,6 +154,25 @@ user-invocable: false
 
 ---
 
+---
+
+## 関連ファイル一覧
+
+本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
+
+| ファイル | 連動更新の内容 |
+|---------|-------------|
+| `.claude/skills/l1-manager/SKILL.md` | ライフサイクルステージ・ペアリング要件の変更がマネージャー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-worker.md` | ライフサイクル適用マトリクスの変更がワーカー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-evaluator.md` | ライフサイクル適用マトリクスの変更が評価者定義に影響する場合 |
+| `.claude/skills/triage-manager/SKILL.md` | TG-008 チェック基準の変更がマネージャーのルールに影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-worker.md` | TG-008 走査手順・チェック項目の変更がワーカーの走査手順に影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-evaluator.md` | ペアリング対称性要件の変更が評価者定義に影響する場合 |
+| `.claude/skills/session-flow-policy/SKILL.md` | ペアリング要件・ライフサイクル定義が新セッション作成ポリシーに影響する場合 |
+| `docs/workflow.md` | 標準ポリシーの変更がワークフロー記述に影響する場合（人間向け可視化） |
+
+---
+
 **作成日**: 2026-03-05
 **作成者**: L2（実施）
 **関連施策**: トリアージ標準ポリシーガイドライン

@@ -138,5 +138,23 @@ user-invocable: true
 
 ---
 
+## 関連ファイル一覧
+
+本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
+
+| ファイル | 連動更新の内容 |
+|---------|-------------|
+| `.claude/skills/l1-manager/SKILL.md` | SKILL.md の必須要素・オーケストレーション関連の必須記載の変更がマネージャー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-worker.md` | エージェント定義の必須要素・ペアリング対称性の変更がワーカー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-evaluator.md` | エージェント定義の必須要素・ペアリング対称性の変更が評価者定義に影響する場合 |
+| `.claude/skills/triage-manager/SKILL.md` | SKILL.md の必須要素の変更がトリアージマネージャー定義に影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-worker.md` | エージェント定義の必須要素の変更がトリアージワーカー定義に影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-evaluator.md` | エージェント定義の必須要素の変更がトリアージ評価者定義に影響する場合 |
+| `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
+| `docs/workflow.md` | セッションフロー構造の変更がワークフロー記述に影響する場合（人間向け可視化） |
+| `.claude/rules/commit-message.md` | セッション種別の追加・変更がコミットメッセージ規約に影響する場合 |
+
+---
+
 **作成日**: 2026-03-06
 **根拠**: l1-manager / triage-manager セッションフローの実装パターンを標準化
