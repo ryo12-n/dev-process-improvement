@@ -8,12 +8,12 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | **現状調査**: ai-driven-dev-patterns の roles/、sessions/、docs/、openspec/ の構造を調査し、設計プロセスに関わる現状の資材・フロー・課題を整理する | 調査結果が 03_work_log.md に記録されている。現状の資材一覧と課題リストが作成されている | 🔴 | ⬜ |
-| T-002 | **全体像マップ作成**: 人間エントリーポイント → セッション設定 → ロール起動 → 成果物 → 知見ルーティングの全体フローを docs/ に可視化する。Mermaid 図を含む設計プロセスガイドを `docs/design-process-guide.md` として作成する | ai-driven-dev-patterns の `docs/design-process-guide.md` が作成されている。全体フローが Mermaid 図で可視化されている | 🔴 | ⬜ |
-| T-003 | **気づきルーティング実装**: dev-process-improvement のパターンに倣い、ai-driven-dev-patterns に気づきルーティングの仕組みを構築する。(1) inbox/README.md を更新（人間のアイデア保管場所として明確化）、(2) dev_manager の知見収集→CSV転記フローを CLAUDE.md に明記、(3) backlog/README.md を更新（トリアージ→backlog 起票の流れを明確化） | inbox/README.md、backlog/README.md が更新されている。CLAUDE.md に知見ルーティングのフローが記載されている | 🔴 | ⬜ |
-| T-004 | **backlog 起票**: 全体像マップから個別ステップを抽出し、ai-driven-dev-patterns の backlog/ に施策候補として起票する。各施策に優先度を付け、推奨着手順を記載する | backlog/ に 3 件以上の施策候補ファイルが作成されている。各ファイルに _template.md のフォーマットで課題・背景・期待効果が記載されている | 🔴 | ⬜ |
-| T-005 | **知見記録**: 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-006 | **課題転記**: `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | **現状調査**: ai-driven-dev-patterns の roles/、sessions/、docs/、openspec/ の構造を調査し、設計プロセスに関わる現状の資材・フロー・課題を整理する | 調査結果が 03_work_log.md に記録されている。現状の資材一覧と課題リストが作成されている | 🔴 | ✅ |
+| T-002 | **全体像マップ作成**: 人間エントリーポイント → セッション設定 → ロール起動 → 成果物 → 知見ルーティングの全体フローを docs/ に可視化する。Mermaid 図を含む設計プロセスガイドを `docs/design-process-guide.md` として作成する | ai-driven-dev-patterns の `docs/design-process-guide.md` が作成されている。全体フローが Mermaid 図で可視化されている | 🔴 | ✅ |
+| T-003 | **気づきルーティング実装**: dev-process-improvement のパターンに倣い、ai-driven-dev-patterns に気づきルーティングの仕組みを構築する。(1) inbox/README.md を更新（人間のアイデア保管場所として明確化）、(2) dev_manager の知見収集→CSV転記フローを CLAUDE.md に明記、(3) backlog/README.md を更新（トリアージ→backlog 起票の流れを明確化） | inbox/README.md、backlog/README.md が更新されている。CLAUDE.md に知見ルーティングのフローが記載されている | 🔴 | ✅ |
+| T-004 | **backlog 起票**: 全体像マップから個別ステップを抽出し、ai-driven-dev-patterns の backlog/ に施策候補として起票する。各施策に優先度を付け、推奨着手順を記載する | backlog/ に 3 件以上の施策候補ファイルが作成されている。各ファイルに _template.md のフォーマットで課題・背景・期待効果が記載されている | 🔴 | ✅ |
+| T-005 | **知見記録**: 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-006 | **課題転記**: `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価ワーカー（l2-evaluator）タスク
 
