@@ -26,7 +26,7 @@ OpenSpec 仕様ライフサイクルを担う専門ロール `openspec_specialis
 
 | # | 知見 | 対象ファイル・領域 | 詳細 |
 |---|------|-----------------|------|
-| 1 | タスクの大小に関わらず initiative プロセスを必須とすべき | `dev-process-improvement/CLAUDE.md` | 今回 initiative を省略して実装に着手したが、事後的に initiative を作成する手間が発生した。最初から initiative を作成していれば壁打ちの記録や知見の構造化が自然に行えた |
+| 1 | タスクの大小に関わらず initiative プロセスを必須とすべき | `CLAUDE.md` | 今回 initiative を省略して実装に着手したが、事後的に initiative を作成する手間が発生した。最初から initiative を作成していれば壁打ちの記録や知見の構造化が自然に行えた |
 
 ### 参考情報（文脈依存の気づき・今後の参考）
 

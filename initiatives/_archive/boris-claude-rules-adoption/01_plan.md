@@ -16,7 +16,7 @@
 
 ## リソース・前提条件
 
-- Boris式ルール原文: git history `714a883` で参照可能（`dev-process-improvement/inbox/ボリスのclaudeルールを採用する.md`）
+- Boris式ルール原文: git history `714a883` で参照可能（`inbox/ボリスのclaudeルールを採用する.md`）
 - 現行 `CLAUDE.md` の壁打ちルールを理解していること
 
 ## リスクと対策

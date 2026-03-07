@@ -16,14 +16,14 @@
 
 Boris式ルール原文の取得方法:
 ```bash
-git show 714a883:"dev-process-improvement/inbox/ボリスのclaudeルールを採用する.md"
+git show 714a883:"inbox/ボリスのclaudeルールを採用する.md"
 ```
 
 分析対象の既存ルールファイル:
 - `/CLAUDE.md` — リポジトリルートの共通ルール（壁打ちルール記載）
-- `dev-process-improvement/.claude/rules/l1-manager.md`
-- `dev-process-improvement/.claude/rules/l2-worker.md`
-- `dev-process-improvement/.claude/rules/l2-evaluator.md`
+- `.claude/rules/l1-manager.md`
+- `.claude/rules/l2-worker.md`
+- `.claude/rules/l2-evaluator.md`
 
 ### T-002 補足情報
 

@@ -15,8 +15,8 @@
 | T-005 | 07_issues.md の課題転記判断 | 課題の有無確認、転記判断 | 課題なし、転記不要と判断 | 07_issues.md に課題起票なし |
 
 ## 成果物一覧
-- `dev-process-improvement/.claude/rules/commit-message.md` — コミットメッセージ規約ルールファイル（新規作成）
-- `dev-process-improvement/docs/workflow.md` — コミットメッセージ規約セクション追加
+- `.claude/rules/commit-message.md` — コミットメッセージ規約ルールファイル（新規作成）
+- `docs/workflow.md` — コミットメッセージ規約セクション追加
 
 ## 発生した課題
 - なし（07_issues.md への起票なし）

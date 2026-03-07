@@ -22,8 +22,8 @@
 - `/home/user/ai-driven-dev-patterns/docs/dev-setup.md`（新規作成）
 - `/home/user/ai-driven-dev-patterns/scripts/setup.sh`（新規作成、実行権限付き `-rwxr-xr-x`）
 - `/home/user/ai-driven-dev-patterns/README.md`（「セットアップ」セクション追加）
-- `/home/user/ai-driven-dev-patterns/dev-process-improvement/initiatives/dev-setup-knowledge/03_work_log.md`（作業履歴記録）
-- `/home/user/ai-driven-dev-patterns/dev-process-improvement/initiatives/dev-setup-knowledge/02_tasks.md`（全タスクステータスを ✅ に更新）
+- `/home/user/ai-driven-dev-patterns/initiatives/dev-setup-knowledge/03_work_log.md`（作業履歴記録）
+- `/home/user/ai-driven-dev-patterns/initiatives/dev-setup-knowledge/02_tasks.md`（全タスクステータスを ✅ に更新）
 
 ---
 

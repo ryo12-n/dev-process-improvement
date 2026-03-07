@@ -27,7 +27,7 @@
 | 基盤編 | `docs/design/session-flow-foundations.md` | 412行 | 新規作成 |
 | シナリオ編 | `docs/design/session-flow-scenarios.md` | 661行 | 新規作成 |
 | 応用編 | `docs/design/session-flow-advanced.md` | 524行 | 新規作成 |
-| バックログ参照更新 | `dev-process-improvement/backlog/セッション横断の作業規律設計.md` | - | 1箇所更新 |
+| バックログ参照更新 | `backlog/セッション横断の作業規律設計.md` | - | 1箇所更新 |
 
 ## 計画の成功基準に対する達成度
 

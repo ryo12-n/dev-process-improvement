@@ -56,7 +56,7 @@
 ## 前提・制約
 - 評価は成果物のドキュメント品質・内容の妥当性・整合性を対象とする（実際の worktree 環境での動作テストはスコープ外）
 - 設計書（`docs/design/` 6ファイル）を正として、変更内容との整合性を判断する
-- 前回施策（git-worktree-standardization）のガイドライン（`dev-process-improvement/docs/git-worktree-guideline.md`）と今回の root レベルガイドライン（`docs/git-worktree-guideline.md`）の関係も評価対象に含める
+- 前回施策（git-worktree-standardization）のガイドライン（`docs/git-worktree-guideline.md`）と今回の root レベルガイドライン（`docs/git-worktree-guideline.md`）の関係も評価対象に含める
 
 ---
 **作成者**: L2（評価）

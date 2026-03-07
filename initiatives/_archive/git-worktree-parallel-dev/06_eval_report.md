@@ -141,7 +141,7 @@
 
 ### 前回施策ガイドラインとの関係
 
-前回施策（git-worktree-standardization）の成果物 `dev-process-improvement/docs/git-worktree-guideline.md`（329行）は、L1/L2 ワークフロー文脈でのworktree 調査ガイドラインである。今回新規作成された `docs/git-worktree-guideline.md`（161行）は、root レベルの開発ワークフロー（dispatcher → dev_manager → 7ロール）向けのガイドラインである。
+前回施策（git-worktree-standardization）の成果物 `docs/git-worktree-guideline.md`（329行）は、L1/L2 ワークフロー文脈でのworktree 調査ガイドラインである。今回新規作成された `docs/git-worktree-guideline.md`（161行）は、root レベルの開発ワークフロー（dispatcher → dev_manager → 7ロール）向けのガイドラインである。
 
 両者の関係は以下のように整理できる:
 - **前回ガイドライン**: Stage 1 の成果物。worktree の基礎概念、ロックベース比較、L1/L2 ワークフローへの影響分析、協調プロトコルとの接続点を含む。位置づけは「参考情報」
@@ -188,7 +188,7 @@
 ### 条件
 
 1. **成功基準2の取り扱いの確認**: `.claude/agents/` へのエージェント定義ファイル作成が今回のスコープに含まれるべきだったかをL1が判断する。含まれるべきだった場合は、エージェント定義ファイルの作成を追加タスクとして実施するか、Stage 3 または別施策に持ち越す
-2. **ガイドラインの相互参照**: `docs/git-worktree-guideline.md` に前回施策ガイドライン（`dev-process-improvement/docs/git-worktree-guideline.md`）への参照を追加することを推奨（任意）
+2. **ガイドラインの相互参照**: `docs/git-worktree-guideline.md` に前回施策ガイドライン（`docs/git-worktree-guideline.md`）への参照を追加することを推奨（任意）
 
 ### Stage 3 への申し送り
 

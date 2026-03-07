@@ -33,7 +33,7 @@
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
 | T-008 | **ISS-030**: dev-process-improvement 配下の全ファイルで `collab-log` への参照を検索し、inbox/ への参照に更新する。対象: triage ルールの蒸留フロー、CLAUDE.md のセッション終了時記録先、workflow.md、テンプレートの collab-log セクション | grep -r "collab-log" で dev-process-improvement 配下に collab-log.md への能動的参照が0件であること（git 履歴・アーカイブを除く） | 🔴 | ✅ |
-| T-009 | **ISS-030**: docs/collab-log.md を git rm で削除する | collab-log.md が dev-process-improvement/docs/ に存在しないこと | 🔴 | ✅ |
+| T-009 | **ISS-030**: docs/collab-log.md を git rm で削除する | collab-log.md が docs/ に存在しないこと | 🔴 | ✅ |
 
 ### CSV ステータス更新・レポート
 

@@ -22,9 +22,9 @@
 
 ### フェーズ1
 
-- `dev-process-improvement/initiatives/role-agent-prompts/drafts/01_poc_role_analysis.md`
+- `initiatives/role-agent-prompts/drafts/01_poc_role_analysis.md`
   - poc の7ロール + base_prompt + 2プロトコルを分析した構造分析レポート
-- `dev-process-improvement/initiatives/role-agent-prompts/drafts/02_role_library_proposal.md`
+- `initiatives/role-agent-prompts/drafts/02_role_library_proposal.md`
   - 本リポジトリ向けディレクトリ構成案・必要ロールリスト・転用可否分類・共通ファイル設置の考察
 
 ### フェーズ2

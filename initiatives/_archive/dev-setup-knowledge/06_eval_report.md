@@ -68,11 +68,11 @@ exit_code: 0
 ### 変更ファイル一覧
 ```
 README.md
-dev-process-improvement/initiatives/dev-setup-knowledge/02_tasks.md
-dev-process-improvement/initiatives/dev-setup-knowledge/03_work_log.md
-dev-process-improvement/initiatives/dev-setup-knowledge/04_work_report.md
-dev-process-improvement/initiatives/dev-setup-knowledge/07_issues.md
-dev-process-improvement/initiatives/dev-setup-knowledge/08_gate_review.md
+initiatives/dev-setup-knowledge/02_tasks.md
+initiatives/dev-setup-knowledge/03_work_log.md
+initiatives/dev-setup-knowledge/04_work_report.md
+initiatives/dev-setup-knowledge/07_issues.md
+initiatives/dev-setup-knowledge/08_gate_review.md
 docs/dev-setup.md
 scripts/setup.sh
 ```

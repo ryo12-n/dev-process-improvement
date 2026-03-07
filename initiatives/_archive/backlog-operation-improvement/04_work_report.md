@@ -23,9 +23,9 @@
 - `backlog/セッション前提条件・計画レビュー強制.md` — 移行済み施策ファイル
 - `backlog/ロール定義フォーマット統一.md` — 移行済み施策ファイル
 - `backlog/ideas.md` — 削除済み（git rm）
-- `dev-process-improvement/CLAUDE.md` — backlog 説明を更新
-- `dev-process-improvement/docs/workflow.md` — トリアージフロー ステップ7 を更新
-- `dev-process-improvement/.claude/rules/l1-manager.md` — backlog 入力時の動作説明を更新
+- `CLAUDE.md` — backlog 説明を更新
+- `docs/workflow.md` — トリアージフロー ステップ7 を更新
+- `.claude/rules/l1-manager.md` — backlog 入力時の動作説明を更新
 
 ## 発生した課題
 

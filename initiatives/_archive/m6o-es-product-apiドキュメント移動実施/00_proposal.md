@@ -47,12 +47,12 @@
 ## 壁打ちの背景
 
 - **ブランチ名**: `initiative/doc-migration`（`main` から分岐）— フェーズ2の実移動を表す `doc-migration` を選択
-- **施策ディレクトリ**: `dev-process-improvement/initiatives/m6o-es-product-apiドキュメント移動実施/` — 通常フローに従い `_template/` からコピー
+- **施策ディレクトリ**: `initiatives/m6o-es-product-apiドキュメント移動実施/` — 通常フローに従い `_template/` からコピー
 - **作業対象リポジトリの確認**: `my_work/` は `ai-driven-dev-patterns-fork` ではなく `m6o-es-product-api` リポジトリ内にある（`/home/developer/projects/m6o-es-product-api_dev_process_improvement/m6o-es-product-api/`）。L2-worker はそちらのリポジトリで操作を行う
 
 ## 備考・設計パターン
 
-- **設計書の参照先**: `dev-process-improvement/initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`（マッピング表 86件が記載）
+- **設計書の参照先**: `initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`（マッピング表 86件が記載）
 - **注意**: `04_work_report.md` のファイル数記載（73件）は誤り。正しくは 86件（design.md が正）
 
 ---

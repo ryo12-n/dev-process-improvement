@@ -21,7 +21,7 @@
 ---
 
 ## 評価対象
-- 主たる評価対象: `dev-process-improvement/docs/git-worktree-guideline.md`（ガイドライン文書）
+- 主たる評価対象: `docs/git-worktree-guideline.md`（ガイドライン文書）
 - 補助参照: `03_work_log.md`（調査過程）、`04_work_report.md`（作業レポート）
 
 ## 評価項目

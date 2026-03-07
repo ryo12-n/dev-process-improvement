@@ -23,13 +23,13 @@
 
 ## 成果物一覧
 - `docs/design/dev-workflow-detail.md`（親リポジトリ）: L1 参照をユーザーに置換
-- `dev-process-improvement/docs/workflow.md`: トリアージフロー・凡例・走査項目を更新、collab-log 参照を inbox に更新
-- `dev-process-improvement/.claude/rules/triage-manager.md`: 関連ファイル一覧セクション追加、collab-log 参照を inbox に更新
-- `dev-process-improvement/.claude/rules/triage-worker.md`: collab-log 参照を inbox に更新
-- `dev-process-improvement/CLAUDE.md`: セッション終了時の気づき記録先を inbox に更新
-- `dev-process-improvement/triage/_template/00_pre_investigation.md`: collab-log セクションを inbox 確認に更新
-- `dev-process-improvement/docs/collab-log.md`: git rm で削除
-- `dev-process-improvement/プロセス改善_課題管理.csv`: ISS-008〜012, ISS-024, ISS-029, ISS-030 を「施策化」に更新
+- `docs/workflow.md`: トリアージフロー・凡例・走査項目を更新、collab-log 参照を inbox に更新
+- `.claude/rules/triage-manager.md`: 関連ファイル一覧セクション追加、collab-log 参照を inbox に更新
+- `.claude/rules/triage-worker.md`: collab-log 参照を inbox に更新
+- `CLAUDE.md`: セッション終了時の気づき記録先を inbox に更新
+- `triage/_template/00_pre_investigation.md`: collab-log セクションを inbox 確認に更新
+- `docs/collab-log.md`: git rm で削除
+- `プロセス改善_課題管理.csv`: ISS-008〜012, ISS-024, ISS-029, ISS-030 を「施策化」に更新
 
 ## 発生した課題
 - 施策をまたぐ課題: なし

@@ -17,10 +17,10 @@
 | ファイル | 変更内容 |
 |---------|---------|
 | `.claude/rules/role-format-guide.md` | 新規作成 |
-| `dev-process-improvement/.claude/rules/l1-manager.md` | `## やること` / `## やらないこと` 追加 |
-| `dev-process-improvement/.claude/rules/l2-worker.md` | `## やること` / `## やらないこと` 追加 |
-| `dev-process-improvement/.claude/rules/l2-evaluator.md` | `## やること` / `## やらないこと` 追加 |
-| `dev-process-improvement/.claude/rules/triage.md` | `## やること` / `## やらないこと` 追加 |
+| `.claude/rules/l1-manager.md` | `## やること` / `## やらないこと` 追加 |
+| `.claude/rules/l2-worker.md` | `## やること` / `## やらないこと` 追加 |
+| `.claude/rules/l2-evaluator.md` | `## やること` / `## やらないこと` 追加 |
+| `.claude/rules/triage.md` | `## やること` / `## やらないこと` 追加 |
 | `roles/bug_fixer.md` | `## やること` 追加 |
 | `roles/reviewer.md` | `## やること` 追加 |
 | `roles/feature_builder.md` | `## やること` 追加 |

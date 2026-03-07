@@ -19,7 +19,7 @@
 
 | 成果物 | パス | 説明 |
 |--------|------|------|
-| 公式リポジトリ調査サマリー | `dev-process-improvement/refs/openspec-official-summary.md` | 公式リポジトリの標準ディレクトリ構成・設計意図・変更サイクル・命名規約等を9セクションでまとめたサマリー |
+| 公式リポジトリ調査サマリー | `refs/openspec-official-summary.md` | 公式リポジトリの標準ディレクトリ構成・設計意図・変更サイクル・命名規約等を9セクションでまとめたサマリー |
 | OpenSpec 開発ルールファイル | `.claude/rules/openspec-development.md` | Claude が `openspec/` 配下のファイルを操作する際に自動参照するルール。ディレクトリ構成、変更サイクル、命名規則、アーティファクトルール、config.yaml 編集注意、手順を定義 |
 
 ## 発生した課題

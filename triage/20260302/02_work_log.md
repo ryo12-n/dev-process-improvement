@@ -24,13 +24,13 @@
 
 **根拠**:
 
-1. **構造的独立性**: dev-process-improvement/ は完全に自己完結した構成
+1. **構造的独立性**:  は完全に自己完結した構成
    - `.claude/rules/`（l1-manager, l2-worker, l2-evaluator, triage）: すべて内部パスのみ参照
    - `initiatives/`, `backlog/`, `docs/`, `refs/`: 外部ディレクトリへの参照なし
    - `CLAUDE.md`: ローカルセッションルールのみ（親リポジトリの CLAUDE.md とは独立）
 
 2. **親リポジトリからの参照（ソフトカップリング 2箇所のみ）**:
-   - ルート `CLAUDE.md` 76行目: `dev-process-improvement/docs/collab-log.md` への参照（行動指針のテキスト参照）
+   - ルート `CLAUDE.md` 76行目: `docs/collab-log.md` への参照（行動指針のテキスト参照）
    - ルート `README.md` 124-127行: upstream sync 除外リストとして 4ディレクトリを記載（運用ドキュメント）
    - `.claude/rules/claude-directory-guide.md`, `role-format-guide.md`: dev-process-improvement を構成例として言及（ドキュメント的参照のみ）
 
@@ -47,7 +47,7 @@
 | 3 | 親リポジトリ `CLAUDE.md` から collab-log 参照を削除/更新 | 小 | |
 | 4 | 親リポジトリ `README.md` から sync 除外リストを削除 | 小 | |
 | 5 | `claude-directory-guide.md`, `role-format-guide.md` の参照例を更新 | 小 | |
-| 6 | 親リポジトリから `dev-process-improvement/` ディレクトリを削除 | 小 | |
+| 6 | 親リポジトリから `` ディレクトリを削除 | 小 | |
 | 7 | 新リポジトリに CLAUDE.md を調整（親リポジトリの共通ルールで必要なものがあればコピー） | 小 | |
 
 **リスク**:

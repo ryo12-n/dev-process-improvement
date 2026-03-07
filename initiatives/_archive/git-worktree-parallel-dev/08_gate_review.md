@@ -33,7 +33,7 @@
 
 ### 条件
 
-1. `docs/git-worktree-guideline.md` に前回施策ガイドライン（`dev-process-improvement/docs/git-worktree-guideline.md`）への参照リンクを追加する
+1. `docs/git-worktree-guideline.md` に前回施策ガイドライン（`docs/git-worktree-guideline.md`）への参照リンクを追加する
 
 ## 判定理由
 
@@ -68,14 +68,14 @@
 |---|--------------|------|-------------|
 | 1 | 並列化パターンは限定的 | 実用的な並列化パターンは3つ（後処理並列、独立モジュール並列、品質改善並列）。大半のシナリオは逐次実行が適切。Stage 3 で拡大する際はこの前提を踏まえること | なし |
 | 2 | オプトイン方式を維持すること | 並列化はデフォルト無効。dev_manager が明示的に選択する設計。この方針を崩さないこと | なし |
-| 3 | 2つのガイドラインが存在する | `docs/git-worktree-guideline.md`（root レベル、実装パターン）と `dev-process-improvement/docs/git-worktree-guideline.md`（メタフレームワーク、調査ガイドライン）は対象が異なる | なし |
+| 3 | 2つのガイドラインが存在する | `docs/git-worktree-guideline.md`（root レベル、実装パターン）と `docs/git-worktree-guideline.md`（メタフレームワーク、調査ガイドライン）は対象が異なる | なし |
 | 4 | `.claude/agents/` は未作成 | 並列開発の実運用開始時に、エージェント定義ファイルの作成が必要になる可能性がある | なし |
 
 ### 次施策候補への提案
 
 | 提案 | 背景 | ルーティング先 |
 |------|------|-------------|
-| Stage 3: 高度な並列化 + 協調プロトコル統合 | 同一シナリオ内での実装並列化（複数 feature_builder）、Agent Teams 機能との統合検討。協調プロトコルガイドライン（`dev-process-improvement/docs/coordination-protocol-guideline.md`）との連携が必要 | backlog |
+| Stage 3: 高度な並列化 + 協調プロトコル統合 | 同一シナリオ内での実装並列化（複数 feature_builder）、Agent Teams 機能との統合検討。協調プロトコルガイドライン（`docs/coordination-protocol-guideline.md`）との連携が必要 | backlog |
 | バックログ「並列開発の仕組み実装」との統合判断 | 今回の施策で root レベルの並列化パターンは整備された。バックログの残りスコープ（commit ルール反映、テストスクリプト等）を確認し、統合するか分離するかを判断する | なし |
 
 ---

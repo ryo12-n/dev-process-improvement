@@ -78,9 +78,9 @@
 
 | 項目 | 内容 |
 |------|------|
-| **やること** | T-001〜T-005 の成果をもとに、`dev-process-improvement/docs/coordination-protocol-guideline.md` にガイドライン文書を作成する |
+| **やること** | T-001〜T-005 の成果をもとに、`docs/coordination-protocol-guideline.md` にガイドライン文書を作成する |
 | **文書に含めるセクション** | ① 概要（本ガイドラインの目的・適用範囲） ② commit プロトコル ③ lock プロトコル ④ test プロトコル ⑤ 各プロトコルの相互関係 ⑥ 適用シナリオ（順次実行時 / 並列実行時） ⑦ git worktree ガイドラインとの関係 ⑧ 段階的導入の方針 |
-| **成果物** | `dev-process-improvement/docs/coordination-protocol-guideline.md` |
+| **成果物** | `docs/coordination-protocol-guideline.md` |
 | **完了条件** | 上記セクション①〜⑧を含むガイドライン文書が作成されている |
 | **優先度** | 🔴 |
 | **ステータス** | ✅ |

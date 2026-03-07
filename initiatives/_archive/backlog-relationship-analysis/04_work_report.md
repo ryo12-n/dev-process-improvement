@@ -16,10 +16,10 @@
 
 ## 成果物一覧
 
-- `dev-process-improvement/.claude/rules/triage.md`（更新）— TG-005 と TG-002 拡張のルール追加
-- `dev-process-improvement/triage/_template/03_report.md`（更新）— TG-005 テーブル追加、棚卸しテーブルに施策化状態列追加
-- `dev-process-improvement/triage/_template/00_pre_investigation.md`（更新）— 施策化済み候補欄追加
-- `dev-process-improvement/docs/workflow.md`（更新）— トリアージフロー説明に TG-005 と施策化済みチェック追加
+- `.claude/rules/triage.md`（更新）— TG-005 と TG-002 拡張のルール追加
+- `triage/_template/03_report.md`（更新）— TG-005 テーブル追加、棚卸しテーブルに施策化状態列追加
+- `triage/_template/00_pre_investigation.md`（更新）— 施策化済み候補欄追加
+- `docs/workflow.md`（更新）— トリアージフロー説明に TG-005 と施策化済みチェック追加
 
 ## 発生した課題
 

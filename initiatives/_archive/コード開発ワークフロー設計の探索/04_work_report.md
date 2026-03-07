@@ -56,8 +56,8 @@
 ## 成果物一覧
 
 - `docs/design/dev-workflow-detail.md` -- コード開発ワークフロー詳細設計（新規作成。T-006〜T-008 の全内容を統合）
-- `dev-process-improvement/initiatives/コード開発ワークフロー設計の探索/03_work_log.md` -- フェーズ2の作業ログ追記
-- `dev-process-improvement/initiatives/コード開発ワークフロー設計の探索/07_issues.md` -- 全5件の転記判断確認済み（変更なし）
+- `initiatives/コード開発ワークフロー設計の探索/03_work_log.md` -- フェーズ2の作業ログ追記
+- `initiatives/コード開発ワークフロー設計の探索/07_issues.md` -- 全5件の転記判断確認済み（変更なし）
 
 ## 付帯条件への対応
 

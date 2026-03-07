@@ -52,7 +52,7 @@
 | # | 知見・注意事項 | 詳細 | ルーティング先 |
 |---|--------------|------|-------------|
 | 1 | Claude Code Remote Control が CodeSail の完全代替 | `claude remote-control` or `/rc` で iPhone Claude アプリから接続可能。複数セッション同時接続も対応 | なし（本施策内で完結） |
-| 2 | `--add-dir` はリポジトリ分離後に必要になる | 分離前は `dev-process-improvement/` がサブディレクトリとして存在するため不要。分離施策の作業ログに記録済み | なし（リポジトリ分離施策に記録済み） |
+| 2 | `--add-dir` はリポジトリ分離後に必要になる | 分離前は `` がサブディレクトリとして存在するため不要。分離施策の作業ログに記録済み | なし（リポジトリ分離施策に記録済み） |
 | 3 | `--add-dir` 使用時は `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1` が必須 | デフォルトでは追加ディレクトリの CLAUDE.md は読み込まれない | inbox（ルール化検討） |
 | 4 | settings.json は JSONC ではなく純粋な JSON で管理する | 現行の JSONC 形式は公式非推奨。`$schema` 設定によりエディタ補完も有効になる | inbox（ルール化検討） |
 

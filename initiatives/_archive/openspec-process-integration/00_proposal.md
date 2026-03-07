@@ -5,7 +5,7 @@
 `openspec/` ディレクトリには骨格（`specs/`, `changes/`, `project.md`, `AGENTS.md`）が存在するが、
 `project.md` および `AGENTS.md` はともに空のテンプレートのままである。
 
-一方、`dev-process-improvement/inbox/openspec_process_improvement.md` には
+一方、`inbox/openspec_process_improvement.md` には
 OpenSpec の具体的な利用方法（変更サイクルの4ステップ・ファイル構成・コマンド体系）が
 詳細に記載されており、この知識が openspec 本体に反映されていない状態にある。
 

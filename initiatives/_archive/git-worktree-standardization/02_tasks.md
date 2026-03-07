@@ -52,9 +52,9 @@
 
 | 項目 | 内容 |
 |------|------|
-| **やること** | T-001〜T-003 の調査結果をもとに、`dev-process-improvement/docs/git-worktree-guideline.md` にガイドライン文書を作成する |
+| **やること** | T-001〜T-003 の調査結果をもとに、`docs/git-worktree-guideline.md` にガイドライン文書を作成する |
 | **文書に含めるセクション** | ① 概要（worktree とは何か・Claude Code での使い方） ② 利用判断基準（いつ使う・いつ使わない） ③ ロックベース方式との比較 ④ 現在の L1/L2 ワークフローとの関係 ⑤ 将来の拡張方針（並列 L2 への適用見通し） ⑥ 協調プロトコル施策との接続点 ⑦ 制約・注意事項 |
-| **成果物** | `dev-process-improvement/docs/git-worktree-guideline.md` |
+| **成果物** | `docs/git-worktree-guideline.md` |
 | **完了条件** | 上記セクション①〜⑦を含むガイドライン文書が作成されている |
 | **優先度** | 🔴 |
 | **ステータス** | ✅ |

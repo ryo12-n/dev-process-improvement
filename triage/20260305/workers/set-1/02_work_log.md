@@ -16,7 +16,7 @@
 
 ### 理解のサマリー
 - タスクの目的: dev-process-improvement の inbox/backlog/CSV/initiatives/refs/rules を走査し、現状の棚卸し・分類・整合性チェックを行う
-- スコープ: TG-001〜TG-007 の全7タスク。走査対象は dev-process-improvement/ 配下のみ
+- スコープ: TG-001〜TG-007 の全7タスク。走査対象は  配下のみ
 - 完了条件: 全TGタスクに完了/スキップ/ブロックのステータスが付き、02_work_log.md に作業履歴、03_scan_report.md にスキャンレポートが記載されていること
 
 ### 前提条件チェック

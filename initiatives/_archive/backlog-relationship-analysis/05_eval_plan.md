@@ -24,11 +24,11 @@
 
 L2-worker によるフェーズ1の成果物（タスク T-001〜T-005）。具体的な変更対象ファイル:
 
-1. `dev-process-improvement/.claude/rules/triage.md` -- TG-005 追加、TG-002 拡張
-2. `dev-process-improvement/triage/_template/00_pre_investigation.md` -- 施策化済み候補欄追加
-3. `dev-process-improvement/triage/_template/01_plan.md` -- TG-005 走査タスク追加、TG-002 完了条件更新
-4. `dev-process-improvement/triage/_template/03_report.md` -- TG-005 テーブル追加、施策化状態列追加
-5. `dev-process-improvement/docs/workflow.md` -- トリアージフロー説明更新
+1. `.claude/rules/triage.md` -- TG-005 追加、TG-002 拡張
+2. `triage/_template/00_pre_investigation.md` -- 施策化済み候補欄追加
+3. `triage/_template/01_plan.md` -- TG-005 走査タスク追加、TG-002 完了条件更新
+4. `triage/_template/03_report.md` -- TG-005 テーブル追加、施策化状態列追加
+5. `docs/workflow.md` -- トリアージフロー説明更新
 
 ## 評価項目
 

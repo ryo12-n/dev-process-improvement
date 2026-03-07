@@ -14,7 +14,7 @@
   - triage ルールファイル: triage-manager.md, triage-worker.md, triage-evaluator.md の3分割構成を確認
   - docs/collab-log.md: 存在確認済み
   - dev-workflow-detail.md: docs/design/dev-workflow-detail.md に存在確認済み（親リポジトリ直下）
-  - CSV: dev-process-improvement/プロセス改善_課題管理.csv を確認済み
+  - CSV: プロセス改善_課題管理.csv を確認済み
 
 ### 不明点・確認事項
 なし
@@ -115,7 +115,7 @@
 ### [2026-03-04 11:15] タスクID: T-009
 **状態**: 完了
 **作業内容**:
-- `git rm dev-process-improvement/docs/collab-log.md` を実行
+- `git rm docs/collab-log.md` を実行
 **成果物**: `docs/collab-log.md` の削除
 
 ### [2026-03-04 11:20] タスクID: T-010

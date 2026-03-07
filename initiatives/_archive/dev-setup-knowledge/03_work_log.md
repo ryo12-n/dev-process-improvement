@@ -17,14 +17,14 @@
 **状態**: 完了
 **作業内容**:
 - `.claude/settings.json` を確認 → `allowedTools` の記載なし（空のコメントファイル）
-- `dev-process-improvement/refs/ai-driven-development-poc/scripts/` 以下の全スクリプトを読み取り
+- `refs/ai-driven-development-poc/scripts/` 以下の全スクリプトを読み取り
   - `init_project.sh`: bash / mkdir / cat / chmod / touch を使用
   - `launch_agent.sh`: bash / claude CLI（`claude -p --model --append-system-prompt-file --dangerously-skip-permissions`）/ mktemp を使用
   - `launch_team.sh`: bash / tmux を使用
   - `rotate_logs.sh`: bash / ls / du / rm を使用
   - `setup_hooks.sh`: bash / git / cp / chmod を使用
   - `status.sh`: bash / ls / grep / date / wc を使用
-- `dev-process-improvement/refs/ai-driven-development-poc/.claude/` を確認 → roles/ protocols/ hooks/ base_prompt.md
+- `refs/ai-driven-development-poc/.claude/` を確認 → roles/ protocols/ hooks/ base_prompt.md
 - リポジトリルート `README.md` を確認 → `openspec init --tools claude` / `npm install -g @fission-ai/openspec` の使用を記載
 - `.gitignore` を確認 → Go環境（.exe / .dll / .so / go.work / coverage.*）が除外対象 → Goベースのプロジェクトを示唆
 - `which` コマンドでインストール済みツールを確認

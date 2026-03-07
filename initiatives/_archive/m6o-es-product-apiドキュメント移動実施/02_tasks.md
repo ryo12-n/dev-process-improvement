@@ -12,7 +12,7 @@
 ### 前提情報
 
 - **作業対象リポジトリ**: `/home/developer/projects/m6o-es-product-api_dev_process_improvement/m6o-es-product-api/`
-- **設計書（マッピング表）**: `/home/developer/projects/m6o-es-product-api_dev_process_improvement/ai-driven-dev-patterns-fork/dev-process-improvement/initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`
+- **設計書（マッピング表）**: `/home/developer/projects/m6o-es-product-api_dev_process_improvement/ai-driven-dev-patterns-fork/initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`
   - セクション5.1〜5.14 に移動元→移動先の全86件が記載されている
   - **注意**: `04_work_report.md` 記載の73件は誤り。design.md の86件が正
 

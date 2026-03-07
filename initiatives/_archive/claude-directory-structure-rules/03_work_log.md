@@ -286,7 +286,7 @@ CLAUDE.md  （リポジトリルート）
 ##### (3) 改善が推奨される点
 
 1. **settings.json の充実**: 現在はコメントのみの空設定。権限ルール（deny で `.env` 等の機密ファイル排除、allow で頻用コマンド許可）を追加すべき
-2. **agents/ ディレクトリの検討**: CLAUDE.md にサブエージェント戦略が明記されているのに `.claude/agents/` が存在しない。CLAUDE.md 内の `dev-process-improvement/.claude/rules/` にロール定義はあるが、これはプロセス改善固有。プロジェクト全体のサブエージェント定義を `.claude/agents/` で管理する検討余地あり
+2. **agents/ ディレクトリの検討**: CLAUDE.md にサブエージェント戦略が明記されているのに `.claude/agents/` が存在しない。CLAUDE.md 内の `.claude/rules/` にロール定義はあるが、これはプロセス改善固有。プロジェクト全体のサブエージェント定義を `.claude/agents/` で管理する検討余地あり
 3. **commands/ から skills/ への段階的移行**: `commands/opsx/` と `skills/openspec-*` が同等機能で並存。公式は skills を推奨しており、将来的に commands を廃止して skills に統一すべき
 4. **rules/ の paths 活用**: 現在の rules ファイル（code-in-docs.md, design-doc.md）には `paths:` フロントマターがない。対象パスが明確なルールには paths を設定し、コンテキスト効率を向上できる
 

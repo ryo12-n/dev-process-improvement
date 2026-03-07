@@ -22,7 +22,7 @@
 ## リソース・前提条件
 
 - `roles/` 配下の7ロール定義（feature_builder, test_writer, reviewer, bug_fixer, refactorer, optimizer, documentarian）+ `_base/common.md` が参照可能であること
-- `dev-process-improvement/.claude/rules/` の L1/L2 定義が参照可能であること（施策管理ワークフローとの差異分析用）
+- `.claude/rules/` の L1/L2 定義が参照可能であること（施策管理ワークフローとの差異分析用）
 - 本施策はドキュメント作成のみ。コード実装環境は不要
 
 ## リスクと対策

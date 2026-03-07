@@ -18,12 +18,12 @@
 
 ## 成果物一覧
 
-- `dev-process-improvement/docs/triage-standard-policy-guideline.md`（新規作成）
-- `dev-process-improvement/.claude/rules/triage-manager.md`（TG-008 追加）
-- `dev-process-improvement/.claude/rules/triage-worker.md`（TG-008 走査手順追加）
-- `dev-process-improvement/docs/workflow.md`（TG-008 反映）
-- `dev-process-improvement/initiatives/トリアージ標準ポリシーガイドライン/03_work_log.md`（作業履歴）
-- `dev-process-improvement/initiatives/トリアージ標準ポリシーガイドライン/04_work_report.md`（本レポート）
+- `docs/triage-standard-policy-guideline.md`（新規作成）
+- `.claude/rules/triage-manager.md`（TG-008 追加）
+- `.claude/rules/triage-worker.md`（TG-008 走査手順追加）
+- `docs/workflow.md`（TG-008 反映）
+- `initiatives/トリアージ標準ポリシーガイドライン/03_work_log.md`（作業履歴）
+- `initiatives/トリアージ標準ポリシーガイドライン/04_work_report.md`（本レポート）
 
 ## 発生した課題
 

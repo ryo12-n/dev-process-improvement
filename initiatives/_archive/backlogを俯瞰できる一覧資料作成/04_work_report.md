@@ -18,7 +18,7 @@
 
 ## 成果物一覧
 
-- `dev-process-improvement/backlog/README.md`（新規作成）
+- `backlog/README.md`（新規作成）
 
 ## 発生した課題
 

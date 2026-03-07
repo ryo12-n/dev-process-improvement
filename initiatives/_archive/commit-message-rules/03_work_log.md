@@ -70,7 +70,7 @@
 - T-001 の分析結果をもとに、施策作業（L1/L2-worker/L2-evaluator）と非施策作業（triage/sync/maintenance）の全パターンを定義
 - ガイドライン文書セクション2.2 の形式をベースに、EVL-001 対応として非施策作業カテゴリ（triage: YYYYMMDD、sync: 同期方向、maintenance: 作業対象名）を追加定義
 - 禁止事項セクションを追加（push --force、意味のないメッセージ、session-type/category 欠落の禁止）
-**成果物**: `dev-process-improvement/.claude/rules/commit-message.md`
+**成果物**: `.claude/rules/commit-message.md`
 **課題・気づき**: なし
 
 ### [2026-03-03 10:20] タスクID: T-003
@@ -80,7 +80,7 @@
 - ファイルのオーナーシップセクションの直前に配置（全セッション共通の規約のため）
 - ルールファイル（`.claude/rules/commit-message.md`）を正の情報源として参照する構成
 - セッション種別とカテゴリの対応表、禁止事項を要約形式で記載
-**成果物**: `dev-process-improvement/docs/workflow.md`（コミットメッセージ規約セクション追加）
+**成果物**: `docs/workflow.md`（コミットメッセージ規約セクション追加）
 **課題・気づき**: ドキュメント整合性ルールに従い、ルールファイル作成と同時に workflow.md を更新した。
 
 ### [2026-03-03 10:25] タスクID: T-004

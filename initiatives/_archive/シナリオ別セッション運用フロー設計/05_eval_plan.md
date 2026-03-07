@@ -25,7 +25,7 @@
 | # | 評価対象 | 形式 |
 |---|---------|------|
 | 1 | `docs/design/session-operation-flow.md` | 主要成果物（全13セクション、1647行） |
-| 2 | `dev-process-improvement/initiatives/シナリオ別セッション運用フロー設計/04_work_report.md` | 作業レポート |
+| 2 | `initiatives/シナリオ別セッション運用フロー設計/04_work_report.md` | 作業レポート |
 | 3 | `docs/design/dev-workflow-overview.md` | 既存概要設計（整合性確認用） |
 | 4 | `docs/design/dev-workflow-detail.md` | 既存詳細設計（整合性確認用） |
 

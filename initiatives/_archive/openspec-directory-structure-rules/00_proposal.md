@@ -8,7 +8,7 @@
 
 ## 目標
 
-1. 公式リポジトリのエッセンスを `dev-process-improvement/refs/` にサマリーとして保持し、継続的に参照可能にする
+1. 公式リポジトリのエッセンスを `refs/` にサマリーとして保持し、継続的に参照可能にする
 2. OpenSpec ディレクトリ構成の標準ルールを `.claude/rules/` に新規作成し、Claude が開発時に自動参照できるようにする
 3. 新規プロジェクトへの展開が容易になるガイドを整備する
 
@@ -17,7 +17,7 @@
 ### やること
 
 - 公式リポジトリ（Fission-AI/OpenSpec）の調査・エッセンス抽出
-- 抽出結果を `dev-process-improvement/refs/` にサマリーとして保持
+- 抽出結果を `refs/` にサマリーとして保持
 - `.claude/rules/` に OpenSpec 開発ルール・フローのルールファイルを新規作成
 - 既存の `openspec/config.yaml` との整合性を確認
 
@@ -44,7 +44,7 @@
 
 フェーズ0 の壁打ちで以下が明確になった：
 
-- **refs/ の配置先**: `dev-process-improvement/refs/` に配置する（施策成果物として管理）
+- **refs/ の配置先**: `refs/` に配置する（施策成果物として管理）
 - **ルールの配置先**: `.claude/rules/` 配下に新規ファイルとして作成する。Claude が OpenSpec で開発する際のルールやフローを整備する目的
 - **エッセンス抽出の粒度**: 公式リポジトリの README 等からサマリーを抽出する形で十分（ファイル群をそのまま保持する必要はない）
 - **ブランチ**: 指定ブランチ `claude/openspec-directory-structure-MZ5yx` を使用する

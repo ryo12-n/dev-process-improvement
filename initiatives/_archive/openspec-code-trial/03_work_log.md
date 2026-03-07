@@ -161,7 +161,7 @@ verify スキルの手順に従い、Completeness / Correctness / Coherence の3
   3. 全体サイクルのボトルネックは spec 作成フェーズ（要件の粒度・網羅性の判断にコンテキスト負荷が集中）
 - タスク実績テーブルに全9タスクの計画vs実績を記載
 - 成果物一覧、発生した課題、所感・次フェーズへの申し送りを記載
-**成果物**: `dev-process-improvement/initiatives/openspec-code-trial/04_work_report.md`
+**成果物**: `initiatives/openspec-code-trial/04_work_report.md`
 **課題・気づき**: なし
 
 ### [2026-02-28 15:10] タスクID: T-009
@@ -174,7 +174,7 @@ verify スキルの手順に従い、Completeness / Correctness / Coherence の3
 - `プロセス改善_課題管理.csv` に ISS-020、ISS-021 を追加
 - `07_issues.md` の転記済み項目に `[転記済 ISS-XXX]` を追記
 **成果物**:
-- `dev-process-improvement/initiatives/openspec-code-trial/07_issues.md`（更新）
-- `dev-process-improvement/プロセス改善_課題管理.csv`（ISS-020, ISS-021 追加）
+- `initiatives/openspec-code-trial/07_issues.md`（更新）
+- `プロセス改善_課題管理.csv`（ISS-020, ISS-021 追加）
 **課題・気づき**: なし
 

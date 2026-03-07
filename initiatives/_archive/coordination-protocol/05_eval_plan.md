@@ -21,7 +21,7 @@
 ---
 
 ## 評価対象
-- 主対象: `dev-process-improvement/docs/coordination-protocol-guideline.md`（ガイドライン文書、8セクション構成）
+- 主対象: `docs/coordination-protocol-guideline.md`（ガイドライン文書、8セクション構成）
 - 副対象: `03_work_log.md`（作業履歴、設計の根拠確認用）、`04_work_report.md`（作業レポート）
 - 参照資料: `01_plan.md`（成功基準）、`docs/git-worktree-guideline.md`（整合性確認用）、`refs/ai-driven-development-poc/.claude/protocols/`（PoC 分析の妥当性確認用）
 

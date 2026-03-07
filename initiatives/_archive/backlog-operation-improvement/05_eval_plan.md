@@ -25,9 +25,9 @@
 - `backlog/_template.md`（新規作成）
 - `backlog/` 配下の5件の個別施策ファイル（移行済み）
 - `backlog/ideas.md`（削除済み — git rm で削除されたことを確認）
-- `dev-process-improvement/CLAUDE.md`（バックログ関連記述の更新）
-- `dev-process-improvement/docs/workflow.md`（トリアージフロー ステップ7の更新）
-- `dev-process-improvement/.claude/rules/l1-manager.md`（backlog: 入力時の動作説明の更新）
+- `CLAUDE.md`（バックログ関連記述の更新）
+- `docs/workflow.md`（トリアージフロー ステップ7の更新）
+- `.claude/rules/l1-manager.md`（backlog: 入力時の動作説明の更新）
 
 ## 評価項目
 
@@ -37,9 +37,9 @@
 | 2 | `backlog/ideas.md` の全施策のうち initiative 未開始のものが個別ファイルとして移行されているか | git history から ideas.md の元内容を取得し、initiative 未開始の5件が `backlog/` に個別ファイルとして存在するか照合。元情報（優先度・課題概要・期待効果）が漏れなく移行されているか確認 | 5件すべてが個別ファイルとして存在し、元の情報が漏れなく移行されている |
 | 3 | 各個別ファイルのファイル名が日本語の施策名になっているか | Glob で `backlog/` 配下のファイル名を取得し、5件すべてが日本語の施策名をファイル名としているか確認 | 5件すべてのファイル名が ideas.md の施策名と対応する日本語名になっている |
 | 4 | `backlog/ideas.md` が削除されているか | ファイルシステム上に ideas.md が存在しないことを確認（ls コマンド）。git rm で削除されていることを git history で確認 | ideas.md がファイルシステム上に存在しない |
-| 5 | `dev-process-improvement/CLAUDE.md` のバックログ関連記述が新運用に合わせて更新されているか | CLAUDE.md を Read で読み取り、backlog/ の説明が「1施策1ファイル形式」であること、`_template.md` への言及があることを確認 | backlog/ の説明が新運用（1施策1ファイル形式）と整合している |
-| 6 | `dev-process-improvement/docs/workflow.md` のバックログ関連記述が新運用に合わせて更新されているか | workflow.md を Read で読み取り、トリアージフローのステップ7が個別ファイル作成の運用に更新されているか確認 | トリアージフローのバックログ反映ステップが新運用と整合している |
-| 7 | `dev-process-improvement/.claude/rules/l1-manager.md` の `backlog:` 入力時の動作が個別ファイル参照に更新されているか | l1-manager.md を Read で読み取り、パターン1（backlog: 入力）の動作説明が個別ファイル参照になっているか確認 | backlog: 入力時に `backlog/<施策名>.md` を参照する旨が記載されている |
+| 5 | `CLAUDE.md` のバックログ関連記述が新運用に合わせて更新されているか | CLAUDE.md を Read で読み取り、backlog/ の説明が「1施策1ファイル形式」であること、`_template.md` への言及があることを確認 | backlog/ の説明が新運用（1施策1ファイル形式）と整合している |
+| 6 | `docs/workflow.md` のバックログ関連記述が新運用に合わせて更新されているか | workflow.md を Read で読み取り、トリアージフローのステップ7が個別ファイル作成の運用に更新されているか確認 | トリアージフローのバックログ反映ステップが新運用と整合している |
+| 7 | `.claude/rules/l1-manager.md` の `backlog:` 入力時の動作が個別ファイル参照に更新されているか | l1-manager.md を Read で読み取り、パターン1（backlog: 入力）の動作説明が個別ファイル参照になっているか確認 | backlog: 入力時に `backlog/<施策名>.md` を参照する旨が記載されている |
 
 ## 評価スケジュール
 - 壁打ちフェーズ: 完了

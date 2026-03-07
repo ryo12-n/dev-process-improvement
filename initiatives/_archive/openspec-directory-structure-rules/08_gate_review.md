@@ -61,7 +61,7 @@
 | # | 知見・注意事項 | 詳細 |
 |---|--------------|------|
 | 1 | `.claude/rules/openspec-development.md` が新規追加された | `paths: "openspec/**"` 設定により、`openspec/` 配下のファイル操作時に Claude が自動参照する。OpenSpec 関連の施策では、このルールファイルの内容を前提にすること |
-| 2 | 公式リポジトリのエッセンスが `dev-process-improvement/refs/openspec-official-summary.md` に保持されている | OpenSpec の設計思想・標準構成を確認する際はこのファイルを参照すること。公式リポジトリに大きな変更があった場合は更新が必要 |
+| 2 | 公式リポジトリのエッセンスが `refs/openspec-official-summary.md` に保持されている | OpenSpec の設計思想・標準構成を確認する際はこのファイルを参照すること。公式リポジトリに大きな変更があった場合は更新が必要 |
 | 3 | 本リポジトリの config.yaml は公式標準に沿っている | T-003 の比較で矛盾なしと確認済み。ルールファイルは config.yaml を補完する位置付け |
 
 ### 次施策候補への提案

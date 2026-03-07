@@ -21,7 +21,7 @@
 ---
 
 ## 評価対象
-- `dev-process-improvement/backlog/README.md`（L2-Worker が新規作成した一覧資料）
+- `backlog/README.md`（L2-Worker が新規作成した一覧資料）
 
 ## 評価項目
 

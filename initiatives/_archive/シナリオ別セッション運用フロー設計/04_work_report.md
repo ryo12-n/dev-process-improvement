@@ -41,9 +41,9 @@
 | # | ファイル | 操作 | 内容 |
 |---|---------|------|------|
 | 1 | `docs/design/session-operation-flow.md` | 新規作成 | セッション運用フロー設計（全13セクション）。ライフサイクルモデル・ディスパッチャー・エントリーポイント・5シナリオ別フロー・ハイブリッドレビュー・横断的関心事・統合マッピング・まとめ |
-| 2 | `dev-process-improvement/initiatives/シナリオ別セッション運用フロー設計/03_work_log.md` | 追記 | Phase 1〜3 の壁打ちフェーズ・実施計画・作業ログ |
-| 3 | `dev-process-improvement/initiatives/シナリオ別セッション運用フロー設計/04_work_report.md` | 作成 | 本レポート（全フェーズの作業レポート） |
-| 4 | `dev-process-improvement/initiatives/シナリオ別セッション運用フロー設計/07_issues.md` | 更新 | 転記判定結果（課題0件・転記不要）を記録 |
+| 2 | `initiatives/シナリオ別セッション運用フロー設計/03_work_log.md` | 追記 | Phase 1〜3 の壁打ちフェーズ・実施計画・作業ログ |
+| 3 | `initiatives/シナリオ別セッション運用フロー設計/04_work_report.md` | 作成 | 本レポート（全フェーズの作業レポート） |
+| 4 | `initiatives/シナリオ別セッション運用フロー設計/07_issues.md` | 更新 | 転記判定結果（課題0件・転記不要）を記録 |
 
 ## 4. 発見した課題
 

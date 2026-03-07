@@ -18,10 +18,10 @@
 
 ## 成果物一覧
 
-- `dev-process-improvement/docs/coordination-protocol-guideline.md` -- ガイドライン文書（新規作成）
-- `dev-process-improvement/initiatives/coordination-protocol/03_work_log.md` -- 壁打ちフェーズ + 全タスクの作業履歴
-- `dev-process-improvement/initiatives/coordination-protocol/04_work_report.md` -- 本レポート
-- `dev-process-improvement/initiatives/coordination-protocol/07_issues.md` -- 課題メモ（転記対象なし）
+- `docs/coordination-protocol-guideline.md` -- ガイドライン文書（新規作成）
+- `initiatives/coordination-protocol/03_work_log.md` -- 壁打ちフェーズ + 全タスクの作業履歴
+- `initiatives/coordination-protocol/04_work_report.md` -- 本レポート
+- `initiatives/coordination-protocol/07_issues.md` -- 課題メモ（転記対象なし）
 
 ## 発生した課題
 

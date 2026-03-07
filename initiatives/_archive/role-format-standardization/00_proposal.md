@@ -13,7 +13,7 @@
 ## 目標
 
 - ロール定義の標準フォーマットを定義し、`role-format-guide.md` として `.claude/rules/` に配置する
-- 既存のロール定義ファイル（`dev-process-improvement/.claude/rules/*.md`、`roles/*.md`）に適用する
+- 既存のロール定義ファイル（`.claude/rules/*.md`、`roles/*.md`）に適用する
 - 新規ロール追加時の雛形として機能させる
 
 ## スコープ
@@ -21,7 +21,7 @@
 ### やること
 
 - `.claude/rules/role-format-guide.md` を新規作成（フォーマット基準文書）
-- `dev-process-improvement/.claude/rules/*.md` 4ファイルへのフォーマット適用
+- `.claude/rules/*.md` 4ファイルへのフォーマット適用
   - `l1-manager.md`、`l2-worker.md`、`l2-evaluator.md`、`triage.md`
 - `roles/*.md` の既存ファイルへの最小限の整合（`## やること` セクション追加）
 
@@ -49,7 +49,7 @@
 - **置き場所**: `docs/` ではなく `.claude/rules/` に配置（Claude が rules 読み込みで自然に参照するため）
 - **目的と適用トリガー**: 1セクションに統合（分離するほど複雑でない）
 - **セクション名**: ロール定義には「やること/やらないこと」、非ロールファイルは「ルール」のままを許容
-- **対象**: `dev-process-improvement/.claude/rules/` と `roles/` の両ディレクトリ
+- **対象**: `.claude/rules/` と `roles/` の両ディレクトリ
 
 ---
 **起票者**: L1

@@ -53,7 +53,7 @@
 | 項目 | 内容 |
 |------|------|
 | **やること** | バックログ運用の変更に伴い、以下のファイルのバックログ関連記述を更新する |
-| **更新対象ファイル** | ① `dev-process-improvement/CLAUDE.md` — backlog の説明を「1施策1ファイル形式」に更新 ② `dev-process-improvement/docs/workflow.md` — トリアージフローのステップ7「backlog 反映 → backlog/ideas.md を更新」を個別ファイル運用に合わせて更新 ③ `dev-process-improvement/.claude/rules/l1-manager.md` — `backlog:` 入力時の動作説明を確認し、個別ファイル参照に更新が必要であれば更新する |
+| **更新対象ファイル** | ① `CLAUDE.md` — backlog の説明を「1施策1ファイル形式」に更新 ② `docs/workflow.md` — トリアージフローのステップ7「backlog 反映 → backlog/ideas.md を更新」を個別ファイル運用に合わせて更新 ③ `.claude/rules/l1-manager.md` — `backlog:` 入力時の動作説明を確認し、個別ファイル参照に更新が必要であれば更新する |
 | **成果物** | 上記3ファイルの更新差分 |
 | **完了条件** | 3ファイルのバックログ関連記述が新運用（1施策1ファイル形式）と整合している。`docs/workflow.md` がルールファイルの変更と同期している |
 | **優先度** | 🔴 |

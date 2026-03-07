@@ -12,7 +12,7 @@
 
 - `docs/design/dev-workflow-overview.md` — 概要設計（ロール互換性分析、TDD戦略、ロールギャップ分析）
 - `docs/design/dev-workflow-detail.md` — 詳細設計（3シナリオ、ハブ&スポーク連携プロトコル、20のロール修正提案）
-- `dev-process-improvement/initiatives/_archive/コード開発ワークフロー設計の探索/08_gate_review.md` — 知見#9, #10
+- `initiatives/_archive/コード開発ワークフロー設計の探索/08_gate_review.md` — 知見#9, #10
 
 ## 目標
 

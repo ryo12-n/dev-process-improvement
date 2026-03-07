@@ -12,19 +12,19 @@
 
 ## フェーズ2: `.claude/rules/*.md` への適用
 
-- [x] **T-002** `dev-process-improvement/.claude/rules/l2-worker.md` に `## やること` / `## やらないこと` セクションを追加する
+- [x] **T-002** `.claude/rules/l2-worker.md` に `## やること` / `## やらないこと` セクションを追加する
   - 完了条件: 両セクションが存在し、既存の責務内容と矛盾しない
   - 優先度: 高
 
-- [x] **T-003** `dev-process-improvement/.claude/rules/l2-evaluator.md` に `## やること` / `## やらないこと` セクションを追加する
+- [x] **T-003** `.claude/rules/l2-evaluator.md` に `## やること` / `## やらないこと` セクションを追加する
   - 完了条件: 両セクションが存在し、既存の責務内容と矛盾しない
   - 優先度: 高
 
-- [x] **T-004** `dev-process-improvement/.claude/rules/triage.md` に `## やること` / `## やらないこと` セクションを追加する
+- [x] **T-004** `.claude/rules/triage.md` に `## やること` / `## やらないこと` セクションを追加する
   - 完了条件: 両セクションが存在し、既存の責務内容と矛盾しない
   - 優先度: 高
 
-- [x] **T-005** `dev-process-improvement/.claude/rules/l1-manager.md` に `## やること` / `## やらないこと` セクションを追加する
+- [x] **T-005** `.claude/rules/l1-manager.md` に `## やること` / `## やらないこと` セクションを追加する
   - 完了条件: 両セクションが存在し、既存の責務内容と矛盾しない
   - 優先度: 高
 

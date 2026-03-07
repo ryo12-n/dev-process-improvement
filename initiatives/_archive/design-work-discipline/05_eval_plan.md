@@ -29,7 +29,7 @@
 | `sessions/_template/report.md` | テンプレート（成功基準1, 4） |
 | `sessions/_template/issues.md` | テンプレート（成功基準1, 4） |
 | `docs/design/session-flow-advanced.md` §11.1 | 設計書追記（成功基準3） |
-| `dev-process-improvement/initiatives/design-work-discipline/04_work_report.md` | 作業レポート（全基準の補足確認） |
+| `initiatives/design-work-discipline/04_work_report.md` | 作業レポート（全基準の補足確認） |
 
 ## 評価項目
 

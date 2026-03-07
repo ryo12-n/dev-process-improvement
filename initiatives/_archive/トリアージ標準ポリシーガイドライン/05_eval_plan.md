@@ -21,12 +21,12 @@
 ---
 
 ## 評価対象
-- `dev-process-improvement/docs/triage-standard-policy-guideline.md` — ガイドライン文書（SC-1）
-- `dev-process-improvement/.claude/rules/triage-manager.md` — TG-008 追加（SC-2）
-- `dev-process-improvement/.claude/rules/triage-worker.md` — TG-008 走査手順追加（SC-3）
-- `dev-process-improvement/docs/workflow.md` — TG-008 反映（SC-4）
-- `dev-process-improvement/initiatives/トリアージ標準ポリシーガイドライン/04_work_report.md` — 作業レポート
-- `dev-process-improvement/initiatives/トリアージ標準ポリシーガイドライン/07_issues.md` — 課題メモ
+- `docs/triage-standard-policy-guideline.md` — ガイドライン文書（SC-1）
+- `.claude/rules/triage-manager.md` — TG-008 追加（SC-2）
+- `.claude/rules/triage-worker.md` — TG-008 走査手順追加（SC-3）
+- `docs/workflow.md` — TG-008 反映（SC-4）
+- `initiatives/トリアージ標準ポリシーガイドライン/04_work_report.md` — 作業レポート
+- `initiatives/トリアージ標準ポリシーガイドライン/07_issues.md` — 課題メモ
 
 ## 評価項目
 

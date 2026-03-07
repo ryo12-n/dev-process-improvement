@@ -5,7 +5,7 @@
 `04_work_report.md` に記載された以下の成果物を評価する。
 
 - `.claude/rules/l1-manager.md`（追記）
-- `dev-process-improvement/README.md`（書き直し）
+- `README.md`（書き直し）
 - `templates/l1-prompts.md`（削除）
 - `templates/l2-prompts.md`（削除）
 - `docs/workflow.md`（変更なしを確認済み）

@@ -23,8 +23,8 @@
 ## 評価対象
 
 - `/home/user/ai-driven-dev-patterns/CLAUDE.md`（フェーズ1でL2-workerが更新済み）
-- `dev-process-improvement/initiatives/boris-claude-rules-adoption/03_work_log.md`（Boris式対応表を含む作業履歴）
-- Boris式原文（git show 714a883:"dev-process-improvement/inbox/ボリスのclaudeルールを採用する.md"）
+- `initiatives/boris-claude-rules-adoption/03_work_log.md`（Boris式対応表を含む作業履歴）
+- Boris式原文（git show 714a883:"inbox/ボリスのclaudeルールを採用する.md"）
 
 ## 評価項目
 

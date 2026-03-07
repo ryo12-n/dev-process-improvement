@@ -213,10 +213,10 @@
 ### [2026-02-25 14:16] タスクID: T-004
 **状態**: 完了
 **作業内容**:
-- T-001〜T-003 の調査結果を統合し、`dev-process-improvement/docs/git-worktree-guideline.md` を作成
+- T-001〜T-003 の調査結果を統合し、`docs/git-worktree-guideline.md` を作成
 - 7つのセクション（概要、利用判断基準、ロックベース方式との比較、L1/L2ワークフローとの関係、将来の拡張方針、協調プロトコル施策との接続点、制約・注意事項）を含む
 
-**成果物**: `dev-process-improvement/docs/git-worktree-guideline.md`
+**成果物**: `docs/git-worktree-guideline.md`
 **課題・気づき**: なし
 
 ---

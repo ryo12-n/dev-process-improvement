@@ -16,7 +16,7 @@
 
 ## 成果物一覧
 
-- `dev-process-improvement/docs/git-worktree-guideline.md` — ガイドライン文書（7セクション構成）
+- `docs/git-worktree-guideline.md` — ガイドライン文書（7セクション構成）
 - `initiatives/git-worktree-standardization/03_work_log.md` — 壁打ちフェーズ記録 + 全タスクの作業履歴
 - `initiatives/git-worktree-standardization/07_issues.md` — 課題確認結果（転記対象なし）
 

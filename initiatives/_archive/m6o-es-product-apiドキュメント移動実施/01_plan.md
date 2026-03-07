@@ -17,7 +17,7 @@
 ## リソース・前提条件
 
 - 作業対象リポジトリ: `/home/developer/projects/m6o-es-product-api_dev_process_improvement/m6o-es-product-api/`
-- 設計書: `dev-process-improvement/initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`（マッピング表 86件）
+- 設計書: `initiatives/_archive/m6o-es-product-apiドキュメント整理/design.md`（マッピング表 86件）
 - 前提: フェーズ1（ドキュメント整理）のゲート判定が「通過」済み
 
 ## リスクと対策

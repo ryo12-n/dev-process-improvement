@@ -114,7 +114,7 @@
 - リポジトリ全体で `collab-log` を grep 検索 → 53ファイルでヒット
 - ai-driven-dev-patterns 直下の能動的な参照を特定: `CLAUDE.md` の「自己改善ループ」セクション（2箇所）
 - `CLAUDE.md` の参照を `docs/collab-log.md` → `inbox/` に更新
-- `dev-process-improvement/` 配下の参照は全て歴史的記録（アーカイブ・トリアージログ・施策履歴）のため変更不要と判断
+- `` 配下の参照は全て歴史的記録（アーカイブ・トリアージログ・施策履歴）のため変更不要と判断
 **成果物**: `CLAUDE.md` 自己改善ループセクション更新
 **課題・気づき**: dev-process-improvement 側の triage.md や workflow.md にも collab-log への参照が残存しているが、これらは dev-process-improvement の運用ルールであり、本施策の対象外。別途 dev-process-improvement 側で対応が必要 → 07_issues.md に起票
 

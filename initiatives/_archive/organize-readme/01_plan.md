@@ -17,7 +17,7 @@
 ## リソース・前提条件
 
 - 作業ブランチ: claude/organize-ai-dev-patterns-2uaCD
-- 参考モデル: dev-process-improvement/README.md
+- 参考モデル: README.md
 
 ## リスクと対策
 

@@ -12,9 +12,9 @@
 2. `backlog/ideas.md` の全施策のうち、initiative 未開始のものが個別ファイルとして `backlog/` に移行されている
 3. 各個別ファイルのファイル名が日本語の施策名になっている
 4. `backlog/ideas.md` が削除されている
-5. `dev-process-improvement/CLAUDE.md` のバックログ関連記述が新運用に合わせて更新されている
-6. `dev-process-improvement/docs/workflow.md` のバックログ関連記述（トリアージフローの「backlog 反映」ステップ等）が新運用に合わせて更新されている
-7. `dev-process-improvement/.claude/rules/l1-manager.md` の `backlog:` 入力時の動作が、個別ファイル参照に更新されている（必要な場合のみ）
+5. `CLAUDE.md` のバックログ関連記述が新運用に合わせて更新されている
+6. `docs/workflow.md` のバックログ関連記述（トリアージフローの「backlog 反映」ステップ等）が新運用に合わせて更新されている
+7. `.claude/rules/l1-manager.md` の `backlog:` 入力時の動作が、個別ファイル参照に更新されている（必要な場合のみ）
 
 ## リソース・前提条件
 

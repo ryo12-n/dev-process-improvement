@@ -43,7 +43,7 @@
 - [x] ブロック中：1 件
   - 施策名・理由：dev-process-improvementリポジトリ分離 / ISS-026（gh CLI未インストール）・ISS-027（Web 1リポ制約）
 - [x] アーカイブ待ち（ゲート通過済み・未移動）：0 件
-  - 注: 改善サイクル整備・マネージャーロール整備は ai-driven-dev-patterns 側の施策であり、dev-process-improvement/initiatives/ には存在しない
+  - 注: 改善サイクル整備・マネージャーロール整備は ai-driven-dev-patterns 側の施策であり、initiatives/ には存在しない
 
 ## collab-log 確認（docs/collab-log.md）
 

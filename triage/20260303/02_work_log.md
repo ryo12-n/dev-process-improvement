@@ -21,7 +21,7 @@
 **判断・気づき**:
 
 **backlog 追加候補**:
-1. `ai-driven-dev-patternsのreadmeを整備.md` → **backlog 候補（低）**: ai-driven-dev-patterns リポジトリの README を人間向けエントリーポイントとして整備する提案。dev-process-improvement/README.md をモデルにした構成案あり。実現は軽量で効果が高い。
+1. `ai-driven-dev-patternsのreadmeを整備.md` → **backlog 候補（低）**: ai-driven-dev-patterns リポジトリの README を人間向けエントリーポイントとして整備する提案。README.md をモデルにした構成案あり。実現は軽量で効果が高い。
 2. `ai-driven-dev-patternsの設計プロセス整備.md` → **backlog 候補（中）**: OpenSpec を使った要件定義〜設計プロセスの整理。人間エントリーポイントの整備、セッション設定の具体化、設計関連ロールのブラッシュアップ、気づきの記録場所整備、フェーズ別 backlog 計画の策定を含む大規模な提案。
 3. `llmのローカル開発のセキュリティをあげる.md` → **backlog 候補（低）**: Zenn 記事（llm-key-ring）を参考にした API キー管理セキュリティ強化。内容は簡潔だが具体的で実装可能。
 4. `個人PCのローカル環境をリモートからiPhoneで指示出し環境構築.md` → **backlog 候補（中）**: WSL + Claude Code CLI + CodeSail で iPhone からの開発環境を構築する詳細な手順書。ISS-026/027（リポ分離ブロック）の解消にも直結する（ローカル PC 環境が使えればリポ分離施策を再開できる）。

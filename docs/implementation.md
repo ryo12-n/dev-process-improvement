@@ -5,7 +5,7 @@
 ## ディレクトリ全体構成
 
 ```
-dev-process-improvement/
+.
 ├── CLAUDE.md                          ← 全セッション共通ルール
 ├── .claude/skills/
 │   └── l1-manager/

@@ -3,7 +3,7 @@
 ## 壁打ちフェーズ [2026-02-27 10:00]
 
 ### 理解のサマリー
-- タスクの目的: 公式リポジトリ（Fission-AI/OpenSpec）を調査し、標準ディレクトリ構成・設計意図を把握した上で、`.claude/rules/` に OpenSpec 開発時の Claude 向けルールファイルを作成する。また調査結果をサマリーとして `dev-process-improvement/refs/` に保持する。
+- タスクの目的: 公式リポジトリ（Fission-AI/OpenSpec）を調査し、標準ディレクトリ構成・設計意図を把握した上で、`.claude/rules/` に OpenSpec 開発時の Claude 向けルールファイルを作成する。また調査結果をサマリーとして `refs/` に保持する。
 - スコープ: T-001〜T-006（フェーズ1 全タスク）。公式リポジトリ調査、サマリー作成、config.yaml との比較、ルールファイル作成、整合性確認、課題の CSV 転記。
 - 完了条件: 全タスクが完了/スキップ/ブロックのいずれかに分類され、03_work_log.md に全作業履歴、04_work_report.md に作業レポートが作成されていること。
 
@@ -11,7 +11,7 @@
 - [x] 依存タスクの完了状態: 完了（L1 による 00_proposal.md、01_plan.md、02_tasks.md がすべて作成済み）
 - [x] 必要ツール・コマンドの利用可否: 確認済み（WebFetch/WebSearch で公式リポジトリを調査可能）
 - [x] 環境の準備状況（ファイル・ディレクトリの存在等）: 確認済み
-  - `dev-process-improvement/refs/` ディレクトリ: 存在する
+  - `refs/` ディレクトリ: 存在する
   - `.claude/rules/`: 既存ルールファイル4つ（code-in-docs.md, design-doc.md, role-format-guide.md, sync.md）
   - `openspec/config.yaml`: 存在する（内容確認済み）
   - `プロセス改善_課題管理.csv`: 存在する（ISS-016 まで記録済み）
@@ -29,7 +29,7 @@
 以下の順序でタスクを実施する:
 
 1. **T-001**: WebFetch で公式リポジトリ（Fission-AI/OpenSpec）の README・主要ドキュメントを調査
-2. **T-002**: 調査結果を `dev-process-improvement/refs/openspec-official-summary.md` に記録
+2. **T-002**: 調査結果を `refs/openspec-official-summary.md` に記録
 3. **T-003**: 既存 `openspec/config.yaml` と公式標準構成を比較し、差異を作業ログに記録。矛盾があれば `07_issues.md` に起票
 4. **T-004**: `.claude/rules/openspec-development.md` を新規作成（paths ヘッダー付き）
 5. **T-005**: ルールファイルと config.yaml の整合性を最終確認
@@ -54,9 +54,9 @@
 ### [2026-02-27 10:15] タスクID: T-002
 **状態**: 完了
 **作業内容**:
-- T-001 の調査結果を `dev-process-improvement/refs/openspec-official-summary.md` にサマリーとして記録
+- T-001 の調査結果を `refs/openspec-official-summary.md` にサマリーとして記録
 - 記載内容: OpenSpec の概要、標準ディレクトリ構成、各ディレクトリの役割、変更サイクルのフロー、デルタスペック、アーカイブプロセス、命名規約、config.yaml のスキーマ、ベストプラクティス
-**成果物**: `dev-process-improvement/refs/openspec-official-summary.md`
+**成果物**: `refs/openspec-official-summary.md`
 **課題・気づき**: なし
 
 ### [2026-02-27 10:25] タスクID: T-003

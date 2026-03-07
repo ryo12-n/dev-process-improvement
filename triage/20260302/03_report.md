@@ -75,7 +75,7 @@
 1. `git subtree split` で履歴付き分離（または単純コピー）
 2. `https://github.com/ryo12-n/dev-process-improvement` へ push
 3. 親リポの CLAUDE.md・README.md・rules/ の参照を更新
-4. 親リポから `dev-process-improvement/` を削除
+4. 親リポから `` を削除
 
 ### 検討事項
 

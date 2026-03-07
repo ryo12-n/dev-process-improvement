@@ -9,13 +9,13 @@
 ## スケジュール
 
 1. 公式リポジトリ（Fission-AI/OpenSpec）の README・ドキュメントを調査
-2. エッセンスを `dev-process-improvement/refs/openspec-official-summary.md` に記録
+2. エッセンスを `refs/openspec-official-summary.md` に記録
 3. 既存の `openspec/config.yaml` との整合性を確認
 4. `.claude/rules/` に OpenSpec 開発ルール・フローのルールファイルを作成
 
 ## 成功基準（全体）
 
-1. `dev-process-improvement/refs/openspec-official-summary.md` が作成されており、公式リポジトリの標準ディレクトリ構成・設計意図のサマリーが記載されている
+1. `refs/openspec-official-summary.md` が作成されており、公式リポジトリの標準ディレクトリ構成・設計意図のサマリーが記載されている
 2. `.claude/rules/` に OpenSpec 開発時のルール・フローを定義したファイルが新規作成されている
 3. 作成したルールが既存の `openspec/config.yaml` と矛盾しない（整合性確認済み）
 

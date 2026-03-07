@@ -333,7 +333,7 @@ PoC の `[role-id] category-task_id: summary` を本リポジトリの L1/L2 体
 - T-001〜T-005 の成果を統合し、`docs/coordination-protocol-guideline.md` を作成
 - 8セクション（概要、commit プロトコル、lock プロトコル、test プロトコル、相互関係、適用シナリオ、worktree ガイドラインとの関係、段階的導入の方針）を含む
 
-**成果物**: `dev-process-improvement/docs/coordination-protocol-guideline.md`
+**成果物**: `docs/coordination-protocol-guideline.md`
 **課題・気づき**: なし
 
 ---

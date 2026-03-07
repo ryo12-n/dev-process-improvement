@@ -101,7 +101,7 @@
 - `ai-driven-dev-patterns` — `/home/nr202/projects/ai-driven-dev-patterns` に存在確認
   - リモート: origin → `ryo12-n/ai-driven-dev-patterns`（upstream は未設定）
 - `dev-process-improvement` — `/home/nr202/projects/dev-process-improvement` にクローン
-  - `ai-driven-dev-patterns/dev-process-improvement/` はサブディレクトリとして既存のため、親ディレクトリにクローン
+  - `ai-driven-dev-patterns/` はサブディレクトリとして既存のため、親ディレクトリにクローン
   - 現時点では空リポジトリ
 **成果物**: なし
 **課題・気づき**: upstream リモートの追加が未実施

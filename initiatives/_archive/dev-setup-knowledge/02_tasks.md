@@ -17,8 +17,8 @@
 
 調査対象:
 - `.claude/settings.json` の `allowedTools` に記載のコマンド
-- `dev-process-improvement/refs/ai-driven-development-poc/scripts/` 以下の全スクリプト
-- `dev-process-improvement/refs/ai-driven-development-poc/.claude/` 以下の全ファイル
+- `refs/ai-driven-development-poc/scripts/` 以下の全スクリプト
+- `refs/ai-driven-development-poc/.claude/` 以下の全ファイル
 - リポジトリルートの `README.md`
 - `.gitignore`（除外対象から逆引きで使用環境を推測）
 

@@ -24,7 +24,7 @@
 
 - 対象リポジトリ: `/home/user/ai-driven-dev-patterns`
 - L2-worker が参照すべき既存ファイル:
-  - `dev-process-improvement/refs/ai-driven-development-poc/scripts/init_project.sh`（参考スクリプト）
+  - `refs/ai-driven-development-poc/scripts/init_project.sh`（参考スクリプト）
   - `.claude/settings.json`（許可コマンド確認用）
   - `README.md`（リンク追加先）
 - ツールの確認は `which` / `--version` コマンドで実施する

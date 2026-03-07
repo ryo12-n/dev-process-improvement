@@ -11,7 +11,7 @@
 | SC-1 | session-flow-policy の移行 | SKILL.md が存在し旧ファイルが削除されている | `.claude/skills/session-flow-policy/SKILL.md` が存在。旧 `rules/session-flow-policy.md` は git rm 済み（コミット `58921e4` で R094 リネーム操作として記録） | PASS |
 | SC-2 | triage-standard-policy の移行 | SKILL.md が存在し旧ファイルが削除されている | `.claude/skills/triage-standard-policy/SKILL.md` が存在。旧 `rules/triage-standard-policy-guideline.md` は git rm 済み（コミット `58921e4` で R097 リネーム操作として記録） | PASS |
 | SC-3 | YAML フロントマターの正確性 | `user-invocable: false` と具体的な `description` | session-flow-policy: `user-invocable: false`, description=「新セッションタイプの作成・.claude/skills/ 配下のスキル/エージェント構成の変更時に参照するポリシー」。triage-standard-policy: `user-invocable: false`, description=「トリアージ走査（TG-008）・ペアリング検証・ライフサイクル準拠チェック時に参照するガイドライン」。いずれも具体的なトリガー条件を含む | PASS |
-| SC-4 | commit-message.md の保全 | rules/ に残っている | `dev-process-improvement/.claude/rules/commit-message.md` が存在し、内容に変更なし | PASS |
+| SC-4 | commit-message.md の保全 | rules/ に残っている | `.claude/rules/commit-message.md` が存在し、内容に変更なし | PASS |
 | SC-5 | l1-manager への参照追記 | session-flow-policy への参照が存在する | l1-manager SKILL.md 79行目に「`session-flow-policy` スキル（`.claude/skills/session-flow-policy/SKILL.md`）を参照すること」と記載 | PASS |
 | SC-6 | triage-manager への参照追記 | triage-standard-policy への参照が存在する | triage-manager SKILL.md 178行目（TG-008 の説明）と221行目（参照ファイルテーブル）の2箇所で `.claude/skills/triage-standard-policy/SKILL.md` を参照 | PASS |
 | SC-7 | 既存参照パスの更新 | 旧パスが存在せず新パスに更新されている | triage-worker.md 153行目・167行目で `.claude/skills/triage-standard-policy/SKILL.md` を参照。`.claude/` 配下に旧パス（`rules/session-flow-policy.md`, `rules/triage-standard-policy-guideline.md`）への参照は grep で0件 | PASS |

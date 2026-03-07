@@ -22,11 +22,11 @@
 
 ## 評価対象
 
-1. `dev-process-improvement/refs/openspec-official-summary.md` -- 公式リポジトリ調査サマリー
+1. `refs/openspec-official-summary.md` -- 公式リポジトリ調査サマリー
 2. `.claude/rules/openspec-development.md` -- OpenSpec 開発ルールファイル
 3. `openspec/config.yaml` -- 既存の設定ファイル（整合性確認用）
-4. `dev-process-improvement/initiatives/openspec-directory-structure-rules/04_work_report.md` -- 作業レポート
-5. `dev-process-improvement/initiatives/openspec-directory-structure-rules/03_work_log.md` -- 作業履歴
+4. `initiatives/openspec-directory-structure-rules/04_work_report.md` -- 作業レポート
+5. `initiatives/openspec-directory-structure-rules/03_work_log.md` -- 作業履歴
 
 ## 評価項目
 

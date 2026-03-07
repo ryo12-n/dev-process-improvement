@@ -62,7 +62,7 @@
 ### [2026-02-25 10:15] タスクID: T-003
 **状態**: 完了
 **作業内容**:
-- T-002 の移行完了を確認した上で `git rm dev-process-improvement/backlog/ideas.md` を実行
+- T-002 の移行完了を確認した上で `git rm backlog/ideas.md` を実行
 - ファイルが Git 管理から削除されたことを確認
 **成果物**: `backlog/ideas.md` が Git 管理から削除済み
 **課題・気づき**: なし
@@ -70,9 +70,9 @@
 ### [2026-02-25 10:20] タスクID: T-004
 **状態**: 完了
 **作業内容**:
-- ① `dev-process-improvement/CLAUDE.md` — `backlog/` の説明を「1施策1ファイル形式。`_template.md` をコピーして新規作成」に更新
-- ② `dev-process-improvement/docs/workflow.md` — トリアージフローのステップ7を「backlog/ へ個別ファイルを作成（`_template.md` をコピー）」に更新
-- ③ `dev-process-improvement/.claude/rules/l1-manager.md` — `backlog:` 入力時の動作説明に「`backlog/<施策名>.md` の内容（課題・背景、期待効果、優先度）を参照し」を追記
+- ① `CLAUDE.md` — `backlog/` の説明を「1施策1ファイル形式。`_template.md` をコピーして新規作成」に更新
+- ② `docs/workflow.md` — トリアージフローのステップ7を「backlog/ へ個別ファイルを作成（`_template.md` をコピー）」に更新
+- ③ `.claude/rules/l1-manager.md` — `backlog:` 入力時の動作説明に「`backlog/<施策名>.md` の内容（課題・背景、期待効果、優先度）を参照し」を追記
 - ルールファイル（l1-manager.md）の変更に伴い docs/workflow.md も同期更新済み（ドキュメント整合性ルール準拠）
 **成果物**: 上記3ファイルの更新差分
 **課題・気づき**: なし

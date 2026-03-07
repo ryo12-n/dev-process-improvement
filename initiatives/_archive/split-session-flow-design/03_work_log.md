@@ -132,11 +132,11 @@
 - リポジトリ全体から `session-operation-flow` への参照を grep で検索
 - 検出された参照の分類:
   - `docs/design/` 内の分割ファイル: 既にリンク済み（対応不要）
-  - `dev-process-improvement/initiatives/split-session-flow-design/` 内: 施策自体の記録（更新対象外）
-  - `dev-process-improvement/initiatives/_archive/` 内: アーカイブ済み（更新対象外）
-  - `dev-process-improvement/プロセス改善_課題管理.csv`: 参照情報（更新対象外）
-  - `dev-process-improvement/backlog/セッション横断の作業規律設計.md`: §11 への参照を `session-flow-advanced.md` に更新
-**成果物**: `dev-process-improvement/backlog/セッション横断の作業規律設計.md` 更新（1箇所）
+  - `initiatives/split-session-flow-design/` 内: 施策自体の記録（更新対象外）
+  - `initiatives/_archive/` 内: アーカイブ済み（更新対象外）
+  - `プロセス改善_課題管理.csv`: 参照情報（更新対象外）
+  - `backlog/セッション横断の作業規律設計.md`: §11 への参照を `session-flow-advanced.md` に更新
+**成果物**: `backlog/セッション横断の作業規律設計.md` 更新（1箇所）
 **課題・気づき**: なし
 
 ### [2026-03-01 14:45] タスクID: T-010
