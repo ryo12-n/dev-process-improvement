@@ -1,0 +1,17 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/@anthropic-ai/claude-code@latest/config-schema.json",
+  "permissions": {
+    "deny": [
+      "Bash(command:*rm -rf*)",
+      "Bash(command:*>.env*)",
+      "Bash(command:*cat .env*)",
+      "Bash(command:*cat secrets/*)",
+      "Read(file_path:*.env*)",
+      "Read(file_path:*secrets/*)",
+      "Read(file_path:*.pem)",
+      "Read(file_path:*.key)",
+      "Write(file_path:*.env*)",
+      "Write(file_path:*secrets/*)"
+    ]
+  }
+}

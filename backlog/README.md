@@ -17,7 +17,7 @@
 
 | [dev-workflow-detail L1参照精査](./dev-workflow-detail%20L1参照精査.md) | :blue_circle: 低 | 候補 | dev-process-improvement | 2026-03-05 | dev-workflow-detail.md 内の L1 参照を設計方針と整合させる |
 | [sessionsテンプレート間連携ガイド](./sessionsテンプレート間連携ガイド.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-04 | sessions/_template/ 4ファイル間のデータフロー関係を明示 |
-| [triageテンプレートのブラッシュアップ](./triageテンプレートのブラッシュアップ.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-05 | triage テンプレートに initiatives の成熟した仕組みを導入 |
+
 | [ハーネスエンジニアリング観点でのブラッシュアップ](./ハーネスエンジニアリング観点でのブラッシュアップ.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-01 | ハーネスエンジニアリング5観点での体系的なレビューと改善 |
 | [マルチAIエージェント共通ルール適用](./マルチAIエージェント共通ルール適用.md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-02-25 | Devin 等の複数AIエージェントで一貫したプロセス品質を維持 |
 | [メタ認知による改善の強制](./メタ認知による改善の強制.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-04 | 全セッションに対するメタ認知的な評価の強制と改善の種の収集 |
