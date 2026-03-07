@@ -12,7 +12,7 @@
 | [LLMローカル開発のセキュリティ強化](./LLMローカル開発のセキュリティ強化.md) | :blue_circle: 低 | 候補 | 横断 | 2026-03-03 | API キー管理のセキュリティ強化と安全な開発環境の確立 |
 | [ai-driven-dev-patternsの設計プロセス整備](./ai-driven-dev-patternsの設計プロセス整備.md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-03 | 設計プロセスの体系化と人間エントリーポイントの明確化 |
 | [ai-driven-dev-patternsトリアージプロセスのブラッシュアップ](./ai-driven-dev-patternsトリアージプロセスのブラッシュアップ.md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-04 | ai-driven-dev-patterns 側トリアージプロセスの品質・網羅性向上 |
-| [ai-research-notebookの整備](./ai-research-notebookの整備.md) | :blue_circle: 低 | 候補 | ai-research-notebook | 2026-03-02 | 定期実行タスクの調査結果の集約・分析・考察サイクル確立 |
+| [外部リポジトリ変更時のブランチ・PR運用ルール整備](./外部リポジトリ変更時のブランチ・PR運用ルール整備.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-07 | 外部リポジトリへの変更時のブランチ・PR運用ルール整備 |
 | [claude-directory最適化(ai-driven-dev-patterns)](./claude-directory最適化(ai-driven-dev-patterns).md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-05 | .claude/ 配下のファイル配置最適化とコンテキストコスト削減 |
 
 | [dev-workflow-detail L1参照精査](./dev-workflow-detail%20L1参照精査.md) | :blue_circle: 低 | 候補 | dev-process-improvement | 2026-03-05 | dev-workflow-detail.md 内の L1 参照を設計方針と整合させる |
