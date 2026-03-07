@@ -8,16 +8,16 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | 各スキル/エージェント定義の参照関係を調査する | 7ファイル分の参照先一覧が作業ログに記録されている | 🔴 | ⬜ |
-| T-002 | l1-manager/SKILL.md に関連ファイル一覧セクションを追加する | セクションが追加され、連動更新先が明記されている | 🔴 | ⬜ |
-| T-003 | l1-manager/agents/l2-worker.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ⬜ |
-| T-004 | l1-manager/agents/l2-evaluator.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ⬜ |
-| T-005 | triage-manager/agents/triage-worker.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ⬜ |
-| T-006 | triage-manager/agents/triage-evaluator.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ⬜ |
-| T-007 | triage-standard-policy/SKILL.md に関連ファイル一覧セクションを追加する | 同上 | 🟡 | ⬜ |
-| T-008 | session-flow-policy/SKILL.md に関連ファイル一覧セクションを追加する | 同上 | 🟡 | ⬜ |
-| T-009 | docs/rule-change-checklist.md を作成する（標準タスクパターン） | チェックリストに workflow.md更新・TG-008基準更新・関連ファイル確認が含まれている | 🔴 | ⬜ |
-| T-010 | docs/workflow.md にチェックリスト参照を追記する | workflow.md からチェックリストへの参照が記載されている | 🟡 | ⬜ |
+| T-001 | 各スキル/エージェント定義の参照関係を調査する | 7ファイル分の参照先一覧が作業ログに記録されている | 🔴 | ✅ |
+| T-002 | l1-manager/SKILL.md に関連ファイル一覧セクションを追加する | セクションが追加され、連動更新先が明記されている | 🔴 | ✅ |
+| T-003 | l1-manager/agents/l2-worker.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ✅ |
+| T-004 | l1-manager/agents/l2-evaluator.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ✅ |
+| T-005 | triage-manager/agents/triage-worker.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ✅ |
+| T-006 | triage-manager/agents/triage-evaluator.md に関連ファイル一覧セクションを追加する | 同上 | 🔴 | ✅ |
+| T-007 | triage-standard-policy/SKILL.md に関連ファイル一覧セクションを追加する | 同上 | 🟡 | ✅ |
+| T-008 | session-flow-policy/SKILL.md に関連ファイル一覧セクションを追加する | 同上 | 🟡 | ✅ |
+| T-009 | docs/rule-change-checklist.md を作成する（標準タスクパターン） | チェックリストに workflow.md更新・TG-008基準更新・関連ファイル確認が含まれている | 🔴 | ✅ |
+| T-010 | docs/workflow.md にチェックリスト参照を追記する | workflow.md からチェックリストへの参照が記載されている | 🟡 | ✅ |
 
 ## フェーズ2 タスク（L2-evaluator）
 
