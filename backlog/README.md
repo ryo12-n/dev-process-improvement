@@ -14,7 +14,7 @@
 | [ai-driven-dev-patternsトリアージプロセスのブラッシュアップ](./ai-driven-dev-patternsトリアージプロセスのブラッシュアップ.md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-04 | ai-driven-dev-patterns 側トリアージプロセスの品質・網羅性向上 |
 | [ai-research-notebookの整備](./ai-research-notebookの整備.md) | :blue_circle: 低 | 候補 | ai-research-notebook | 2026-03-02 | 定期実行タスクの調査結果の集約・分析・考察サイクル確立 |
 | [claude-directory最適化(ai-driven-dev-patterns)](./claude-directory最適化(ai-driven-dev-patterns).md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-05 | .claude/ 配下のファイル配置最適化とコンテキストコスト削減 |
-| [claude-directory最適化](./claude-directory最適化.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-05 | dev-process-improvement の .claude/ 配下のファイル配置最適化 |
+
 | [dev-workflow-detail L1参照精査](./dev-workflow-detail%20L1参照精査.md) | :blue_circle: 低 | 候補 | dev-process-improvement | 2026-03-05 | dev-workflow-detail.md 内の L1 参照を設計方針と整合させる |
 | [sessionsテンプレート間連携ガイド](./sessionsテンプレート間連携ガイド.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-04 | sessions/_template/ 4ファイル間のデータフロー関係を明示 |
 | [triageテンプレートのブラッシュアップ](./triageテンプレートのブラッシュアップ.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-05 | triage テンプレートに initiatives の成熟した仕組みを導入 |
@@ -29,7 +29,7 @@
 | [TG-008チェック基準のルール変更連動更新](./TG-008チェック基準のルール変更連動更新.md) | :red_circle: 高 | 候補 | dev-process-improvement | 2026-03-06 | ルール変更時の TG-008 基準連動更新の標準化 |
 | [workflow-md更新プロセス整備](./workflow-md更新プロセス整備.md) | :red_circle: 高 | 候補 | dev-process-improvement | 2026-03-06 | ルール変更後の workflow.md 更新漏れ防止プロセス整備 |
 | [backlogテンプレート凡例強化](./backlogテンプレート凡例強化.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | backlog テンプレートの emoji 不統一・対象リポ欠損の改善 |
-| [triage-evaluator対称性改善](./triage-evaluator対称性改善.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | triage-evaluator の壁打ちフェーズ・知見記録セクション追加 |
+| [課題管理とinbox管理の方法見直し](./課題管理とinbox管理の方法見直し.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-07 | 課題管理CSVの拡張（詳細ファイルを別ディレクトリで管理） |
 | [ガイドラインとルールファイルの二重管理リスク対策](./ガイドラインとルールファイルの二重管理リスク対策.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | ガイドラインと個別ルールのバージョン管理不整合リスク対策 |
 | [リネーム施策メタルール横断検証スコープ拡大](./リネーム施策メタルール横断検証スコープ拡大.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | テンプレート変更施策の検証スコープにメタルール検証を追加 |
 | [ルール変更施策の標準タスクパターン化](./ルール変更施策の標準タスクパターン化.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | 調査→文書化→ルール反映→workflow更新の定型パターン化 |
@@ -38,7 +38,9 @@
 | [AI補助自動化ツール検討](./AI補助自動化ツール検討.md) | :blue_circle: 低 | 候補 | dev-process-improvement | 2026-03-06 | AI 作業補助のツール自動化候補一覧作成と検討 |
 | [Building-trust-through-layers活用検討](./Building-trust-through-layers活用検討.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-06 | Building trust through layers の適用方法検討 |
 | [ディレクトリ構成最適化検討](./ディレクトリ構成最適化検討.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-06 | ディレクトリ構成のベストプラクティス検討 |
-| [トリアージ情報欠損リスク評価ステップ追加](./トリアージ情報欠損リスク評価ステップ追加.md) | :yellow_circle: 中 | 候補 | dev-process-improvement | 2026-03-06 | 削除・統合候補の情報欠損リスクを評価する専用ワーカーセット追加 |
+| [トリアージセッションのtodo管理義務化](./トリアージセッションのtodo管理義務化.md) | :blue_circle: 低 | 候補 | dev-process-improvement | 2026-03-07 | triage-manager/l1-manager にセッション開始時のtodo管理ステップ追加 |
+| [ルートリポのトリアージにTG-008走査観点追加](./ルートリポのトリアージにTG-008走査観点追加.md) | :blue_circle: 低 | 候補 | ai-driven-dev-patterns | 2026-03-07 | ai-driven-dev-patterns 側トリアージへのTG-008横展開 |
+| [roles-agents移行(ai-driven-dev-patterns)](./roles-agents移行(ai-driven-dev-patterns).md) | :yellow_circle: 中 | 候補 | ai-driven-dev-patterns | 2026-03-06 | roles/ から .claude/skills/agents/ への移行 |
 
 ## backlog と課題管理 CSV の関係
 
