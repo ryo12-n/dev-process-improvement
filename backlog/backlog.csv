@@ -25,6 +25,8 @@ Building-trust-through-layers活用検討,低,候補,ai-driven-dev-patterns,2026
 roles-agents移行(ai-driven-dev-patterns),中,候補,ai-driven-dev-patterns,2026-03-06,roles/ から .claude/skills/agents/ への移行,roles-agents移行(ai-driven-dev-patterns).md
 l1-manager-checklist-reference,低,候補,dev-process-improvement,2026-03-07,l1-manager にチェックリスト参照の固定タスク組み込み,l1-manager-checklist-reference.md
 サブエージェントの権限許可モデル調査,中,候補,dev-process-improvement,2026-03-07,サブエージェントの権限モデルを正確に理解しL2の自動化を改善,サブエージェントの権限許可モデル調査.md
-リポジトリ間テンプレート同期の検証チェックリスト,低,候補,dev-process-improvement,2026-03-07,テンプレート同期時の7観点チェックリスト標準化,リポジトリ間テンプレート同期の検証チェックリスト.md
 別リポジトリ成果物の記法スタイル事前確認,低,候補,dev-process-improvement,2026-03-07,L2-worker 壁打ちに記法スタイル確認チェック追加,別リポジトリ成果物の記法スタイル事前確認.md
 ai-driven-dev-patterns_source-of-truth明示,中,候補,ai-driven-dev-patterns,2026-03-08,Source of Truth ルール追加による乖離リスク防止,ai-driven-dev-patterns_source-of-truth明示.md
+ai-driven-dev-patterns-triage-standard-policy作成,中,候補,ai-driven-dev-patterns,2026-03-07,ai-driven-dev-patterns 側の triage-standard-policy ファイル分離,ai-driven-dev-patterns-triage-standard-policy作成.md
+sync-worker同期先コミット漏れ防止,中,候補,dev-process-improvement,2026-03-08,sync-worker の作業フローに同期先コミット・プッシュステップ追加,sync-worker同期先コミット漏れ防止.md
+マネージャーセッション共通ポリシー策定,中,候補,dev-process-improvement,2026-03-08,全マネージャーセッションの共通ルール整備とチェックプロセス確立,マネージャーセッション共通ポリシー策定.md

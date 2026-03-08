@@ -1,21 +1,19 @@
 # スキャン計画: Set-1
 
-## 壁打ちフェーズ [2026-03-08 10:00]
+## 壁打ちフェーズ [2026-03-08 14:00]
 
 ### 理解のサマリー
 - タスクの目的: 定期トリアージとして inbox/backlog/CSV/initiative/skills の走査を実施し、構造化されたスキャンレポートを作成する
-- スコープ: TG-001（inbox 6件）、TG-002（backlog 突合）、TG-003（CSV 起票10件の方針検討）、TG-004（initiative 状態確認）、TG-005（backlog 関係性分析）、TG-008（セッション構造ポリシーチェック）
+- スコープ: TG-001（inbox 8件: 気づき4件+refポインター4件）、TG-002（backlog 突合・施策化済みチェック）、TG-003（CSV 起票17件+方針確定1件）、TG-004（initiative 状態確認）、TG-005（backlog 新規追加1件の関係性分析）、TG-008（セッション構造ポリシーチェック）
 - 完了条件: 全6タスクの走査結果が 04_scan_report.md に構造化されて記載されている
 
 ### 前提条件チェック
 - [x] 割り当てTGタスクの内容を理解: 理解済み
-- [x] 走査対象ファイル・ディレクトリの存在確認: 確認済み（inbox 6件、backlog 31ファイル+CSV、initiatives/_archive/ 44件、skills 6ファイル）
-- [x] 走査に必要なツール・アクセス権限: 確認済み
+- [x] 走査対象ファイル・ディレクトリの存在確認: 確認済み（inbox 8件、backlog 31ファイル+CSV 30エントリ、initiatives 0件進行中、skills 13ファイル）
 
 ### 不明点・確認事項
 なし
 
-### マネージャー確認結果
 確認事項なし：実施開始
 
 ---
@@ -26,24 +24,26 @@
 
 | # | TGタスクID | 対象 | 走査方法 | 想定所要時間 |
 |---|----------|------|---------|------------|
-| 1 | TG-001 | inbox 6件（新規2件+ref_*4件） | 各ファイル読み取り・分類判断 | 中 |
-| 2 | TG-002 | backlog.csv + backlog/*.md + initiatives/_archive/ | CSV突合・施策化済みチェック | 中 |
-| 3 | TG-003 | プロセス改善_課題管理.csv（起票11件+方針確定1件） | 各課題の対応方針検討 | 中 |
-| 4 | TG-004 | initiatives/ | 進行中施策の状態確認 | 低（0件のため軽量） |
-| 5 | TG-005 | backlog 全アイテム | 横断分析（重複・依存・統合候補） | 中 |
-| 6 | TG-008 | .claude/skills/ 6ファイル | triage-standard-policy 準拠チェック | 中（差分集中） |
+| 1 | TG-001 | inbox 8件（気づき4件+refポインター4件） | 各ファイル読み取り・分類判断（ルール反映/backlog化/却下） | 中 |
+| 2 | TG-002 | backlog.csv + backlog/*.md + initiatives/_archive/ | CSV突合・施策化済みチェック・データ整合性問題2件の確認 | 中 |
+| 3 | TG-003 | プロセス改善_課題管理.csv（起票17件+方針確定1件） | 新規4件(ISS-041~044)確認、起票17件の方針再確認 | 中 |
+| 4 | TG-004 | initiatives/ | 進行中施策の状態確認（0件のため軽量） | 低 |
+| 5 | TG-005 | backlog 新規追加1件 | ai-driven-dev-patterns_source-of-truth明示の既存アイテムとの関係性チェック | 低 |
+| 6 | TG-008 | .claude/skills/ 13ファイル | triage-standard-policy 準拠チェック（前回からの差分に集中） | 中 |
 
 ### 走査順序・依存関係
 - TG-001 → TG-002 → TG-005 の順（inbox 結果が backlog 判断に影響）
 - TG-003 は独立して実施可能
 - TG-004 は軽量のため任意のタイミングで実施
-- TG-008 は独立して実施可能（前回からの差分集中）
+- TG-008 は独立して実施可能（前回からの差分に集中）
 
 ### 注意事項・制約
-- inbox 新規エントリ2件（`2つのリポジトリの部分的同期.md`、`ai-driven-dev-patterns_source-of-truth明示.md`）は backlog 候補として詳細分析
-- backlog.csv の「課題管理とinbox管理の方法見直し」はファイル不在だが initiatives/_archive/ に施策化済み
-- TG-008 は前回（20260307-3）以降 skills 変更なし。差分集中で確認
-- ref ポインター4件は「参照のみ保持」方針確定済み
+- inbox 気づきエントリ4件の処理判断が今回の重点
+- backlog データ整合性問題2件の解消が重要:
+  1. `ai-driven-dev-patterns-triage-standard-policy作成.md` が backlog/ にあるが CSV に未記載
+  2. `リポジトリ間テンプレート同期の検証チェックリスト` が CSV にあるが .md ファイルが存在しない
+- TG-008: 前回（20260307-3）以降に新規スキル4件追加（sync-manager系3件、session-flow-policy、rule-change-checklist、repo-sync-checklist）
+- TG-009 は走査結果に削除・統合候補が含まれる場合のみ実施
 
 ---
 **作成者**: トリアージワーカー
