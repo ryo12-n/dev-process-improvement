@@ -80,27 +80,20 @@ user-invocable: true
 
 ### ディスパッチパターン
 
-- **基本は逐次**: ワーカーセットは1つずつ（worker → evaluator → 次のset）
-- **逐次の理由**: MC タスク間に横断的な依存がある（MC-002 と MC-005 はともにゲートレビューを分析する等）
-- **セット内**: worker完了後にevaluator起動（L1/L2パターンと同じ）
+> **共通順序制約**: `manager-common-policy` §2.2 に従う（基本逐次・セット内は worker → evaluator）。
+
+- **逐次の理由（meta 固有）**: MC タスク間に横断的な依存がある（MC-002 と MC-005 はともにゲートレビューを分析する等）
 - **例外**: ファイル分離が確認できた場合、マネージャー判断で並列ディスパッチ可（`.claude/rules/parallel-dev.md` に従う）
 
 ### 起動時に渡す観点
 
-ワーカー・評価者を起動する際は以下を含めた指示を与える:
-
-- **役割とエージェント定義**: どのエージェント定義（`agents/metacognition-worker.md` / `agents/metacognition-evaluator.md`）に従うか
-- **セッションの場所**: 対象の `sessions/metacognition/YYYYMMDD/workers/set-N/` パス
-- **スコープ**: 今回のセットで扱う MC タスク範囲
-- **完了の定義**: 何をもってサブエージェントの終了とするか
+> **共通4項目**: `manager-common-policy` §2.1 に従う（役割とエージェント定義・セッションの場所・スコープ・完了の定義）。
 
 ### ワーカー成果物の確認観点（evaluator起動前）
 
-- `01_tasks.md` のタスクが完了・スキップ・ブロックのいずれかに分類されているか
-- `04_scan_report.md` に各 MC タスクの構造化された分析結果が記載されているか
-- `07_issues.md` に起票された課題が適切にフォーマットされているか
+> **共通最小3項目**: `manager-common-policy` §3 に従う（タスク分類・レポート記載・課題バッファ）。
 
-成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する。
+成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する（`manager-common-policy` §7 参照）。
 
 ### 結果の集約
 
@@ -108,8 +101,8 @@ user-invocable: true
 
 1. 各 `workers/set-N/04_scan_report.md` の分析結果を MC タスク別にマージする
 2. 各 `workers/set-N/06_eval_report.md` の評価結果を「Worker Set サマリ」セクションに反映する
-3. 各 `workers/set-N/06_eval_report.md` の「評価中の知見」と `04_scan_report.md` の「走査中の知見」を `03_report.md` の知見集約セクションに集約する
-4. 各 `workers/set-N/07_issues.md` の課題を `03_report.md` の課題集約セクションに集約し、CSV転記を実施する
+3. 知見集約: `manager-common-policy` §5 に従い、各セットの知見を `03_report.md` の知見集約セクションに集約する
+4. 課題集約: `manager-common-policy` §6 に従い、各セットの課題を `03_report.md` の課題集約セクションに集約し、CSV転記を実施する
 5. 評価で指摘された不備がある場合は、対応方針を決定してレポートに記載する
 
 ---
@@ -167,6 +160,8 @@ user-invocable: true
 ## ルール
 
 - `00_pre_investigation.md` の調査を必ず完了させてから `01_plan.md` を書く
+- ゲート判定は `manager-common-policy` §4 に従い、必ず「通過 / 条件付き通過 / 差し戻し」の3択で判定する。判定理由を必ず記載する
+- ワーカー成果物が不十分な場合の差し戻しは `manager-common-policy` §7 に従う
 - アクション実施を含む全タスク完了後に、PR でユーザーにレビューを依頼する
 - PR のタイトルは `metacognition: YYYYMMDD メタ認知レポート` の形式にする
 - **課題フロー**: ワーカー・評価者は `07_issues.md` に起票 → マネージャーが `03_report.md` 作成時に集約 → CSV転記を実施する
@@ -204,6 +199,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `sessions/metacognition/_template/00_pre_investigation.md` | 事前調査の走査項目・テンプレート構成 |
 | `sessions/metacognition/_template/01_plan.md` | 実施計画のテンプレート構成 |
 | `sessions/metacognition/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |

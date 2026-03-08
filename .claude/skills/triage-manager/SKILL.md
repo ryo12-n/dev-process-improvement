@@ -59,28 +59,23 @@ user-invocable: true
 
 ### ディスパッチパターン
 
-- **基本は逐次**: ワーカーセットは1つずつ（worker → evaluator → 次のset）
-- **逐次の理由**: TGタスク間に横断的な依存がある（inbox走査結果がbacklog判断に影響する等）
-- **セット内**: worker完了後にevaluator起動（L1/L2パターンと同じ）
+> **共通順序制約**: `manager-common-policy` §2.2 に従う（基本逐次・セット内は worker → evaluator）。
+
+- **逐次の理由（triage 固有）**: TGタスク間に横断的な依存がある（inbox走査結果がbacklog判断に影響する等）
 - **例外**: ファイル分離が確認できた場合、マネージャー判断で並列ディスパッチ可（`.claude/rules/parallel-dev.md` に従う）
 
 ### 起動時に渡す観点
 
-ワーカー・評価者を起動する際は以下を含めた指示を与える:
+> **共通4項目**: `manager-common-policy` §2.1 に従う（役割とエージェント定義・セッションの場所・スコープ・完了の定義）。
 
-- **役割とエージェント定義**: どのエージェント定義（`agents/triage-worker.md` / `agents/triage-evaluator.md`）に従うか
-- **セッションの場所**: 対象の `sessions/triage/YYYYMMDD/workers/set-N/` パス
-- **スコープ**: 今回のセットで扱うTGタスク範囲
-- **完了の定義**: 何をもってサブエージェントの終了とするか
+共通4項目に加え、triage 固有のパラメータ:
 - **TG-009 実行条件**: 当該セットの走査結果に削除・統合候補が含まれるかどうか（含まれる場合は TG-009 を実施、含まれない場合はスキップ）
 
 ### ワーカー成果物の確認観点（evaluator起動前）
 
-- `01_tasks.md` のタスクが完了・スキップ・ブロックのいずれかに分類されているか
-- `04_scan_report.md` に各TGタスクの構造化された走査結果が記載されているか
-- `07_issues.md` に起票された課題が適切にフォーマットされているか
+> **共通最小3項目**: `manager-common-policy` §3 に従う（タスク分類・レポート記載・課題バッファ）。
 
-成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する。
+成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する（`manager-common-policy` §7 参照）。
 
 ### 結果の集約
 
@@ -96,26 +91,22 @@ user-invocable: true
 
 ## 知見集約手順
 
-`03_report.md` の知見集約セクションを記入する際、以下の手順で各セットの知見を集約する。
+> **共通手順**: `manager-common-policy` §5 に従う（集約手順 §5.1 + ルーティング判断基準 §5.2）。
 
-1. 各 `workers/set-N/06_eval_report.md` の「評価中の知見」を読む
-2. 各 `workers/set-N/04_scan_report.md` の「判断・気づき」を読む
-3. 「ルール化候補」の各項目 → `03_report.md` の知見集約テーブルに転記（発見元 Set を記載）
-4. 「参考情報」の各項目 → 同テーブルに転記
-5. セット間で重複する知見は統合する
-6. `04_gate_review.md` の「必須把握事項」テーブルにルーティング先を付与して転記する
+triage 固有の入力ソース:
+- 各 `workers/set-N/06_eval_report.md` の「評価中の知見」
+- 各 `workers/set-N/04_scan_report.md` の「判断・気づき」
+
+集約先: `03_report.md` の知見集約テーブル → `04_gate_review.md` の「必須把握事項」テーブルにルーティング先を付与して転記する。
 
 ---
 
 ## 課題集約手順
 
-`03_report.md` の課題集約セクションを記入する際、以下の手順で各セットの課題を集約する。
+> **共通手順**: `manager-common-policy` §6 に従う（07_issues.md → CSV転記 → ISS-XXX.md）。
 
-1. 各 `workers/set-N/07_issues.md` の未転記メモを読む
-2. 施策スコープ外・他のセッションでも再発しうる課題 → `プロセス改善_課題管理.csv` へ転記
-3. 転記済みの項目に `[転記済 ISS-XXX]` を記す
-4. 当セッション内だけで完結する軽微な修正メモ → 「転記不要」と判断
-5. `03_report.md` の課題集約セクションにワーカーセット別件数と転記済み課題を記載する
+triage 固有の補足:
+- `03_report.md` の課題集約セクションにワーカーセット別件数と転記済み課題を記載する
 
 ---
 
@@ -160,6 +151,8 @@ user-invocable: true
 ## ルール
 
 - `00_pre_investigation.md` の調査を必ず完了させてから `01_plan.md` を書く
+- ゲート判定は `manager-common-policy` §4 に従い、必ず「通過 / 条件付き通過 / 差し戻し」の3択で判定する。判定理由を必ず記載する
+- ワーカー成果物が不十分な場合の差し戻しは `manager-common-policy` §7 に従う
 - backlog の変更を含む全アクションを実施した上で、PR でユーザーにレビューを依頼する
 - PR のタイトルは `triage: YYYYMMDD トリアージレポート` の形式にする
 - **課題フロー**: ワーカー・評価者は `07_issues.md` に起票 → マネージャーが `03_report.md` 作成時に集約 → CSV転記を実施する
@@ -218,6 +211,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `sessions/triage/_template/00_pre_investigation.md` | 事前調査の走査項目・テンプレート構成 |
 | `sessions/triage/_template/01_plan.md` | 実施計画のテンプレート構成 |
 | `sessions/triage/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |
