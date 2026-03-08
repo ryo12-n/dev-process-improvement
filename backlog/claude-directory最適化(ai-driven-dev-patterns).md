@@ -4,9 +4,12 @@
 
 | 項目 | 内容 |
 |------|------|
-| **優先度** | 中 |
+| **優先度** | 🟡 中 |
 | **ステータス** | 候補 |
+| **対象リポジトリ** | ai-driven-dev-patterns |
 | **起票日** | 2026-03-05 |
+
+> **注**: `_archive/claude-directory最適化/` は dev-process-improvement 側の同名施策（完了済み）。本施策は ai-driven-dev-patterns 側を対象としており別施策。
 
 ## 課題・背景
 
