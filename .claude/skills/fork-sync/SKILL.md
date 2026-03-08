@@ -1,6 +1,6 @@
 ---
 name: fork-sync
-description: 'upstream/origin の双方向 git 同期。対象リポジトリを選択し fast-forward マージで同期する'
+description: 'upstream/origin の双方向 git 同期。対象リポジトリを選択し、ブランチ + PR 方式で fast-forward マージを行う'
 user-invocable: true
 allowed-tools: ["Read", "Bash", "Glob"]
 ---
@@ -11,7 +11,9 @@ allowed-tools: ["Read", "Bash", "Glob"]
 upstream（外部リポジトリ）と origin（社内リポジトリ）の main ブランチを fast-forward マージで同期するスキル。
 複数リポジトリを一元管理し、対話的にリポジトリと同期方向を選択して実行する。
 
-> **sync-manager との違い**: sync-manager はリポジトリ間の構成・ルール・テンプレートの同期（ファイルコピー・差分適用）を行う。本スキルは upstream ↔ origin の git レベルの同期（fetch → ff-only merge → push）のみを行う。
+**main への直接 push は行わない。** 同期用ブランチを作成し、PR を通じて差分確認・マージする。
+
+> **sync-manager との違い**: sync-manager はリポジトリ間の構成・ルール・テンプレートの同期（ファイルコピー・差分適用）を行う。本スキルは upstream ↔ origin の git レベルの同期（fetch → ff-only merge → PR）のみを行う。
 
 ## 設定ファイル
 
@@ -61,13 +63,32 @@ upstream（外部リポジトリ）と origin（社内リポジトリ）の main
 実行してよいですか？
 ```
 
-### Step 4: 同期実行
+### Step 4: 同期用ブランチの作成
 
-選択されたリポジトリの `local_path` に移動し、以下を順に実行する。
+選択されたリポジトリの `local_path` に移動し、同期用ブランチを作成する。
+
+```bash
+cd {local_path}
+git checkout main
+git pull origin main
+```
+
+ブランチ名の規則:
+- upstream → origin の場合: `sync/upstream-to-origin-YYYYMMDD`
+- origin → upstream の場合: `sync/origin-to-upstream-YYYYMMDD`
+
+同日に複数回実行する場合は連番を付与する（`-YYYYMMDD-2`）。
+
+```bash
+git checkout -b sync/{direction}-YYYYMMDD
+```
+
+### Step 5: 同期実行
+
+ブランチ上で以下を順に実行する。
 
 1. **未コミット変更の確認**
    ```bash
-   cd {local_path}
    git diff --quiet && git diff --cached --quiet
    ```
    未コミット変更がある場合はエラーメッセージを表示して中断する。
@@ -82,44 +103,61 @@ upstream（外部リポジトリ）と origin（社内リポジトリ）の main
 
    fast-forward できない場合はエラーメッセージを表示し、「同時マージが発生した場合の対処」を案内して中断する。
 
-4. **差分の表示**
-   ```bash
-   git log --oneline -5
-   git diff {target_remote}/main
+### Step 6: 差分の表示
+
+```bash
+git log --oneline main..HEAD
+git diff main
+```
+
+同期された変更内容をユーザーに提示する。
+
+### Step 7: ブランチ push + PR 作成
+
+ユーザーに確認後、ブランチを push して PR を作成する。
+
+**upstream → origin の場合:**
+
+```bash
+git push -u origin sync/{direction}-YYYYMMDD
+```
+
+PR 作成:
+```bash
+gh pr create --base main --head sync/{direction}-YYYYMMDD \
+  --title "[sync] {direction}: {name} main ブランチを同期" \
+  --body "upstream の最新変更を origin に同期する。"
+```
+
+**origin → upstream の場合:**
+
+```bash
+# upstream push 用アカウントに切り替え
+gh auth switch --user {accounts.upstream}
+
+git push -u upstream sync/{direction}-YYYYMMDD
+
+# upstream 側で PR 作成
+gh pr create --repo {upstream_url} --base main --head sync/{direction}-YYYYMMDD \
+  --title "[sync] {direction}: {name} main ブランチを同期" \
+  --body "origin の最新変更を upstream に同期する。"
+
+# アカウントを元に戻す
+gh auth switch --user {accounts.origin}
+```
+
+### Step 8: gh pr create 失敗時のフォールバック
+
+`gh pr create` が失敗した場合（Enterprise Managed User 制限等）、以下を実施する:
+
+1. ブランチが push 済みであることを確認する
+2. GitHub の PR 作成 URL を提示する:
    ```
+   https://github.com/{owner}/{repo}/pull/new/sync/{direction}-YYYYMMDD
+   ```
+3. PR タイトルと本文をユーザーにコピー可能な形式で提示する
 
-### Step 5: push 前確認
-
-**push は自動実行しない。** 差分を表示した後、ユーザーに確認を求める。
-
-- upstream → origin の場合:
-  ```
-  上記の内容で origin に push します。実行してよいですか？
-  ```
-
-- origin → upstream の場合:
-  ```
-  上記の内容で upstream に push します。
-  gh アカウントを ryo12-n に切り替えて push します。実行してよいですか？
-  ```
-
-### Step 6: push 実行
-
-ユーザーが承認したら push を実行する。
-
-- upstream → origin の場合:
-  ```bash
-  git push origin main
-  ```
-
-- origin → upstream の場合:
-  ```bash
-  gh auth switch --user {accounts.upstream}
-  git push upstream main
-  gh auth switch --user {accounts.origin}
-  ```
-
-### Step 7: 完了メッセージ
+### Step 9: 完了メッセージ
 
 同期結果をまとめて表示する。
 
@@ -127,7 +165,10 @@ upstream（外部リポジトリ）と origin（社内リポジトリ）の main
 同期完了:
 - リポジトリ: {name}
 - 方向: {direction}
-- push 先: {remote}
+- ブランチ: sync/{direction}-YYYYMMDD
+- PR: {PR URL またはフォールバック URL}
+
+PR をマージして同期を完了してください。
 ```
 
 ---
@@ -173,18 +214,24 @@ ERROR: ローカルパス {local_path} が存在しません。
 repos.json の設定を確認してください。
 ```
 
+### gh pr create が失敗した場合
+
+上記 Step 8 のフォールバック手順を実行する。PR 作成 URL とタイトル・本文を提示する。
+
 ---
 
 ## やること
 
 - `repos.json` を読み込んでリポジトリ一覧を番号付きで提示する
-- ユーザーの選択に基づき git 同期を実行する
-- push 前に必ずユーザー確認を取る
+- ユーザーの選択に基づき同期用ブランチを作成し、git 同期を実行する
+- ブランチを push して PR を作成する（main への直接 push は行わない）
+- `gh pr create` 失敗時はフォールバック URL を提示する
 - origin → upstream 同期時に gh auth switch を実行し、完了後に元に戻す
 
 ## やらないこと
 
-- push を自動実行しない（ユーザー確認必須）
+- main ブランチへの直接 push（PR 経由でマージする）
+- PR のマージ（ユーザーが GitHub 上で実施する）
 - リポジトリの構成同期（ファイルコピー等）は行わない（それは sync-manager の役割）
 - repos.json に存在しないリポジトリの同期
 - repos.json の編集（リポジトリの追加・削除は手動で repos.json を編集する）
