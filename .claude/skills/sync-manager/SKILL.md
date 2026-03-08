@@ -68,22 +68,21 @@ user-invocable: true
 
 ### 起動時に渡す観点
 
-ワーカー・評価者を起動する際は以下を含めた指示を与える:
+> **共通4項目**: `manager-common-policy` §2.1 に従う（役割とエージェント定義・セッションの場所・スコープ・完了の定義）。
 
-- **役割とエージェント定義**: どのエージェント定義（`agents/sync-worker.md` / `agents/sync-evaluator.md`）に従うか
-- **セッションの場所**: 対象の `sessions/sync/YYYYMMDD/` パス
-- **スコープ**: 同期対象のファイル・ディレクトリ範囲
-- **完了の定義**: 何をもってサブエージェントの終了とするか
+共通4項目に加え、sync 固有のパラメータ:
 - **同期パラメータ**: `{source_repo}`, `{target_repo}`, `{sync_scope}` の具体値
 
 ### ワーカー成果物の確認観点（evaluator起動前）
 
+> **共通最小3項目**: `manager-common-policy` §3 に従う（タスク分類・レポート記載・課題バッファ）。
+
+共通3項目に加え、sync 固有の追加観点:
 - `03_work_log.md` に壁打ちフェーズと作業履歴が記録されているか
 - `04_sync_report.md` にチェックリストセクション1〜4に対応した同期結果が記載されているか
-- `07_issues.md` に起票された課題が適切にフォーマットされているか
 - 同期対象の全ファイルが処理されているか
 
-成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する。
+成果物の品質が不十分と判断した場合は、evaluator を起動せずに差し戻しを検討する（`manager-common-policy` §7 参照）。
 
 ### 結果の集約
 
@@ -98,24 +97,17 @@ worker と evaluator の完了後、以下の手順でゲート判定を行う:
 
 ## 知見集約手順
 
-`08_gate_review.md` の「必須把握事項」テーブルを記入する際、以下の手順で知見を集約する。
+> **共通手順**: `manager-common-policy` §5 に従う（集約手順 §5.1 + ルーティング判断基準 §5.2）。
 
-1. `04_sync_report.md` の「同期中の知見」を読む
-2. `06_eval_report.md` の「評価中の知見」を読む
-3. 「ルール化候補」の各項目 → `08_gate_review.md` の必須把握事項テーブルにルーティング先を付与して転記
-4. 「参考情報」の各項目 → 同テーブルに転記
-5. worker と evaluator で重複する知見は統合する
+sync 固有の入力ソース:
+- `04_sync_report.md` の「同期中の知見」
+- `06_eval_report.md` の「評価中の知見」
 
 ---
 
 ## 課題集約手順
 
-`08_gate_review.md` 作成前に、以下の手順で課題を集約する。
-
-1. `07_issues.md` の未転記メモを読む
-2. 施策スコープ外・他のセッションでも再発しうる課題 → `プロセス改善_課題管理.csv` へ転記
-3. 転記済みの項目に `[転記済 ISS-XXX]` を記す
-4. 当セッション内だけで完結する軽微な修正メモ → 「転記不要」と判断
+> **共通手順**: `manager-common-policy` §6 に従う（07_issues.md → CSV転記 → ISS-XXX.md）。
 
 ---
 
@@ -154,7 +146,8 @@ worker と evaluator の完了後、以下の手順でゲート判定を行う:
 ## ルール
 
 - `00_pre_investigation.md` の調査を必ず完了させてから `01_plan.md` を書く
-- ゲート判定は「通過 / 条件付き通過 / 差し戻し」の3択で判定する。判定理由を必ず記載する
+- ゲート判定は `manager-common-policy` §4 に従い、「通過 / 条件付き通過 / 差し戻し」の3択で判定する。判定理由を必ず記載する
+- ワーカー成果物が不十分な場合の差し戻しは `manager-common-policy` §7 に従う
 - 同期作業は `repo-sync-checklist` スキル（`.claude/skills/repo-sync-checklist/SKILL.md`）を参照する
 - 検証は `repo-sync-checklist` セクション5（7つの検証観点）に基づいて evaluator に委任する
 - PR のタイトルは `sync: YYYYMMDD <target-repo> 同期レポート` の形式にする
@@ -167,6 +160,7 @@ worker と evaluator の完了後、以下の手順でゲート判定を行う:
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `agents/sync-worker.md` | ワーカーの作業フロー・担当ファイル・ディスパッチ手順に影響する変更の場合 |
 | `agents/sync-evaluator.md` | 評価者の評価フロー・担当ファイル・ディスパッチ手順に影響する変更の場合 |
 | `sessions/sync/_template/` | セッションテンプレートの構成に影響する変更の場合 |
