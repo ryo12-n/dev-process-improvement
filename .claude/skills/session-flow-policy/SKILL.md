@@ -127,6 +127,7 @@ user-invocable: true
 | L1/L2 施策フロー | `.claude/skills/l1-manager/` | `agents/l2-worker.md`, `agents/l2-evaluator.md` |
 | トリアージフロー | `.claude/skills/triage-manager/` | `agents/triage-worker.md`, `agents/triage-evaluator.md` |
 | メタ認知フロー | `.claude/skills/metacognition-manager/` | `agents/metacognition-worker.md`, `agents/metacognition-evaluator.md` |
+| リポジトリ間同期フロー | `.claude/skills/sync-manager/` | `agents/sync-worker.md`, `agents/sync-evaluator.md` |
 
 ### 5.1 新セッションタイプ追加時のチェックリスト
 
@@ -151,6 +152,12 @@ user-invocable: true
 | `.claude/skills/triage-manager/SKILL.md` | SKILL.md の必須要素の変更がトリアージマネージャー定義に影響する場合 |
 | `.claude/skills/triage-manager/agents/triage-worker.md` | エージェント定義の必須要素の変更がトリアージワーカー定義に影響する場合 |
 | `.claude/skills/triage-manager/agents/triage-evaluator.md` | エージェント定義の必須要素の変更がトリアージ評価者定義に影響する場合 |
+| `.claude/skills/metacognition-manager/SKILL.md` | SKILL.md の必須要素の変更がメタ認知マネージャー定義に影響する場合 |
+| `.claude/skills/metacognition-manager/agents/metacognition-worker.md` | エージェント定義の必須要素の変更がメタ認知ワーカー定義に影響する場合 |
+| `.claude/skills/metacognition-manager/agents/metacognition-evaluator.md` | エージェント定義の必須要素の変更がメタ認知評価者定義に影響する場合 |
+| `.claude/skills/sync-manager/SKILL.md` | SKILL.md の必須要素の変更が同期マネージャー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-worker.md` | エージェント定義の必須要素の変更が同期ワーカー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-evaluator.md` | エージェント定義の必須要素の変更が同期評価者定義に影響する場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
 | `docs/workflow.md` | セッションフロー構造の変更がワークフロー記述に影響する場合（人間向け可視化） |
 | `.claude/rules/commit-message.md` | セッション種別の追加・変更がコミットメッセージ規約に影響する場合 |
