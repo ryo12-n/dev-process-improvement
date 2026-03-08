@@ -1,4 +1,0 @@
-これは社内環境での施策なので、個人開発のバックログとは分けて管理できているとよい。
-
-https://github.com/monotaro-com/microservice-devkitのREADMEに書いているような、devkitのコマンドを積極的に使いながらガイドしてくれるdevkitスペシャリストのロールを作成するとよいかも。
-基本的にはdev-process-improvementなどのマネージャー・ワーカー(実施者(スペシャリストロール)、評価者)構成を採用しつつ、devkitのガイドしてくれるセッションを用意すればよさそう。
