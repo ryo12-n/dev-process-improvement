@@ -19,7 +19,7 @@ user-invocable: true
 
 ## 作業フロー
 
-1. `triage/_template/` を `triage/YYYYMMDD/` にコピーしてセッションフォルダを作成する
+1. セッションフォルダを作成する: `sessions/triage/_template/` 直下のファイル（00〜04）のみを `sessions/triage/YYYYMMDD/` にコピーし、`sessions/triage/YYYYMMDD/workers/` は空ディレクトリとして作成する（`_template/workers/_template/` はコピーしない）
 2. `00_pre_investigation.md` の穴埋めを実施する（現状把握）
    - inbox / backlog / CSV / initiatives の現状に加え、`.claude/skills/*/SKILL.md` および `agents/*.md` と `docs/workflow.md` の整合性も確認する
    - `inbox/` の未処理エントリ（セッション終了時の気づきを含む）を確認する
@@ -51,7 +51,7 @@ user-invocable: true
 
 ### セット作成手順
 
-1. `triage/YYYYMMDD/workers/_template/` を `triage/YYYYMMDD/workers/set-N/` にコピーする
+1. `sessions/triage/_template/workers/_template/` を `sessions/triage/YYYYMMDD/workers/set-N/` にコピーする（セッションフォルダ内の `workers/_template/` ではなく、リポジトリの `_template/workers/_template/` から直接コピーする）
 2. `workers/set-N/01_tasks.md` に割り当てるTGタスクを記入する
 3. triage-worker をサブエージェント（Task ツール）として起動する
 4. ワーカー完了後、triage-evaluator をサブエージェントとして起動する

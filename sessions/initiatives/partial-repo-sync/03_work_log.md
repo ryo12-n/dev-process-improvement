@@ -54,3 +54,11 @@
 **成果物**: sessions/triage/_archive/.gitkeep
 **課題・気づき**: なし
 
+### [2026-03-08 14:12] タスクID: T-003
+**状態**: 完了
+**作業内容**:
+- triage-manager SKILL.md のセッション作成手順を変更: `_template/` 直下ファイルのみコピー、`workers/` は空ディレクトリで作成
+- ワーカーセット作成手順を変更: リポジトリの `_template/workers/_template/` から直接 `workers/set-N/` にコピー
+**成果物**: `.claude/skills/triage-manager/SKILL.md` 更新
+**課題・気づき**: なし
+
