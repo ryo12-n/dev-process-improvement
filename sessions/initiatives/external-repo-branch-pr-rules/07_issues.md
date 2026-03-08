@@ -13,4 +13,19 @@
 
 ## 未転記メモ
 
-（なし — 本施策では施策をまたぐ課題は発見されなかった）
+（実施ワーカー分: なし — 本施策では施策をまたぐ課題は発見されなかった）
+
+### EVL-001: `gh -C <path>` が gh CLI でサポートされていない [転記済 ISS-051]
+
+**発見フェーズ**: 評価（E-12）
+**影響箇所**:
+1. `.claude/rules/session-start-branch-cleanup.md` ステップ6 — `gh -C <path> pr list` / `gh -C <path> pr create`
+2. `.claude/skills/l1-manager/SKILL.md` クローズ手順ステップ7 — `gh -C <path> pr create`
+
+**状況**: gh CLI v2.87.3 で `gh -C` を実行すると `unknown shorthand flag: 'C' in -C` エラーが発生する。`git -C <path>` は正常に動作するが、`gh` には同等のオプションが存在しない。
+
+**推奨修正**: `gh -C <path>` の記載を `cd <path> && gh pr list/create` に変更する。
+
+**影響**: PR の確認・作成ステップのみ影響。ブランチ確認・push・checkout（`git -C` 使用）は問題なし。
+
+**施策横断性**: 今後外部リポ操作ルールを参照・拡張する施策で同じ問題が再発しうるため CSV に転記する。
