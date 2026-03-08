@@ -141,3 +141,19 @@
 **成果物**: なし（転記対象なし）
 **課題・気づき**: なし
 
+### [2026-03-08 15:10] 評価者指摘対応: backlog/ 旧パス修正
+**状態**: 完了
+**作業内容**:
+- L2-evaluator の評価で `backlog/` 配下7ファイルに旧パス残存が発見された
+- 以下を修正:
+  1. `backlog/README.md`: `initiatives/` → `sessions/initiatives/`
+  2. `backlog/ルートリポのトリアージにTG-008走査観点追加.md`: `initiatives/トリアージ標準ポリシーガイドライン/` → `sessions/initiatives/_archive/トリアージ標準ポリシーガイドライン/`
+  3. `backlog/外部リポジトリ変更時のブランチ・PR運用ルール整備.md`: `initiatives/_archive/` → `sessions/initiatives/_archive/`
+  4. `backlog/別リポジトリ成果物の記法スタイル事前確認.md`: `initiatives/_archive/` → `sessions/initiatives/_archive/`
+  5. `backlog/高度な並列化と協調プロトコル統合.md`: `initiatives/_archive/` → `sessions/initiatives/_archive/`
+  6. `backlog/リポジトリ間テンプレート同期の検証チェックリスト.md`: `initiatives/_archive/` → `sessions/initiatives/_archive/`
+  7. `backlog/ai-driven-dev-patterns-triage-standard-policy作成.md`: `initiatives/triage-process-brushup/` → `sessions/initiatives/_archive/triage-process-brushup/`
+- `grep -r 'initiatives/' backlog/` で旧パス残存なしを確認
+**成果物**: backlog/ 配下7ファイルのパス参照修正
+**課題・気づき**: T-006 の grep 検証時に backlog/ を除外リストに含めなかったことが漏れの原因。backlog/ 内のパス参照は運用上有効なため更新が必要だった
+
