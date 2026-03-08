@@ -31,8 +31,14 @@
       "Read(./secrets/**)",
       "Read(**/*.pem)",
       "Read(**/*.key)",
+      "Edit(./.env*)",
+      "Edit(./secrets/**)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
       "Write(./.env*)",
-      "Write(./secrets/**)"
+      "Write(./secrets/**)",
+      "Write(**/*.pem)",
+      "Write(**/*.key)"
     ]
   }
 }
