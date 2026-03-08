@@ -126,6 +126,7 @@ user-invocable: true
 |----------------|---------------------|----------------------|
 | L1/L2 施策フロー | `.claude/skills/l1-manager/` | `agents/l2-worker.md`, `agents/l2-evaluator.md` |
 | トリアージフロー | `.claude/skills/triage-manager/` | `agents/triage-worker.md`, `agents/triage-evaluator.md` |
+| メタ認知フロー | `.claude/skills/metacognition-manager/` | `agents/metacognition-worker.md`, `agents/metacognition-evaluator.md` |
 
 ### 5.1 新セッションタイプ追加時のチェックリスト
 

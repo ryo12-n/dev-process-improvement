@@ -31,17 +31,17 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-worker | L2-evaluator | triage-manager | triage-worker | triage-evaluator |
-|---------|:----------:|:---------:|:------------:|:--------------:|:-------------:|:----------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | 条件付き | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A |
+| ステージ | L1-manager | L2-worker | L2-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator |
+|---------|:----------:|:---------:|:------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|
+| 壁打ち | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 推奨 |
+| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
+| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
+| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
+| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
+| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
+| ゲート判定 | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
@@ -51,17 +51,17 @@ user-invocable: false
 
 ### 1.3 記録先ファイルの対応
 
-| ステージ | イニシアティブ系 | トリアージ系 |
-|---------|----------------|-------------|
-| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
-| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md |
-| 作業履歴 | 03_work_log.md | 03_work_log.md |
-| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
-| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md |
-| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
-| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） |
-| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md |
+| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 |
+|---------|----------------|-------------|-----------|
+| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
+| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md |
+| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md |
+| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
+| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md |
+| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
+| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
+| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md |
 
 ---
 
@@ -73,6 +73,7 @@ user-invocable: false
 |--------|--------|-----------------|
 | L2-worker | L2-evaluator | L1-manager |
 | triage-worker | triage-evaluator | triage-manager |
+| metacognition-worker | metacognition-evaluator | metacognition-manager |
 
 ### 2.2 ペアリングルール
 
@@ -110,6 +111,9 @@ user-invocable: false
 - `.claude/skills/triage-manager/SKILL.md`
 - `.claude/skills/triage-manager/agents/triage-worker.md`
 - `.claude/skills/triage-manager/agents/triage-evaluator.md`
+- `.claude/skills/metacognition-manager/SKILL.md`
+- `.claude/skills/metacognition-manager/agents/metacognition-worker.md`
+- `.claude/skills/metacognition-manager/agents/metacognition-evaluator.md`
 - 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
 
 ### 3.2 チェック項目

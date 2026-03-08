@@ -50,6 +50,7 @@
 | `backlog/` | トリアージ承認済みの施策候補（1施策1ファイル形式。一覧は `backlog.csv` で管理） |
 | `sessions/initiatives/` | 進行中・完了済みの施策 |
 | `sessions/triage/` | トリアージセッションの作業フォルダ |
+| `sessions/metacognition/` | メタ認知セッションの作業フォルダ（施策アーカイブの横断分析・振り返り） |
 | `issues/` | 課題詳細の管理。CSV（全体俯瞰ハブ）と対になる1課題1ファイル形式 |
 | `docs/` | ルールの人間向け可視化・ログ |
 | `templates/` | 施策テンプレート |
