@@ -31,17 +31,17 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-worker | L2-evaluator | triage-manager | triage-worker | triage-evaluator |
-|---------|:----------:|:---------:|:------------:|:--------------:|:-------------:|:----------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | 条件付き | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A |
+| ステージ | L1-manager | L2-worker | L2-evaluator | triage-manager | triage-worker | triage-evaluator | sync-manager | sync-worker | sync-evaluator |
+|---------|:----------:|:---------:|:------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|
+| 壁打ち | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 |
+| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） |
+| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
+| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 |
+| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 |
+| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
+| ゲート判定 | 必須 | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
@@ -51,17 +51,17 @@ user-invocable: false
 
 ### 1.3 記録先ファイルの対応
 
-| ステージ | イニシアティブ系 | トリアージ系 |
-|---------|----------------|-------------|
-| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
-| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md |
-| 作業履歴 | 03_work_log.md | 03_work_log.md |
-| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
-| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md |
-| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
-| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） |
-| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md |
+| ステージ | イニシアティブ系 | トリアージ系 | 同期系 |
+|---------|----------------|-------------|--------|
+| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md |
+| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md |
+| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md |
+| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
+| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md |
+| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md |
+| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） |
+| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 08_gate_review.md 横展開テーブル |
 
 ---
 
@@ -73,6 +73,7 @@ user-invocable: false
 |--------|--------|-----------------|
 | L2-worker | L2-evaluator | L1-manager |
 | triage-worker | triage-evaluator | triage-manager |
+| sync-worker | sync-evaluator | sync-manager |
 
 ### 2.2 ペアリングルール
 
@@ -110,6 +111,9 @@ user-invocable: false
 - `.claude/skills/triage-manager/SKILL.md`
 - `.claude/skills/triage-manager/agents/triage-worker.md`
 - `.claude/skills/triage-manager/agents/triage-evaluator.md`
+- `.claude/skills/sync-manager/SKILL.md`
+- `.claude/skills/sync-manager/agents/sync-worker.md`
+- `.claude/skills/sync-manager/agents/sync-evaluator.md`
 - 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
 
 ### 3.2 チェック項目
@@ -168,6 +172,9 @@ user-invocable: false
 | `.claude/skills/triage-manager/SKILL.md` | TG-008 チェック基準の変更がマネージャーのルールに影響する場合 |
 | `.claude/skills/triage-manager/agents/triage-worker.md` | TG-008 走査手順・チェック項目の変更がワーカーの走査手順に影響する場合 |
 | `.claude/skills/triage-manager/agents/triage-evaluator.md` | ペアリング対称性要件の変更が評価者定義に影響する場合 |
+| `.claude/skills/sync-manager/SKILL.md` | ライフサイクル適用マトリクスの変更が同期マネージャー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-worker.md` | ライフサイクル適用マトリクスの変更が同期ワーカー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-evaluator.md` | ペアリング対称性要件の変更が同期評価者定義に影響する場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | ペアリング要件・ライフサイクル定義が新セッション作成ポリシーに影響する場合 |
 | `docs/workflow.md` | 標準ポリシーの変更がワークフロー記述に影響する場合（人間向け可視化） |
 

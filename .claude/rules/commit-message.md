@@ -42,7 +42,10 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `triage-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[triage-mgr] 20260305: 事前調査・ワーカー割り当て` |
 | `triage-worker` | `YYYYMMDD` | ワーカー: 走査実行・スキャンレポート | `[triage-worker] 20260305: set-1 inbox/CSV スキャン完了` |
 | `triage-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[triage-eval] 20260305: set-1 評価レポート作成` |
-| `sync` | 同期方向（`upstream-to-origin` / `origin-to-upstream`） | リポジトリ間の同期 | `[sync] upstream-to-origin: main ブランチを同期` |
+| `sync` | 同期方向（`upstream-to-origin` / `origin-to-upstream`） | git レベルの単純同期（ブランチ同期等） | `[sync] upstream-to-origin: main ブランチを同期` |
+| `sync-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定 | `[sync-mgr] 20260308: 事前調査・ワーカー割り当て` |
+| `sync-worker` | `YYYYMMDD` | ワーカー: 同期作業実行・同期レポート | `[sync-worker] 20260308: 同期作業完了・レポート作成` |
+| `sync-eval` | `YYYYMMDD` | 評価者: 検証チェックリストに基づく評価レポート | `[sync-eval] 20260308: 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
