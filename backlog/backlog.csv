@@ -1,8 +1,6 @@
 施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名
 Claude Code標準skills評価・取り込み,低,候補,ai-driven-dev-patterns,2026-03-03,外部 skills の体系的な評価・一覧管理と有用な skills の採用,Claude Code標準skills評価・取り込み.md
 LLMローカル開発のセキュリティ強化,低,候補,横断,2026-03-03,API キー管理のセキュリティ強化と安全な開発環境の確立,LLMローカル開発のセキュリティ強化.md
-ai-driven-dev-patternsの設計プロセス整備,中,候補,ai-driven-dev-patterns,2026-03-03,設計プロセスの体系化と人間エントリーポイントの明確化,ai-driven-dev-patternsの設計プロセス整備.md
-ai-driven-dev-patternsトリアージプロセスのブラッシュアップ,中,候補,ai-driven-dev-patterns,2026-03-04,ai-driven-dev-patterns 側トリアージプロセスの品質・網羅性向上,ai-driven-dev-patternsトリアージプロセスのブラッシュアップ.md
 外部リポジトリ変更時のブランチ・PR運用ルール整備,中,候補,dev-process-improvement,2026-03-07,外部リポジトリへの変更時のブランチ・PR運用ルール整備,外部リポジトリ変更時のブランチ・PR運用ルール整備.md
 claude-directory最適化(ai-driven-dev-patterns),中,候補,ai-driven-dev-patterns,2026-03-05,.claude/ 配下のファイル配置最適化とコンテキストコスト削減,claude-directory最適化(ai-driven-dev-patterns).md
 dev-workflow-detail L1参照精査,低,候補,dev-process-improvement,2026-03-05,dev-workflow-detail.md 内の L1 参照を設計方針と整合させる,dev-workflow-detail L1参照精査.md
@@ -15,7 +13,6 @@ sessionsテンプレート間連携ガイド,低,候補,ai-driven-dev-patterns,2
 長文rulesのコンテキストコスト最適化,中,候補,横断,2026-03-06,長文 rules の skills 化によるコンテキスト圧迫の解消,長文rulesのコンテキストコスト最適化.md
 高度な並列化と協調プロトコル統合,中,候補,ai-driven-dev-patterns,2026-03-02,同一シナリオ内の複数 feature_builder 並列実行と協調プロトコル統合,高度な並列化と協調プロトコル統合.md
 backlogテンプレート凡例強化,中,候補,dev-process-improvement,2026-03-06,backlog テンプレートの emoji 不統一・対象リポ欠損の改善,backlogテンプレート凡例強化.md
-課題管理とinbox管理の方法見直し,中,候補,dev-process-improvement,2026-03-07,課題管理CSVの拡張（詳細ファイルを別ディレクトリで管理）,（ファイル不在）
 ガイドラインとルールファイルの二重管理リスク対策,中,候補,dev-process-improvement,2026-03-06,ガイドラインと個別ルールのバージョン管理不整合リスク対策,ガイドラインとルールファイルの二重管理リスク対策.md
 リネーム施策メタルール横断検証スコープ拡大,中,候補,dev-process-improvement,2026-03-06,テンプレート変更施策の検証スコープにメタルール検証を追加,リネーム施策メタルール横断検証スコープ拡大.md
 リンク整合性チェック標準化,中,候補,dev-process-improvement,2026-03-06,ドキュメント内リンクの実在確認を機械化・チェックリスト化,リンク整合性チェック標準化.md
@@ -30,3 +27,5 @@ l1-manager-checklist-reference,低,候補,dev-process-improvement,2026-03-07,l1-
 サブエージェントの権限許可モデル調査,中,候補,dev-process-improvement,2026-03-07,サブエージェントの権限モデルを正確に理解しL2の自動化を改善,サブエージェントの権限許可モデル調査.md
 リポジトリ間テンプレート同期の検証チェックリスト,低,候補,dev-process-improvement,2026-03-07,テンプレート同期時の7観点チェックリスト標準化,リポジトリ間テンプレート同期の検証チェックリスト.md
 別リポジトリ成果物の記法スタイル事前確認,低,候補,dev-process-improvement,2026-03-07,L2-worker 壁打ちに記法スタイル確認チェック追加,別リポジトリ成果物の記法スタイル事前確認.md
+2つのリポジトリの部分的同期,中,候補,dev-process-improvement,2026-03-08,sessions ディレクトリ導入・triage archive・テンプレートコピー改善,2つのリポジトリの部分的同期.md
+ai-driven-dev-patterns_source-of-truth明示,中,候補,ai-driven-dev-patterns,2026-03-08,Source of Truth ルール追加による乖離リスク防止,ai-driven-dev-patterns_source-of-truth明示.md
