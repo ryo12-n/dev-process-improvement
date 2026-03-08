@@ -46,3 +46,11 @@
 **成果物**: sessions/triage/, sessions/initiatives/
 **課題・気づき**: なし
 
+### [2026-03-08 14:08] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- `mkdir -p sessions/triage/_archive/` でアーカイブディレクトリを作成
+- `.gitkeep` を配置
+**成果物**: sessions/triage/_archive/.gitkeep
+**課題・気づき**: なし
+
