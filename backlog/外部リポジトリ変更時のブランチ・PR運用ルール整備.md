@@ -23,6 +23,6 @@ ai-research-notebook-setup 施策において、外部リポジトリ（ai-resea
 
 ## 補足・参考情報
 
-- 発生施策: `initiatives/_archive/ai-research-notebook-setup/`
+- 発生施策: `sessions/initiatives/_archive/ai-research-notebook-setup/`
 - 影響範囲: L1-manager スキル、L2-worker エージェント定義、場合によっては commit-message ルール
 - 今回の知見: inbox/別リポジトリ成果物の記法スタイル事前確認.md も関連

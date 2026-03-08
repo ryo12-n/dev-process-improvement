@@ -14,17 +14,19 @@
 │           ├── l2-worker.md           ← L2(実施)エージェント
 │           └── l2-evaluator.md        ← L2(評価)エージェント
 │
-├── initiatives/                       ← 改善施策ごとのフォルダ
-│   └── _template/                     ← ひな形（コピーして使う）
-│       ├── 00_proposal.md             ← 施策提案
-│       ├── 01_plan.md                 ← 実施計画
-│       ├── 02_tasks.md                ← タスクリスト
-│       ├── 03_work_log.md             ← 作業履歴
-│       ├── 04_work_report.md          ← 作業レポート
-│       ├── 05_eval_plan.md            ← 評価計画
-│       ├── 06_eval_report.md          ← 評価レポート
-│       ├── 07_issues.md               ← 課題管理
-│       └── 08_gate_review.md          ← フェーズゲート判定
+├── sessions/
+│   ├── initiatives/                   ← 改善施策ごとのフォルダ
+│   │   └── _template/                 ← ひな形（コピーして使う）
+│   │       ├── 00_proposal.md         ← 施策提案
+│   │       ├── 01_plan.md             ← 実施計画
+│   │       ├── 02_tasks.md            ← タスクリスト
+│   │       ├── 03_work_log.md         ← 作業履歴
+│   │       ├── 04_work_report.md      ← 作業レポート
+│   │       ├── 05_eval_plan.md        ← 評価計画
+│   │       ├── 06_eval_report.md      ← 評価レポート
+│   │       ├── 07_issues.md           ← 課題管理
+│   │       └── 08_gate_review.md      ← フェーズゲート判定
+│   └── triage/                        ← トリアージセッションの作業フォルダ
 │
 ├── backlog/ideas.md                   ← 施策候補のストック
 ├── templates/                         ← コピペ用プロンプト集
@@ -63,7 +65,7 @@
 
 ### ステップ1: L1 — 調査・計画・タスク作成
 
-L1セッションで `initiatives/_template/` をコピーし、新しい施策フォルダを作ります。
+L1セッションで `sessions/initiatives/_template/` をコピーし、新しい施策フォルダを作ります。
 
 
 
@@ -151,7 +153,7 @@ git remote add origin https://github.com/<your-username>/dev-process-improvement
 git push -u origin main
 ```
 
-push後、Claude Codeでこのリポジトリを開けばそのまま使い始められます。最初の施策を始めるときは、L1セッションで「`initiatives/_template/` をコピーして新しい施策を開始して」と伝えるだけでOKです。
+push後、Claude Codeでこのリポジトリを開けばそのまま使い始められます。最初の施策を始めるときは、L1セッションで「`sessions/initiatives/_template/` をコピーして新しい施策を開始して」と伝えるだけでOKです。
 
 情報源
 [1] Claude Code v2.0.64の新機能「.claude/rules/」で ... - Qiita https://qiita.com/NaokiIshimura/items/c10436a599df39615eed

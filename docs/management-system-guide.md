@@ -54,7 +54,7 @@
 
 ```
 人間のアイデア → inbox/ → トリアージで判断
-                              ├→ 施策化 → backlog/ → initiative 開始 → initiatives/
+                              ├→ 施策化 → backlog/ → initiative 開始 → sessions/initiatives/
                               ├→ ルール反映 → .claude/rules/ or skills/
                               └→ 却下・保留
 
@@ -66,4 +66,4 @@ AI発見の課題 → 07_issues.md → 施策完了時に判断
 ---
 
 **作成日**: 2026-03-07
-**関連施策**: `initiatives/backlog-readme-improvement/`
+**関連施策**: `sessions/initiatives/backlog-readme-improvement/`

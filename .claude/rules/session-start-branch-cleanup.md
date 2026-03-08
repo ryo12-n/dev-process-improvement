@@ -80,4 +80,4 @@ git checkout main && git pull
 
 ---
 **作成日**: 2026-03-07
-**関連施策**: `initiatives/session-branch-cleanup-flow/`
+**関連施策**: `sessions/initiatives/session-branch-cleanup-flow/`

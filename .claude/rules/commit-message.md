@@ -27,11 +27,11 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 ## セッション種別と category の対応
 
-### 施策作業（initiatives/ 配下の作業）
+### 施策作業（sessions/initiatives/ 配下の作業）
 
 | session-type | category | 用途 | 例 |
 |-------------|----------|------|-----|
-| `L1` | initiatives/ 配下のディレクトリ名 | 提案・計画・タスク作成・ゲート判定 | `[L1] commit-message-rules: 提案・計画を作成` |
+| `L1` | sessions/initiatives/ 配下のディレクトリ名 | 提案・計画・タスク作成・ゲート判定 | `[L1] commit-message-rules: 提案・計画を作成` |
 | `L2-worker` | 同上 | タスク実施・作業記録・レポート作成 | `[L2-worker] commit-message-rules: ルールファイルを作成` |
 | `L2-evaluator` | 同上 | 評価計画・評価実施・レポート作成 | `[L2-evaluator] commit-message-rules: 評価レポートを作成` |
 
@@ -89,4 +89,4 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 **作成日**: 2026-03-03
 **情報源**: `docs/coordination-protocol-guideline.md` セクション2.2
-**関連施策**: `initiatives/commit-message-rules/`
+**関連施策**: `sessions/initiatives/commit-message-rules/`
