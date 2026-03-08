@@ -87,5 +87,19 @@
 - `docs/coordination-protocol-guideline.md`: 施策パス・コミットメッセージ例のパス更新
 - `docs/git-worktree-guideline.md`: 関連施策パスの更新
 **成果物**: 上記6ファイル内のパス参照更新
+**課題・気づき**: README.md にも旧パス参照があることを発見 → T-006 の grep 検証と合わせて対応
+
+### [2026-03-08 14:30] タスクID: T-006
+**状態**: 完了
+**作業内容**:
+- `grep -r` で旧パス（`triage/`, `initiatives/`）の残存を検証
+- README.md に旧パス参照を発見 → 更新済み
+- 以下は更新不要と判断（除外リスト）:
+  - `sessions/initiatives/partial-repo-sync/` 配下: 本施策自身の作業記録。移動前の状態を記述しており、文脈上旧パスが正しい
+  - `sessions/initiatives/_archive/` 配下: 完了済み施策の歴史的記録。作業当時のパスを記録しており変更不要
+  - `sessions/triage/` 配下: 過去のトリアージセッション記録。同上
+  - `プロセス改善_課題管理.csv`: 関連施策列に過去の施策パスを記録。歴史的参照であり変更不要
+  - `docs/implementation.md` 18行目: 新しいツリー構成内の `initiatives/` 表記で `sessions/` の子として正しい
+**成果物**: README.md のパス参照更新、除外リストの作成
 **課題・気づき**: なし
 
