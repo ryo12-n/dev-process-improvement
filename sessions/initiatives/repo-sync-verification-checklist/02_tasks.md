@@ -8,16 +8,16 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | sync-manager スキル定義の作成 | session-flow-policy §2 の全項目を満たす SKILL.md が作成されている | 🔴 | ⬜ |
-| T-002 | sync-worker エージェント定義の作成 | session-flow-policy §3 の全項目を満たすエージェント定義が作成されている | 🔴 | ⬜ |
-| T-003 | sync-evaluator エージェント定義の作成 | sync-worker との対称性を満たすエージェント定義が作成されている | 🔴 | ⬜ |
-| T-004 | セッションテンプレートの作成 | `sessions/sync/_template/` に9ファイルが作成されている | 🔴 | ⬜ |
-| T-005 | repo-sync-checklist にセクション5を追加 | 7観点がパラメータ化されて追加されている | 🔴 | ⬜ |
-| T-006 | 連動更新: commit-message.md | sync-mgr/sync-worker/sync-eval が追加されている | 🔴 | ⬜ |
-| T-007 | 連動更新: docs/workflow.md | 同期セッションフロー・ファイルオーナーシップ・コミット規約テーブルが更新されている | 🔴 | ⬜ |
-| T-008 | 連動更新: session-flow-policy, triage-standard-policy | 両ファイルに sync セッションタイプが追加されている | 🔴 | ⬜ |
-| T-009 | 作業中の知見を記録する（固定タスク） | ルール化候補・参考情報の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-010 | 課題のCSV転記（固定タスク） | 全課題に [転記済 ISS-XXX] or 転記不要が付いている | 🔴 | ⬜ |
+| T-001 | sync-manager スキル定義の作成 | session-flow-policy §2 の全項目を満たす SKILL.md が作成されている | 🔴 | ✅ |
+| T-002 | sync-worker エージェント定義の作成 | session-flow-policy §3 の全項目を満たすエージェント定義が作成されている | 🔴 | ✅ |
+| T-003 | sync-evaluator エージェント定義の作成 | sync-worker との対称性を満たすエージェント定義が作成されている | 🔴 | ✅ |
+| T-004 | セッションテンプレートの作成 | `sessions/sync/_template/` に9ファイルが作成されている | 🔴 | ✅ |
+| T-005 | repo-sync-checklist にセクション5を追加 | 7観点がパラメータ化されて追加されている | 🔴 | ✅ |
+| T-006 | 連動更新: commit-message.md | sync-mgr/sync-worker/sync-eval が追加されている | 🔴 | ✅ |
+| T-007 | 連動更新: docs/workflow.md | 同期セッションフロー・ファイルオーナーシップ・コミット規約テーブルが更新されている | 🔴 | ✅ |
+| T-008 | 連動更新: session-flow-policy, triage-standard-policy | 両ファイルに sync セッションタイプが追加されている | 🔴 | ✅ |
+| T-009 | 作業中の知見を記録する（固定タスク） | ルール化候補・参考情報の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-010 | 課題のCSV転記（固定タスク） | 全課題に [転記済 ISS-XXX] or 転記不要が付いている | 🔴 | ✅ |
 
 ### T-001: sync-manager スキル定義の作成
 - **やること**: `.claude/skills/sync-manager/SKILL.md` を作成する。triage-manager を構造の参考とし、session-flow-policy §2 の必須要素を満たすこと
