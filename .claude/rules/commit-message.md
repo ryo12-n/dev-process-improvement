@@ -42,6 +42,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `triage-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[triage-mgr] 20260305: 事前調査・ワーカー割り当て` |
 | `triage-worker` | `YYYYMMDD` | ワーカー: 走査実行・スキャンレポート | `[triage-worker] 20260305: set-1 inbox/CSV スキャン完了` |
 | `triage-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[triage-eval] 20260305: set-1 評価レポート作成` |
+| `meta-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[meta-mgr] 20260308: 事前調査・ワーカー割り当て` |
+| `meta-worker` | `YYYYMMDD` | ワーカー: MC タスク走査・スキャンレポート | `[meta-worker] 20260308: set-1 MC-001/MC-002 分析完了` |
+| `meta-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[meta-eval] 20260308: set-1 評価レポート作成` |
 | `sync` | 同期方向（`upstream-to-origin` / `origin-to-upstream`） | git レベルの単純同期（ブランチ同期等） | `[sync] upstream-to-origin: main ブランチを同期` |
 | `sync-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定 | `[sync-mgr] 20260308: 事前調査・ワーカー割り当て` |
 | `sync-worker` | `YYYYMMDD` | ワーカー: 同期作業実行・同期レポート | `[sync-worker] 20260308: 同期作業完了・レポート作成` |
@@ -77,6 +80,16 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 - .claude/settings.json に JSON Schema バリデーションを追加
 - .env, secrets/ の deny ルールを設定
+```
+
+### メタ認知セッションのコミット
+
+```
+[meta-mgr] 20260308: 事前調査・ワーカー割り当て・集約レポート作成
+
+- 00_pre_investigation.md, 01_plan.md を作成
+- set-1 をディスパッチ
+- 03_report.md を作成し PR 提出
 ```
 
 ---
