@@ -59,8 +59,8 @@ user-invocable: false
 
 変更がテンプレートファイルの構成に影響する場合、テンプレートも更新する。
 
-- [ ] イニシアティブ系: `initiatives/_template/` 配下のテンプレートに影響がないか確認した
-- [ ] トリアージ系: `triage/_template/` 配下のテンプレートに影響がないか確認した
+- [ ] イニシアティブ系: `sessions/initiatives/_template/` 配下のテンプレートに影響がないか確認した
+- [ ] トリアージ系: `sessions/triage/_template/` 配下のテンプレートに影響がないか確認した
 
 ### 5. コミットメッセージ規約の確認
 

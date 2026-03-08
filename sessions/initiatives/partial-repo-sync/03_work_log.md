@@ -62,3 +62,18 @@
 **成果物**: `.claude/skills/triage-manager/SKILL.md` 更新
 **課題・気づき**: なし
 
+### [2026-03-08 14:18] タスクID: T-004
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/l1-manager/SKILL.md`: `initiatives/` → `sessions/initiatives/` パス更新（4箇所）
+- `.claude/skills/l1-manager/agents/l2-worker.md`: `initiatives/_template/` → `sessions/initiatives/_template/` パス更新（3箇所）
+- `.claude/skills/l1-manager/agents/l2-evaluator.md`: 同上（3箇所）
+- `.claude/skills/triage-manager/SKILL.md`: `triage/YYYYMMDD/`, `triage/_template/`, `initiatives/` 系パス更新（多数）
+- `.claude/skills/triage-manager/agents/triage-worker.md`: `initiatives/`, `triage/_template/` パス更新
+- `.claude/skills/triage-manager/agents/triage-evaluator.md`: `triage/_template/` パス更新
+- `.claude/skills/rule-change-checklist/SKILL.md`: `initiatives/_template/`, `triage/_template/` パス更新
+- `.claude/rules/commit-message.md`: `initiatives/` パス更新（3箇所）
+- `.claude/rules/session-start-branch-cleanup.md`: `initiatives/` パス更新（1箇所）
+**成果物**: 上記9ファイル内のパス参照更新
+**課題・気づき**: なし
+

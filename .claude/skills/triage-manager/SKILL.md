@@ -69,7 +69,7 @@ user-invocable: true
 ワーカー・評価者を起動する際は以下を含めた指示を与える:
 
 - **役割とエージェント定義**: どのエージェント定義（`agents/triage-worker.md` / `agents/triage-evaluator.md`）に従うか
-- **セッションの場所**: 対象の `triage/YYYYMMDD/workers/set-N/` パス
+- **セッションの場所**: 対象の `sessions/triage/YYYYMMDD/workers/set-N/` パス
 - **スコープ**: 今回のセットで扱うTGタスク範囲
 - **完了の定義**: 何をもってサブエージェントの終了とするか
 - **TG-009 実行条件**: 当該セットの走査結果に削除・統合候補が含まれるかどうか（含まれる場合は TG-009 を実施、含まれない場合はスキップ）
@@ -123,14 +123,14 @@ user-invocable: true
 
 | ファイル | 操作 |
 |---------|------|
-| `triage/YYYYMMDD/00_pre_investigation.md` | 作成・記入（事前調査） |
-| `triage/YYYYMMDD/01_plan.md` | 作成・記入（実施計画・ワーカー割り当て） |
-| `triage/YYYYMMDD/02_dispatch_log.md` | 追記（ディスパッチ履歴） |
-| `triage/YYYYMMDD/03_report.md` | 作成（集約レポート）→ PR として提出 |
-| `triage/YYYYMMDD/04_gate_review.md` | 作成（ゲート判定・知見ルーティング） |
-| `triage/YYYYMMDD/workers/set-N/01_tasks.md` | 作成（ワーカーへのタスク指示） |
-| `triage/YYYYMMDD/workers/set-N/06_eval_report.md` | 読み取りのみ（知見集約の入力） |
-| `triage/YYYYMMDD/workers/set-N/07_issues.md` | 読み取り＋転記済みマーク追記（課題集約） |
+| `sessions/triage/YYYYMMDD/00_pre_investigation.md` | 作成・記入（事前調査） |
+| `sessions/triage/YYYYMMDD/01_plan.md` | 作成・記入（実施計画・ワーカー割り当て） |
+| `sessions/triage/YYYYMMDD/02_dispatch_log.md` | 追記（ディスパッチ履歴） |
+| `sessions/triage/YYYYMMDD/03_report.md` | 作成（集約レポート）→ PR として提出 |
+| `sessions/triage/YYYYMMDD/04_gate_review.md` | 作成（ゲート判定・知見ルーティング） |
+| `sessions/triage/YYYYMMDD/workers/set-N/01_tasks.md` | 作成（ワーカーへのタスク指示） |
+| `sessions/triage/YYYYMMDD/workers/set-N/06_eval_report.md` | 読み取りのみ（知見集約の入力） |
+| `sessions/triage/YYYYMMDD/workers/set-N/07_issues.md` | 読み取り＋転記済みマーク追記（課題集約） |
 | `inbox/*.md` | 処理済みアイテムを削除（git 履歴が証跡） |
 | `backlog/ideas.md` | 追記・変更（ユーザー承認後のみ） |
 
@@ -138,7 +138,7 @@ user-invocable: true
 
 ## やること
 
-- `triage/YYYYMMDD/` フォルダを作成してセッションを記録する
+- `sessions/triage/YYYYMMDD/` フォルダを作成してセッションを記録する
 - 事前調査を完了させてからワーカー割り当てを決定する
 - ワーカー＋評価者セットをディスパッチし、結果を集約する
 - 各ワーカーセットの知見を `03_report.md` の知見集約セクションに集約する
@@ -149,7 +149,7 @@ user-invocable: true
 
 ## やらないこと
 
-- L1・L2 の成果物（`initiatives/` 配下）は編集しない（読み取りのみ）
+- L1・L2 の成果物（`sessions/initiatives/` 配下）は編集しない（読み取りのみ）
 - backlog の変更はレポート集約・アクション実施後のPRレビューでユーザーに確認される
 - ワーカーの成果物（`workers/set-N/03_work_log.md`、`04_scan_report.md`）は直接編集しない（読み取りのみ）
 - 評価者の成果物（`workers/set-N/05_eval_plan.md`、`06_eval_report.md`）は直接編集しない（読み取りのみ）
@@ -174,10 +174,10 @@ user-invocable: true
   - 重複候補 / 依存関係 / 統合候補の3種類の関係を検出する
   - 分析結果は `03_report.md` の「backlog 関係性分析（TG-005）」テーブルに記載する
   - 統合・順序変更などの提案はレポートに記載し、実行はユーザー判断に委ねる
-- **backlog 施策化済みチェック（TG-002 拡張）**: 各 backlog ファイルが既に施策化されていないかを `initiatives/` および `initiatives/_archive/` と突合する
+- **backlog 施策化済みチェック（TG-002 拡張）**: 各 backlog ファイルが既に施策化されていないかを `sessions/initiatives/` および `sessions/initiatives/_archive/` と突合する
   - 施策化済みのファイルを `03_report.md` の「削除・クローズ候補」セクションにレポート記載する
   - 削除はユーザーの許可を得てから実施する
-- **完了済み initiative のアーカイブ確認**: `initiatives/` 配下で `08_gate_review.md` が「通過」判定のものがあれば、`l1-manager` スキルのクローズチェックリストに従いアーカイブ対象としてレポートに記載する
+- **完了済み initiative のアーカイブ確認**: `sessions/initiatives/` 配下で `08_gate_review.md` が「通過」判定のものがあれば、`l1-manager` スキルのクローズチェックリストに従いアーカイブ対象としてレポートに記載する
 - **ルールとworkflowの整合性チェック**: `.claude/skills/*/SKILL.md`、`agents/*.md` と `docs/workflow.md` を見比べ、記述の乖離を確認する
   - 軽微なズレはそのセッション内で修正する
   - 大きな乖離は `プロセス改善_課題管理.csv` に起票する
@@ -218,11 +218,11 @@ PR 作成後、以下のサマリをユーザーに提示する：
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
-| `triage/_template/00_pre_investigation.md` | 事前調査の走査項目・テンプレート構成 |
-| `triage/_template/01_plan.md` | 実施計画のテンプレート構成 |
-| `triage/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |
-| `triage/_template/04_gate_review.md` | ゲート判定のテンプレート構成 |
-| `triage/_template/workers/_template/07_issues.md` | ワーカーセット別課題バッファのテンプレート |
+| `sessions/triage/_template/00_pre_investigation.md` | 事前調査の走査項目・テンプレート構成 |
+| `sessions/triage/_template/01_plan.md` | 実施計画のテンプレート構成 |
+| `sessions/triage/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |
+| `sessions/triage/_template/04_gate_review.md` | ゲート判定のテンプレート構成 |
+| `sessions/triage/_template/workers/_template/07_issues.md` | ワーカーセット別課題バッファのテンプレート |
 | `docs/workflow.md` | トリアージセッションフローの記述（人間向け可視化） |
 | `agents/triage-worker.md` | ワーカーの作業フロー・担当ファイルに影響する変更の場合 |
 | `agents/triage-evaluator.md` | 評価基準・レポート構成に影響する変更の場合 |
