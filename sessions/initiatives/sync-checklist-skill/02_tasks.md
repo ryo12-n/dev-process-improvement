@@ -8,10 +8,10 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `sessions/initiatives/_archive/partial-repo-sync/sync-checklist.md` の内容を基に `.claude/skills/repo-sync-checklist/SKILL.md` を作成する。フロントマター（name: repo-sync-checklist, description, user-invocable: true）を追加し、同期作業の L2-worker が参照する前提で指示文を整備する | `.claude/skills/repo-sync-checklist/SKILL.md` が存在し、スキルとして有効な形式になっている | 🔴 | ⬜ |
-| T-002 | `backlog/リポジトリ間テンプレート同期の検証チェックリスト.md` の「補足・参考情報」セクションに、本スキル（`.claude/skills/repo-sync-checklist/SKILL.md`）の存在・パス・呼び出し方（`/repo-sync-checklist`）を追記する | backlog ファイルにスキルの参照情報が記載されている | 🔴 | ⬜ |
-| T-003 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-004 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | `sessions/initiatives/_archive/partial-repo-sync/sync-checklist.md` の内容を基に `.claude/skills/repo-sync-checklist/SKILL.md` を作成する。フロントマター（name: repo-sync-checklist, description, user-invocable: true）を追加し、同期作業の L2-worker が参照する前提で指示文を整備する | `.claude/skills/repo-sync-checklist/SKILL.md` が存在し、スキルとして有効な形式になっている | 🔴 | ✅ |
+| T-002 | `backlog/リポジトリ間テンプレート同期の検証チェックリスト.md` の「補足・参考情報」セクションに、本スキル（`.claude/skills/repo-sync-checklist/SKILL.md`）の存在・パス・呼び出し方（`/repo-sync-checklist`）を追記する | backlog ファイルにスキルの参照情報が記載されている | 🔴 | ✅ |
+| T-003 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-004 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価ワーカー向けタスク
 
