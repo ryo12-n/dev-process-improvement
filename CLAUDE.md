@@ -2,19 +2,19 @@
 
 ## 概要
 このリポジトリは「開発プロセス改善」を継続的に回すためのもの。
-改善施策ごとに `initiatives/<施策名>/` フォルダを作り、L1・L2セッションで分担して進める。
+改善施策ごとに `sessions/initiatives/<施策名>/` フォルダを作り、L1・L2セッションで分担して進める。
 
 ## セッション構成
 
 | セッション | ロール | 責務 |
 |-----------|--------|------|
-| L1 (マネージャー) | 調査・意思決定・計画・ゲート判定 | initiatives/ 内の proposal, plan, tasks, gate_review を管理 |
-| L2 (ワーカー/実施) | タスク実行・作業記録・レポート・課題起票 | initiatives/ 内の work_log, work_report, issues を管理 |
-| L2 (ワーカー/評価) | 評価計画・評価実施・レポート・課題起票 | initiatives/ 内の eval_plan, eval_report, issues を管理 |
+| L1 (マネージャー) | 調査・意思決定・計画・ゲート判定 | sessions/initiatives/ 内の proposal, plan, tasks, gate_review を管理 |
+| L2 (ワーカー/実施) | タスク実行・作業記録・レポート・課題起票 | sessions/initiatives/ 内の work_log, work_report, issues を管理 |
+| L2 (ワーカー/評価) | 評価計画・評価実施・レポート・課題起票 | sessions/initiatives/ 内の eval_plan, eval_report, issues を管理 |
 
 ## ファイル命名規則
 
-- initiatives/ 内のファイルは番号付きプレフィックス（00〜08）で管理する
+- sessions/initiatives/ 内のファイルは番号付きプレフィックス（00〜08）で管理する
 - 作業履歴（work_log）はタイムスタンプ付きで追記する
 - 課題（issues）は連番IDを振る
 
@@ -22,7 +22,7 @@
 
 **すべてのタスクは、大小に関わらず initiative として管理する。**
 
-- バックログから施策を開始する場合は L1-manager フローに従い、`initiatives/<施策名>/` ディレクトリを作成してから作業に着手する
+- バックログから施策を開始する場合は L1-manager フローに従い、`sessions/initiatives/<施策名>/` ディレクトリを作成してから作業に着手する
 - initiative ディレクトリなしでの作業着手は禁止
 - 小規模タスクでも最低限 00_proposal.md, 01_plan.md, 02_tasks.md を作成する
 - 事後的な initiative 作成は手戻りが発生するため、必ず事前に作成すること
@@ -37,8 +37,8 @@
 
 ## コマンド
 
-- 新規施策開始: 「○○の改善施策を開始して」→ _template/ をコピーして initiatives/<施策名>/ を作成
-- 状況確認: 「施策一覧を見せて」→ initiatives/ 内の全施策のステータスを一覧表示
+- 新規施策開始: 「○○の改善施策を開始して」→ _template/ をコピーして sessions/initiatives/<施策名>/ を作成
+- 状況確認: 「施策一覧を見せて」→ sessions/initiatives/ 内の全施策のステータスを一覧表示
 - ゲート判定: 「○○のフェーズゲート判定をして」→ gate_review を更新
 
 ## ディレクトリ構成と用途
@@ -48,8 +48,8 @@
 | `inbox/` | 人間起票のアイデア・提案専用（`.md` 1ファイル単位）。トリアージで処理される |
 | `refs/` | 他PJの実装・構成など、施策の参考にする参照物置き場。inbox にポインターメモを置き、本体はここに置く |
 | `backlog/` | トリアージ承認済みの施策候補（1施策1ファイル形式。一覧は `backlog.csv` で管理） |
-| `initiatives/` | 進行中・完了済みの施策 |
-| `triage/` | トリアージセッションの作業フォルダ |
+| `sessions/initiatives/` | 進行中・完了済みの施策 |
+| `sessions/triage/` | トリアージセッションの作業フォルダ |
 | `issues/` | 課題詳細の管理。CSV（全体俯瞰ハブ）と対になる1課題1ファイル形式 |
 | `docs/` | ルールの人間向け可視化・ログ |
 | `templates/` | 施策テンプレート |
