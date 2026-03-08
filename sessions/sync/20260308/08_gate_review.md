@@ -53,6 +53,8 @@ evaluator の7つの検証観点がすべて PASS。同期対象5件が計画ど
 - 同期先（ai-driven-dev-patterns）の連動更新（docs/, roles/dev_manager.md 等）が未実施。次回同期前または別施策で対応が必要（ISS-044）
 - commit-message.md の2系統共存の運用状況を確認し、問題があれば統一方針を策定する（ISS-043）
 - ロール名適応パターンの標準化を repo-sync-checklist に反映する余地あり
+- **トリアージ構成の同期**: triage-standard-policy、triage-manager + agents、triage/_template/ の不足要素を同期先に補完導入する（repo-sync-checklist セクション1 #5 に追加済み）
+- **sessions/ ディレクトリ利用ガイドの同期**: 同期先の CLAUDE.md または README に sessions/ 配下の構成・用途の案内を追加する（repo-sync-checklist セクション1 #6 に追加済み）
 
 ---
 **判定者**: sync-manager
