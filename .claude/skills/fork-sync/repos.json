@@ -1,0 +1,20 @@
+{
+  "accounts": {
+    "origin": "ryo-nagata_monotaro",
+    "upstream": "ryo12-n"
+  },
+  "repositories": [
+    {
+      "name": "ai-driven-dev-patterns",
+      "local_path": "/home/developer/projects/m6o-es-product-api_dev_process_improvement/ai-driven-dev-patterns",
+      "upstream_url": "https://github.com/ryo12-n/ai-driven-dev-patterns.git",
+      "origin_url": "https://github.com/ryo-nagata_monotaro/ai-driven-dev-patterns.git"
+    },
+    {
+      "name": "dev-process-improvement",
+      "local_path": "/home/developer/projects/m6o-es-product-api_dev_process_improvement/dev-process-improvement",
+      "upstream_url": "https://github.com/ryo12-n/dev-process-improvement.git",
+      "origin_url": "https://github.com/ryo-nagata_monotaro/dev-process-improvement.git"
+    }
+  ]
+}
