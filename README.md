@@ -64,9 +64,7 @@
 
 | 種別 | 目的 | 頻度 | 使用ルール | 成果物の場所 |
 |------|------|------|-----------|------------|
-| **L1 マネージャー** | 調査・計画立案・タスク作成・ゲート判定 | 施策ごと | `skills/l1-manager/SKILL.md` | `sessions/initiatives/<施策名>/` |
-| **L2 ワーカー（実施）** | タスク実行・作業記録・レポート作成 | 施策ごと | `skills/l1-manager/agents/l2-worker.md` | `sessions/initiatives/<施策名>/` |
-| **L2 ワーカー（評価）** | 成果物の品質評価・評価レポート作成 | 施策ごと | `skills/l1-manager/agents/l2-evaluator.md` | `sessions/initiatives/<施策名>/` |
+| **イニシアティブ** | 施策の計画・実施・評価（L1→L2自動起動） | 施策ごと | `skills/l1-manager/` | `sessions/initiatives/<施策名>/` |
 | **トリアージ** | inbox・backlog・CSV の定期整理 | 任意 | `skills/triage-manager/SKILL.md` | `sessions/triage/YYYYMMDD/` |
 | **同期マネージャー** | リポジトリ間の構成・ルール・テンプレート同期 | 必要時 | `skills/sync-manager/SKILL.md` | `sessions/sync/YYYYMMDD/` |
 | **メタ認知マネージャー** | 施策アーカイブの横断分析・振り返り | 任意 | `skills/metacognition-manager/SKILL.md` | `sessions/metacognition/YYYYMMDD/` |
