@@ -37,7 +37,7 @@ user-invocable: true
 7. レポートに基づくアクションを実施する:
    - アクション可能な洞察 → `inbox/` に `.md` ファイルとして起票
    - 明確な課題 → `プロセス改善_課題管理.csv` に直接転記
-   - 明確な施策候補 → `backlog/` に `.md` ファイルとして作成
+   - 明確な施策候補 → `backlog/entries/` に `.md` ファイルとして作成
 8. 全タスク完了後、コミット・プッシュし **PR を作成してユーザーにレビューを依頼する**
 
 ---
@@ -122,7 +122,7 @@ user-invocable: true
 |-------------|--------|-----|
 | アクション可能な洞察（要検討） | `inbox/` に `.md` ファイルとして起票 | 「知見パターンXがルール化候補」 |
 | 明確な課題（対応が必要） | `プロセス改善_課題管理.csv` に直接転記 | 「ルーティング宣言Yが未実行」 |
-| 明確な施策候補 | `backlog/` に `.md` ファイルとして作成 | 「プロセス効率改善施策」 |
+| 明確な施策候補 | `backlog/entries/` に `.md` ファイルとして作成 | 「プロセス効率改善施策」 |
 
 ---
 
@@ -139,7 +139,7 @@ user-invocable: true
 | `sessions/metacognition/YYYYMMDD/workers/set-N/06_eval_report.md` | 読み取りのみ（知見集約の入力） |
 | `sessions/metacognition/YYYYMMDD/workers/set-N/07_issues.md` | 読み取り＋転記済みマーク追記（課題集約） |
 | `inbox/*.md` | 作成（アクション可能な洞察の起票） |
-| `backlog/*.md` | 作成（施策候補の作成、ユーザー承認後のみ） |
+| `backlog/entries/*.md` | 作成（施策候補の作成、ユーザー承認後のみ） |
 
 ---
 
