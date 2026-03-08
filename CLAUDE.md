@@ -112,6 +112,9 @@
 
 ---
 
-## 課題管理
+## リポジトリ間の関係
 
-`プロセス改善_課題管理.csv` で独立管理（ai-driven-dev-patterns の `課題管理.csv` とは別体系）。
+本リポジトリ（dev-process-improvement）は ai-driven-dev-patterns のコンテキストに **依存する側** である。
+
+- ai-driven-dev-patterns のリソース（roles/、CLAUDE.md、openspec/ 等）を `claude --add-dir` 等で参照し、改善結果を書き戻す
+- 課題管理: `プロセス改善_課題管理.csv` で独立管理（ai-driven-dev-patterns の `課題管理.csv` とは別体系）
