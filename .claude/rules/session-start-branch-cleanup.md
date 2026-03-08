@@ -93,8 +93,8 @@ git -C <path> log origin/<ブランチ>..HEAD --oneline
 # ステップ 3 相当: 未プッシュコミットのプッシュ
 git -C <path> push -u origin <ブランチ>
 
-# ステップ 4 相当: PR の確認・作成
-gh -C <path> pr list --head <ブランチ> --base main --state open
+# ステップ 4 相当: PR の確認・作成（gh は -C 未対応のため cd で移動）
+cd <path> && gh pr list --head <ブランチ> --base main --state open
 
 # ステップ 5 相当: main への切り替え・最新化
 git -C <path> checkout main && git -C <path> pull
