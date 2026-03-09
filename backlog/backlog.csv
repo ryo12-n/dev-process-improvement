@@ -1,7 +1,6 @@
 施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名
 Claude Code標準skills評価・取り込み,低,候補,ai-driven-dev-patterns,2026-03-03,外部 skills の体系的な評価・一覧管理と有用な skills の採用,Claude Code標準skills評価・取り込み.md
 LLMローカル開発のセキュリティ強化,低,候補,横断,2026-03-03,API キー管理のセキュリティ強化と安全な開発環境の確立,LLMローカル開発のセキュリティ強化.md
-外部リポジトリ変更時のブランチ・PR運用ルール整備,中,候補,dev-process-improvement,2026-03-07,外部リポジトリへの変更時のブランチ・PR運用ルール整備,外部リポジトリ変更時のブランチ・PR運用ルール整備.md
 claude-directory最適化(ai-driven-dev-patterns),中,候補,ai-driven-dev-patterns,2026-03-05,.claude/ 配下のファイル配置最適化とコンテキストコスト削減,claude-directory最適化(ai-driven-dev-patterns).md
 dev-workflow-detail L1参照精査,低,候補,dev-process-improvement,2026-03-05,dev-workflow-detail.md 内の L1 参照を設計方針と整合させる,dev-workflow-detail L1参照精査.md
 sessionsテンプレート間連携ガイド,低,候補,ai-driven-dev-patterns,2026-03-04,sessions/_template/ 4ファイル間のデータフロー関係を明示,sessionsテンプレート間連携ガイド.md
@@ -12,7 +11,6 @@ sessionsテンプレート間連携ガイド,低,候補,ai-driven-dev-patterns,2
 長文rulesのコンテキストコスト最適化,中,候補,横断,2026-03-06,長文 rules の skills 化によるコンテキスト圧迫の解消,長文rulesのコンテキストコスト最適化.md
 高度な並列化と協調プロトコル統合,中,候補,ai-driven-dev-patterns,2026-03-02,同一シナリオ内の複数 feature_builder 並列実行と協調プロトコル統合,高度な並列化と協調プロトコル統合.md
 backlogテンプレート凡例強化,中,候補,dev-process-improvement,2026-03-06,backlog テンプレートの emoji 不統一・対象リポ欠損の改善,backlogテンプレート凡例強化.md
-ガイドラインとルールファイルの二重管理リスク対策,中,候補,dev-process-improvement,2026-03-06,ガイドラインと個別ルールのバージョン管理不整合リスク対策,ガイドラインとルールファイルの二重管理リスク対策.md
 リネーム施策メタルール横断検証スコープ拡大,中,候補,dev-process-improvement,2026-03-06,テンプレート変更施策の検証スコープにメタルール検証を追加,リネーム施策メタルール横断検証スコープ拡大.md
 リンク整合性チェック標準化,中,候補,dev-process-improvement,2026-03-06,ドキュメント内リンクの実在確認を機械化・チェックリスト化,リンク整合性チェック標準化.md
 知見集約テーブル発見元列のinitiatives逆移植,低,候補,dev-process-improvement,2026-03-06,triage の発見元 Set 列を initiatives テンプレートにも追加,知見集約テーブル発見元列のinitiatives逆移植.md
@@ -26,9 +24,14 @@ l1-manager-checklist-reference,低,候補,dev-process-improvement,2026-03-07,l1-
 ai-driven-dev-patterns_source-of-truth明示,中,候補,ai-driven-dev-patterns,2026-03-08,Source of Truth ルール追加による乖離リスク防止,ai-driven-dev-patterns_source-of-truth明示.md
 ai-driven-dev-patterns-triage-standard-policy作成,中,候補,ai-driven-dev-patterns,2026-03-07,ai-driven-dev-patterns 側の triage-standard-policy ファイル分離,ai-driven-dev-patterns-triage-standard-policy作成.md
 sync-worker同期先コミット漏れ防止,中,候補,dev-process-improvement,2026-03-08,sync-worker の作業フローに同期先コミット・プッシュステップ追加,sync-worker同期先コミット漏れ防止.md
-README整合性チェック,中,候補,dev-process-improvement,2026-03-08,README.md の記述と実態の整合性チェック,README整合性チェック.md
 メタ認知セッションのai-driven-dev-patterns展開,低,候補,ai-driven-dev-patterns,2026-03-08,メタ認知セッションの ai-driven-dev-patterns 側への横展開,メタ認知セッションのai-driven-dev-patterns展開.md
 backlog-archive-matching改善,中,候補,dev-process-improvement,2026-03-08,backlog/archive 名前突合の命名規約・クローズ手順改善,backlog-archive-matching改善.md
 denyリスト変更提案への副作用分析必須化,低,候補,dev-process-improvement,2026-03-08,deny 変更時の副作用分析手順のルール化,denyリスト変更提案への副作用分析必須化.md
-inboxと課題管理とbacklogを管理方法見直し(v2),低,候補,dev-process-improvement,2026-03-08,issues/backlog/ のディレクトリ階層追加・社内/個人環境分離,inboxと課題管理とbacklogを管理方法見直し.md
 社内施策_devkitスペシャリストロール作成,低,候補,横断,2026-03-08,devkit コマンド・ガイドの Claude skill/rule 化,社内施策_devkitのコマンドやガイドの使用クロードのskillやRuleとして用意しておく.md
+L2知見発見と修正適用のギャップ改善,中,候補,dev-process-improvement,2026-03-09,L2-worker の知見発見と修正適用のプロセスギャップ改善,L2知見発見と修正適用のギャップ改善.md
+agentsの管理方法のガイドライン追記,低,候補,dev-process-improvement,2026-03-09,エージェント管理ベストプラクティスのガイドライン文書化,agentsの管理方法のガイドライン追記.md
+disallowedToolsフィールド活用検討,低,候補,dev-process-improvement,2026-03-09,deferred tools 制限の代替手段としての disallowedTools 調査,disallowedToolsフィールド活用検討.md
+metacognition-managerの記述構造統一,低,候補,dev-process-improvement,2026-03-09,metacognition-manager の知見集約・課題集約セクション独立化,metacognition-managerの記述構造統一.md
+ゲート判定基準での課題重大度の明文化,低,候補,dev-process-improvement,2026-03-09,manager-common-policy §4 の課題重大度判断基準の明文化,ゲート判定基準での課題重大度の明文化.md
+フォーマット変換の内容同等性基準,低,候補,dev-process-improvement,2026-03-09,フォーマット変換時の省略可/不可基準の明確化,フォーマット変換の内容同等性基準.md
+外部リポジトリブランチ整理のオンデマンド化,中,候補,dev-process-improvement,2026-03-09,外部リポジトリのブランチ整理をスキル化し必要時のみ実行,外部リポジトリブランチ整理のオンデマンド化.md
