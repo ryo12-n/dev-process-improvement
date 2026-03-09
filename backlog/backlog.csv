@@ -34,3 +34,4 @@ disallowedToolsフィールド活用検討,低,候補,dev-process-improvement,20
 metacognition-managerの記述構造統一,低,候補,dev-process-improvement,2026-03-09,metacognition-manager の知見集約・課題集約セクション独立化,metacognition-managerの記述構造統一.md
 ゲート判定基準での課題重大度の明文化,低,候補,dev-process-improvement,2026-03-09,manager-common-policy §4 の課題重大度判断基準の明文化,ゲート判定基準での課題重大度の明文化.md
 フォーマット変換の内容同等性基準,低,候補,dev-process-improvement,2026-03-09,フォーマット変換時の省略可/不可基準の明確化,フォーマット変換の内容同等性基準.md
+外部リポジトリブランチ整理のオンデマンド化,中,候補,dev-process-improvement,2026-03-09,外部リポジトリのブランチ整理をスキル化し必要時のみ実行,外部リポジトリブランチ整理のオンデマンド化.md
