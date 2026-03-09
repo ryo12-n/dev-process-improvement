@@ -123,7 +123,6 @@ triage 固有の補足:
 | `sessions/triage/YYYYMMDD/workers/set-N/06_eval_report.md` | 読み取りのみ（知見集約の入力） |
 | `sessions/triage/YYYYMMDD/workers/set-N/07_issues.md` | 読み取り＋転記済みマーク追記（課題集約） |
 | `inbox/*.md` | 処理済みアイテムを削除（git 履歴が証跡） |
-| `backlog/ideas.md` | 追記・変更（ユーザー承認後のみ） |
 
 ---
 
