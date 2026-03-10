@@ -39,3 +39,4 @@ backlogメンテナンスセッション作成,中,候補,dev-process-improvemen
 SessionStart-hookブランチ整理自動化,高,候補,dev-process-improvement,2026-03-10,SessionStart hook でセッション開始時ブランチ整理を自動化,SessionStart-hookブランチ整理自動化.md
 PreToolUse-hookコミットメッセージバリデーション,中,候補,dev-process-improvement,2026-03-10,PreToolUse hook でコミットメッセージ規約の自動バリデーション,PreToolUse-hookコミットメッセージバリデーション.md
 PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improvement,2026-03-10,PostToolUse hook でルール変更時の連動更新リマインダー自動通知,PostToolUse-hookルール変更連動チェック.md
+automation-managerセッション作成,中,候補,dev-process-improvement,2026-03-10,自動化候補の探索・評価・追跡を定期セッションとして制度化,automation-managerセッション作成.md
