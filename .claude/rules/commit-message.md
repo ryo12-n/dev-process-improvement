@@ -51,6 +51,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `sync-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定 | `[sync-mgr] 20260308: 事前調査・ワーカー割り当て` |
 | `sync-worker` | `YYYYMMDD` | ワーカー: 同期作業実行・同期レポート | `[sync-worker] 20260308: 同期作業完了・レポート作成` |
 | `sync-eval` | `YYYYMMDD` | 評価者: 検証チェックリストに基づく評価レポート | `[sync-eval] 20260308: 評価レポート作成` |
+| `bm-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[bm-mgr] 20260310: 事前調査・ワーカー割り当て` |
+| `bm-worker` | `YYYYMMDD` | ワーカー: BM タスク走査・スキャンレポート | `[bm-worker] 20260310: set-1 BM-001〜BM-003 走査完了` |
+| `bm-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[bm-eval] 20260310: set-1 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
