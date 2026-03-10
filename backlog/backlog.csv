@@ -36,3 +36,6 @@ metacognition-managerの記述構造統一,低,候補,dev-process-improvement,20
 フォーマット変換の内容同等性基準,低,候補,dev-process-improvement,2026-03-09,フォーマット変換時の省略可/不可基準の明確化,フォーマット変換の内容同等性基準.md
 外部リポジトリブランチ整理のオンデマンド化,中,候補,dev-process-improvement,2026-03-09,外部リポジトリのブランチ整理をスキル化し必要時のみ実行,外部リポジトリブランチ整理のオンデマンド化.md
 backlogメンテナンスセッション作成,中,候補,dev-process-improvement,2026-03-09,backlog エントリの陳腐化チェック用セッションの新設,backlogメンテナンスセッション作成.md
+SessionStart-hookブランチ整理自動化,高,候補,dev-process-improvement,2026-03-10,SessionStart hook でセッション開始時ブランチ整理を自動化,SessionStart-hookブランチ整理自動化.md
+PreToolUse-hookコミットメッセージバリデーション,中,候補,dev-process-improvement,2026-03-10,PreToolUse hook でコミットメッセージ規約の自動バリデーション,PreToolUse-hookコミットメッセージバリデーション.md
+PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improvement,2026-03-10,PostToolUse hook でルール変更時の連動更新リマインダー自動通知,PostToolUse-hookルール変更連動チェック.md
