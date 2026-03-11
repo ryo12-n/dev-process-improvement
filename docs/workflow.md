@@ -421,6 +421,31 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 
 ---
 
+## ビルトイン Skills 評価リファレンス
+
+> **正の情報源**: `.claude/skills/builtin-skills-reference/SKILL.md`
+
+Claude Code に同梱されるビルトイン（バンドル）skills の、dev-process-improvement プロジェクトにおける適用可能性の評価結果。新規 skill の評価や、ビルトイン skill の利用判断時に参照する。
+
+### 評価サマリー（2026-03-12 時点）
+
+| Skill | 適用可能性 | 推奨利用場面 |
+|-------|-----------|------------|
+| `/simplify` | 低 | 本プロジェクトでの積極活用場面なし |
+| `/batch` | 中 | `.claude/skills/` や `docs/` の大規模一括更新（条件付き） |
+| `/debug` | 中 | セッション失敗・サブエージェント問題のアドホック診断 |
+| `/loop` | 低 | 本プロジェクトでの積極活用場面なし |
+| `/claude-api` | 対象外 | API 実装を含まないため適用場面なし |
+
+### 総合方針
+
+- **状況に応じて活用**: `/debug`（セッション問題診断）、`/batch`（大規模一括更新、文書間整合性が不要な場合のみ）
+- **活用しない**: `/simplify`（コード主体向け）、`/loop`（長期セッション前提）、`/claude-api`（API 実装なし）
+
+各 skill の詳細評価（機能概要・具体的利用シーン・制約事項）は `.claude/skills/builtin-skills-reference/SKILL.md` を参照。
+
+---
+
 ## コミットメッセージ規約
 
 > **正の情報源**: `.claude/rules/commit-message.md`
