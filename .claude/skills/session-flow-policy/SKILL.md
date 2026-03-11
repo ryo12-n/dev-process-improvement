@@ -67,6 +67,8 @@ user-invocable: true
 - **結果の集約手順**: 全ワーカー完了後のレポート集約方法
 - **担当ファイル**: テーブル形式でファイルと操作権限を明記
 
+> **注**: 上記の共通パターン（ディスパッチ・成果物確認・ゲート判定・知見集約・課題集約・差し戻し）は `manager-common-policy`（`.claude/skills/manager-common-policy/SKILL.md`）に一元定義されている。新しいマネージャースキルを作成する際は、共通ポリシーを参照し、固有ロジックのみ自身の SKILL.md に記載すること。
+
 ---
 
 ## 3. エージェント定義の必須要素
@@ -95,7 +97,27 @@ user-invocable: true
 | 課題起票手段 | あり | あり |
 | 停止ルール | あり | あり |
 
-### 3.3 順序制約
+### 3.3 推奨プラクティス: 対称性確認テーブル
+
+evaluator 定義に「対称性確認テーブル」を含めることを推奨する。これは、ペアリング要件（§3.2）の各要素が実施者と評価者の双方に存在するかをテーブル形式で自己検証するもので、ペアリング不整合の早期検出に有効である。
+
+参考実装: `.claude/skills/sync-manager/agents/sync-evaluator.md` の対称性確認テーブル
+
+### 3.4 命名規約
+
+エージェント定義の YAML フロントマターの `name` フィールドはケバブケース（小文字英字とハイフン）のみ許容される。スネークケースやキャメルケースは使用不可。
+
+```yaml
+# 良い例
+name: triage-worker
+name: l2-evaluator
+
+# 悪い例（エラーになる）
+name: triage_worker
+name: triageWorker
+```
+
+### 3.5 順序制約
 
 - **実施者が完了してから評価者を起動する**（並列起動禁止）
 - 評価者は実施者の成果物を直接編集しない（読み取りのみ）
@@ -126,6 +148,9 @@ user-invocable: true
 |----------------|---------------------|----------------------|
 | L1/L2 施策フロー | `.claude/skills/l1-manager/` | `agents/l2-worker.md`, `agents/l2-evaluator.md` |
 | トリアージフロー | `.claude/skills/triage-manager/` | `agents/triage-worker.md`, `agents/triage-evaluator.md` |
+| メタ認知フロー | `.claude/skills/metacognition-manager/` | `agents/metacognition-worker.md`, `agents/metacognition-evaluator.md` |
+| リポジトリ間同期フロー | `.claude/skills/sync-manager/` | `agents/sync-worker.md`, `agents/sync-evaluator.md` |
+| バックログメンテナンスフロー | `.claude/skills/backlog-maintenance-manager/` | `agents/backlog-maintenance-worker.md`, `agents/backlog-maintenance-evaluator.md` |
 
 ### 5.1 新セッションタイプ追加時のチェックリスト
 
@@ -135,6 +160,34 @@ user-invocable: true
 - [ ] `docs/workflow.md` に新セッションタイプのフローを追記した
 - [ ] コミットメッセージ規約（`commit-message.md`）に新セッションタイプを追加した（必要な場合）
 - [ ] `.claude/skills/triage-standard-policy/SKILL.md` の適用マトリクスに新セッションタイプを追加した（必要な場合）
+
+---
+
+## 関連ファイル一覧
+
+本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
+
+| ファイル | 連動更新の内容 |
+|---------|-------------|
+| `.claude/skills/manager-common-policy/SKILL.md` | オーケストレーション共通パターンの変更が新セッション作成ガイダンスに影響する場合 |
+| `.claude/skills/l1-manager/SKILL.md` | SKILL.md の必須要素・オーケストレーション関連の必須記載の変更がマネージャー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-worker.md` | エージェント定義の必須要素・ペアリング対称性の変更がワーカー定義に影響する場合 |
+| `.claude/skills/l1-manager/agents/l2-evaluator.md` | エージェント定義の必須要素・ペアリング対称性の変更が評価者定義に影響する場合 |
+| `.claude/skills/triage-manager/SKILL.md` | SKILL.md の必須要素の変更がトリアージマネージャー定義に影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-worker.md` | エージェント定義の必須要素の変更がトリアージワーカー定義に影響する場合 |
+| `.claude/skills/triage-manager/agents/triage-evaluator.md` | エージェント定義の必須要素の変更がトリアージ評価者定義に影響する場合 |
+| `.claude/skills/metacognition-manager/SKILL.md` | SKILL.md の必須要素の変更がメタ認知マネージャー定義に影響する場合 |
+| `.claude/skills/metacognition-manager/agents/metacognition-worker.md` | エージェント定義の必須要素の変更がメタ認知ワーカー定義に影響する場合 |
+| `.claude/skills/metacognition-manager/agents/metacognition-evaluator.md` | エージェント定義の必須要素の変更がメタ認知評価者定義に影響する場合 |
+| `.claude/skills/sync-manager/SKILL.md` | SKILL.md の必須要素の変更が同期マネージャー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-worker.md` | エージェント定義の必須要素の変更が同期ワーカー定義に影響する場合 |
+| `.claude/skills/sync-manager/agents/sync-evaluator.md` | エージェント定義の必須要素の変更が同期評価者定義に影響する場合 |
+| `.claude/skills/backlog-maintenance-manager/SKILL.md` | SKILL.md の必須要素の変更がバックログメンテナンスマネージャー定義に影響する場合 |
+| `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md` | エージェント定義の必須要素の変更がバックログメンテナンスワーカー定義に影響する場合 |
+| `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md` | エージェント定義の必須要素の変更がバックログメンテナンス評価者定義に影響する場合 |
+| `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
+| `docs/workflow.md` | セッションフロー構造の変更がワークフロー記述に影響する場合（人間向け可視化） |
+| `.claude/rules/commit-message.md` | セッション種別の追加・変更がコミットメッセージ規約に影響する場合 |
 
 ---
 

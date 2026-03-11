@@ -1,7 +1,8 @@
 # git worktree ガイドライン: Claude Code での隔離開発パターン
 
-> **文書の位置づけ**: 本文書は調査・検討結果をまとめたガイドラインであり、現時点では参考情報として扱う。
-> CLAUDE.md やルールファイル（`.claude/rules/`）への組み込みは将来の施策で検討する。
+> **文書ステータス**: ドラフト（参考資料）
+> **正の情報源への統合**: 未着手
+> Skills 統合後に削除を検討する。
 
 > **前提バージョン**: 本文書は 2026年2月時点の Claude Code の仕様に基づく。
 > `--worktree` フラグおよび `isolation: "worktree"` 機能の仕様が変更された場合は、本文書を更新すること。
@@ -231,7 +232,7 @@ isolation: worktree
 - 共有リソースへのアクセスが必要なタスクも並列化
 - worktree による物理隔離 + ロック/コミットプロトコルによる論理的調整の組み合わせ
 - 必要な準備:
-  - 協調プロトコル施策（`initiatives/coordination-protocol/`）の成果物の統合
+  - 協調プロトコル施策（`sessions/initiatives/coordination-protocol/`）の成果物の統合
   - コンフリクト自動解決ツールの検討
   - テスト戦略（並列環境でのテスト実行順序・範囲）の定義
 
@@ -253,7 +254,7 @@ isolation: worktree
 
 ### 関連施策
 
-`initiatives/coordination-protocol/` では、以下の3つのプロトコルの定義が予定されている:
+`sessions/initiatives/coordination-protocol/` では、以下の3つのプロトコルの定義が予定されている:
 
 1. **commit プロトコル**: コミットタイミング・メッセージ規約・コンフリクト解消手順
 2. **lock プロトコル**: 排他制御の仕組み・対象リソースの粒度・デッドロック回避策
@@ -320,9 +321,9 @@ isolation: worktree
 
 **作成者**: L2（実施）
 **作成日**: 2026-02-25
-**関連施策**: `initiatives/git-worktree-standardization/`
+**関連施策**: `sessions/initiatives/git-worktree-standardization/`
 **参照資料**:
 - [Claude Code 公式ドキュメント - Common workflows](https://code.claude.com/docs/en/common-workflows)
 - [Claude Code 公式ドキュメント - Create custom subagents](https://code.claude.com/docs/en/sub-agents)
 - `refs/ai-driven-development-poc/` (ロックベース並列開発フレームワーク)
-- `initiatives/coordination-protocol/00_proposal.md` (協調プロトコル施策)
+- `sessions/initiatives/coordination-protocol/00_proposal.md` (協調プロトコル施策)

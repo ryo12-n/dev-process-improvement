@@ -4,6 +4,8 @@
 
 dev-process-improvement 配下で行うすべての git コミットに適用する。
 
+施策の一環として外部リポジトリ（`00_proposal.md` の「外部リポジトリ」セクションに記載されたリポジトリ）を変更する場合も、同じ規約を適用する。
+
 ---
 
 ## 形式
@@ -27,11 +29,11 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 ## セッション種別と category の対応
 
-### 施策作業（initiatives/ 配下の作業）
+### 施策作業（sessions/initiatives/ 配下の作業）
 
 | session-type | category | 用途 | 例 |
 |-------------|----------|------|-----|
-| `L1` | initiatives/ 配下のディレクトリ名 | 提案・計画・タスク作成・ゲート判定 | `[L1] commit-message-rules: 提案・計画を作成` |
+| `L1` | sessions/initiatives/ 配下のディレクトリ名 | 提案・計画・タスク作成・ゲート判定 | `[L1] commit-message-rules: 提案・計画を作成` |
 | `L2-worker` | 同上 | タスク実施・作業記録・レポート作成 | `[L2-worker] commit-message-rules: ルールファイルを作成` |
 | `L2-evaluator` | 同上 | 評価計画・評価実施・レポート作成 | `[L2-evaluator] commit-message-rules: 評価レポートを作成` |
 
@@ -42,7 +44,16 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `triage-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[triage-mgr] 20260305: 事前調査・ワーカー割り当て` |
 | `triage-worker` | `YYYYMMDD` | ワーカー: 走査実行・スキャンレポート | `[triage-worker] 20260305: set-1 inbox/CSV スキャン完了` |
 | `triage-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[triage-eval] 20260305: set-1 評価レポート作成` |
-| `sync` | 同期方向（`upstream-to-origin` / `origin-to-upstream`） | リポジトリ間の同期 | `[sync] upstream-to-origin: main ブランチを同期` |
+| `meta-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[meta-mgr] 20260308: 事前調査・ワーカー割り当て` |
+| `meta-worker` | `YYYYMMDD` | ワーカー: MC タスク走査・スキャンレポート | `[meta-worker] 20260308: set-1 MC-001/MC-002 分析完了` |
+| `meta-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[meta-eval] 20260308: set-1 評価レポート作成` |
+| `sync` | 同期方向（`upstream-to-origin` / `origin-to-upstream`） | git レベルの単純同期（ブランチ同期等） | `[sync] upstream-to-origin: main ブランチを同期` |
+| `sync-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定 | `[sync-mgr] 20260308: 事前調査・ワーカー割り当て` |
+| `sync-worker` | `YYYYMMDD` | ワーカー: 同期作業実行・同期レポート | `[sync-worker] 20260308: 同期作業完了・レポート作成` |
+| `sync-eval` | `YYYYMMDD` | 評価者: 検証チェックリストに基づく評価レポート | `[sync-eval] 20260308: 評価レポート作成` |
+| `bm-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[bm-mgr] 20260310: 事前調査・ワーカー割り当て` |
+| `bm-worker` | `YYYYMMDD` | ワーカー: BM タスク走査・スキャンレポート | `[bm-worker] 20260310: set-1 BM-001〜BM-003 走査完了` |
+| `bm-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[bm-eval] 20260310: set-1 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
@@ -76,6 +87,16 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 - .env, secrets/ の deny ルールを設定
 ```
 
+### メタ認知セッションのコミット
+
+```
+[meta-mgr] 20260308: 事前調査・ワーカー割り当て・集約レポート作成
+
+- 00_pre_investigation.md, 01_plan.md を作成
+- set-1 をディスパッチ
+- 03_report.md を作成し PR 提出
+```
+
 ---
 
 ## 禁止事項
@@ -89,4 +110,4 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 **作成日**: 2026-03-03
 **情報源**: `docs/coordination-protocol-guideline.md` セクション2.2
-**関連施策**: `initiatives/commit-message-rules/`
+**関連施策**: `sessions/initiatives/commit-message-rules/`

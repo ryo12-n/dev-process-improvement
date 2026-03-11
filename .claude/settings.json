@@ -1,17 +1,44 @@
 {
-  "$schema": "https://cdn.jsdelivr.net/npm/@anthropic-ai/claude-code@latest/config-schema.json",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
+    "allow": [
+      "Read(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "Bash(git *)",
+      "Bash(gh pr *)",
+      "Bash(gh api *)",
+      "Bash(gh run *)",
+      "Bash(ls *)",
+      "Bash(ls)",
+      "Bash(wc *)",
+      "Bash(cp *)",
+      "Bash(mkdir *)",
+      "Bash(mv *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(find *)",
+      "Bash(echo *)"
+    ],
     "deny": [
-      "Bash(command:*rm -rf*)",
-      "Bash(command:*>.env*)",
-      "Bash(command:*cat .env*)",
-      "Bash(command:*cat secrets/*)",
-      "Read(file_path:*.env*)",
-      "Read(file_path:*secrets/*)",
-      "Read(file_path:*.pem)",
-      "Read(file_path:*.key)",
-      "Write(file_path:*.env*)",
-      "Write(file_path:*secrets/*)"
+      "Bash(rm -rf *)",
+      "Bash(cat .env*)",
+      "Bash(cat secrets/*)",
+      "Read(./.env*)",
+      "Read(./secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Edit(./.env*)",
+      "Edit(./secrets/**)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Write(./.env*)",
+      "Write(./secrets/**)",
+      "Write(**/*.pem)",
+      "Write(**/*.key)"
     ]
   }
 }
