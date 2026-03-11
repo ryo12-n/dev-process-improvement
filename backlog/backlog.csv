@@ -11,7 +11,6 @@ sessionsテンプレート間連携ガイド,低,候補,ai-driven-dev-patterns,2
 長文rulesのコンテキストコスト最適化,中,候補,横断,2026-03-06,長文 rules の skills 化によるコンテキスト圧迫の解消,長文rulesのコンテキストコスト最適化.md,
 高度な並列化と協調プロトコル統合,中,候補,ai-driven-dev-patterns,2026-03-02,同一シナリオ内の複数 feature_builder 並列実行と協調プロトコル統合,高度な並列化と協調プロトコル統合.md,
 backlogテンプレート凡例強化,中,候補,dev-process-improvement,2026-03-06,backlog テンプレートの emoji 不統一・対象リポ欠損の改善,backlogテンプレート凡例強化.md,
-リネーム施策メタルール横断検証スコープ拡大,中,候補,dev-process-improvement,2026-03-06,テンプレート変更施策の検証スコープにメタルール検証を追加,リネーム施策メタルール横断検証スコープ拡大.md,
 リンク整合性チェック標準化,中,候補,dev-process-improvement,2026-03-06,ドキュメント内リンクの実在確認を機械化・チェックリスト化,リンク整合性チェック標準化.md,
 知見集約テーブル発見元列のinitiatives逆移植,低,候補,dev-process-improvement,2026-03-06,triage の発見元 Set 列を initiatives テンプレートにも追加,知見集約テーブル発見元列のinitiatives逆移植.md,
 AI補助自動化ツール検討,低,完了,dev-process-improvement,2026-03-06,AI 作業補助のツール自動化候補一覧作成と検討,AI補助自動化ツール検討.md,
