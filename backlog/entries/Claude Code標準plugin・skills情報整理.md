@@ -12,14 +12,15 @@
 
 ## 課題・背景
 
-Claude Codeが標準で提供しているplugin・skillsを十分に活用できていない。`.claude/`配下にpluginやskillsに関する情報が適切に整理されておらず、どのような標準機能が利用可能か、どのように設定すべきかが把握しにくい状態にある。
+Claude Codeが標準で提供しているpluginを十分に活用できていない。どのようなpluginが利用可能か、どのように`.claude/`配下で設定・管理すべきかが整理されておらず、活用の機会を逃している可能性がある。
 
 ## 期待効果
 
-- Claude Code標準提供のplugin・skillsの活用促進
-- `.claude/`配下へのskills・plugin情報の適切な配置・整理
-- 利用可能な標準機能の可視化と活用率の向上
+- Claude Code標準提供pluginの調査・評価と活用可能なものの特定
+- `.claude/`配下へのplugin設定・関連情報の適切な整理
+- plugin活用による開発プロセスの効率化
 
 ## 補足・参考情報
 
-- 既存バックログ「Claude Code標準skills評価・取り込み」（ai-driven-dev-patterns対象）とは別施策。本施策はdev-process-improvementリポジトリの`.claude/`配下の整理に焦点を当てる
+- 既存バックログ「Claude Code標準skills評価・取り込み」（ai-driven-dev-patterns対象、skills中心）とは別施策。本施策はdev-process-improvementリポジトリでのplugin活用に焦点を当てる
+- skillsについても必要に応じて整理対象に含めるが、主眼はpluginの調査・導入にある
