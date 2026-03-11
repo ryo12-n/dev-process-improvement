@@ -14,6 +14,32 @@ user-invocable: true
 
 ---
 
+## セッションライフサイクル todo 登録
+
+> **共通パターン**: `manager-common-policy` §8 に従う（義務・登録パターン・進捗追跡）。
+
+L1 マネージャーは入力パターンにより作業フローが異なるため、入力解釈後に該当パターンのステップを TaskCreate で登録する。
+
+### パターン1: 新施策開始（`backlog: <施策名>` または新規提案）
+
+1. 壁打ちフェーズ（理解のサマリー・不明点確認・ブランチ作成）
+2. 提案作成（00_proposal.md）
+3. 計画作成（01_plan.md）
+4. タスク作成（02_tasks.md）
+5. L2-worker ディスパッチ
+6. L2-worker 成果物確認
+7. L2-evaluator ディスパッチ
+8. ゲート判定（08_gate_review.md）
+
+### パターン2: 継続（`施策: <パス>`）
+
+1. フォルダ状態確認・動作決定
+2. L2-worker ディスパッチ（または L2-evaluator ディスパッチ、またはゲート判定）
+3. L2 成果物確認
+4. 次ステップ実行（evaluator 起動 or ゲート判定 or クローズ手順）
+
+---
+
 ## セッション開始時の入力解釈
 
 セッション開始時にユーザーから以下2パターンの入力が来る。それぞれに応じて動作を決定する。
@@ -242,7 +268,7 @@ EOF
 | ファイル | 連動更新の内容 |
 |---------|-------------|
 | `.claude/skills/external-repo-cleanup/SKILL.md` | 外部リポジトリの整理フロー。壁打ちフェーズのステップ4で参照 |
-| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§8）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `agents/l2-worker.md` | L2-worker の作業フロー・担当ファイル・壁打ちフェーズに影響する変更の場合 |
 | `agents/l2-evaluator.md` | L2-evaluator の評価フロー・担当ファイル・壁打ちフェーズに影響する変更の場合 |
 | `sessions/initiatives/_template/` | 施策テンプレートの構成（ファイル名・番号付け）に影響する変更の場合 |

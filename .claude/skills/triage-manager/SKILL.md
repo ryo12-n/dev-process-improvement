@@ -17,6 +17,23 @@ user-invocable: true
 
 ---
 
+## セッションライフサイクル todo 登録
+
+> **共通パターン**: `manager-common-policy` §8 に従う（義務・登録パターン・進捗追跡）。
+
+ブランチ整理完了後、作業フロー開始前に以下の 8 ステップを TaskCreate で登録する。
+
+1. セッションフォルダ作成（テンプレートコピー）
+2. 事前調査（00_pre_investigation.md の穴埋め）
+3. 実施計画作成（01_plan.md）
+4. ワーカーセット作成・ディスパッチ
+5. 結果集約・レポート作成（03_report.md）
+6. ゲート判定（04_gate_review.md）
+7. アクション実施（inbox処理・backlog変更・ルール反映・CSV更新等）
+8. コミット・プッシュ・PR 作成
+
+---
+
 ## 作業フロー
 
 1. セッションフォルダを作成する: `sessions/triage/_template/` 直下のファイル（00〜04）のみを `sessions/triage/YYYYMMDD/` にコピーし、`sessions/triage/YYYYMMDD/workers/` は空ディレクトリとして作成する（`_template/workers/_template/` はコピーしない）
@@ -235,7 +252,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
-| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§8）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `sessions/triage/_template/00_pre_investigation.md` | 事前調査の走査項目・テンプレート構成 |
 | `sessions/triage/_template/01_plan.md` | 実施計画のテンプレート構成 |
 | `sessions/triage/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |
