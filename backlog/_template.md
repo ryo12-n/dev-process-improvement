@@ -6,7 +6,8 @@
 |------|------|
 | **優先度** | 🔴 高 / 🟡 中 / 🔵 低 |
 | **ステータス** | 候補 / initiative 開始済 / 完了 |
-| **対象リポジトリ** | ai-driven-dev-patterns / dev-process-improvement / ai-research-notebook / 横断 |
+| **対象リポジトリ** | ai-driven-dev-patterns / dev-process-improvement / ai-research-notebook / 横断 <!-- 必須 --> |
+| **施策ディレクトリ名** | <!-- 施策化時に L1 が記入する。sessions/initiatives/ 配下のディレクトリ名（英語）。TG-002 突合に使用 --> |
 | **起票日** | YYYY-MM-DD |
 
 ## 課題・背景
