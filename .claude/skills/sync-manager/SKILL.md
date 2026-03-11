@@ -17,6 +17,23 @@ user-invocable: true
 
 ---
 
+## セッションライフサイクル todo 登録
+
+> **共通パターン**: `manager-common-policy` §8 に従う（義務・登録パターン・進捗追跡）。
+
+ブランチ整理完了後、作業フロー開始前に以下の 8 ステップを TaskCreate で登録する。
+
+1. 入力解釈（同期元・同期先の確定）
+2. セッションフォルダ作成（テンプレートコピー）
+3. 事前調査（00_pre_investigation.md の穴埋め）
+4. 同期計画作成（01_plan.md）
+5. sync-worker ディスパッチ
+6. sync-evaluator ディスパッチ
+7. ゲート判定（08_gate_review.md）
+8. コミット・プッシュ・PR 作成
+
+---
+
 ## 入力解釈
 
 `/sync-manager` が呼び出されたら、以下の対話形式で同期元・同期先を確定する。
@@ -160,7 +177,7 @@ sync 固有の入力ソース:
 
 | ファイル | 連動更新の内容 |
 |---------|-------------|
-| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§7）の参照先。共通ポリシーの変更時に参照箇所を確認 |
+| `.claude/skills/manager-common-policy/SKILL.md` | 共通パターン（§2〜§8）の参照先。共通ポリシーの変更時に参照箇所を確認 |
 | `agents/sync-worker.md` | ワーカーの作業フロー・担当ファイル・ディスパッチ手順に影響する変更の場合 |
 | `agents/sync-evaluator.md` | 評価者の評価フロー・担当ファイル・ディスパッチ手順に影響する変更の場合 |
 | `sessions/sync/_template/` | セッションテンプレートの構成に影響する変更の場合 |

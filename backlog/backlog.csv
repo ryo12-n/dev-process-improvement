@@ -17,7 +17,6 @@ backlogテンプレート凡例強化,中,候補,dev-process-improvement,2026-03
 AI補助自動化ツール検討,低,完了,dev-process-improvement,2026-03-06,AI 作業補助のツール自動化候補一覧作成と検討,AI補助自動化ツール検討.md
 Building-trust-through-layers活用検討,低,候補,ai-driven-dev-patterns,2026-03-06,Building trust through layers の適用方法検討,Building-trust-through-layers活用検討.md
 ディレクトリ構成最適化検討,低,候補,ai-driven-dev-patterns,2026-03-06,ディレクトリ構成のベストプラクティス検討,ディレクトリ構成最適化検討.md
-トリアージセッションのtodo管理義務化,低,候補,dev-process-improvement,2026-03-07,triage-manager/l1-manager にセッション開始時のtodo管理ステップ追加,トリアージセッションのtodo管理義務化.md
 ルートリポのトリアージにTG-008走査観点追加,低,候補,ai-driven-dev-patterns,2026-03-07,ai-driven-dev-patterns 側トリアージへのTG-008横展開,ルートリポのトリアージにTG-008走査観点追加.md
 l1-manager-checklist-reference,低,候補,dev-process-improvement,2026-03-07,l1-manager にチェックリスト参照の固定タスク組み込み,l1-manager-checklist-reference.md
 別リポジトリ成果物の記法スタイル事前確認,低,候補,dev-process-improvement,2026-03-07,L2-worker 壁打ちに記法スタイル確認チェック追加,別リポジトリ成果物の記法スタイル事前確認.md
