@@ -348,9 +348,10 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 | §5 | 知見集約手順 | worker/evaluator の知見を集約 + ルーティング判断基準 |
 | §6 | 課題集約手順 | 07_issues.md → CSV転記 → ISS-XXX.md |
 | §7 | 差し戻し手順 | 成果物チェック → NG ならフィードバック・再起動 |
-| §8 | 関連ファイル一覧 | 5マネージャースキル + session-flow-policy + triage-standard-policy + workflow.md |
+| §8 | セッションライフサイクル todo 登録 | ブランチ整理後・作業フロー前に TaskCreate でステップ登録、TaskUpdate で進捗追跡 |
+| §9 | 関連ファイル一覧 | 5マネージャースキル + session-flow-policy + triage-standard-policy + workflow.md |
 
-各マネージャースキルは共通パターンを `manager-common-policy §N` の形式で参照し、固有のロジック（l1 のクローズ手順、triage の TG タスク等）は自身の SKILL.md に残す。
+各マネージャースキルは共通パターンを `manager-common-policy §N` の形式で参照し、固有のロジック（l1 のクローズ手順、triage の TG タスク等）は自身の SKILL.md に残す。各マネージャーは §8 に従い、セッション開始時に自身の作業フローステップを TaskCreate で登録し、TaskUpdate で進捗を追跡する。
 
 ---
 
