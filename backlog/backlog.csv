@@ -25,7 +25,6 @@ ai-driven-dev-patterns_source-of-truth明示,中,候補,ai-driven-dev-patterns,2
 ai-driven-dev-patterns-triage-standard-policy作成,中,候補,ai-driven-dev-patterns,2026-03-07,ai-driven-dev-patterns 側の triage-standard-policy ファイル分離,ai-driven-dev-patterns-triage-standard-policy作成.md
 sync-worker同期先コミット漏れ防止,中,候補,dev-process-improvement,2026-03-08,sync-worker の作業フローに同期先コミット・プッシュステップ追加,sync-worker同期先コミット漏れ防止.md
 メタ認知セッションのai-driven-dev-patterns展開,低,候補,ai-driven-dev-patterns,2026-03-08,メタ認知セッションの ai-driven-dev-patterns 側への横展開,メタ認知セッションのai-driven-dev-patterns展開.md
-backlog-archive-matching改善,中,候補,dev-process-improvement,2026-03-08,backlog/archive 名前突合の命名規約・クローズ手順改善,backlog-archive-matching改善.md
 denyリスト変更提案への副作用分析必須化,低,候補,dev-process-improvement,2026-03-08,deny 変更時の副作用分析手順のルール化,denyリスト変更提案への副作用分析必須化.md
 社内施策_devkitスペシャリストロール作成,低,候補,横断,2026-03-08,devkit コマンド・ガイドの Claude skill/rule 化,社内施策_devkitのコマンドやガイドの使用クロードのskillやRuleとして用意しておく.md
 L2知見発見と修正適用のギャップ改善,中,候補,dev-process-improvement,2026-03-09,L2-worker の知見発見と修正適用のプロセスギャップ改善,L2知見発見と修正適用のギャップ改善.md
