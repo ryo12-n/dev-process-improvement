@@ -181,8 +181,13 @@ triage 固有の補足:
   - 重複候補 / 依存関係 / 統合候補の3種類の関係を検出する
   - 分析結果は `03_report.md` の「backlog 関係性分析（TG-005）」テーブルに記載する
   - 統合・順序変更などの提案はレポートに記載し、実行はユーザー判断に委ねる
-- **backlog 施策化済みチェック（TG-002 拡張）**: 各 backlog ファイルが既に施策化されていないかを `sessions/initiatives/` および `sessions/initiatives/_archive/` と突合する
-  - 施策化済みのファイルを `03_report.md` の「削除・クローズ候補」セクションにレポート記載する
+- **backlog 施策化済みチェック（TG-002 拡張）**: 各 backlog エントリが既に施策化されていないかを `sessions/initiatives/` および `sessions/initiatives/_archive/` と突合する。以下の手順で実施する:
+  1. `backlog/backlog.csv` の「施策ディレクトリ名」列が記入されているエントリは、その値で `sessions/initiatives/` および `_archive/` を直接照合する
+  2. 「施策ディレクトリ名」列が空欄のエントリは、`backlog/entries/<ファイル名>` と `sessions/initiatives/` 配下のディレクトリ名・各施策の `00_proposal.md` の「backlog元ファイル」フィールドで照合する（フォールバック）
+  3. 上記で一致が見つかった場合、施策化済みと判定する
+  4. 施策化済みのファイルを `03_report.md` の「削除・クローズ候補」セクションにレポート記載する
+  5. `backlog.csv` にエントリが残存している場合も「CSV残存エントリ」として検出・レポートする
+  - **対象リポジトリ未記入チェック**: `backlog/entries/` の各ファイルおよび `backlog.csv` で「対象リポジトリ」が未記入のエントリを検出し、レポートに記載する
   - 削除はユーザーの許可を得てから実施する
 - **完了済み initiative のアーカイブ確認**: `sessions/initiatives/` 配下で `08_gate_review.md` が「通過」判定のものがあれば、`l1-manager` スキルのクローズチェックリストに従いアーカイブ対象としてレポートに記載する
 - **ルールとworkflowの整合性チェック**: `.claude/skills/*/SKILL.md`、`agents/*.md` と `docs/workflow.md` を見比べ、記述の乖離を確認する
