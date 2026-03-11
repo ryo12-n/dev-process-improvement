@@ -48,3 +48,4 @@ user-invocable-false-description-pattern,低,候補,dev-process-improvement,2026
 条件付き固定タスク配置ルール整備,低,候補,dev-process-improvement,2026-03-12,条件付きタスクの視覚的区別・サブヘッダ分類,条件付き固定タスク配置ルール整備.md,
 費用対効果評価フレームワーク標準化,低,候補,dev-process-improvement,2026-03-12,費用対効果フレームワークのテンプレート化,費用対効果評価フレームワークの標準化.md,
 triage-metacognitionテンプレート共通化,低,候補,dev-process-improvement,2026-03-12,triage/metacognition テンプレートの共通化検討,triage-metacognitionテンプレート共通化検討.md,
+トリアージアクション実施のサブエージェント委託,中,候補,dev-process-improvement,2026-03-12,トリアージのアクション実施フェーズをサブエージェントに委託しコンテキスト消費を削減,triage-action-subagent-delegation.md,
