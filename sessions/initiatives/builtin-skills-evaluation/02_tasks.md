@@ -8,11 +8,11 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | 5つのビルトイン skills（/simplify, /batch, /debug, /loop, /claude-api）について、各 skill の機能概要・想定ユースケース・dev-process-improvement プロジェクトでの適用可能性を評価する。評価は「高・中・低・対象外」の4段階とし、判定理由を付記する。Web 検索で公式ドキュメント・最新情報を参照すること | 5つ全ての skills に評価結果と判定理由がある | 🔴 | ⬜ |
-| T-002 | 評価結果を `.claude/skills/builtin-skills-reference/SKILL.md` として作成する。frontmatter: `name: builtin-skills-reference`, `description: Claude Code ビルトイン skills の評価結果・適用可能性の参照。新規 skill の評価・skills 活用の相談・ビルトイン skill の利用判断時に参照する`, `user-invocable: false`。本文構成: (1) 概要（目的・評価日）、(2) 評価サマリーテーブル（skill名・適用可能性・推奨利用場面）、(3) 各 skill の詳細評価（機能概要・プロジェクトでの適用可能性・具体的な利用シーン・制約事項）、(4) 総合方針（どの skills を積極活用するか） | SKILL.md が上記 frontmatter と構成を満たし、各 skill に具体的な利用シーンまたは「適用場面なし」の判断理由が記載されている | 🔴 | ⬜ |
-| T-003 | `docs/workflow.md` の skills 一覧セクションに `builtin-skills-reference` を追記する（可視化文書の連動更新）。既存のスキル分類に合わせて適切な位置に配置する | workflow.md に追記されている | 🔴 | ⬜ |
-| T-004 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-005 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | 5つのビルトイン skills（/simplify, /batch, /debug, /loop, /claude-api）について、各 skill の機能概要・想定ユースケース・dev-process-improvement プロジェクトでの適用可能性を評価する。評価は「高・中・低・対象外」の4段階とし、判定理由を付記する。Web 検索で公式ドキュメント・最新情報を参照すること | 5つ全ての skills に評価結果と判定理由がある | 🔴 | ✅ |
+| T-002 | 評価結果を `.claude/skills/builtin-skills-reference/SKILL.md` として作成する。frontmatter: `name: builtin-skills-reference`, `description: Claude Code ビルトイン skills の評価結果・適用可能性の参照。新規 skill の評価・skills 活用の相談・ビルトイン skill の利用判断時に参照する`, `user-invocable: false`。本文構成: (1) 概要（目的・評価日）、(2) 評価サマリーテーブル（skill名・適用可能性・推奨利用場面）、(3) 各 skill の詳細評価（機能概要・プロジェクトでの適用可能性・具体的な利用シーン・制約事項）、(4) 総合方針（どの skills を積極活用するか） | SKILL.md が上記 frontmatter と構成を満たし、各 skill に具体的な利用シーンまたは「適用場面なし」の判断理由が記載されている | 🔴 | ✅ |
+| T-003 | `docs/workflow.md` の skills 一覧セクションに `builtin-skills-reference` を追記する（可視化文書の連動更新）。既存のスキル分類に合わせて適切な位置に配置する | workflow.md に追記されている | 🔴 | ✅ |
+| T-004 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-005 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ### 実行順序
 
