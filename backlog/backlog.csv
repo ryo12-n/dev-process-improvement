@@ -49,3 +49,5 @@ user-invocable-false-description-pattern,低,候補,dev-process-improvement,2026
 費用対効果評価フレームワーク標準化,低,候補,dev-process-improvement,2026-03-12,費用対効果フレームワークのテンプレート化,費用対効果評価フレームワークの標準化.md,
 triage-metacognitionテンプレート共通化,低,候補,dev-process-improvement,2026-03-12,triage/metacognition テンプレートの共通化検討,triage-metacognitionテンプレート共通化検討.md,
 トリアージアクション実施のサブエージェント委託,中,候補,dev-process-improvement,2026-03-12,トリアージのアクション実施フェーズをサブエージェントに委託しコンテキスト消費を削減,triage-action-subagent-delegation.md,
+外部リポジトリアーキテクチャオーバービュー管理,中,候補,dev-process-improvement,2026-03-12,外部リポジトリの構成オーバービューをrefs/に整備・同期時更新を制度化,外部リポジトリアーキテクチャオーバービュー管理.md,
+同期対象リスト管理と差分ベース反映計画,中,候補,dev-process-improvement,2026-03-12,同期対象のリスト管理とコミットハッシュベースの差分確認で反映計画を精密化,同期対象リスト管理と差分ベース反映計画.md,
