@@ -147,6 +147,7 @@ name: triageWorker
 | セッションタイプ | マネージャー（スキル） | ワーカー（エージェント） |
 |----------------|---------------------|----------------------|
 | L1/L2 施策フロー | `.claude/skills/l1-manager/` | `agents/l2-worker.md`, `agents/l2-evaluator.md` |
+| 実装マネージャーフロー | `.claude/skills/l1-impl-manager/` | `agents/investigation-worker.md`, `agents/design-worker.md`, `agents/impl-plan-worker.md`, `agents/impl-worker.md`, `agents/impl-evaluator.md` |
 | トリアージフロー | `.claude/skills/triage-manager/` | `agents/triage-worker.md`, `agents/triage-evaluator.md` |
 | メタ認知フロー | `.claude/skills/metacognition-manager/` | `agents/metacognition-worker.md`, `agents/metacognition-evaluator.md` |
 | リポジトリ間同期フロー | `.claude/skills/sync-manager/` | `agents/sync-worker.md`, `agents/sync-evaluator.md` |
