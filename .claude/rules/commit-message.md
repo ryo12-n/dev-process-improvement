@@ -54,6 +54,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `bm-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[bm-mgr] 20260310: 事前調査・ワーカー割り当て` |
 | `bm-worker` | `YYYYMMDD` | ワーカー: BM タスク走査・スキャンレポート | `[bm-worker] 20260310: set-1 BM-001〜BM-003 走査完了` |
 | `bm-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[bm-eval] 20260310: set-1 評価レポート作成` |
+| `impl-mgr` | 施策名 | マネージャー: 4フェーズオーケストレーション・ゲート判定 | `[impl-mgr] feature-x: Phase 1 調査タスク作成・ワーカーディスパッチ` |
+| `impl-worker` | 施策名 | ワーカー: コード実装・テスト・チェックポイント記録 | `[impl-worker] feature-x: IMPL-001 実装完了・テストPASS` |
+| `impl-evaluator` | 施策名 | 評価者: フェーズ評価レポート作成 | `[impl-evaluator] feature-x: Phase 2 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
@@ -85,6 +88,23 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 
 - .claude/settings.json に JSON Schema バリデーションを追加
 - .env, secrets/ の deny ルールを設定
+```
+
+### 実装セッションのコミット
+
+```
+[impl-mgr] feature-x: Phase 1 調査タスク作成・investigation-worker ディスパッチ
+
+- 10_investigation_tasks.md を作成
+- investigation-worker をディスパッチ
+```
+
+```
+[impl-worker] feature-x: IMPL-001 実装完了・テストPASS
+
+- src/module.ts を変更
+- テスト3回中1回目でPASS
+- 41_impl_work_log_W1.md にチェックポイント記録
 ```
 
 ### メタ認知セッションのコミット

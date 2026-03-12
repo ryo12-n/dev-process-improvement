@@ -31,17 +31,17 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-worker | L2-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator |
-|---------|:----------:|:---------:|:------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
+| ステージ | L1-manager | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator |
+|---------|:----------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|
+| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
+| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） |
+| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
+| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 |
+| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 |
+| レポート | N/A | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
+| ゲート判定 | 必須 | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
@@ -72,6 +72,7 @@ user-invocable: false
 | 実施者 | 評価者 | オーケストレーター |
 |--------|--------|-----------------|
 | L2-worker | L2-evaluator | L1-manager |
+| investigation-worker / design-worker / impl-plan-worker / impl-worker | impl-evaluator | l1-impl-manager |
 | triage-worker | triage-evaluator | triage-manager |
 | metacognition-worker | metacognition-evaluator | metacognition-manager |
 | sync-worker | sync-evaluator | sync-manager |
@@ -122,6 +123,12 @@ user-invocable: false
 - `.claude/skills/backlog-maintenance-manager/SKILL.md`
 - `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md`
 - `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md`
+- `.claude/skills/l1-impl-manager/SKILL.md`
+- `.claude/skills/l1-impl-manager/agents/investigation-worker.md`
+- `.claude/skills/l1-impl-manager/agents/design-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-evaluator.md`
 - 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
 
 ### 3.2 チェック項目
@@ -202,6 +209,12 @@ user-invocable: false
 | `.claude/skills/backlog-maintenance-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がバックログメンテナンスマネージャー定義に影響する場合 |
 | `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md` | ライフサイクル適用マトリクスの変更がバックログメンテナンスワーカー定義に影響する場合 |
 | `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md` | ペアリング対称性要件の変更がバックログメンテナンス評価者定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/SKILL.md` | ライフサイクル適用マトリクスの変更が実装マネージャー定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/investigation-worker.md` | ライフサイクル適用マトリクスの変更が調査ワーカー定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/design-worker.md` | ライフサイクル適用マトリクスの変更が設計ワーカー定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | ライフサイクル適用マトリクスの変更が実装計画ワーカー定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/impl-worker.md` | ライフサイクル適用マトリクスの変更が実装ワーカー定義に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/impl-evaluator.md` | ペアリング対称性要件の変更が実装評価者定義に影響する場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | ペアリング要件・ライフサイクル定義が新セッション作成ポリシーに影響する場合 |
 | `docs/workflow.md` | 標準ポリシーの変更がワークフロー記述に影響する場合（人間向け可視化） |
 
