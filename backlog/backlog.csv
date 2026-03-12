@@ -35,3 +35,4 @@ PreToolUse-hookコミットメッセージバリデーション,中,候補,dev-p
 PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improvement,2026-03-10,PostToolUse hook でルール変更時の連動更新リマインダー自動通知,PostToolUse-hookルール変更連動チェック.md,
 automation-managerセッション作成,中,候補,dev-process-improvement,2026-03-10,自動化候補の探索・評価・追跡を定期セッションとして制度化,automation-managerセッション作成.md,
 Claude Code標準plugin・skills情報整理,高,候補,dev-process-improvement,2026-03-12,Claude Code標準提供pluginの調査・評価と.claude/配下の設定整理,Claude Code標準plugin・skills情報整理.md,
+外部リポジトリアーキテクチャオーバービュー管理,中,候補,dev-process-improvement,2026-03-12,外部リポジトリの構成オーバービューをrefs/に整備・同期時更新を制度化,外部リポジトリアーキテクチャオーバービュー管理.md,
