@@ -115,6 +115,10 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | エスカレーションの処理 | ESCALATE されたタスクが適切に処理されているか |
 | コミット履歴 | 施策ブランチに適切にコミット・プッシュされているか |
 | チェックポイント記録 | 全ワーカーの START/COMPLETE/ESCALATE が記録されているか |
+| per-worker ブランチのマージ | 全 per-worker ブランチ（`impl/<施策名>-W<N>`）のマージが正常に完了しているか |
+| マージ後テスト | マージ後のテストが PASS しているか |
+| Assigned files 範囲外変更 | 各ワーカーの変更ファイルが `36_file_task_division.md` の Assigned files 範囲内か |
+| 課題統合 | 全 `07_issues_W<N>.md` の内容が `07_issues.md` に統合されているか |
 
 ---
 

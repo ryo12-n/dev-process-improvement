@@ -17,12 +17,12 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 2. `02_impl_design.md` を読み、設計ドキュメントを把握する
 3. **作業開始前の壁打ちフェーズを実施する**（下記参照。記録先: `41_impl_work_log_W<N>.md`）
 4. マネージャーの確認が取れたら、**START チェックポイント** を記録する
-5. 外部リポジトリの施策ブランチでコード実装を行う
+5. マネージャーから指定された worktree パスでコード実装を行う
 6. テストを実行し、**TEST-RUN チェックポイント** を記録する
 7. テスト失敗時はリトライ（max 3回）
 8. 実装完了後、**COMPLETE チェックポイント** を記録する。またはエスカレーション条件に該当する場合は **ESCALATE チェックポイント** を記録する
 9. 外部リポジトリにコミット・プッシュする
-10. 発見した課題は `07_issues.md` に起票する
+10. 発見した課題は `07_issues_W<N>.md` に起票する
 
 ---
 
@@ -41,8 +41,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ### 前提条件チェック
 - [ ] 設計ドキュメント（02_impl_design.md）の確認: （確認済み / 要確認）
-- [ ] 外部リポジトリのアクセス確認: （確認済み / 要確認）
-- [ ] 施策ブランチへのチェックアウト: （確認済み / 要確認）
+- [ ] worktree パスのアクセス確認: （確認済み / 要確認）
+- [ ] per-worker ブランチへのチェックアウト: （確認済み / 要確認）
 - [ ] テスト環境の動作確認: （確認済み / 要確認）
 
 ### 不明点・確認事項
@@ -65,7 +65,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 ### [YYYY-MM-DD HH:MM] CHECKPOINT: START
 - **Task**: IMPL-XXX
 - **Assigned files**: [list]
-- **Branch**: initiative/<施策名>
+- **Branch**: impl/<施策名>-W<N>
 ```
 
 ### TEST-RUN-N (PASS/FAIL)
@@ -84,7 +84,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 - **Commits**: [commit hash list]
 - **Files changed**: [list]
 - **Test result**: PASS (attempt N of 3)
-- **Push status**: pushed to origin/initiative/<施策名>
+- **Push status**: pushed to origin/impl/<施策名>-W<N>
 ```
 
 ### ESCALATE
@@ -94,6 +94,25 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 - **Reason**: [escalation reason]
 - **Attempted fixes**: [list of attempts]
 - **Recommendation**: [proposed resolution]
+```
+
+---
+
+## ワーカー完了チェックリスト
+
+作業完了時に以下を `41_impl_work_log_W<N>.md` の末尾に記録する。
+記録漏れがあってもマネージャーの事後検証で検知される（フェールセーフ）。
+
+```
+### [YYYY-MM-DD HH:MM] COMPLETION CHECKLIST
+- [ ] COMPLETE or ESCALATE チェックポイントを記録済み
+- [ ] テスト結果を TEST-RUN チェックポイントに記録済み
+- [ ] per-worker ブランチにコミット・プッシュ済み
+  - ブランチ: impl/<施策名>-W<N>
+  - git diff --name-only の出力を記録
+- [ ] 課題があれば 07_issues_W<N>.md に起票済み
+  （課題なし → 「課題なし」と記載）
+- [ ] 変更ファイルが Assigned files の範囲内であることを確認
 ```
 
 ---
@@ -125,16 +144,16 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ### 作業前チェック
 
-1. 外部リポジトリのローカルパスが存在するか確認する（`test -d <path>`）
-2. 施策ブランチにチェックアウトする（`git -C <path> checkout initiative/<施策名>`）
-3. 最新の状態に更新する（`git -C <path> pull`）
+1. worktree パスが存在するか確認する（`test -d <worktree-path>`）
+2. per-worker ブランチにいることを確認する（`git -C <worktree-path> branch --show-current`）
+3. 最新の状態に更新する（`git -C <worktree-path> pull`）
 
 ### コミット・プッシュ手順
 
 1. コミットメッセージは `.claude/rules/commit-message.md` の規約を適用する
    - session-type: `impl-worker`
    - category: 施策名
-2. コミット後、必ずプッシュする（`git -C <path> push -u origin initiative/<施策名>`）
+2. コミット後、必ずプッシュする（`git -C <worktree-path> push -u origin impl/<施策名>-W<N>`）
 3. コミット・プッシュの結果を `41_impl_work_log_W<N>.md` に記録する
 
 ### 禁止事項
@@ -152,7 +171,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | `02_impl_design.md` | 読み取りのみ（設計の参照） |
 | `36_file_task_division.md` | 読み取りのみ（タスク定義の参照） |
 | `41_impl_work_log_W<N>.md` | 作成・編集（壁打ち＋チェックポイント記録） |
-| `07_issues.md` | 追記（課題起票） |
+| `07_issues_W<N>.md` | 作成・編集（per-worker 課題起票） |
 | 外部リポジトリの割り当てファイル | 作成・編集（コード実装） |
 
 ---
@@ -164,7 +183,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 - チェックポイント（START/TEST-RUN/COMPLETE/ESCALATE）を `41_impl_work_log_W<N>.md` に記録する
 - テストを実行し、失敗時はmax 3回リトライする
 - 外部リポジトリにコミット・プッシュする
-- 発見した課題を `07_issues.md` に起票する
+- 発見した課題を `07_issues_W<N>.md` に起票する
+- 作業完了時にワーカー完了チェックリストを記録する
 
 ## やらないこと
 
@@ -179,7 +199,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ## 停止ルール
 
-コンテキストの浪費を防ぐため、以下の状況では**作業を止めて ESCALATE チェックポイントを記録し、07_issues.md に起票する**こと。
+コンテキストの浪費を防ぐため、以下の状況では**作業を止めて ESCALATE チェックポイントを記録し、07_issues_W<N>.md に起票する**こと。
 
 - 設計矛盾が発見された
 - スコープ外ファイル変更が必要になった
@@ -199,5 +219,6 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | `.claude/skills/l1-impl-manager/SKILL.md` | ワーカーの作業フロー・並列ディスパッチ・B+C集約に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-evaluator.md` | ペアリングの対称性要件に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | チェックポイントフォーマットの変更が36_file_task_division.mdの設計に影響する場合 |
+| `sessions/impl/_template/07_issues_W_template.md` | per-worker 課題ファイルのフォーマットに影響する変更の場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | 実装セッションフロー（Implementation 部分）の記述（人間向け可視化） |
