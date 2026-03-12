@@ -36,3 +36,4 @@ PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improve
 automation-managerセッション作成,中,候補,dev-process-improvement,2026-03-10,自動化候補の探索・評価・追跡を定期セッションとして制度化,automation-managerセッション作成.md,
 Claude Code標準plugin・skills情報整理,高,候補,dev-process-improvement,2026-03-12,Claude Code標準提供pluginの調査・評価と.claude/配下の設定整理,Claude Code標準plugin・skills情報整理.md,
 外部リポジトリアーキテクチャオーバービュー管理,中,候補,dev-process-improvement,2026-03-12,外部リポジトリの構成オーバービューをrefs/に整備・同期時更新を制度化,外部リポジトリアーキテクチャオーバービュー管理.md,
+同期対象リスト管理と差分ベース反映計画,中,候補,dev-process-improvement,2026-03-12,同期対象のリスト管理とコミットハッシュベースの差分確認で反映計画を精密化,同期対象リスト管理と差分ベース反映計画.md,
