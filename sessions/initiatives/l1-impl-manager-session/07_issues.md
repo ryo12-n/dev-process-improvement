@@ -14,3 +14,11 @@
 ## 未転記メモ
 
 （未転記課題なし — 全タスク完了時に課題は発生しなかった。転記不要。）
+
+---
+
+## 評価者起票
+
+### EVL-001: manager-common-policy §1 適用対象テーブルに l1-impl-manager が未追加 [転記済 ISS-056]
+
+### EVL-002: triage-standard-policy §3.2 のカテゴリラベル「E」が重複 [転記済 ISS-057]
