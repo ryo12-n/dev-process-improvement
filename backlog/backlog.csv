@@ -31,7 +31,7 @@ SessionStart-hookブランチ整理自動化,高,候補,dev-process-improvement,
 PreToolUse-hookコミットメッセージバリデーション,中,候補,dev-process-improvement,2026-03-10,PreToolUse hook でコミットメッセージ規約の自動バリデーション,PreToolUse-hookコミットメッセージバリデーション.md,
 PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improvement,2026-03-10,PostToolUse hook でルール変更時の連動更新リマインダー自動通知,PostToolUse-hookルール変更連動チェック.md,
 automation-managerセッション作成,中,候補,dev-process-improvement,2026-03-10,自動化候補の探索・評価・追跡を定期セッションとして制度化,automation-managerセッション作成.md,
-Claude Code標準plugin・skills情報整理,高,進行中,dev-process-improvement,2026-03-12,Claude Code標準提供pluginの調査・評価と.claude/配下の設定整理,Claude Code標準plugin・skills情報整理.md,claude-code-plugin-skills-survey
+Claude Code標準plugin・skills情報整理,高,完了,dev-process-improvement,2026-03-12,Claude Code標準提供pluginの調査・評価と.claude/配下の設定整理,Claude Code標準plugin・skills情報整理.md,claude-code-plugin-skills-survey
 施策間の競合防止方針策定,中,候補,dev-process-improvement,2026-03-12,施策間の競合・干渉を防止する方針策定,施策間の競合防止方針策定.md,
 permission-prompt-optimization,中,候補,dev-process-improvement,2026-03-09,パーミッションプロンプトの最適化検討,permission-prompt-optimization.md,
 role-format-guideのagents対応更新,低,候補,dev-process-improvement,2026-03-09,role-format-guide のエージェント対応更新,role-format-guideのagents対応更新.md,
