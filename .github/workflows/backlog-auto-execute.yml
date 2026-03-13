@@ -43,7 +43,7 @@ jobs:
 
             1. `sessions/initiatives/_template/` を `sessions/initiatives/${{ steps.info.outputs.name }}/` にコピー
             2. `backlog/entries/` から該当するバックログエントリを読み、内容を基に:
-               - `00_proposal.md` を作成（背景・目標・スコープ）
+               - `00_proposal.md` を作成（背景・目標・スコープ）。末尾メタ情報の「backlog元ファイル」にバックログエントリのファイル名を記入すること（TG-002 突合用）
                - `01_plan.md` を作成（実施計画）
                - `02_tasks.md` を作成（タスクリスト）
             3. L2-worker として `02_tasks.md` のタスクを実行し、`03_work_log.md` と `04_work_report.md` を作成
@@ -62,9 +62,10 @@ jobs:
       - name: Close issue
         env:
           GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          gh issue close ${{ github.event.issue.number }} \
+          gh issue close "${ISSUE_NUMBER}" \
             --comment "施策の自動実行が完了しました。PR をご確認ください。"
-          gh issue edit ${{ github.event.issue.number }} \
+          gh issue edit "${ISSUE_NUMBER}" \
             --remove-label "auto-initiative-pending" \
             --add-label "auto-initiative-done"
