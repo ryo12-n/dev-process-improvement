@@ -37,6 +37,17 @@
 ### Wave 2 (Wave 1 完了後)
 - IMPL-002 (depends on IMPL-001), ...
 
+## Worktree Configuration
+
+### Per-Worker Mapping
+
+| Worker | Work Log | Issues | External Branch | Worktree Path |
+|--------|----------|--------|-----------------|---------------|
+| W1 | 41_impl_work_log_W1.md | 07_issues_W1.md | impl/<施策名>-W1 | <ext-repo>/.worktrees/impl-W1 |
+| W2 | 41_impl_work_log_W2.md | 07_issues_W2.md | impl/<施策名>-W2 | <ext-repo>/.worktrees/impl-W2 |
+
+<!-- ワーカー数に応じて行を追加 -->
+
 ## Summary
 
 - Total tasks: N

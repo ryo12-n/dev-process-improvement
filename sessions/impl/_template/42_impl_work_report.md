@@ -22,6 +22,16 @@
 
 [summary of escalated items and their resolution]
 
+## Merge Results
+
+| Worker Branch | Merge Status | Conflicts |
+|--------------|-------------|-----------|
+| impl/<施策名>-W1 | merged / conflict-resolved | none / [files] |
+
+## Consolidated Issues
+
+<!-- 07_issues_W*.md から統合した課題一覧 -->
+
 ## Git Log Summary
 
 ```

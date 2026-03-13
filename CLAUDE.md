@@ -103,7 +103,7 @@
 | `docs/subagent-permission-guide.md` | 運用ガイド | サブエージェント権限の運用手順 |
 | `docs/implementation.md` | 運用ガイド | 実装ガイド |
 | `docs/coordination-protocol-guideline.md` | 参考資料（ドラフト） | 協調プロトコルのガイドライン。一部統合済み |
-| `docs/git-worktree-guideline.md` | 参考資料（ドラフト） | git worktree のガイドライン。未着手 |
+| `docs/git-worktree-guideline.md` | 参考資料（ドラフト） | git worktree のガイドライン。一部統合済み |
 
 #### 管理ルール
 
