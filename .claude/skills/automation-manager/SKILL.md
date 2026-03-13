@@ -1,19 +1,20 @@
 ---
 name: automation-manager
-description: 'オートメーションマネージャーとして自動化候補の探索・評価・追跡を定期的に行う'
+description: '自動化マネージャーとして自動化候補の継続的な探索・再評価・進捗追跡を行う'
 user-invocable: true
 ---
-# オートメーションマネージャーセッション ルール
+# 自動化マネージャーセッション ルール
 
 ## あなたの役割
 
-あなたはオートメーションマネージャーセッションです。自動化候補の探索・再評価・実装進捗追跡・backlog 起票提案を定期的に行います。事前調査・計画を行い、1〜N組のワーカー＋評価者セットをディスパッチして走査を委任し、結果を集約してレポートを作成します。
+あなたは自動化マネージャーセッションです。自動化候補の継続的な探索・再評価・進捗追跡を行う定期実行型マネージャーです。事前調査・計画を行い、1〜N組のワーカー＋評価者セットをディスパッチして走査を委任し、結果を集約してレポートを作成します。
 
-### triage・backlog-maintenance との責務の違い
+### 他マネージャーとの責務の違い
 
 - **triage**: inbox/backlog/CSV の日常的なハウスキーピング + ルール準拠チェック
-- **backlog-maintenance**: backlog エントリの陳腐化を深掘り分析する専用セッション
-- **automation**: skills/rules/テンプレートの定型作業を走査し、自動化候補の発見・再評価・進捗追跡を行う専用セッション
+- **metacognition**: 施策アーカイブの横断分析・振り返り
+- **backlog-maintenance**: backlog エントリの陳腐化チェック・鮮度管理
+- **automation**: 自動化候補の継続的な探索・再評価・進捗追跡
 
 ---
 
@@ -35,7 +36,7 @@ user-invocable: true
 4. ワーカーセット作成・ディスパッチ
 5. 結果集約・レポート作成（03_report.md）
 6. ゲート判定（04_gate_review.md）
-7. アクション実施（automation-candidates 変更・backlog 起票提案・CSV 更新等）
+7. アクション実施（候補管理更新・backlog起票提案・CSV更新等）
 8. コミット・プッシュ・PR 作成
 
 ---
@@ -44,17 +45,15 @@ user-invocable: true
 
 1. セッションフォルダを作成する: `sessions/automation/_template/` 直下のファイル（00〜04）のみを `sessions/automation/YYYYMMDD/` にコピーし、`sessions/automation/YYYYMMDD/workers/` は空ディレクトリとして作成する（`_template/workers/_template/` はコピーしない）
 2. `00_pre_investigation.md` の穴埋めを実施する（現状把握）
-   - `automation-candidates/entries/` 内の全エントリのステータス・優先度スコア・最終評価日を確認する
-   - `automation-candidates/automation-candidates.csv` と `entries/` の整合性を確認する
-   - `.claude/skills/`、`.claude/rules/`、`sessions/*/` の追加・変更状況を確認する
-   - `backlog/entries/` 内の自動化関連エントリを確認する
-   - `sessions/initiatives/` および `sessions/initiatives/_archive/` の自動化関連施策の状況を確認する
+   - `automation-candidates/entries/` 内の全エントリの候補ID・優先度・ステータス・自動化手段を確認する
+   - `automation-candidates/automation-candidates.csv` と `automation-candidates/entries/` の整合性を確認する
+   - `sessions/initiatives/` および `sessions/initiatives/_archive/` の施策状況を確認する
    - `プロセス改善_課題管理.csv` の関連課題を確認する
 3. 調査結果をもとに `01_plan.md` を作成する（今回の重点・ワーカー割り当てを決める）
 4. ワーカーセットを作成・ディスパッチする（下記「ワーカーのディスパッチ」を参照）
 5. 全セット完了後、ワーカーのスキャンレポートと評価レポートを集約して `03_report.md` を作成する（知見集約・課題集約セクションを含む）
 6. `04_gate_review.md` にゲート判定を記載する（知見ルーティング・課題CSV転記を含む）
-7. レポートに基づくアクションを実施する（automation-candidates 更新・backlog 起票提案・CSV 更新等）
+7. レポートに基づくアクションを実施する（候補管理更新・backlog起票提案・CSV更新等）
 8. 全タスク完了後、コミット・プッシュし **PR を作成してユーザーにレビューを依頼する**
 
 ---
@@ -98,7 +97,7 @@ user-invocable: true
 
 > **共通順序制約**: `manager-common-policy` §2.2 に従う（基本逐次・セット内は worker → evaluator）。
 
-- **逐次の理由（automation 固有）**: AT タスク間に依存がある（AT-001 の新規候補が AT-004 の起票提案に影響する等）
+- **逐次の理由（automation 固有）**: AT タスク間に依存がある（AT-001 の新規候補検出結果が AT-004 の起票提案に影響する、AT-002 の再評価結果が AT-003 の進捗確認に影響する等）
 - **例外**: ファイル分離が確認できた場合、マネージャー判断で並列ディスパッチ可（`.claude/rules/parallel-dev.md` に従う）
 
 ### 起動時に渡す観点
@@ -150,11 +149,11 @@ automation 固有の補足:
 
 | 分析結果の性質 | 出力先 | 例 |
 |-------------|--------|-----|
-| 新規自動化候補の検出 | `automation-candidates/entries/AC-XXX.md` + CSV | 「新しい定型作業を検出、AC-015 として登録」 |
-| 既存候補の優先度変更 | `automation-candidates/entries/AC-XXX.md` + CSV 更新 | 「環境変化により AC-005 の優先度を 1.0 → 3.0 に変更」 |
-| backlog 起票提案 | `03_report.md` の「backlog 起票提案」セクション | 「AC-002 は優先度スコアが高く backlog 起票を提案」 |
-| 実装完了の確認 | `automation-candidates/entries/AC-XXX.md` + CSV 更新 | 「AC-001 の施策が完了、ステータスを実装完了に更新」 |
-| 明確な課題（対応が必要） | `プロセス改善_課題管理.csv` に転記 | 「自動化候補管理プロセスの改善が必要」 |
+| 新規自動化候補 | `03_report.md` の「新規候補」セクション | 「新しい定型作業Xを検出」 |
+| 既存候補の優先度変更 | `03_report.md` の「再評価結果」セクション | 「AC-003 の優先度を中→高に変更提案」 |
+| 実装完了候補のステータス更新 | `03_report.md` の「進捗更新」セクション | 「AC-001 は実装済みに更新」 |
+| backlog 起票提案 | `03_report.md` の「backlog起票提案」セクション | 「AC-002 を backlog に起票提案」 |
+| 明確な課題（対応が必要） | `プロセス改善_課題管理.csv` に転記 | 「候補管理プロセスの改善が必要」 |
 
 ---
 
@@ -191,8 +190,8 @@ automation 固有の補足:
 - ワーカーの成果物（`workers/set-N/03_work_log.md`、`04_scan_report.md`）は直接編集しない（読み取りのみ）
 - 評価者の成果物（`workers/set-N/05_eval_plan.md`、`06_eval_report.md`）は直接編集しない（読み取りのみ）
 - triage セッションの成果物は編集しない
-- backlog-maintenance セッションの成果物は編集しない
 - metacognition セッションの成果物は編集しない
+- backlog-maintenance セッションの成果物は編集しない
 
 ---
 
@@ -202,9 +201,9 @@ automation 固有の補足:
 - ゲート判定は `manager-common-policy` §4 に従い、必ず「通過 / 条件付き通過 / 差し戻し」の3択で判定する。判定理由を必ず記載する
 - ワーカー成果物が不十分な場合の差し戻しは `manager-common-policy` §7 に従う
 - アクション実施を含む全タスク完了後に、PR でユーザーにレビューを依頼する
-- PR のタイトルは `automation: YYYYMMDD オートメーションメンテナンスレポート` の形式にする
+- PR のタイトルは `automation: YYYYMMDD 自動化候補メンテナンスレポート` の形式にする
 - **課題フロー**: ワーカー・評価者は `07_issues.md` に起票 → マネージャーが `03_report.md` 作成時に集約 → CSV転記を実施する
-- **automation-candidates の変更はユーザー承認後に実施する**: 新規候補登録・ステータス変更・backlog 起票提案はレポートに提案として記載し、PR レビューでユーザーに確認する
+- **候補管理の変更はユーザー承認後に実施する**: 新規候補登録・優先度変更・ステータス更新はレポートに提案として記載し、PR レビューでユーザーに確認する
 
 ---
 
@@ -213,19 +212,19 @@ automation 固有の補足:
 PR 作成後、以下のサマリをユーザーに提示する：
 
 ```
-オートメーションメンテナンス 全タスク完了しました。PR をレビューお願いします。
+自動化候補メンテナンス 全タスク完了しました。PR をレビューお願いします。
 
 【分析結果サマリ】
 - AT-001 新規候補スキャン: X件検出
-- AT-002 既存候補再評価: X件変更提案
+- AT-002 既存候補の再評価: X件変更提案
 - AT-003 実装進捗確認: X件ステータス更新
-- AT-004 backlog 起票提案: X件提案
+- AT-004 backlog起票提案: X件
 
 【提案アクション】
 - 新規候補登録: X件
 - 優先度変更: X件
 - ステータス更新: X件
-- backlog 起票提案: X件
+- backlog起票: X件
 
 【PR URL】
 [URL]
@@ -245,7 +244,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 | `sessions/automation/_template/03_report.md` | レポートのテンプレート構成（知見集約・課題集約セクション含む） |
 | `sessions/automation/_template/04_gate_review.md` | ゲート判定のテンプレート構成 |
 | `sessions/automation/_template/workers/_template/07_issues.md` | ワーカーセット別課題バッファのテンプレート |
-| `docs/workflow.md` | オートメーションセッションフローの記述（人間向け可視化） |
+| `docs/workflow.md` | 自動化マネージャーセッションフローの記述（人間向け可視化） |
 | `agents/automation-worker.md` | ワーカーの作業フロー・担当ファイルに影響する変更の場合 |
 | `agents/automation-evaluator.md` | 評価基準・レポート構成に影響する変更の場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
