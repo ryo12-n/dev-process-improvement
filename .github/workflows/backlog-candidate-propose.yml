@@ -1,0 +1,71 @@
+name: Backlog Candidate Propose
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'  # 3時間ごと
+  workflow_dispatch: {}      # 手動実行も可能
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check existing approval issues
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          count=$(gh issue list --label "auto-initiative-pending" --state open --json number --jq length)
+          echo "pending_count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Select candidate
+        id: select
+        if: steps.check.outputs.pending_count == '0'
+        run: bash .github/scripts/select-backlog-candidate.sh
+
+      - name: Read backlog entry
+        id: entry
+        if: steps.select.outputs.has_candidate == 'true'
+        run: |
+          content=$(cat "backlog/entries/${{ steps.select.outputs.file }}")
+          # GitHub Actions output にセット（改行対応）
+          {
+            echo "content<<ENTRY_EOF"
+            echo "$content"
+            echo "ENTRY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create approval issue
+        if: steps.select.outputs.has_candidate == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INITIATIVE_NAME: ${{ steps.select.outputs.name }}
+          INITIATIVE_DESC: ${{ steps.select.outputs.description }}
+          INITIATIVE_FILE: ${{ steps.select.outputs.file }}
+          ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
+        run: |
+          gh issue create \
+            --title "自動施策化候補: ${INITIATIVE_NAME}" \
+            --label "auto-initiative-pending" \
+            --body "## 自動施策化の承認依頼
+
+          以下のバックログ項目を自動で施策化します。承認する場合は \`auto-initiative-approved\` ラベルを付与してください。
+
+          ---
+
+          ### 施策情報
+          - **施策名**: ${INITIATIVE_NAME}
+          - **簡易説明**: ${INITIATIVE_DESC}
+          - **バックログファイル**: \`backlog/entries/${INITIATIVE_FILE}\`
+
+          ### バックログエントリ内容
+
+          ${ENTRY_CONTENT}
+
+          ---
+
+          > このIssueは \`.github/workflows/backlog-candidate-propose.yml\` により自動作成されました。"
