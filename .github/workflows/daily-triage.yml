@@ -1,0 +1,118 @@
+name: Daily Triage
+
+on:
+  schedule:
+    # 毎日 UTC 0:00 に実行
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # 手動実行も可能（テスト用）
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check inbox for unprocessed entries
+        id: check-inbox
+        run: |
+          INBOX_COUNT=$(find inbox/ -name '*.md' -not -name 'README.md' 2>/dev/null | wc -l)
+          echo "inbox_count=$INBOX_COUNT" >> "$GITHUB_OUTPUT"
+          if [ "$INBOX_COUNT" -eq 0 ]; then
+            echo "::notice::inbox is empty (0 entries). Skipping triage."
+          else
+            echo "::notice::inbox has $INBOX_COUNT entries. Proceeding with triage."
+          fi
+
+      - name: Early exit if inbox is empty
+        if: steps.check-inbox.outputs.inbox_count == '0'
+        run: echo "No inbox entries to process. Exiting."
+
+      - name: Setup Node.js
+        if: steps.check-inbox.outputs.inbox_count != '0'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        if: steps.check-inbox.outputs.inbox_count != '0'
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Create triage branch
+        if: steps.check-inbox.outputs.inbox_count != '0'
+        run: |
+          BRANCH_NAME="triage/$(date -u +%Y%m%d)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_ENV"
+          echo "TRIAGE_DATE=$(date -u +%Y%m%d)" >> "$GITHUB_ENV"
+          git checkout -b "$BRANCH_NAME"
+
+      - name: Run triage with Claude Code
+        if: steps.check-inbox.outputs.inbox_count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude --print \
+            --system-prompt-file .github/prompts/triage.md \
+            --dangerously-skip-permissions \
+            --max-turns 50 \
+            "今日は $(date -u +%Y-%m-%d) です。トリアージセッションを開始してください。inbox には ${{ steps.check-inbox.outputs.inbox_count }} 件のエントリがあります。"
+
+      - name: Check for changes
+        if: steps.check-inbox.outputs.inbox_count != '0'
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::No changes produced by triage session."
+          fi
+
+      - name: Commit and push changes
+        if: steps.check-inbox.outputs.inbox_count != '0' && steps.check-changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "[triage-mgr] ${{ env.TRIAGE_DATE }}: 自動トリアージ実行
+
+          GitHub Actions schedule による自動実行。
+          inbox エントリ数: ${{ steps.check-inbox.outputs.inbox_count }}"
+          git push -u origin "${{ env.BRANCH_NAME }}"
+
+      - name: Create Pull Request
+        if: steps.check-inbox.outputs.inbox_count != '0' && steps.check-changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BODY="## 概要
+
+          GitHub Actions の定期実行による自動トリアージです。
+
+          - **実行日**: ${{ env.TRIAGE_DATE }}
+          - **inbox エントリ数**: ${{ steps.check-inbox.outputs.inbox_count }}
+          - **トリガー**: ${{ github.event_name }}
+
+          ## レビュー観点
+
+          - トリアージ判断の妥当性を確認してください
+          - backlog への追加・変更内容を確認してください
+          - inbox の処理済みアイテム削除が適切か確認してください
+
+          ---
+          *このPRはGitHub Actionsによって自動作成されました。*"
+
+          gh pr create \
+            --base main \
+            --head "${{ env.BRANCH_NAME }}" \
+            --title "triage: ${{ env.TRIAGE_DATE }} トリアージレポート" \
+            --body "$PR_BODY"

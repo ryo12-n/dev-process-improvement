@@ -8,10 +8,10 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | GHA ワークフローファイル `.github/workflows/daily-triage.yml` を作成する。トリガー: `schedule`（cron 毎日 UTC 0:00）+ `workflow_dispatch`（手動）。ステップ: (1) checkout、(2) inbox ファイル数チェック（0件なら早期終了）、(3) Claude Code CLI インストール、(4) `claude -p` でトリアージプロンプトを実行、(5) 変更があれば `triage/YYYYMMDD` ブランチにコミット・プッシュ・PR 作成。secrets は `ANTHROPIC_API_KEY` を使用。`--dangerously-skip-permissions` を使用して非対話実行する | (1) YAML が構文的に正しい (2) schedule + workflow_dispatch 両トリガーが設定されている (3) 空振り対策ステップがある (4) `ANTHROPIC_API_KEY` が secrets 経由 (5) PR 作成ステップがある | 🔴 | ⬜ |
-| T-002 | トリアージ用プロンプトファイル `.github/prompts/triage.md` を作成する。`/triage-manager` の SKILL.md（`.claude/skills/triage-manager/SKILL.md`）の作業フローを非対話モード向けに調整したプロンプトを設計する。ブランチ整理ステップは不要（GHA が毎回クリーンな環境で実行するため）。壁打ちフェーズも不要（自動実行のため）。セッションフォルダ作成 → 事前調査 → 計画 → ワーカーディスパッチ → 集約 → ゲート判定 → アクション実施 → コミットの全フローを含めること | (1) プロンプトが triage-manager の作業フロー全体をカバーしている (2) 非対話モードに不要なステップ（ブランチ整理・壁打ち）が除外されている (3) `--system-prompt-file` または `-p` の引数として使用可能な形式になっている | 🔴 | ⬜ |
-| T-003 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-004 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | GHA ワークフローファイル `.github/workflows/daily-triage.yml` を作成する。トリガー: `schedule`（cron 毎日 UTC 0:00）+ `workflow_dispatch`（手動）。ステップ: (1) checkout、(2) inbox ファイル数チェック（0件なら早期終了）、(3) Claude Code CLI インストール、(4) `claude -p` でトリアージプロンプトを実行、(5) 変更があれば `triage/YYYYMMDD` ブランチにコミット・プッシュ・PR 作成。secrets は `ANTHROPIC_API_KEY` を使用。`--dangerously-skip-permissions` を使用して非対話実行する | (1) YAML が構文的に正しい (2) schedule + workflow_dispatch 両トリガーが設定されている (3) 空振り対策ステップがある (4) `ANTHROPIC_API_KEY` が secrets 経由 (5) PR 作成ステップがある | 🔴 | ✅ |
+| T-002 | トリアージ用プロンプトファイル `.github/prompts/triage.md` を作成する。`/triage-manager` の SKILL.md（`.claude/skills/triage-manager/SKILL.md`）の作業フローを非対話モード向けに調整したプロンプトを設計する。ブランチ整理ステップは不要（GHA が毎回クリーンな環境で実行するため）。壁打ちフェーズも不要（自動実行のため）。セッションフォルダ作成 → 事前調査 → 計画 → ワーカーディスパッチ → 集約 → ゲート判定 → アクション実施 → コミットの全フローを含めること | (1) プロンプトが triage-manager の作業フロー全体をカバーしている (2) 非対話モードに不要なステップ（ブランチ整理・壁打ち）が除外されている (3) `--system-prompt-file` または `-p` の引数として使用可能な形式になっている | 🔴 | ✅ |
+| T-003 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-004 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価ワーカー（l2-evaluator）タスク
 
