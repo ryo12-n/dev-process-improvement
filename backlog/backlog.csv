@@ -18,7 +18,7 @@ l1-manager-checklist-reference,低,候補,dev-process-improvement,2026-03-07,l1-
 別リポジトリ成果物の記法スタイル事前確認,低,候補,dev-process-improvement,2026-03-07,L2-worker 壁打ちに記法スタイル確認チェック追加,別リポジトリ成果物の記法スタイル事前確認.md,
 ai-driven-dev-patterns_source-of-truth明示,中,候補,ai-driven-dev-patterns,2026-03-08,Source of Truth ルール追加による乖離リスク防止,ai-driven-dev-patterns_source-of-truth明示.md,
 ai-driven-dev-patterns-triage-standard-policy作成,中,候補,ai-driven-dev-patterns,2026-03-07,ai-driven-dev-patterns 側の triage-standard-policy ファイル分離,ai-driven-dev-patterns-triage-standard-policy作成.md,
-sync-worker同期先コミット漏れ防止,高,候補,dev-process-improvement,2026-03-08,sync-worker の作業フローに同期先コミット・プッシュステップ追加,sync-worker同期先コミット漏れ防止.md,
+sync-worker同期先コミット漏れ防止,高,進行中,dev-process-improvement,2026-03-08,sync-worker の作業フローに同期先コミット・プッシュステップ追加,sync-worker同期先コミット漏れ防止.md,sync-worker-target-commit
 メタ認知セッションのai-driven-dev-patterns展開,低,候補,ai-driven-dev-patterns,2026-03-08,メタ認知セッションの ai-driven-dev-patterns 側への横展開,メタ認知セッションのai-driven-dev-patterns展開.md,
 denyリスト変更提案への副作用分析必須化,低,候補,dev-process-improvement,2026-03-08,deny 変更時の副作用分析手順のルール化,denyリスト変更提案への副作用分析必須化.md,
 社内施策_devkitスペシャリストロール作成,低,候補,横断,2026-03-08,devkit コマンド・ガイドの Claude skill/rule 化,社内施策_devkitのコマンドやガイドの使用クロードのskillやRuleとして用意しておく.md,
