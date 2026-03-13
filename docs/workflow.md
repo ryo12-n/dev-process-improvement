@@ -416,6 +416,67 @@ Phase 2: backlog-auto-execute.yml (on: issues - labeled)
 
 ---
 
+## オートメーションメンテナンスセッション フロー
+
+```
+0. ブランチ整理  → .claude/rules/session-start-branch-cleanup.md のフローを実行
+                   → 現在ブランチ確認 → 未プッシュあれば push → PR未作成なら作成
+                   → main に切り替え・最新化してから作業フローへ
+1. 事前調査      → sessions/automation/YYYYMMDD/00_pre_investigation.md を埋める
+                   【必須走査項目】
+                   ・automation-candidates/entries/ 内の全エントリのステータス・優先度スコア・最終評価日確認
+                   ・automation-candidates/automation-candidates.csv とファイル実体の整合性確認
+                   ・.claude/skills/、.claude/rules/ の追加・変更状況確認
+                   ・backlog/entries/ 内の自動化関連エントリ確認
+                   ・sessions/initiatives/ および _archive/ の自動化関連施策状況確認
+                   ・プロセス改善_課題管理.csv の関連課題確認
+2. 実施計画作成  → sessions/automation/YYYYMMDD/01_plan.md を作成
+                   （今回の重点・AT タスク選定・ワーカー割り当てを決める）
+                   ・automation-candidates エントリ数をもとにセット数を決定
+                     ≤15件→1セット / 16〜30件→2セット / >30件→3セット
+3. ワーカーセット作成・ディスパッチ
+                   3a. automation-worker をサブエージェントとして起動
+                       → AT タスクを実行（下記 AT タスク一覧参照）
+                       → 04_scan_report.md に構造化された走査結果を作成
+                   3b. ワーカー完了後、automation-evaluator をサブエージェントとして起動
+                       → ワーカーの走査結果を評価（完全性・判断品質・エビデンス品質）
+                       → 06_eval_report.md を作成
+                   ※ セット内は worker → evaluator の逐次起動（並列起動禁止）
+4. 作業履歴      → sessions/automation/YYYYMMDD/02_dispatch_log.md に記録
+5. 結果集約      → 全セット完了後、各 set の scan_report + eval_report を集約
+6. レポート作成  → sessions/automation/YYYYMMDD/03_report.md を作成（知見集約・課題集約セクションを含む）
+7. ゲート判定    → sessions/automation/YYYYMMDD/04_gate_review.md を作成（知見ルーティング・横展開事項を含む）
+8. アクション実施 → レポートに基づくアクションを実施
+                   ・新規候補登録 → automation-candidates/entries/ に追加
+                   ・ステータス変更 → automation-candidates CSV + entries を更新
+                   ・優先度変更 → automation-candidates CSV + entries を更新
+                   ・backlog 起票提案 → ユーザー承認後に backlog/entries/ に作成
+9. PR 作成      → 全タスク完了後にコミット・プッシュし、PR を作成
+10. ユーザーレビュー → PR でまとめてレビュー・承認
+```
+
+### AT タスク一覧
+
+| ID | 名称 | スキャン対象 | 目的 |
+|----|------|------------|------|
+| AT-001 | 新規自動化候補スキャン | `.claude/skills/`, `.claude/rules/`, `sessions/*/`, `docs/` | skills/rules/テンプレートの追加・変更に伴い新たに生まれた定型作業を検出 |
+| AT-002 | 既存候補の再評価 | `automation-candidates/entries/*.md`, CSV | 優先度スコア・実装難易度・自動化手段の妥当性を環境変化に基づき再評価 |
+| AT-003 | 実装進捗確認 | `backlog/entries/*.md`, `sessions/initiatives/`, `_archive/` | backlog 起票済み候補の施策化・実装状況を追跡 |
+| AT-004 | backlog 起票提案 | AT-001〜AT-003 の結果 | 新規候補や優先度変更候補を backlog エントリとして起票提案 |
+
+### triage・backlog-maintenance との責務の違い
+
+- **triage**: inbox/backlog/CSV の日常的なハウスキーピング + ルール準拠チェック
+- **backlog-maintenance**: backlog エントリの陳腐化を深掘り分析する専用セッション
+- **automation**: skills/rules/テンプレートの定型作業を走査し、自動化候補の発見・再評価・進捗追跡を行う専用セッション
+
+> **課題起票の考え方**
+> オートメーションのワーカー・評価者は、発見した課題を `07_issues.md`（ワーカーセット別バッファ）に起票します。
+> CSV への直接起票は行いません。マネージャーがレポート集約時に全セットの `07_issues.md` を確認し、
+> 施策横断で再発しうる課題を `プロセス改善_課題管理.csv` に転記します。
+
+---
+
 ## リポジトリ間同期セッション フロー
 
 ```
@@ -472,7 +533,7 @@ Phase 2: backlog-auto-execute.yml (on: issues - labeled)
 
 > **正の情報源**: `.claude/skills/manager-common-policy/SKILL.md`
 
-5つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager）に共通する運用パターンを一元的に定義するポリシー。各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
+6つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager）に共通する運用パターンを一元的に定義するポリシー。各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
 
 ### ポリシー3層構造の位置づけ
 
@@ -488,7 +549,7 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 
 | セクション | 内容 | 概要 |
 |-----------|------|------|
-| §1 | 適用対象 | l1, triage, metacognition, sync, backlog-maintenance の5マネージャー |
+| §1 | 適用対象 | l1, triage, metacognition, sync, backlog-maintenance, automation の6マネージャー |
 | §2 | ワーカーディスパッチパターン | 共通4項目（役割・場所・スコープ・完了定義）+ 順序制約（基本逐次） |
 | §3 | 成果物確認観点 | 共通最小3項目（タスク分類・レポート記載・課題バッファ） |
 | §4 | ゲート判定基準 | 通過 / 条件付き通過 / 差し戻しの3択 |
@@ -618,6 +679,9 @@ Claude Code に同梱されるビルトイン（バンドル）skills の、dev-
 | バックログメンテナンス（マネージャー） | `bm-mgr` | `YYYYMMDD` | `[bm-mgr] 20260310: 事前調査・ワーカー割り当て` |
 | バックログメンテナンス（ワーカー） | `bm-worker` | `YYYYMMDD` | `[bm-worker] 20260310: set-1 BM-001〜BM-003 走査完了` |
 | バックログメンテナンス（評価者） | `bm-eval` | `YYYYMMDD` | `[bm-eval] 20260310: set-1 評価レポート作成` |
+| オートメーション（マネージャー） | `auto-mgr` | `YYYYMMDD` | `[auto-mgr] 20260313: 事前調査・ワーカー割り当て` |
+| オートメーション（ワーカー） | `auto-worker` | `YYYYMMDD` | `[auto-worker] 20260313: set-1 AT-001〜AT-004 走査完了` |
+| オートメーション（評価者） | `auto-eval` | `YYYYMMDD` | `[auto-eval] 20260313: set-1 評価レポート作成` |
 | 実装セッション（マネージャー） | `impl-mgr` | 施策名 | `[impl-mgr] feature-x: Phase 1 調査タスク作成` |
 | 実装セッション（ワーカー） | `impl-worker` | 施策名 | `[impl-worker] feature-x: IMPL-001 実装完了` |
 | 実装セッション（評価者） | `impl-evaluator` | 施策名 | `[impl-evaluator] feature-x: Phase 2 評価レポート作成` |

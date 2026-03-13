@@ -54,6 +54,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `bm-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[bm-mgr] 20260310: 事前調査・ワーカー割り当て` |
 | `bm-worker` | `YYYYMMDD` | ワーカー: BM タスク走査・スキャンレポート | `[bm-worker] 20260310: set-1 BM-001〜BM-003 走査完了` |
 | `bm-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[bm-eval] 20260310: set-1 評価レポート作成` |
+| `auto-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・集約レポート | `[auto-mgr] 20260313: 事前調査・ワーカー割り当て` |
+| `auto-worker` | `YYYYMMDD` | ワーカー: AT タスク走査・スキャンレポート | `[auto-worker] 20260313: set-1 AT-001〜AT-004 走査完了` |
+| `auto-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[auto-eval] 20260313: set-1 評価レポート作成` |
 | `impl-mgr` | 施策名 | マネージャー: 4フェーズオーケストレーション・ゲート判定 | `[impl-mgr] feature-x: Phase 1 調査タスク作成・ワーカーディスパッチ` |
 | `impl-worker` | 施策名 | ワーカー: コード実装・テスト・チェックポイント記録 | `[impl-worker] feature-x: IMPL-001 実装完了・テストPASS` |
 | `impl-evaluator` | 施策名 | 評価者: フェーズ評価レポート作成 | `[impl-evaluator] feature-x: Phase 2 評価レポート作成` |
