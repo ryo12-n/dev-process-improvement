@@ -8,12 +8,12 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `.github/scripts/select-backlog-candidate.sh` の作成。backlog.csv を読み込み、優先度=低・ステータス=候補・対象リポジトリ=dev-process-improvement でフィルタし、起票日が最も古い1件を選択。結果を `$GITHUB_OUTPUT` に `name`, `file`, `description`, `has_candidate` として出力する | スクリプトが存在し、現在の backlog.csv に対して正しい候補が選択されること。UTF-8 日本語ファイル名に対応していること | 🔴 | ⬜ |
-| T-002 | `.github/workflows/backlog-candidate-propose.yml` の作成。cron（3時間ごと）+ workflow_dispatch トリガー。既存の承認待ち Issue チェック → 候補選択 → バックログエントリ読み込み → Issue 自動作成 | YAML 構文が正しく、`auto-initiative-pending` ラベル付き Issue を作成する構成であること。承認待ち Issue が既にある場合はスキップすること | 🔴 | ⬜ |
-| T-003 | `.github/workflows/backlog-auto-execute.yml` の作成。`issues: [labeled]` トリガー。`auto-initiative-approved` ラベル付与で `anthropics/claude-code-action@v1` を実行。完了後に Issue クローズ | YAML 構文が正しく、`claude-code-action@v1` の `prompt` と `claude_args` が設定されていること。permissions が最小権限であること。API キーが Secrets 参照であること | 🔴 | ⬜ |
-| T-004 | `docs/workflow.md` に自動施策化フローのセクションを追加 | 2フェーズアーキテクチャの説明、トリガー条件、ラベルフローが記載されていること。適用対象環境: SDK / CLI いずれでも可 | 🟡 | ⬜ |
-| T-005 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-006 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | `.github/scripts/select-backlog-candidate.sh` の作成。backlog.csv を読み込み、優先度=低・ステータス=候補・対象リポジトリ=dev-process-improvement でフィルタし、起票日が最も古い1件を選択。結果を `$GITHUB_OUTPUT` に `name`, `file`, `description`, `has_candidate` として出力する | スクリプトが存在し、現在の backlog.csv に対して正しい候補が選択されること。UTF-8 日本語ファイル名に対応していること | 🔴 | ✅ |
+| T-002 | `.github/workflows/backlog-candidate-propose.yml` の作成。cron（3時間ごと）+ workflow_dispatch トリガー。既存の承認待ち Issue チェック → 候補選択 → バックログエントリ読み込み → Issue 自動作成 | YAML 構文が正しく、`auto-initiative-pending` ラベル付き Issue を作成する構成であること。承認待ち Issue が既にある場合はスキップすること | 🔴 | ✅ |
+| T-003 | `.github/workflows/backlog-auto-execute.yml` の作成。`issues: [labeled]` トリガー。`auto-initiative-approved` ラベル付与で `anthropics/claude-code-action@v1` を実行。完了後に Issue クローズ | YAML 構文が正しく、`claude-code-action@v1` の `prompt` と `claude_args` が設定されていること。permissions が最小権限であること。API キーが Secrets 参照であること | 🔴 | ✅ |
+| T-004 | `docs/workflow.md` に自動施策化フローのセクションを追加 | 2フェーズアーキテクチャの説明、トリガー条件、ラベルフローが記載されていること。適用対象環境: SDK / CLI いずれでも可 | 🟡 | ✅ |
+| T-005 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-006 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価ワーカー（l2-evaluator）向けタスク
 
