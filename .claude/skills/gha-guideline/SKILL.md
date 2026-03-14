@@ -199,6 +199,9 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `daily-triage.yml` | CLI + `--allowedTools` | `schedule` / `workflow_dispatch` | 日次トリアージ |
 | `test-permissions.yml` | Action + settings JSON | `workflow_dispatch` | E2E 権限テスト |
 | `backlog-candidate-propose.yml` | なし（Shell のみ） | `schedule` / `workflow_dispatch` | バックログ候補の Issue 作成 |
+| `initiative-wallbash.yml` | Action + settings JSON | `issues:labeled` / `workflow_dispatch` | Initiative 壁打ちフェーズ（テンプレートコピー・提案作成・壁打ちサマリー投稿） |
+| `initiative-execute.yml` | Action + settings JSON | `issue_comment:created` | Initiative 実行フェーズ（計画・実行・評価・ゲート判定） |
+| `initiative-close.yml` | Action + settings JSON | `issue_comment:created` | Initiative クローズフェーズ（アーカイブ移動・知見ルーティング・Issue クローズ） |
 
 ### 5.2 権限マトリクス
 
@@ -208,6 +211,9 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `daily-triage.yml` | contents:write, pull-requests:write | Read, Write, Edit, Glob, Grep, Bash(cp/mkdir/rm/ls *) | git: Shell ステップ, gh: Shell ステップ |
 | `test-permissions.yml` | contents:write, pull-requests:write, issues:write, id-token:write | Read, Write, Edit, Glob, Grep, Bash(git/gh/cp/mkdir/rm/ls/echo *) | git: Claude, gh: Claude |
 | `backlog-candidate-propose.yml` | issues:write, contents:read | N/A（Claude Code 不使用） | gh: Shell ステップ |
+| `initiative-wallbash.yml` | contents:write, pull-requests:write, issues:write, id-token:write | Read, Write, Edit, Glob, Grep, Bash(git/cp/mkdir/rm/ls/cat *) | git: Claude（Bash(git *)）, gh: Shell ステップ |
+| `initiative-execute.yml` | contents:write, pull-requests:write, issues:write, id-token:write | Read, Write, Edit, Glob, Grep, Bash(git/cp/mkdir/rm/ls/cat *) | git: Claude（Bash(git *)）, gh: Shell ステップ |
+| `initiative-close.yml` | contents:write, pull-requests:write, issues:write, id-token:write | Read, Write, Edit, Glob, Grep, Bash(git/cp/mkdir/rm/ls/cat *) | git: Claude（Bash(git *)）, gh: Shell ステップ |
 
 ### 5.3 設計判断の記録
 
@@ -217,6 +223,9 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `daily-triage.yml` | git/gh ともに Shell | Claude の作業はファイル編集のみ。git commit/push、gh pr create は固定パターンで Shell ステップが実行 |
 | `test-permissions.yml` | git/gh ともに Claude に委任 | E2E テスト目的で全権限の動作確認が必要。本番用途ではない |
 | `backlog-candidate-propose.yml` | Shell のみ | Claude Code を使用しないワークフロー |
+| `initiative-wallbash.yml` | git を Claude に委任、gh を Shell | Claude が施策ブランチ作成・テンプレートコピー・コミットを動的に実行。PR 作成・ラベル操作・Issue コメント投稿は固定パターンなので Shell |
+| `initiative-execute.yml` | git を Claude に委任、gh を Shell | Claude が計画・実行・評価・ゲート判定を自律実行し、動的にコミット。PR ブランチ取得・ラベル操作・ゲート判定サマリー投稿は固定パターンなので Shell |
+| `initiative-close.yml` | git を Claude に委任、gh を Shell | Claude がアーカイブ移動・知見ルーティングを動的に実行し、コミット。Issue クローズ・ラベル操作は固定パターンなので Shell |
 
 ---
 
@@ -229,6 +238,9 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `.github/workflows/daily-triage.yml` | 権限設定パターン（セクション3）の変更が daily-triage の設定に影響する場合 |
 | `.github/workflows/backlog-auto-execute.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `.github/workflows/test-permissions.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
+| `.github/workflows/initiative-wallbash.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
+| `.github/workflows/initiative-execute.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
+| `.github/workflows/initiative-close.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `docs/workflow.md` | 新規スキル追加のため、スキル一覧セクションの更新が必要 |
 
 ---

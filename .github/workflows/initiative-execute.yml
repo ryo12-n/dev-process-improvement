@@ -1,0 +1,187 @@
+name: Initiative Execute
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  execute:
+    if: >
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login != 'github-actions[bot]' &&
+      (
+        (
+          contains(github.event.issue.labels.*.name, 'initiative:wallbashing') &&
+          startsWith(github.event.comment.body, '/approve')
+        ) ||
+        (
+          contains(github.event.issue.labels.*.name, 'initiative:gate-review') &&
+          startsWith(github.event.comment.body, '/reject')
+        )
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine context
+        id: context
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          # コマンド種別を判定
+          if echo "$COMMENT_BODY" | grep -q "^/approve"; then
+            echo "command=approve" >> "$GITHUB_OUTPUT"
+            # /approve 以降のテキストをフィードバックとして抽出
+            feedback=$(echo "$COMMENT_BODY" | sed 's|^/approve\s*||')
+            echo "feedback=$feedback" >> "$GITHUB_OUTPUT"
+          elif echo "$COMMENT_BODY" | grep -q "^/reject"; then
+            echo "command=reject" >> "$GITHUB_OUTPUT"
+            feedback=$(echo "$COMMENT_BODY" | sed 's|^/reject\s*||')
+            echo "feedback=$feedback" >> "$GITHUB_OUTPUT"
+          fi
+
+          # ラベルからフェーズを判定
+          labels=$(gh issue view "$ISSUE_NUMBER" --json labels --jq '.labels[].name' | tr '\n' ',')
+          if echo "$labels" | grep -q "initiative:wallbashing"; then
+            echo "phase=wallbashing" >> "$GITHUB_OUTPUT"
+          elif echo "$labels" | grep -q "initiative:gate-review"; then
+            echo "phase=gate-review" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Get PR branch and checkout
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          # Issue 番号に紐づく PR を検索し、ブランチ名を取得
+          pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
+
+          if [ -z "$pr_json" ]; then
+            echo "::error::No PR found linked to Issue #${ISSUE_NUMBER}"
+            exit 1
+          fi
+
+          branch=$(echo "$pr_json" | jq -r '.headRefName' | head -1)
+          pr_number=$(echo "$pr_json" | jq -r '.number' | head -1)
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
+
+          # PR ブランチをチェックアウト
+          git fetch origin "$branch"
+          git checkout "$branch"
+
+      - name: Update labels to executing
+        if: steps.context.outputs.phase == 'wallbashing'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" \
+            --remove-label "initiative:wallbashing" \
+            --add-label "initiative:executing" 2>/dev/null || true
+
+      - name: Update labels for reject re-execution
+        if: steps.context.outputs.phase == 'gate-review'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" \
+            --remove-label "initiative:gate-review" \
+            --add-label "initiative:executing" 2>/dev/null || true
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            あなたは L1 マネージャーとして initiative の実行フェーズを非対話モードで実行します。
+
+            ## 対象
+            Issue #${{ github.event.issue.number }}
+            PR #${{ steps.pr.outputs.pr_number }} (ブランチ: ${{ steps.pr.outputs.branch }})
+            フェーズ: ${{ steps.context.outputs.phase }}
+            コマンド: ${{ steps.context.outputs.command }}
+            フィードバック: ${{ steps.context.outputs.feedback }}
+
+            ## 実行手順
+
+            ### /approve の場合（壁打ち → 実行）
+            1. 施策ディレクトリを特定する（`sessions/initiatives/` 配下で `00_proposal.md` が存在するディレクトリを探す）
+            2. フィードバックがある場合は `00_proposal.md` に反映する
+            3. `01_plan.md` を作成（実施計画）
+            4. `02_tasks.md` を作成（タスクリスト）
+            5. L2-worker として `02_tasks.md` のタスクを実行し、`03_work_log.md` と `04_work_report.md` を作成
+            6. L2-evaluator として作業成果を評価し、`05_eval_plan.md` と `06_eval_report.md` を作成
+            7. `07_issues.md` に発見した課題を記録
+            8. `08_gate_review.md` でゲート判定を行う
+            9. ゲート判定サマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
+            10. コミット・プッシュする
+
+            ### /reject の場合（ゲート判定差し戻し → 修正・再実行）
+            1. 施策ディレクトリを特定する
+            2. フィードバック内容を確認し、指摘事項に対応する
+            3. 修正が必要なタスクを再実行する
+            4. `04_work_report.md` と `06_eval_report.md` を更新する
+            5. `08_gate_review.md` を再作成する
+            6. ゲート判定サマリーを標準出力に出力する
+            7. コミット・プッシュする
+
+            ## 制約
+            - 対象リポジトリは dev-process-improvement のみ
+            - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
+            - コミットメッセージは `[L1] <施策名>: 実行フェーズ` の形式で
+          claude_args: "--max-turns 80 --model claude-sonnet-4-6"
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Bash(git *)",
+                  "Bash(cp *)",
+                  "Bash(mkdir *)",
+                  "Bash(rm *)",
+                  "Bash(ls *)",
+                  "Bash(cat *)",
+                  "Read",
+                  "Write",
+                  "Edit",
+                  "Glob",
+                  "Grep"
+                ]
+              }
+            }
+
+      - name: Post gate review summary to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "## ゲート判定サマリー
+
+          ${CLAUDE_RESULT}
+
+          ---
+          **次のステップ**: ゲート判定結果を確認してください。
+          - 承認する場合: \`/approve\` コメントでクローズフェーズに進みます
+          - 差し戻す場合: \`/reject <フィードバック内容>\` コメントで修正・再実行します"
+
+      - name: Update labels to gate-review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" \
+            --remove-label "initiative:executing" \
+            --add-label "initiative:gate-review" 2>/dev/null || true

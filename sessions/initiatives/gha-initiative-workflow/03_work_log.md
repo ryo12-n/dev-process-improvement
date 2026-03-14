@@ -32,3 +32,65 @@ T-001 → T-002 → T-003 → T-004 → T-005/T-006 の順で実施する。
 
 ## 作業ログ
 
+### [2026-03-14 13:25] タスクID: T-001
+**状態**: 完了
+**作業内容**:
+- `.github/workflows/initiative-wallbash.yml` を作成
+- トリガー: `issues:labeled` (initiative-start) + `workflow_dispatch` (input: issue_number)
+- ジョブ条件: `github.event.label.name == 'initiative-start'` または `workflow_dispatch`
+- パーミッション: contents:write, pull-requests:write, issues:write, id-token:write
+- ステップ: checkout → Issue番号決定(Shell) → Issue情報抽出(Shell) → Claude Code Action（テンプレートコピー、壁打ちサマリー生成、ブランチ作成・コミット・プッシュ）→ 壁打ちサマリー投稿(Shell) → PR作成(Shell) → ラベル操作(Shell)
+**成果物**: `.github/workflows/initiative-wallbash.yml`
+**課題・気づき**: なし
+
+### [2026-03-14 13:30] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- `.github/workflows/initiative-execute.yml` を作成
+- トリガー: `issue_comment:created`
+- ジョブ条件: `(initiative:wallbashing + /approve) OR (initiative:gate-review + /reject)` かつ bot以外かつ Issue（PR以外）
+- パーミッション: contents:write, pull-requests:write, issues:write, id-token:write
+- ステップ: checkout → コンテキスト判定(Shell) → PRブランチ取得・チェックアウト(Shell) → ラベル操作(Shell) → Claude Code Action（計画・実行・評価・ゲート判定）→ ゲート判定サマリー投稿(Shell) → ラベル操作(Shell)
+- `claude_args` に `--max-turns 80` を設定
+- `/approve` と `/reject` の両方のフローを実装
+**成果物**: `.github/workflows/initiative-execute.yml`
+**課題・気づき**: `issue_comment` トリガーは PR コメントでも発火するため、`github.event.issue.pull_request == null` でフィルタする必要がある
+
+### [2026-03-14 13:35] タスクID: T-003
+**状態**: 完了
+**作業内容**:
+- `.github/workflows/initiative-close.yml` を作成
+- トリガー: `issue_comment:created`
+- ジョブ条件: `initiative:gate-review` + `/approve` かつ bot以外かつ Issue（PR以外）
+- パーミッション: contents:write, pull-requests:write, issues:write, id-token:write
+- ステップ: checkout → PRブランチ取得・チェックアウト(Shell) → Claude Code Action（アーカイブ移動・知見ルーティング・コミット・プッシュ・完了サマリー出力）→ 完了サマリー投稿(Shell) → Issue クローズ・ラベル操作(Shell)
+**成果物**: `.github/workflows/initiative-close.yml`
+**課題・気づき**: なし
+
+### [2026-03-14 13:40] タスクID: T-004
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/gha-guideline/SKILL.md` の §5.1 ワークフロー一覧に3ワークフローを追加
+- §5.2 権限マトリクスに3ワークフローのエントリを追加
+- §5.3 設計判断の記録に3ワークフローの設計根拠を追記
+- 関連ファイル一覧に3ワークフローを追加
+**成果物**: `.claude/skills/gha-guideline/SKILL.md`（更新）
+**課題・気づき**: 3ワークフローとも同一の設計パターン（git は Claude 委任、gh は Shell）を採用。backlog-auto-execute.yml と同じパターン
+
+### [2026-03-14 13:45] タスクID: T-005
+**状態**: 完了
+**作業内容**:
+- `04_work_report.md` の「作業中の知見」セクションに知見を記録
+- ルール化候補: `issue_comment` トリガーの PR コメント発火問題と対策
+- 参考情報: 3ワークフロー共通の設計パターン（git=Claude委任、gh=Shell）
+**成果物**: `04_work_report.md`
+**課題・気づき**: なし
+
+### [2026-03-14 13:48] タスクID: T-006
+**状態**: 完了
+**作業内容**:
+- `07_issues.md` を確認。知見1件が記録済みだが、施策内で完結する内容のため転記不要と判断
+- 全課題に転記判断済みマーク付与
+**成果物**: なし（転記対象なし）
+**課題・気づき**: なし
+
