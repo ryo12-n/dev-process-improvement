@@ -66,20 +66,21 @@ jobs:
             Issue #${{ steps.issue.outputs.number }}: ${{ steps.info.outputs.title }}
 
             ## Issue 本文
-            $(cat /tmp/issue_body.txt)
+            Issue 本文は `/tmp/issue_body.txt` に保存されています。Read ツールで読み取ってください。
 
             ## 実行手順
 
-            1. `sessions/initiatives/_template/` を `sessions/initiatives/<施策名>/` にコピー
+            1. `/tmp/issue_body.txt` を Read ツールで読み取り、施策の背景・目的・スコープを把握する
+            2. `sessions/initiatives/_template/` を `sessions/initiatives/<施策名>/` にコピー
                - 施策名は Issue タイトルから適切な英語のケバブケース名を生成する
-            2. Issue 本文の内容を基に `00_proposal.md` を作成（背景・目標・スコープ・壁打ち背景）
-            3. 壁打ちサマリーを生成する:
+            3. Issue 本文の内容を基に `00_proposal.md` を作成（背景・目標・スコープ・壁打ち背景）
+            4. 壁打ちサマリーを生成する:
                - 施策の目的・スコープ・完了条件の理解を箇条書きでまとめる
                - 不明点・確認事項を列挙する
                - 推奨される計画の方向性を提示する
-            4. 壁打ちサマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
-            5. 施策ブランチ `initiative/<施策名>` を作成し、変更をコミット・プッシュする
-            6. コミットメッセージは `[L1] <施策名>: 壁打ちフェーズ（テンプレートコピー・提案作成）` の形式で
+            5. 壁打ちサマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
+            6. 施策ブランチ `initiative/<施策名>` を作成し、変更をコミット・プッシュする
+            7. コミットメッセージは `[L1] <施策名>: 壁打ちフェーズ（テンプレートコピー・提案作成）` の形式で
 
             ## 制約
             - 対象リポジトリは dev-process-improvement のみ
@@ -94,7 +95,6 @@ jobs:
                   "Bash(mkdir *)",
                   "Bash(rm *)",
                   "Bash(ls *)",
-                  "Bash(cat *)",
                   "Read",
                   "Write",
                   "Edit",

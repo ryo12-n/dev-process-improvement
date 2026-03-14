@@ -152,7 +152,6 @@ jobs:
                   "Bash(mkdir *)",
                   "Bash(rm *)",
                   "Bash(ls *)",
-                  "Bash(cat *)",
                   "Read",
                   "Write",
                   "Edit",
