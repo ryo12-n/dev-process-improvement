@@ -8,11 +8,11 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `refs/` 配下の全ファイル・ディレクトリを `git rm -r` で削除する。削除対象: `refs/ai-driven-development-poc/`, `refs/ai-functions/`, `refs/openspec-official-summary.md`, `refs/個人PCローカル環境構築-手順書.md` | `refs/` 配下にファイルが存在しないこと | 🔴 | ⬜ |
-| T-002 | `refs/.gitkeep` を作成してディレクトリを維持する | `refs/.gitkeep` が存在し、`refs/` ディレクトリが git 管理下にあること | 🔴 | ⬜ |
-| T-003 | `inbox/ref_*.md` 4件を `git rm` で削除する。削除対象: `inbox/ref_ai-driven-development-poc.md`, `inbox/ref_ai-functions.md`, `inbox/ref_openspec-official-summary.md`, `inbox/ref_個人PCローカル環境構築-手順書.md` | 4件すべてが削除されていること | 🔴 | ⬜ |
-| T-004 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-005 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | `refs/` 配下の全ファイル・ディレクトリを `git rm -r` で削除する。削除対象: `refs/ai-driven-development-poc/`, `refs/ai-functions/`, `refs/openspec-official-summary.md`, `refs/個人PCローカル環境構築-手順書.md` | `refs/` 配下にファイルが存在しないこと | 🔴 | ✅ |
+| T-002 | `refs/.gitkeep` を作成してディレクトリを維持する | `refs/.gitkeep` が存在し、`refs/` ディレクトリが git 管理下にあること | 🔴 | ✅ |
+| T-003 | `inbox/ref_*.md` 4件を `git rm` で削除する。削除対象: `inbox/ref_ai-driven-development-poc.md`, `inbox/ref_ai-functions.md`, `inbox/ref_openspec-official-summary.md`, `inbox/ref_個人PCローカル環境構築-手順書.md` | 4件すべてが削除されていること | 🔴 | ✅ |
+| T-004 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-005 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価ワーカー（l2-evaluator）向けタスク
 
