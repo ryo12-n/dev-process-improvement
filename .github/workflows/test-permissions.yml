@@ -2,6 +2,11 @@ name: Test Permissions
 
 on:
   workflow_dispatch:
+    inputs:
+      issue_number:
+        description: '結果を報告する Issue 番号（任意）'
+        required: false
+        default: ''
 
 jobs:
   test:
@@ -16,30 +21,47 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Claude Code (permission test)
+      - name: Run Claude Code (E2E test)
+        id: claude
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            以下の4つのツールが許可されているかテストし、結果を報告してください。
-            各ツールを1回だけ実行し、成功/失敗を記録してください。
+            以下の E2E テストを実行してください。各ステップを順番に実行し、最後に結果を報告してください。
 
-            1. Read: README.md を読む
-            2. Write: /tmp/test-permission.txt に "ok" と書く
-            3. Bash: `echo "bash ok"` を実行
-            4. Glob: `*.md` でファイル検索
+            ## テスト手順
 
-            全テスト完了後、以下の形式で結果を出力してください:
+            1. **ファイル読み取り**: README.md を Read ツールで読む
+            2. **ファイル編集**: /tmp/test-result.txt に現在の日時を Write ツールで書く
+            3. **ブランチ作成・コミット・プッシュ**:
+               - `git checkout -b test/permission-check-${{ github.run_id }}` でブランチ作成
+               - /tmp/test-result.txt の内容を `test-output.txt` としてリポジトリルートに Write ツールで作成
+               - `git add test-output.txt && git commit -m "test: E2E permission check"` でコミット
+               - `git push -u origin test/permission-check-${{ github.run_id }}` でプッシュ
+            4. **PR 作成**:
+               - Bash ツールで以下を実行:
+                 ```
+                 gh pr create --base main --head "test/permission-check-${{ github.run_id }}" --title "test: E2E permission check (${{ github.run_id }})" --body "自動テストで作成された PR です。確認後に削除してください。"
+                 ```
+               - 作成された PR の URL を記録する
+
+            ## 結果報告
+
+            全ステップ完了後、以下の形式で結果を出力してください:
+            ```
             - Read: OK/NG
             - Write: OK/NG
-            - Bash: OK/NG
-            - Glob: OK/NG
-          claude_args: "--max-turns 5 --model claude-haiku-4-5-20251001"
+            - Branch+Commit+Push: OK/NG
+            - PR Create: OK/NG
+            - PR URL: <作成されたPRのURL>
+            ```
+          claude_args: "--max-turns 10 --model claude-haiku-4-5-20251001"
           settings: |
             {
               "permissions": {
                 "allow": [
                   "Bash(git *)",
+                  "Bash(gh *)",
                   "Bash(cp *)",
                   "Bash(mkdir *)",
                   "Bash(rm *)",
@@ -53,3 +75,13 @@ jobs:
                 ]
               }
             }
+
+      - name: Report to issue
+        if: inputs.issue_number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ inputs.issue_number }}" \
+            --body "## E2E テスト結果 (Run: ${{ github.run_id }})
+
+          テストが完了しました。詳細は [Actions ログ](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) を確認してください。"
