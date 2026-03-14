@@ -1,0 +1,77 @@
+name: Backlog to Issue
+
+on:
+  workflow_dispatch:
+    inputs:
+      initiative_name:
+        description: 'バックログの施策名（backlog.csv の施策名列）'
+        required: true
+        type: string
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find backlog entry
+        id: find
+        env:
+          INITIATIVE_NAME: ${{ inputs.initiative_name }}
+        run: |
+          # backlog.csv から施策名で検索
+          # CSV列: 施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名,施策ディレクトリ名
+          line=$(awk -F',' -v name="$INITIATIVE_NAME" '
+            { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $1) }
+            $1 == name { print $0; exit }
+          ' backlog/backlog.csv)
+
+          if [ -z "$line" ]; then
+            echo "::error::施策名 '${INITIATIVE_NAME}' が backlog.csv に見つかりません"
+            exit 1
+          fi
+
+          file=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $7); print $7 }')
+          desc=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $6); print $6 }')
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+          echo "description=$desc" >> "$GITHUB_OUTPUT"
+
+      - name: Read backlog entry
+        id: entry
+        run: |
+          filepath="backlog/entries/${{ steps.find.outputs.file }}"
+          if [ ! -f "$filepath" ]; then
+            echo "::error::バックログエントリ $filepath が見つかりません"
+            exit 1
+          fi
+          {
+            echo "content<<ENTRY_EOF"
+            cat "$filepath"
+            echo "ENTRY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create issue with initiative-start label
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INITIATIVE_NAME: ${{ inputs.initiative_name }}
+          INITIATIVE_DESC: ${{ steps.find.outputs.description }}
+          INITIATIVE_FILE: ${{ steps.find.outputs.file }}
+          ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
+        run: |
+          gh issue create \
+            --title "${INITIATIVE_NAME}" \
+            --label "initiative-start" \
+            --body "## 施策: ${INITIATIVE_NAME}
+
+          **簡易説明**: ${INITIATIVE_DESC}
+          **バックログファイル**: \`backlog/entries/${INITIATIVE_FILE}\`
+
+          ---
+
+          ${ENTRY_CONTENT}
+
+          ---
+          > backlog-to-issue ワークフローにより自動作成"
