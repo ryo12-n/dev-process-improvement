@@ -42,7 +42,7 @@
     → initiative クローズ手順を実施
       1. 横展開セクション記載確認（08 の必須把握事項・次施策候補が空欄でないこと）
       2. 課題転記の完了確認（07 の全課題に [転記済 ISS-XXX] or 転記不要）
-      3. 知見のルーティング実行（CSV / backlog / inbox / なし）
+      3. 知見のルーティング実行（CSV / refs / backlog / inbox / なし）
       4. backlog ファイルの削除確認
       5. backlog.csv エントリの削除確認（00_proposal.md の backlog元ファイル or 施策名で特定）
       6. git mv sessions/initiatives/<施策名>/ sessions/initiatives/_archive/<施策名>/
