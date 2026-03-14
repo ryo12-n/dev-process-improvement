@@ -153,6 +153,7 @@ name: triageWorker
 | リポジトリ間同期フロー | `.claude/skills/sync-manager/` | `agents/sync-worker.md`, `agents/sync-evaluator.md` |
 | バックログメンテナンスフロー | `.claude/skills/backlog-maintenance-manager/` | `agents/backlog-maintenance-worker.md`, `agents/backlog-maintenance-evaluator.md` |
 | オートメーションフロー | `.claude/skills/automation-manager/` | `agents/automation-worker.md`, `agents/automation-evaluator.md` |
+| config最適化フロー | `.claude/skills/config-optimizer-manager/` | `agents/config-collection-worker.md`, `agents/config-analysis-worker.md`, `agents/config-proposal-worker.md`, `agents/config-optimizer-evaluator.md` |
 
 ### 5.1 新セッションタイプ追加時のチェックリスト
 
