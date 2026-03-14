@@ -57,7 +57,8 @@ jobs:
             - 対象リポジトリは dev-process-improvement のみ
             - 外部リポジトリへの変更は行わない
             - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
-          claude_args: "--max-turns 30 --model claude-sonnet-4-6"
+          claude_args: "--max-turns 60 --model claude-sonnet-4-6"
+          allowed_tools: "Bash(git *),Bash(cp *),Bash(mkdir *),Bash(rm *),Bash(ls *),Read,Write,Edit,Glob,Grep"
 
       - name: Close issue
         env:
