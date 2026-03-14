@@ -32,6 +32,13 @@
 
 <!-- 07_issues_W*.md から統合した課題一覧 -->
 
+## Reconstruction Count
+
+<!-- マネージャーが事後検証で復元したチェックポイントの件数。0 が理想 -->
+- **復元件数**: 0
+- **復元詳細**: なし
+<!-- 復元があった場合: W<N> の COMPLETE を git log から [RECONSTRUCTED] で復元 等 -->
+
 ## Git Log Summary
 
 ```

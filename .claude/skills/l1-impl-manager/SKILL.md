@@ -169,7 +169,13 @@ Phase 4 のみ並列ディスパッチ（Wave 方式）を許可する。
 2. per-worker 課題ファイルを作成:
    `07_issues_W<N>.md` を `07_issues_W_template.md` からコピー
 3. per-worker ワークログファイルを作成:
-   `41_impl_work_log_W<N>.md` を作成
+   `41_impl_work_log_W<N>.md` を `41_impl_work_log_W_template.md` からコピーし、以下の既知値を事前記入する:
+   - **Worker ID**: W<N>
+   - **担当タスク**: IMPL-XXX（`36_file_task_division.md` から取得）
+   - **Wave**: Wave M
+   - **Worktree パス**: `<ext-repo>/.worktrees/impl-W<N>`
+   - **ブランチ**: `impl/<施策名>-W<N>`
+   - **壁打ちフェーズの「対象ファイル」「テストコマンド」**: `36_file_task_division.md` から取得
 4. 事前検証チェックリストを実行（下記参照）
 
 ### 事前検証チェックリスト
@@ -233,7 +239,12 @@ Phase 4 のみ並列ディスパッチ（Wave 方式）を許可する。
 ```
 1. [ ] 全ワーカーが COMPLETE or ESCALATE を記録済み
    検証: 各 41_impl_work_log_W<N>.md の最終チェックポイント確認
-   回復: 未記録 → git log で外部リポのコミット確認、42_impl_work_report.md に記録
+   回復:
+     a. work_log が空（テンプレートのまま）→ git log --stat で外部リポのコミット確認し、
+        work_log に [RECONSTRUCTED BY MANAGER] マーク付きで START/COMPLETE を再構成
+     b. START はあるが COMPLETE/ESCALATE なし → git log でコミット状態を確認し、
+        [RECONSTRUCTED] マーク付きで COMPLETE or ESCALATE を追記
+     c. 42_impl_work_report.md の「Reconstruction Count」に復元件数を記録
 2. [ ] per-worker 課題ファイルが存在（空でも可）
    検証: 各 07_issues_W<N>.md の存在・内容確認
    回復: 未作成 → 42_impl_work_report.md に「課題ファイル未作成」を記録（非ブロッキング）
