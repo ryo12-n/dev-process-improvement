@@ -36,7 +36,7 @@ jobs:
             3. **ブランチ作成・コミット・プッシュ**:
                - `git checkout -b test/permission-check-${{ github.run_id }}` でブランチ作成
                - /tmp/test-result.txt の内容を `test-output.txt` としてリポジトリルートに Write ツールで作成
-               - `git add test-output.txt && git commit -m "test: E2E permission check"` でコミット
+               - `git add test-output.txt && git commit -m "test: E2E permission check (${{ github.run_id }})"` でコミット
                - `git push -u origin test/permission-check-${{ github.run_id }}` でプッシュ
             4. **PR 作成**:
                - Bash ツールで以下を実行:
@@ -44,6 +44,16 @@ jobs:
                  gh pr create --base main --head "test/permission-check-${{ github.run_id }}" --title "test: E2E permission check (${{ github.run_id }})" --body "自動テストで作成された PR です。確認後に削除してください。"
                  ```
                - 作成された PR の URL を記録する
+            5. **Issue 作成・クローズ**:
+               - Bash ツールで以下を実行し、Issue を作成する:
+                 ```
+                 gh issue create --title "test: E2E permission check (${{ github.run_id }})" --body "自動テストで作成された Issue です。自動クローズされます。"
+                 ```
+               - 作成された Issue の URL を記録する
+               - 作成直後に Bash ツールで以下を実行し、Issue をクローズする:
+                 ```
+                 gh issue close <作成したIssue番号> --comment "E2E テスト完了。自動クローズ。"
+                 ```
 
             ## 結果報告
 
@@ -54,8 +64,10 @@ jobs:
             - Branch+Commit+Push: OK/NG
             - PR Create: OK/NG
             - PR URL: <作成されたPRのURL>
+            - Issue Create+Close: OK/NG
+            - Issue URL: <作成されたIssueのURL>
             ```
-          claude_args: "--max-turns 10 --model claude-haiku-4-5-20251001"
+          claude_args: "--max-turns 15 --model claude-haiku-4-5-20251001"
           settings: |
             {
               "permissions": {
