@@ -15,7 +15,7 @@ user-invocable: true
 
 ## セッション開始時のブランチ整理
 
-セッション開始時、入力解釈に入る前に `.claude/rules/session-start-branch-cleanup.md` のフローを実行する。前セッションの未プッシュコミットやPR未作成の状態を整理してから作業を開始すること。
+SessionStart hook（`.claude/hooks/session-start-branch-cleanup.sh`）により自動実行される。hook の出力を確認し、エラーや警告があればユーザーに報告すること。
 
 ---
 

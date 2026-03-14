@@ -27,7 +27,6 @@ agentsの管理方法のガイドライン追記,低,候補,dev-process-improvem
 disallowedToolsフィールド活用検討,低,候補,dev-process-improvement,2026-03-09,deferred tools 制限の代替手段としての disallowedTools 調査,disallowedToolsフィールド活用検討.md,
 metacognition-managerの記述構造統一,低,候補,dev-process-improvement,2026-03-09,metacognition-manager の知見集約・課題集約セクション独立化,metacognition-managerの記述構造統一.md,
 ゲート判定基準での課題重大度の明文化,低,候補,dev-process-improvement,2026-03-09,manager-common-policy §4 の課題重大度判断基準の明文化,ゲート判定基準での課題重大度の明文化.md,
-SessionStart-hookブランチ整理自動化,高,候補,dev-process-improvement,2026-03-10,SessionStart hook でセッション開始時ブランチ整理を自動化,SessionStart-hookブランチ整理自動化.md,
 PreToolUse-hookコミットメッセージバリデーション,中,候補,dev-process-improvement,2026-03-10,PreToolUse hook でコミットメッセージ規約の自動バリデーション,PreToolUse-hookコミットメッセージバリデーション.md,
 PostToolUse-hookルール変更連動チェック,中,候補,dev-process-improvement,2026-03-10,PostToolUse hook でルール変更時の連動更新リマインダー自動通知,PostToolUse-hookルール変更連動チェック.md,
 automation-managerセッション作成,中,候補,dev-process-improvement,2026-03-10,自動化候補の探索・評価・追跡を定期セッションとして制度化,automation-managerセッション作成.md,
