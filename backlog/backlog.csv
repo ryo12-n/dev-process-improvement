@@ -51,3 +51,4 @@ triage-metacognitionテンプレート共通化,低,候補,dev-process-improveme
 外部リポジトリアーキテクチャオーバービュー管理,中,候補,dev-process-improvement,2026-03-12,外部リポジトリの構成オーバービューをrefs/に整備・同期時更新を制度化,外部リポジトリアーキテクチャオーバービュー管理.md,
 同期対象リスト管理と差分ベース反映計画,中,候補,dev-process-improvement,2026-03-12,同期対象のリスト管理とコミットハッシュベースの差分確認で反映計画を精密化,同期対象リスト管理と差分ベース反映計画.md,
 backlog-maintenance-worker走査手順改善,低,候補,dev-process-improvement,2026-03-12,BM走査の定量データCSV機械集計ルールとCSV/エントリ優先度照合ステップの追加,backlog-maintenance-worker走査手順改善.md,
+GHA-Claude-Code運用ガイドライン策定,中,候補,dev-process-improvement,2026-03-14,GHA×Claude Code の権限3層整合性チェックリストと設計判断基準の策定,GHA-Claude-Code運用ガイドライン策定.md,
