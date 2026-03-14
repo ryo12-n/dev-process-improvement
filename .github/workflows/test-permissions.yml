@@ -1,0 +1,55 @@
+name: Test Permissions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code (permission test)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            以下の4つのツールが許可されているかテストし、結果を報告してください。
+            各ツールを1回だけ実行し、成功/失敗を記録してください。
+
+            1. Read: README.md を読む
+            2. Write: /tmp/test-permission.txt に "ok" と書く
+            3. Bash: `echo "bash ok"` を実行
+            4. Glob: `*.md` でファイル検索
+
+            全テスト完了後、以下の形式で結果を出力してください:
+            - Read: OK/NG
+            - Write: OK/NG
+            - Bash: OK/NG
+            - Glob: OK/NG
+          claude_args: "--max-turns 5 --model claude-haiku-4-5-20251001"
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Bash(git *)",
+                  "Bash(cp *)",
+                  "Bash(mkdir *)",
+                  "Bash(rm *)",
+                  "Bash(ls *)",
+                  "Bash(echo *)",
+                  "Read",
+                  "Write",
+                  "Edit",
+                  "Glob",
+                  "Grep"
+                ]
+              }
+            }
