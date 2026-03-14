@@ -31,17 +31,17 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator | auto-manager | auto-worker | auto-evaluator |
-|---------|:----------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:------------:|:-----------:|:--------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
+| ステージ | L1-manager | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator | auto-manager | auto-worker | auto-evaluator | co-manager | co-worker | co-evaluator |
+|---------|:----------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|
+| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
+| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
+| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
+| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
+| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
+| レポート | N/A | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
+| ゲート判定 | 必須 | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須（3回） | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
@@ -78,6 +78,7 @@ user-invocable: false
 | sync-worker | sync-evaluator | sync-manager |
 | backlog-maintenance-worker | backlog-maintenance-evaluator | backlog-maintenance-manager |
 | automation-worker | automation-evaluator | automation-manager |
+| config-collection-worker / config-analysis-worker / config-proposal-worker | config-optimizer-evaluator | config-optimizer-manager |
 
 ### 2.2 ペアリングルール
 
@@ -133,6 +134,11 @@ user-invocable: false
 - `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md`
 - `.claude/skills/l1-impl-manager/agents/impl-worker.md`
 - `.claude/skills/l1-impl-manager/agents/impl-evaluator.md`
+- `.claude/skills/config-optimizer-manager/SKILL.md`
+- `.claude/skills/config-optimizer-manager/agents/config-collection-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md`
 - 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
 
 ### 3.2 チェック項目

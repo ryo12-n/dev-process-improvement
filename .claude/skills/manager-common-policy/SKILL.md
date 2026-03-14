@@ -1,12 +1,12 @@
 ---
 name: manager-common-policy
-description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance）に共通する運用パターンを定義するポリシー'
+description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance, config-optimizer）に共通する運用パターンを定義するポリシー'
 user-invocable: false
 ---
 # マネージャーセッション共通ポリシー
 
 > **このファイルの位置づけ**
-> 5つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager）に共通する運用パターンを一元的に定義する。
+> 6つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, config-optimizer-manager）に共通する運用パターンを一元的に定義する。
 > 各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
 
 ---
@@ -22,6 +22,7 @@ user-invocable: false
 | メタ認知マネージャー | `.claude/skills/metacognition-manager/SKILL.md` |
 | 同期マネージャー | `.claude/skills/sync-manager/SKILL.md` |
 | バックログメンテナンスマネージャー | `.claude/skills/backlog-maintenance-manager/SKILL.md` |
+| config最適化マネージャー | `.claude/skills/config-optimizer-manager/SKILL.md` |
 
 各マネージャースキルは、本ポリシーの該当セクション番号（§N）を参照する形で共通パターンを取り込む。
 

@@ -60,6 +60,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `impl-mgr` | 施策名 | マネージャー: 4フェーズオーケストレーション・ゲート判定 | `[impl-mgr] feature-x: Phase 1 調査タスク作成・ワーカーディスパッチ` |
 | `impl-worker` | 施策名 | ワーカー: コード実装・テスト・チェックポイント記録 | `[impl-worker] feature-x: IMPL-001 実装完了・テストPASS` |
 | `impl-evaluator` | 施策名 | 評価者: フェーズ評価レポート作成 | `[impl-evaluator] feature-x: Phase 2 評価レポート作成` |
+| `co-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定・集約レポート | `[co-mgr] 20260314: 事前調査・Phase 1 ワーカーディスパッチ` |
+| `co-worker` | `YYYYMMDD` | ワーカー: 情報収集・現状分析・最適化提案 | `[co-worker] 20260314: Phase 1 情報収集完了・リファレンス更新` |
+| `co-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[co-eval] 20260314: Phase 2 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
