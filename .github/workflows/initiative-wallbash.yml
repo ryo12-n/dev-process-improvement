@@ -1,0 +1,154 @@
+name: Initiative Wallbash
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+
+jobs:
+  wallbash:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.label.name == 'initiative-start'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine issue number
+        id: issue
+        env:
+          EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          INPUT_ISSUE_NUMBER: ${{ inputs.issue_number }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "number=$INPUT_ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+          else
+            echo "number=$EVENT_ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract initiative info from issue
+        id: info
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+        run: |
+          # Issue タイトルと本文を取得
+          issue_json=$(gh issue view "$ISSUE_NUMBER" --json title,body)
+          title=$(echo "$issue_json" | jq -r '.title')
+          body=$(echo "$issue_json" | jq -r '.body')
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+
+          # Issue 本文を一時ファイルに保存（Claude のプロンプトで参照）
+          echo "$body" > /tmp/issue_body.txt
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            あなたは L1 マネージャーとして initiative の壁打ちフェーズを実行します。
+
+            ## 対象
+            Issue #${{ steps.issue.outputs.number }}: ${{ steps.info.outputs.title }}
+
+            ## Issue 本文
+            $(cat /tmp/issue_body.txt)
+
+            ## 実行手順
+
+            1. `sessions/initiatives/_template/` を `sessions/initiatives/<施策名>/` にコピー
+               - 施策名は Issue タイトルから適切な英語のケバブケース名を生成する
+            2. Issue 本文の内容を基に `00_proposal.md` を作成（背景・目標・スコープ・壁打ち背景）
+            3. 壁打ちサマリーを生成する:
+               - 施策の目的・スコープ・完了条件の理解を箇条書きでまとめる
+               - 不明点・確認事項を列挙する
+               - 推奨される計画の方向性を提示する
+            4. 壁打ちサマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
+            5. 施策ブランチ `initiative/<施策名>` を作成し、変更をコミット・プッシュする
+            6. コミットメッセージは `[L1] <施策名>: 壁打ちフェーズ（テンプレートコピー・提案作成）` の形式で
+
+            ## 制約
+            - 対象リポジトリは dev-process-improvement のみ
+            - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
+          claude_args: "--max-turns 30 --model claude-sonnet-4-6"
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Bash(git *)",
+                  "Bash(cp *)",
+                  "Bash(mkdir *)",
+                  "Bash(rm *)",
+                  "Bash(ls *)",
+                  "Bash(cat *)",
+                  "Read",
+                  "Write",
+                  "Edit",
+                  "Glob",
+                  "Grep"
+                ]
+              }
+            }
+
+      - name: Post wallbash summary to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+        run: |
+          # Claude の出力を Issue コメントとして投稿
+          gh issue comment "$ISSUE_NUMBER" --body "## 壁打ちサマリー
+
+          ${CLAUDE_RESULT}
+
+          ---
+          **次のステップ**: 内容を確認し、\`/approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`/approve <フィードバック内容>\` の形式でコメントしてください。"
+
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          ISSUE_TITLE: ${{ steps.info.outputs.title }}
+        run: |
+          # 現在のブランチ名を取得
+          branch=$(git branch --show-current)
+          if [ "$branch" = "main" ]; then
+            echo "::warning::Claude did not create a branch. Skipping PR creation."
+            exit 0
+          fi
+
+          # PR を作成
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "initiative: ${ISSUE_TITLE}" \
+            --body "## 施策: ${ISSUE_TITLE}
+
+          Issue: #${ISSUE_NUMBER}
+
+          壁打ちフェーズで作成された施策提案。
+          \`/approve\` コメントで実行フェーズに進みます。"
+
+      - name: Update labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+        run: |
+          # initiative-start ラベルを除去し、initiative + initiative:wallbashing を付与
+          gh issue edit "$ISSUE_NUMBER" \
+            --remove-label "initiative-start" \
+            --add-label "initiative,initiative:wallbashing" 2>/dev/null || true
