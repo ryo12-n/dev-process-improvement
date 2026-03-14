@@ -13,11 +13,9 @@
 
 ## 未転記メモ
 
-<!-- 以下のフォーマットで追記する -->
-<!--
-### [YYYY-MM-DD] タイトル
-- **種別**: 不具合 / 改善提案 / リスク / 知見
-- **内容**: 何が起きたか・気づいたこと
-- **対応方針（案）**: どう対処するか（未確定でよい）
-- **関連タスク**: T-XXX（あれば）
--->
+### [2026-03-14] 他セッションテンプレートのルーティング先選択肢に refs が未追加
+- **種別**: 改善提案
+- **内容**: 本施策では `sessions/impl/_template/08_gate_summary.md` と `sessions/initiatives/_template/08_gate_review.md` のみルーティング先を更新した。triage / metacognition / backlog-maintenance / config-optimization / automation / sync の各テンプレート（`04_gate_review.md`）にはまだ `CSV / backlog / inbox / なし` が残存している。これらのセッションは主に dev-process-improvement 内で完結する作業であり、外部リポ固有知見の蓄積対象になりにくいが、ルーティング先の選択肢としては整合性のために統一すべき
+- **対応方針（案）**: [案] 次回トリアージまたは別施策で、全テンプレートのルーティング先選択肢を `CSV / refs / backlog / inbox / なし` に統一する
+- **関連タスク**: T-010（メタルール横断検証で発見）
+[転記不要 — 当施策内で完結する軽微な整合性改善提案。次回トリアージで拾われる]
