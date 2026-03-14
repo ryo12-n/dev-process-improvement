@@ -42,7 +42,7 @@ jobs:
             5. **Issue 作成・クローズ**:
                - Bash ツールで以下を実行し、Issue を作成する:
                  ```
-                 gh issue create --title "test: E2E permission check (${{ github.run_id }})" --body "自動テストで作成された Issue です。自動クローズされます。" --label "e2e-test"
+                 gh issue create --title "test: E2E permission check (${{ github.run_id }})" --body "自動テストで作成された Issue です。自動クローズされます。"
                  ```
                - 作成された Issue の URL を記録する
                - 作成直後に Bash ツールで以下を実行し、Issue をクローズする:
