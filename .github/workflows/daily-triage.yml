@@ -62,7 +62,8 @@ jobs:
         run: |
           claude --print \
             --system-prompt-file .github/prompts/triage.md \
-            --dangerously-skip-permissions \
+            --allowedTools "Read" "Write" "Edit" "Glob" "Grep" \
+              "Bash(cp *)" "Bash(mkdir *)" "Bash(rm *)" "Bash(ls *)" \
             --max-turns 50 \
             "今日は $(date -u +%Y-%m-%d) です。トリアージセッションを開始してください。inbox には ${{ steps.check-inbox.outputs.inbox_count }} 件のエントリがあります。"
 
