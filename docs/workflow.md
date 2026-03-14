@@ -482,6 +482,70 @@ Phase 2: backlog-auto-execute.yml (on: issues - labeled)
 
 ---
 
+## config最適化セッション フロー
+
+```
+[config-optimizer-manager]
+  ブランチ整理: SessionStart hook により自動実行
+                                                                    |
+  入力: config-optimize / config-optimize-continue: <パス>
+                                                                    |
+  事前調査: sessions/config-optimization/YYYYMMDD/00_pre_investigation.md
+    - .claude/ 構造サーベイ（settings.json, rules, skills, hooks, CLAUDE.md）
+    - リファレンススナップショット鮮度確認
+    - 過去セッション確認
+                                                                    |
+  計画: 01_plan.md
+    - CO ターゲット（CO-001〜CO-007）のスコープ決定
+    - フェーズ計画作成
+                                                                    |
+  Phase 1: 情報収集 ─────────────────────────────────────────────────
+    タスク作成: workers/set-1/01_tasks.md                            |
+    ワーカー: config-collection-worker（WebSearch/WebFetch）          |
+      → reference/claude-code-config-reference.md を更新             |
+      → workers/set-1/04_scan_report.md を作成                       |
+    評価者: config-optimizer-evaluator（Phase 1 コンテキスト）        |
+    ゲート: 15_collection_gate.md                                    |
+                                                                    |
+  Phase 2: 現状分析 ─────────────────────────────────────────────────
+    タスク作成: workers/set-2/01_tasks.md                            |
+    ワーカー: config-analysis-worker                                 |
+      → .claude/ 全体をリファレンスと比較分析                        |
+      → workers/set-2/04_scan_report.md を作成                       |
+    評価者: config-optimizer-evaluator（Phase 2 コンテキスト）        |
+    ゲート: 25_analysis_gate.md                                      |
+                                                                    |
+  Phase 3: 最適化提案 ───────────────────────────────────────────────
+    タスク作成: workers/set-3/01_tasks.md                            |
+    ワーカー: config-proposal-worker                                 |
+      → Impact × Effort 優先順位付き提案を作成                      |
+      → workers/set-3/04_scan_report.md を作成                       |
+    評価者: config-optimizer-evaluator（Phase 3 コンテキスト）        |
+    ゲート: 35_proposal_gate.md                                      |
+                                                                    |
+  集約: 03_report.md                                                 |
+    - フェーズ別結果マージ                                           |
+    - 知見集約（§5）、課題集約（§6）                                 |
+  最終ゲート: 04_gate_review.md                                      |
+                                                                    |
+  アクション:                                                        |
+    高優先度提案 → backlog/entries/                                  |
+    洞察 → inbox/                                                    |
+    課題 → プロセス改善_課題管理.csv                                  |
+                                                                    |
+  コミット・プッシュ・PR 作成
+```
+
+> **CO ターゲット（最適化対象）**
+> CO-001: settings.json / CO-002: rules / CO-003: skills / CO-004: hooks / CO-005: CLAUDE.md / CO-006: プラグイン / CO-007: その他（memory, sandbox 等）
+
+> **3フェーズ構成**
+> Phase 1（情報収集）の collection-worker のみ WebSearch/WebFetch ツールを使用します。
+> Phase 2（現状分析）は .claude/ 全体をリファレンスと比較し、Phase 3（最適化提案）は分析結果から優先順位付き提案を作成します。
+> 単一 evaluator（config-optimizer-evaluator）が全フェーズを評価します。
+
+---
+
 ## リポジトリ間同期セッション フロー
 
 ```
