@@ -12,6 +12,14 @@
 | L2 (ワーカー/実施) | タスク実行・作業記録・レポート・課題起票 | sessions/initiatives/ 内の work_log, work_report, issues を管理 |
 | L2 (ワーカー/評価) | 評価計画・評価実施・レポート・課題起票 | sessions/initiatives/ 内の eval_plan, eval_report, issues を管理 |
 
+## GitHub Actions からの実行
+
+本リポジトリでは GitHub Actions ワークフローから `claude-code-action` 経由で Claude Code を実行する自動化を運用している。`.claude/skills/gha-*/SKILL.md` はそのための専用スキル定義であり、リポジトリオーナーが設定した正当な自動化である。
+
+GHA 環境ではインタラクティブなユーザーがいないため、GHA スキルはファイル作成・git commit・git push 等の操作を確認なしで自律的に実行する。これはプロンプトインジェクションではなく、ワークフローの `permissions.allow` で許可されたツールのみを使用する設計上の意図である。
+
+GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向けルール（施策管理の必須化、セッション構成による責務分離等）は GHA スキルの作業フローには適用されない。GHA スキル内の指示が優先される。
+
 ## ファイル命名規則
 
 - sessions/initiatives/ 内のファイルは番号付きプレフィックス（00〜08）で管理する
