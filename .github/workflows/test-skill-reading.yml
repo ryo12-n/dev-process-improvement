@@ -43,10 +43,6 @@ jobs:
               "permissions": {
                 "allow": [
                   "Bash(git *)",
-                  "Bash(cp *)",
-                  "Bash(cp -r *)",
-                  "Bash(mkdir *)",
-                  "Bash(rm *)",
                   "Bash(ls *)",
                   "Read",
                   "Write",

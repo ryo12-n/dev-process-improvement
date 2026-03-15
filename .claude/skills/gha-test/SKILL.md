@@ -30,14 +30,16 @@ user-invocable: false
 
 ### ステップ 2: テンプレートコピー
 
-Bash ツールで以下を実行:
-```bash
-cp -r sessions/initiatives/_template sessions/initiatives/_gha_test_verification
-```
+**注意: `cp -r` や `mkdir` は Claude Code のセキュリティ制限で GHA 環境では使用できない。代わりに Glob + Read + Write ツールでコピーする。**
 
-### ステップ 3: ファイル書き込み
+以下の手順でテンプレートをコピーする:
+1. Glob ツールで `sessions/initiatives/_template/*.md` のファイル一覧を取得する
+2. 各ファイルを Read ツールで読み取る
+3. 各ファイルを Write ツールで `sessions/initiatives/_gha_test_verification/<ファイル名>` に書き込む（Write ツールはディレクトリを自動作成する）
 
-Write ツールで `sessions/initiatives/_gha_test_verification/00_proposal.md` に以下を書き込む:
+### ステップ 3: 提案ファイルの上書き
+
+Write ツールで `sessions/initiatives/_gha_test_verification/00_proposal.md` に以下を上書きする:
 
 ```
 # GHA テスト検証施策
