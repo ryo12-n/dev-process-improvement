@@ -11,6 +11,14 @@ on:
         description: 'Question to ask about the initiative'
         required: true
         type: string
+      initiative_dir:
+        description: 'Initiative directory path (e.g. sessions/initiatives/my-initiative/)'
+        required: true
+        type: string
+      branch:
+        description: 'Initiative branch name (e.g. initiative/my-initiative)'
+        required: true
+        type: string
 
 jobs:
   question:
@@ -24,26 +32,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get PR branch and checkout
-        id: pr
+      - name: Checkout initiative branch
         env:
-          GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          BRANCH: ${{ inputs.branch }}
         run: |
-          # Issue 番号に紐づく PR を検索し、ブランチ名を取得
-          pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
-
-          if [ -z "$pr_json" ]; then
-            echo "::warning::No PR found linked to Issue #${ISSUE_NUMBER}. Using main branch."
-            echo "branch=main" >> "$GITHUB_OUTPUT"
-          else
-            branch=$(echo "$pr_json" | jq -r '.headRefName' | head -1)
-            echo "branch=$branch" >> "$GITHUB_OUTPUT"
-
-            # PR ブランチをチェックアウト
-            git fetch origin "$branch"
-            git checkout "$branch"
-          fi
+          git fetch origin "$BRANCH"
+          git checkout "$BRANCH"
 
       - name: Run Claude Code
         id: claude
@@ -56,16 +50,16 @@ jobs:
 
             ## 対象
             Issue #${{ inputs.issue_number }}
-            ブランチ: ${{ steps.pr.outputs.branch }}
+            ブランチ: ${{ inputs.branch }}
+            施策ディレクトリ: ${{ inputs.initiative_dir }}
 
             ## 質問
             ${{ inputs.question }}
 
             ## 実行手順
 
-            1. 施策ディレクトリを特定する（`sessions/initiatives/` 配下で `00_proposal.md` が存在するディレクトリを探す）
-            2. 施策の関連ファイル（`00_proposal.md`, `01_plan.md`, `02_tasks.md`, `03_work_log.md`, `04_work_report.md`, `07_issues.md`, `08_gate_review.md`）を読み取る
-            3. 質問に対する回答を標準出力に出力する（Action が Issue コメントとして投稿する）
+            1. 施策ディレクトリ `${{ inputs.initiative_dir }}` の関連ファイル（`00_proposal.md`, `01_plan.md`, `02_tasks.md`, `03_work_log.md`, `04_work_report.md`, `07_issues.md`, `08_gate_review.md`）を読み取る
+            2. 質問に対する回答を標準出力に出力する（Action が Issue コメントとして投稿する）
 
             ## 制約
             - ファイルの読み取りのみ行う（書き込み・編集は禁止）

@@ -73,6 +73,35 @@ jobs:
             echo "phase=none" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Get initiative metadata
+        id: meta
+        if: steps.labels.outputs.has_initiative == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Issue の全コメントからメタデータコメントを検索
+          meta_body=$(gh api "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
+            --jq '[.[] | select(.body | contains("initiative-metadata"))][0].body' 2>/dev/null || echo "")
+
+          if [ -z "$meta_body" ]; then
+            echo "::warning::No initiative metadata comment found for Issue #${ISSUE_NUMBER}"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "found=true" >> "$GITHUB_OUTPUT"
+
+          # HTML コメント内のメタデータを抽出
+          initiative_name=$(echo "$meta_body" | grep 'initiative_name:' | head -1 | sed 's/.*initiative_name:[[:space:]]*//')
+          initiative_dir=$(echo "$meta_body" | grep 'initiative_dir:' | head -1 | sed 's/.*initiative_dir:[[:space:]]*//')
+          branch=$(echo "$meta_body" | grep 'branch:' | head -1 | sed 's/.*branch:[[:space:]]*//')
+
+          echo "initiative_name=$initiative_name" >> "$GITHUB_OUTPUT"
+          echo "initiative_dir=$initiative_dir" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
       - name: Route and dispatch
         env:
           GH_TOKEN: ${{ github.token }}
@@ -83,6 +112,9 @@ jobs:
           PHASE: ${{ steps.labels.outputs.phase }}
           ARGS: ${{ steps.parse.outputs.args }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          META_FOUND: ${{ steps.meta.outputs.found }}
+          INITIATIVE_DIR: ${{ steps.meta.outputs.initiative_dir }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
         id: route
         run: |
           # パースエラーがあればエラー出力
@@ -107,16 +139,31 @@ jobs:
               ;;
             approve)
               if [ "$PHASE" = "wallbashing" ]; then
-                gh workflow run initiative-execute.yml \
-                  -f issue_number="$ISSUE_NUMBER" \
-                  -f command=approve \
-                  -f feedback="$ARGS" \
-                  -f phase=wallbashing
-                dispatch_ok=true
+                # メタデータが必須
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。壁打ちフェーズが正常に完了していない可能性があります。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-execute.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f command=approve \
+                    -f feedback="$ARGS" \
+                    -f phase=wallbashing \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
               elif [ "$PHASE" = "gate-review" ]; then
-                gh workflow run initiative-close.yml \
-                  -f issue_number="$ISSUE_NUMBER"
-                dispatch_ok=true
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-close.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/approve\` は \`initiative:wallbashing\` または \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
@@ -124,12 +171,19 @@ jobs:
               ;;
             reject)
               if [ "$PHASE" = "gate-review" ]; then
-                gh workflow run initiative-execute.yml \
-                  -f issue_number="$ISSUE_NUMBER" \
-                  -f command=reject \
-                  -f feedback="$ARGS" \
-                  -f phase=gate-review
-                dispatch_ok=true
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-execute.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f command=reject \
+                    -f feedback="$ARGS" \
+                    -f phase=gate-review \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/reject\` は \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
@@ -137,10 +191,17 @@ jobs:
               ;;
             question)
               if [ "$HAS_INITIATIVE" = "true" ]; then
-                gh workflow run initiative-question.yml \
-                  -f issue_number="$ISSUE_NUMBER" \
-                  -f question="$ARGS"
-                dispatch_ok=true
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-question.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f question="$ARGS" \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/question\` は initiative として開始された Issue でのみ使用できます。" >> "$GITHUB_OUTPUT"

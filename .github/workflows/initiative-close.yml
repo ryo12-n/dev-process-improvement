@@ -7,6 +7,14 @@ on:
         description: 'Issue number to process'
         required: true
         type: number
+      initiative_dir:
+        description: 'Initiative directory path (e.g. sessions/initiatives/my-initiative/)'
+        required: true
+        type: string
+      branch:
+        description: 'Initiative branch name (e.g. initiative/my-initiative)'
+        required: true
+        type: string
 
 jobs:
   close:
@@ -21,28 +29,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get PR branch and checkout
-        id: pr
+      - name: Checkout initiative branch
         env:
-          GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          BRANCH: ${{ inputs.branch }}
         run: |
-          # Issue 番号に紐づく PR を検索し、ブランチ名を取得
-          pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
-
-          if [ -z "$pr_json" ]; then
-            echo "::error::No PR found linked to Issue #${ISSUE_NUMBER}"
-            exit 1
-          fi
-
-          branch=$(echo "$pr_json" | jq -r '.headRefName' | head -1)
-          pr_number=$(echo "$pr_json" | jq -r '.number' | head -1)
-          echo "branch=$branch" >> "$GITHUB_OUTPUT"
-          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
-
-          # PR ブランチをチェックアウト
-          git fetch origin "$branch"
-          git checkout "$branch"
+          git fetch origin "$BRANCH"
+          git checkout "$BRANCH"
 
       - name: Run Claude Code
         id: claude
@@ -54,18 +46,19 @@ jobs:
 
             ## 対象
             Issue #${{ inputs.issue_number }}
-            PR #${{ steps.pr.outputs.pr_number }} (ブランチ: ${{ steps.pr.outputs.branch }})
+            ブランチ: ${{ inputs.branch }}
+            施策ディレクトリ: ${{ inputs.initiative_dir }}
 
             ## 実行手順
 
-            1. 施策ディレクトリを特定する（`sessions/initiatives/` 配下で `08_gate_review.md` が存在するディレクトリを探す）
+            1. 施策ディレクトリ `${{ inputs.initiative_dir }}` の成果物を確認する
             2. 知見ルーティングを実行する:
                - `04_work_report.md` の「作業中の知見」と `06_eval_report.md` の「評価中の知見」を確認
                - ルール化候補は該当ファイルへの反映を検討
                - 次施策候補は `inbox/` にファイルを作成
             3. 施策ディレクトリを `_archive/` に移動する:
                ```bash
-               git mv sessions/initiatives/<施策名>/ sessions/initiatives/_archive/<施策名>/
+               git mv ${{ inputs.initiative_dir }} sessions/initiatives/_archive/$(basename ${{ inputs.initiative_dir }})/
                ```
             4. 変更をコミット・プッシュする
             5. 完了サマリーを標準出力に出力する（施策の成果・知見ルーティング結果・次施策候補の概要）

@@ -60,9 +60,14 @@ jobs:
                - 施策の目的・スコープ・完了条件の理解を箇条書きでまとめる
                - 不明点・確認事項を列挙する
                - 推奨される計画の方向性を提示する
-            5. 壁打ちサマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
+            5. 標準出力に以下の形式で出力する:
+               - **1行目に必ず** `INITIATIVE_NAME: <施策名>` を出力する（施策名はケバブケースの英語）
+               - **2行目以降** に壁打ちサマリーを出力する（Action が Issue コメントとして投稿する）
             6. 施策ブランチ `initiative/<施策名>` を作成し、変更をコミット・プッシュする
             7. コミットメッセージは `[L1] <施策名>: 壁打ちフェーズ（テンプレートコピー・提案作成）` の形式で
+
+            ## 重要
+            - 標準出力の1行目は必ず `INITIATIVE_NAME: <施策名>` で始めること。後続ワークフローがこの値を使ってメタデータコメントを生成する。
 
             ## 制約
             - 対象リポジトリは dev-process-improvement のみ
@@ -86,16 +91,59 @@ jobs:
               }
             }
 
+      - name: Extract initiative name
+        id: extract
+        env:
+          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+        run: |
+          # Claude 出力の1行目から施策名を抽出
+          initiative_name=$(echo "$CLAUDE_RESULT" | grep '^INITIATIVE_NAME:' | head -1 | sed 's/^INITIATIVE_NAME:[[:space:]]*//')
+
+          if [ -z "$initiative_name" ]; then
+            echo "::warning::Could not extract initiative name from Claude output. Falling back to branch name."
+            branch=$(git branch --show-current)
+            initiative_name=$(echo "$branch" | sed 's|^initiative/||')
+          fi
+
+          echo "initiative_name=$initiative_name" >> "$GITHUB_OUTPUT"
+
+          # サマリー本文（INITIATIVE_NAME 行を除去）
+          summary=$(echo "$CLAUDE_RESULT" | sed '/^INITIATIVE_NAME:/d')
+          # GITHUB_OUTPUT に複数行を書き込む
+          {
+            echo "summary<<SUMMARY_EOF"
+            echo "$summary"
+            echo "SUMMARY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Post initiative metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          INITIATIVE_NAME: ${{ steps.extract.outputs.initiative_name }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "<!-- initiative-metadata
+          initiative_name: ${INITIATIVE_NAME}
+          initiative_dir: sessions/initiatives/${INITIATIVE_NAME}/
+          branch: initiative/${INITIATIVE_NAME}
+          -->
+          📋 **施策メタデータ**
+          | 項目 | 値 |
+          |------|-----|
+          | 施策名 | \`${INITIATIVE_NAME}\` |
+          | ディレクトリ | \`sessions/initiatives/${INITIATIVE_NAME}/\` |
+          | ブランチ | \`initiative/${INITIATIVE_NAME}\` |"
+
       - name: Post wallbash summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
-          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+          SUMMARY: ${{ steps.extract.outputs.summary }}
         run: |
-          # Claude の出力を Issue コメントとして投稿
+          # Claude の出力（施策名行を除去済み）を Issue コメントとして投稿
           gh issue comment "$ISSUE_NUMBER" --body "## 壁打ちサマリー
 
-          ${CLAUDE_RESULT}
+          ${SUMMARY}
 
           ---
           **次のステップ**: 内容を確認し、\`@ai-task /approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`@ai-task /approve <フィードバック内容>\` の形式でコメントしてください。"
