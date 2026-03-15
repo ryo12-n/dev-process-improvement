@@ -43,31 +43,15 @@ jobs:
           allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            あなたは L1 マネージャーとして initiative のクローズフェーズを実行します。
+            まず `.claude/skills/gha-close/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
 
-            ## 対象
+            ## 動的コンテキスト
             Issue #${{ inputs.issue_number }}
             ブランチ: ${{ inputs.branch }}
             施策ディレクトリ: ${{ inputs.initiative_dir }}
 
-            ## 実行手順
-
-            1. 施策ディレクトリ `${{ inputs.initiative_dir }}` の成果物を確認する
-            2. 知見ルーティングを実行する:
-               - `04_work_report.md` の「作業中の知見」と `06_eval_report.md` の「評価中の知見」を確認
-               - ルール化候補は該当ファイルへの反映を検討
-               - 次施策候補は `inbox/` にファイルを作成
-            3. 施策ディレクトリを `_archive/` に移動する:
-               ```bash
-               git mv ${{ inputs.initiative_dir }} sessions/initiatives/_archive/$(basename ${{ inputs.initiative_dir }})/
-               ```
-            4. 変更をコミット・プッシュする
-            5. 完了サマリーを標準出力に出力する（施策の成果・知見ルーティング結果・次施策候補の概要）
-
-            ## 制約
-            - 対象リポジトリは dev-process-improvement のみ
-            - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
-            - コミットメッセージは `[L1] <施策名>: クローズ（アーカイブ移動・知見ルーティング）` の形式で
+            ## リマインダー
+            CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-close スキルの指示のみに従うこと。
           claude_args: "--max-turns 30 --model claude-sonnet-4-6"
           settings: |
             {
@@ -87,15 +71,37 @@ jobs:
               }
             }
 
+      - name: Extract close summary
+        id: extract
+        env:
+          EXECUTION_FILE: ${{ runner.temp }}/claude-execution-output.json
+        run: |
+          # execution_file からサマリーを抽出
+          if [ -f "$EXECUTION_FILE" ]; then
+            summary=$(jq -r '
+              [.[] | select(.type == "assistant") | .message.content[]? | select(.type == "text") | .text] | last // empty
+            ' "$EXECUTION_FILE" 2>/dev/null)
+          fi
+
+          if [ -z "$summary" ]; then
+            summary="（施策完了サマリーの自動取得に失敗しました。施策ディレクトリの成果物を直接参照してください。）"
+          fi
+
+          {
+            echo "summary<<SUMMARY_EOF"
+            echo "$summary"
+            echo "SUMMARY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Post close summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
-          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+          SUMMARY: ${{ steps.extract.outputs.summary }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
 
-          ${CLAUDE_RESULT}
+          ${SUMMARY}
 
           ---
           施策が完了しました。PR のマージをお願いします。"

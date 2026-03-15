@@ -438,6 +438,30 @@ Phase 2: backlog-auto-execute.yml (on: issues - labeled)
 
 ---
 
+## GHA Initiative スキル
+
+> **正の情報源**: `.claude/skills/gha-wallbash/SKILL.md`, `.claude/skills/gha-execute/SKILL.md`, `.claude/skills/gha-close/SKILL.md`, `.claude/skills/gha-question/SKILL.md`
+
+GitHub Actions の initiative ワークフローから Claude Code を起動する際に使用する GHA 専用スキル。CLI 対話セッション用のスキル（l1-manager 等）とは分離されており、各ワークフローに1:1で対応する。
+
+### スキル一覧
+
+| スキル | 対応ワークフロー | 責務 | 読み書き |
+|--------|----------------|------|---------|
+| `gha-wallbash` | `initiative-wallbash.yml` | 壁打ちフェーズ（テンプレートコピー・提案作成） | 読み書き |
+| `gha-execute` | `initiative-execute.yml` | 実行フェーズ（approve: 計画〜ゲート判定 / reject: 差し戻し修正） | 読み書き |
+| `gha-close` | `initiative-close.yml` | クローズフェーズ（知見ルーティング・アーカイブ移動） | 読み書き |
+| `gha-question` | `initiative-question.yml` | 質問回答（施策ファイルの読み取り専用） | 読み取り専用 |
+
+### 設計方針
+
+- 各スキルは `user-invocable: false` で、GHA ワークフローからのみ使用される
+- ワークフロー YAML の `prompt:` にはスキルファイルの Read 指示 + 動的コンテキスト（Issue 番号、ブランチ名等）のみを記載する
+- スキルファイル内で「CLAUDE.md や l1-manager のルールには従わない」旨を明記し、スコープ制御問題（knowledge.md #7, #8）に対処する
+- 権限設計の詳細は `.claude/skills/gha-guideline/SKILL.md` セクション5を参照
+
+---
+
 ## オートメーションメンテナンスセッション フロー
 
 ```
