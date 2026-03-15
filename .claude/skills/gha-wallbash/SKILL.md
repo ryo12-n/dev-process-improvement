@@ -27,7 +27,10 @@ user-invocable: false
 1. `/tmp/issue_body.txt` を Read ツールで読み取り、施策の背景・目的・スコープを把握する
 2. `sessions/initiatives/_template/` を `sessions/initiatives/<施策名>/` にコピー
    - 施策名は Issue タイトルから適切な英語のケバブケース名を生成する
-   - `cp -r sessions/initiatives/_template sessions/initiatives/<施策名>` を使用する
+   - **`cp -r` や `mkdir` は Claude Code のセキュリティ制限で GHA 環境では使用できない。代わりに以下の手順でコピーする:**
+     1. Glob ツールで `sessions/initiatives/_template/*.md` のファイル一覧を取得
+     2. 各ファイルを Read ツールで読み取る
+     3. 各ファイルを Write ツールで `sessions/initiatives/<施策名>/<ファイル名>` に書き込む（Write ツールはディレクトリを自動作成する）
 3. コピー先の `00_proposal.md` のみを編集し、Issue 本文の内容を基に作成する（背景・目標・スコープ・壁打ち背景）
    - **`01_plan.md` 以降のファイルは一切編集しないこと**（テンプレートのまま残す）
 4. 壁打ちサマリーを標準出力に出力する:
