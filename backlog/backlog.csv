@@ -52,3 +52,4 @@ BL-050,外部リポジトリアーキテクチャオーバービュー管理,中
 BL-051,同期対象リスト管理と差分ベース反映計画,中,候補,dev-process-improvement,2026-03-12,同期対象のリスト管理とコミットハッシュベースの差分確認で反映計画を精密化,同期対象リスト管理と差分ベース反映計画.md,
 BL-052,backlog-maintenance-worker走査手順改善,低,候補,dev-process-improvement,2026-03-12,BM走査の定量データCSV機械集計ルールとCSV/エントリ優先度照合ステップの追加,backlog-maintenance-worker走査手順改善.md,
 BL-053,L1マネージャー実作業禁止の構造的強制,中,候補,dev-process-improvement,2026-03-14,L1がワーカーディスパッチをスキップして直接実装することを構造的に防止する仕組み,L1マネージャー実作業禁止の構造的強制.md,
+BL-054,GHA用initiative skillsの分離,中,候補,dev-process-improvement,2026-03-15,GHA ワークフロー用の skills を CLI 用と分離し単一フェーズ実行に特化させる,GHA用initiative skillsの分離.md,
