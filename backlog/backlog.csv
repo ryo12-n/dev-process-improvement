@@ -64,4 +64,3 @@ BL-063,reference-doc-granularity-rule,低,候補,dev-process-improvement,2026-03
 BL-064,skill-plugin-overlap-check-rule,低,候補,dev-process-improvement,2026-03-15,スキル/プラグイン機能重複の定期チェック制度化,skill-plugin-overlap-check-rule.md,
 BL-065,workflow-md-reference-skills-section,低,候補,dev-process-improvement,2026-03-15,docs/workflow.md にリファレンススキル一覧セクション追加,workflow-md-reference-skills-section.md,
 BL-066,csv-conflict-prevention,中,候補,dev-process-improvement,2026-03-15,CSV コンフリクト防止の仕組み構築（並行セッションでのID衝突・マージ競合の解消）,csv-conflict-prevention.md,
-BL-067,refs-work-log-directory,低,候補,dev-process-improvement,2026-03-15,refs/ 配下に作業ログディレクトリを導入し knowledge.md との2層構造で知見管理,refs-work-log-directory.md,
