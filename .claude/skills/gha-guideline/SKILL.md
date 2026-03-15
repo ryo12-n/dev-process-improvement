@@ -229,6 +229,20 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 
 ---
 
+## 6. 実践知見リファレンス
+
+`claude-code-action` の実装時に判明した制約・ハマりポイント・対策は `refs/claude-code-action/knowledge.md` に蓄積されている。
+
+新規ワークフロー作成時・既存ワークフローのデバッグ時に参照すること。主要なトピック:
+
+- **outputs の仕様**: `result` output は存在しない。execution_file のフォールバックパス
+- **permission パターンマッチ**: フラグ付きコマンド（`cp -r` 等）の別途 allow が必要
+- **スコープ制御**: Claude が CLAUDE.md/.claude/skills/ を読み込んでプロンプト範囲を超える問題と対策
+- **allowed_bots**: `workflow_dispatch` 経由での actor 認証
+- **破壊的操作の防止**: `git rebase`/`git reset --hard` のプロンプトベース禁止
+
+---
+
 ## 関連ファイル一覧
 
 本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
@@ -242,6 +256,7 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `.github/workflows/initiative-execute.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `.github/workflows/initiative-close.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `docs/workflow.md` | 新規スキル追加のため、スキル一覧セクションの更新が必要 |
+| `refs/claude-code-action/knowledge.md` | 実践知見の蓄積先。セクション6で参照 |
 
 ---
 
