@@ -1,6 +1,7 @@
 # triage-standard-policy テーブル幅肥大化への対応検討
 
 > **バックログ ID**: BL-043
+> **対象リポジトリ**: dev-process-improvement
 
 
 ## 気づき

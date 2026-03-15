@@ -620,7 +620,7 @@ Phase 2: backlog-auto-execute.yml (on: issues - labeled)
 
 > **正の情報源**: `.claude/skills/manager-common-policy/SKILL.md`
 
-6つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager）に共通する運用パターンを一元的に定義するポリシー。各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
+7つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager, config-optimizer-manager）に共通する運用パターンを一元的に定義するポリシー。各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
 
 ### ポリシー3層構造の位置づけ
 
@@ -636,7 +636,7 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 
 | セクション | 内容 | 概要 |
 |-----------|------|------|
-| §1 | 適用対象 | l1, triage, metacognition, sync, backlog-maintenance, automation の6マネージャー |
+| §1 | 適用対象 | l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer の7マネージャー |
 | §2 | ワーカーディスパッチパターン | 共通4項目（役割・場所・スコープ・完了定義）+ 順序制約（基本逐次） |
 | §3 | 成果物確認観点 | 共通最小3項目（タスク分類・レポート記載・課題バッファ）+ 確認結果の `08_gate_review.md` 記録義務 |
 | §4 | ゲート判定基準 | 通過 / 条件付き通過 / 差し戻しの3択 |

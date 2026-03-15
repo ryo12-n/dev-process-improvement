@@ -187,6 +187,15 @@ env:
 
 Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN` の設定が必要。
 
+### 4.4 `prompt:` フィールドの制限事項
+
+`anthropics/claude-code-action` の `prompt:` 入力フィールドには以下の制限がある。
+
+| 制限 | 説明 | 回避策 |
+|------|------|--------|
+| シェルコマンド置換不可 | `$(...)` はリテラル文字列として Claude に渡される（展開されない） | `${{ }}` 式（GitHub Actions 式）のみ使用する |
+| `issue_comment` トリガーの発火範囲 | Issue コメントだけでなく PR コメントでも発火する | `if:` 条件で `github.event.issue.pull_request` の有無をチェックする |
+
 ---
 
 ## 5. 既存ワークフロー権限マトリクス
