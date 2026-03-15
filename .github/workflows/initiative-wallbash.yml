@@ -1,8 +1,6 @@
 name: Initiative Wallbash
 
 on:
-  issues:
-    types: [labeled]
   workflow_dispatch:
     inputs:
       issue_number:
@@ -12,9 +10,6 @@ on:
 
 jobs:
   wallbash:
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      github.event.label.name == 'initiative-start'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,24 +21,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Determine issue number
-        id: issue
-        env:
-          EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
-          INPUT_ISSUE_NUMBER: ${{ inputs.issue_number }}
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            echo "number=$INPUT_ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
-          else
-            echo "number=$EVENT_ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Extract initiative info from issue
         id: info
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
         run: |
           # Issue タイトルと本文を取得
           issue_json=$(gh issue view "$ISSUE_NUMBER" --json title,body)
@@ -63,7 +45,7 @@ jobs:
             あなたは L1 マネージャーとして initiative の壁打ちフェーズを実行します。
 
             ## 対象
-            Issue #${{ steps.issue.outputs.number }}: ${{ steps.info.outputs.title }}
+            Issue #${{ inputs.issue_number }}: ${{ steps.info.outputs.title }}
 
             ## Issue 本文
             Issue 本文は `/tmp/issue_body.txt` に保存されています。Read ツールで読み取ってください。
@@ -107,7 +89,7 @@ jobs:
       - name: Post wallbash summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
           CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
         run: |
           # Claude の出力を Issue コメントとして投稿
@@ -116,12 +98,12 @@ jobs:
           ${CLAUDE_RESULT}
 
           ---
-          **次のステップ**: 内容を確認し、\`/approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`/approve <フィードバック内容>\` の形式でコメントしてください。"
+          **次のステップ**: 内容を確認し、\`@ai-task /approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`@ai-task /approve <フィードバック内容>\` の形式でコメントしてください。"
 
       - name: Create PR
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
           ISSUE_TITLE: ${{ steps.info.outputs.title }}
         run: |
           # 現在のブランチ名を取得
@@ -141,14 +123,13 @@ jobs:
           Issue: #${ISSUE_NUMBER}
 
           壁打ちフェーズで作成された施策提案。
-          \`/approve\` コメントで実行フェーズに進みます。"
+          \`@ai-task /approve\` コメントで実行フェーズに進みます。"
 
       - name: Update labels
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ steps.issue.outputs.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
         run: |
-          # initiative-start ラベルを除去し、initiative + initiative:wallbashing を付与
+          # initiative + initiative:wallbashing を付与
           gh issue edit "$ISSUE_NUMBER" \
-            --remove-label "initiative-start" \
             --add-label "initiative,initiative:wallbashing" 2>/dev/null || true

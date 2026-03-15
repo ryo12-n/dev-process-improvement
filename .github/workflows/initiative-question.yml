@@ -1,0 +1,94 @@
+name: Initiative Question
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+      question:
+        description: 'Question to ask about the initiative'
+        required: true
+        type: string
+
+jobs:
+  question:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR branch and checkout
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+        run: |
+          # Issue 番号に紐づく PR を検索し、ブランチ名を取得
+          pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
+
+          if [ -z "$pr_json" ]; then
+            echo "::warning::No PR found linked to Issue #${ISSUE_NUMBER}. Using main branch."
+            echo "branch=main" >> "$GITHUB_OUTPUT"
+          else
+            branch=$(echo "$pr_json" | jq -r '.headRefName' | head -1)
+            echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+            # PR ブランチをチェックアウト
+            git fetch origin "$branch"
+            git checkout "$branch"
+          fi
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            あなたは initiative に関する質問に回答するアシスタントです。
+            施策ファイルを読み取り専用で参照し、質問に正確に回答してください。
+
+            ## 対象
+            Issue #${{ inputs.issue_number }}
+            ブランチ: ${{ steps.pr.outputs.branch }}
+
+            ## 質問
+            ${{ inputs.question }}
+
+            ## 実行手順
+
+            1. 施策ディレクトリを特定する（`sessions/initiatives/` 配下で `00_proposal.md` が存在するディレクトリを探す）
+            2. 施策の関連ファイル（`00_proposal.md`, `01_plan.md`, `02_tasks.md`, `03_work_log.md`, `04_work_report.md`, `07_issues.md`, `08_gate_review.md`）を読み取る
+            3. 質問に対する回答を標準出力に出力する（Action が Issue コメントとして投稿する）
+
+            ## 制約
+            - ファイルの読み取りのみ行う（書き込み・編集は禁止）
+            - 対象リポジトリは dev-process-improvement のみ
+          claude_args: "--max-turns 10 --model claude-sonnet-4-6"
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Bash(ls *)",
+                  "Read",
+                  "Glob",
+                  "Grep"
+                ]
+              }
+            }
+
+      - name: Post answer to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "## 回答
+
+          ${CLAUDE_RESULT}"

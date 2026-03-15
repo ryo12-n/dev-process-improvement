@@ -1,16 +1,15 @@
 name: Initiative Close
 
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
 
 jobs:
   close:
-    if: >
-      github.event.issue.pull_request == null &&
-      github.event.comment.user.login != 'github-actions[bot]' &&
-      contains(github.event.issue.labels.*.name, 'initiative:gate-review') &&
-      startsWith(github.event.comment.body, '/approve')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,7 +25,7 @@ jobs:
         id: pr
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
         run: |
           # Issue 番号に紐づく PR を検索し、ブランチ名を取得
           pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
@@ -54,7 +53,7 @@ jobs:
             あなたは L1 マネージャーとして initiative のクローズフェーズを実行します。
 
             ## 対象
-            Issue #${{ github.event.issue.number }}
+            Issue #${{ inputs.issue_number }}
             PR #${{ steps.pr.outputs.pr_number }} (ブランチ: ${{ steps.pr.outputs.branch }})
 
             ## 実行手順
@@ -97,7 +96,7 @@ jobs:
       - name: Post close summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
           CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
@@ -110,7 +109,7 @@ jobs:
       - name: Close issue and update labels
         env:
           GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
         run: |
           # ラベルを更新して Issue をクローズ
           gh issue edit "$ISSUE_NUMBER" \
