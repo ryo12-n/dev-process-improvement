@@ -34,3 +34,25 @@
 
 ## 作業ログ
 
+### [2026-03-15 10:05] タスクID: T-001
+**状態**: 完了
+**作業内容**:
+- `git clone https://github.com/msitarzewski/agency-agents.git` で /tmp に取得
+- `.git/` ディレクトリを削除
+- `refs/agency-agents/` にコピー（全ファイル含む: README, CONTRIBUTING, scripts/ 等）
+- /tmp のクローンを削除
+- 配置確認: 13部門（academic, design, engineering, game-development, marketing, paid-media, product, project-management, sales, spatial-computing, specialized, support, testing）+ examples, integrations, strategy, scripts
+**成果物**: `refs/agency-agents/` 配下に全ファイル配置完了
+**課題・気づき**: 計画では12部門だが実際には13部門 + 非エージェント部門（examples, integrations, strategy, scripts）が存在
+
+### [2026-03-15 10:15] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- `refs/_knowledge_template.md` をベースに `refs/agency-agents/knowledge.md` を作成
+- 全13部門を ls して正確なエージェント数・ファイル名を取得（合計141エージェント）
+- エージェントカタログ: 13部門の一覧（エージェント数・代表的エージェント・推奨マッチング条件）
+- 施策タイプ別推奨マッピング: 8パターン（ルール変更、GHA構築、テンプレート改善、セキュリティ、評価系、自動化、コードレビュー・実装、プロセス改善）
+- メタ情報（用途・有効期限・取得日・取得方法）を付与
+**成果物**: `refs/agency-agents/knowledge.md`
+**課題・気づき**: なし
+
