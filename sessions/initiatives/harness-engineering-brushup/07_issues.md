@@ -13,11 +13,22 @@
 
 ## 未転記メモ
 
-<!-- 以下のフォーマットで追記する -->
-<!--
-### [YYYY-MM-DD] タイトル
-- **種別**: 不具合 / 改善提案 / リスク / 知見
-- **内容**: 何が起きたか・気づいたこと
-- **対応方針（案）**: どう対処するか（未確定でよい）
-- **関連タスク**: T-XXX（あれば）
--->
+### [2026-03-15] ISS-HEB-001: documentarian の参照切れルールファイル
+- **種別**: 不具合
+- **内容**: `.claude/agents/documentarian.md` が参照する `rules/design-doc.md` と `rules/code-in-docs.md` が `.claude/rules/` に存在しない。documentarian が設計書を作成する際にこれらのルールを参照できず、不整合な設計書が生成されるリスクがある
+- **対応方針（案）**: 1) rules/ に design-doc.md と code-in-docs.md を新規作成する、または 2) documentarian の参照先を存在するファイルに修正する
+- **関連タスク**: T-001（agents調査中に発見）
+- **対象リポジトリ**: ai-driven-dev-patterns
+
+### [2026-03-15] ISS-HEB-002: テストスクリプトパス未設定（TODO未解消）
+- **種別**: 改善提案
+- **内容**: `.claude/agents/feature-builder.md` と `test-writer.md` にテスト実行コマンドが `<!-- TODO: 本リポジトリのCIスクリプトパスに修正 -->` のまま未設定。TDDフローが実際には機能しない状態
+- **対応方針（案）**: ai-driven-dev-patterns のテストフレームワーク・CIスクリプトを確認し、具体的なコマンドに置き換える
+- **関連タスク**: T-001（agents調査中に発見）
+- **対象リポジトリ**: ai-driven-dev-patterns
+
+### [2026-03-15] 施策実行環境メモ（転記不要）
+- **種別**: 知見
+- **内容**: GHA環境でも GitHub Token を使った `git clone` で ai-driven-dev-patterns への読み取りアクセスが可能。ISS-027の「SDK環境の1リポジトリ制約」はローカルCLIの `--add-dir` に限定される制約であり、クローンによる別解がある
+- **対応方針（案）**: backlog/inbox に「GHA環境でのマルチリポジトリアクセス方法の知見」として登録を検討
+- **関連タスク**: 本施策全体
