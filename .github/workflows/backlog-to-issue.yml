@@ -1,6 +1,8 @@
 name: Backlog to Issue
 
 on:
+  schedule:
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       backlog_id:
@@ -10,6 +12,7 @@ on:
 
 jobs:
   create-issue:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -82,6 +85,87 @@ jobs:
           echo "Created Issue #${issue_number}: ${issue_url}"
 
       - name: Dispatch wallbash workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.create.outputs.issue_number }}
+        run: |
+          gh workflow run initiative-wallbash.yml \
+            -f issue_number="$ISSUE_NUMBER"
+          echo "Dispatched initiative-wallbash.yml for Issue #${ISSUE_NUMBER}"
+
+  scheduled-create:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select candidate from backlog
+        id: select
+        run: bash .github/scripts/select-backlog-candidate.sh
+
+      - name: Exit if no candidate
+        if: steps.select.outputs.has_candidate != 'true'
+        run: echo "No candidate found. Exiting."
+
+      - name: Check for duplicate issue
+        id: dup_check
+        if: steps.select.outputs.has_candidate == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BACKLOG_ID: ${{ steps.select.outputs.id }}
+        run: |
+          existing=$(gh issue list --search "[${BACKLOG_ID}] in:title" --state all --json number --jq length)
+          echo "existing_count=$existing" >> "$GITHUB_OUTPUT"
+          if [ "$existing" -gt 0 ]; then
+            echo "Duplicate issue found for ${BACKLOG_ID}. Skipping."
+          fi
+
+      - name: Read backlog entry
+        id: entry
+        if: steps.select.outputs.has_candidate == 'true' && steps.dup_check.outputs.existing_count == '0'
+        env:
+          ENTRY_FILE: ${{ steps.select.outputs.file }}
+        run: |
+          filepath="backlog/entries/${ENTRY_FILE}"
+          if [ ! -f "$filepath" ]; then
+            echo "::error::バックログエントリ $filepath が見つかりません"
+            exit 1
+          fi
+          {
+            echo "content<<ENTRY_EOF"
+            cat "$filepath"
+            echo "ENTRY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create issue
+        id: create
+        if: steps.select.outputs.has_candidate == 'true' && steps.dup_check.outputs.existing_count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BACKLOG_ID: ${{ steps.select.outputs.id }}
+          INITIATIVE_NAME: ${{ steps.select.outputs.name }}
+          ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
+          ENTRY_FILE: ${{ steps.select.outputs.file }}
+        run: |
+          issue_url=$(gh issue create \
+            --title "[${BACKLOG_ID}] ${INITIATIVE_NAME}" \
+            --body "${ENTRY_CONTENT}
+
+          ---
+          > **起票元**: backlog-to-issue ワークフロー（${BACKLOG_ID}、schedule トリガー）
+          > **バックログファイル**: \`backlog/entries/${ENTRY_FILE}\`")
+
+          # Issue 番号を抽出
+          issue_number=$(echo "$issue_url" | grep -oP '\d+$')
+          echo "issue_number=$issue_number" >> "$GITHUB_OUTPUT"
+          echo "Created Issue #${issue_number}: ${issue_url}"
+
+      - name: Dispatch wallbash workflow
+        if: steps.select.outputs.has_candidate == 'true' && steps.dup_check.outputs.existing_count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ steps.create.outputs.issue_number }}
