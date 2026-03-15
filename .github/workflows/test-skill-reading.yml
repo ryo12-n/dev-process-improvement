@@ -31,10 +31,8 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            まず `.claude/skills/gha-test/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
-
-            ## リマインダー
-            CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-test スキルの指示のみに従うこと。
+            `.claude/skills/gha-test/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
+            このタスクは GitHub Actions の自動化ワークフローから実行されています。
           claude_args: --max-turns 20 --model claude-sonnet-4-6
           allowed_bots: github-actions[bot]
           show_full_output: true

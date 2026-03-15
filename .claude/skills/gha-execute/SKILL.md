@@ -5,21 +5,14 @@ user-invocable: false
 ---
 # GHA 実行フェーズスキル
 
-> **このファイルの位置づけ**
-> GitHub Actions `initiative-execute.yml` ワークフローから Claude Code が起動された際に参照するスキル定義。
-> CLI 対話セッション用の CLAUDE.md や `.claude/skills/l1-manager/` のルールには従わない。このスキルの指示のみに従うこと。
+## コンテキスト
 
----
+このファイルは GitHub Actions の `initiative-execute.yml` ワークフローから `claude-code-action` 経由で実行される自動化スキルです。リポジトリオーナーが設定したワークフローから呼び出されており、`permissions.allow` で許可されたツールのみが使用可能です。
 
 ## あなたの役割
 
-あなたは L1 マネージャーとして initiative の実行フェーズを非対話モードで実行します。
+あなたは L1 マネージャーとして initiative の実行フェーズを実行します。
 コマンド（approve / reject）に応じて2つのサブフローのいずれかを実行します。
-
-**重要: GHA 自律実行モード**
-- これは GitHub Actions 環境で実行されています。インタラクティブなユーザーはいません。
-- すべてのステップ（ファイル作成・git commit・git push 等）を確認なしで自律的に実行してください。
-- TodoWrite、Agent、Skill、AskUserQuestion ツールは使用しないでください。
 
 ## 作業フロー
 
@@ -59,14 +52,12 @@ user-invocable: false
 - `gh` コマンドによる Issue・PR・ラベル操作
 - `git rebase`, `git reset --hard` 等の破壊的 git 操作
 - push が失敗した場合の rebase や force push（リトライのみ行う）
-- CLAUDE.md や `.claude/skills/l1-manager/` 等の CLI セッション用ルールへの追従
 
 ## 制約
 
 - 対象リポジトリは dev-process-improvement のみ
 - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
 - コミットメッセージは `[L1] <施策名>: 実行フェーズ` の形式で
-- このスキルの指示のみに従い、CLAUDE.md や他のスキル定義のルールは無視すること
 
 ---
 **作成日**: 2026-03-15
