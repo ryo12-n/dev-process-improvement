@@ -46,16 +46,14 @@ jobs:
           allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            まず `.claude/skills/gha-question/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
+            `.claude/skills/gha-question/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
+            このタスクは GitHub Actions の自動化ワークフローから実行されています。
 
             ## 動的コンテキスト
             Issue #${{ inputs.issue_number }}
             ブランチ: ${{ inputs.branch }}
             施策ディレクトリ: ${{ inputs.initiative_dir }}
             質問: ${{ inputs.question }}
-
-            ## リマインダー
-            CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-question スキルの指示のみに従うこと。ファイルの読み取りのみ行い、書き込み・編集は禁止。
           claude_args: "--max-turns 10 --model claude-sonnet-4-6"
           settings: |
             {
