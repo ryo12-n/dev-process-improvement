@@ -133,17 +133,28 @@ jobs:
 
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
+          initiative_name=$(echo "$branch" | sed 's|^initiative/||')
+
           # PR を作成（権限エラー時はスキップ）
           pr_url=$(gh pr create \
             --base main \
             --head "$branch" \
             --title "initiative: ${ISSUE_TITLE}" \
-            --body "## 施策: ${ISSUE_TITLE}
+            --body "$(cat <<PRBODY
+## 施策: ${ISSUE_TITLE}
 
-          Issue: #${ISSUE_NUMBER}
+Issue: #${ISSUE_NUMBER}
 
-          壁打ちフェーズで作成された施策提案。
-          \`@ai-task /approve\` コメントで実行フェーズに進みます。" 2>&1) || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
+## フェーズ進捗
+
+| フェーズ | ステータス | 成果物 |
+|---------|----------|--------|
+| 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${GITHUB_REPOSITORY}/blob/${branch}/sessions/initiatives/${initiative_name}/00_proposal.md) |
+| 実行 | ⏳ 未着手 | |
+| ゲート判定 | ⏳ 未着手 | |
+| クローズ | ⏳ 未着手 | |
+PRBODY
+          )" 2>&1) || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
 
           echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
 
