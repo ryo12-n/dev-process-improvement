@@ -58,7 +58,6 @@ BL-057,gha-metacognition-automation,中,候補,dev-process-improvement,2026-03-1
 BL-058,plugin-high-applicability-trial,中,候補,dev-process-improvement,2026-03-15,高適用性4プラグインの導入検証,plugin-high-applicability-trial.md,
 BL-059,refs-routing-template-unification,中,候補,dev-process-improvement,2026-03-15,全セッションテンプレートのルーティング先統一,refs-routing-template-unification.md,
 BL-060,claude-code-action-version-tracking,低,候補,dev-process-improvement,2026-03-15,Claude Code Action バージョン追従手順の制度化,claude-code-action-version-tracking.md,
-BL-061,gha-session-prompt-conversion-pattern,低,候補,dev-process-improvement,2026-03-15,GHA セッションプロンプト変換パターンガイド,gha-session-prompt-conversion-pattern.md,
 BL-062,l1-pre-applied-template-task-design,低,候補,dev-process-improvement,2026-03-15,L1 タスク設計の改善（事前適用テンプレート）,l1-pre-applied-template-task-design.md,
 BL-063,reference-doc-granularity-rule,低,候補,dev-process-improvement,2026-03-15,リファレンス文書の粒度基準ルール化,reference-doc-granularity-rule.md,
 BL-064,skill-plugin-overlap-check-rule,低,候補,dev-process-improvement,2026-03-15,スキル/プラグイン機能重複の定期チェック制度化,skill-plugin-overlap-check-rule.md,
