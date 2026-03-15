@@ -15,6 +15,11 @@
 ### 不明点・確認事項
 - なし。WebSearch で公式ドキュメントを収集する方針で進める。
 
+### 壁打ち結果 [2026-03-15 作業開始]
+- 7つのCOターゲットは独立して収集可能。WebSearchを並列実行する。
+- 公式ドキュメント（docs.anthropic.com）とGitHub（anthropics/claude-code）を主要ソースとする。
+- 収集後、リファレンスファイルを一括更新し、scan_reportとwork_logを作成する。
+
 ---
 
 ## スキャン計画
