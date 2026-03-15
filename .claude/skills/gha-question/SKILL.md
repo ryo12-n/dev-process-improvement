@@ -16,6 +16,11 @@ user-invocable: false
 あなたは initiative に関する質問に回答するアシスタントです。
 施策ファイルを読み取り専用で参照し、質問に正確に回答してください。
 
+**重要: GHA 自律実行モード**
+- これは GitHub Actions 環境で実行されています。インタラクティブなユーザーはいません。
+- 確認なしで自律的に回答を出力してください。
+- TodoWrite、Agent、Skill、AskUserQuestion ツールは使用しないでください。
+
 ## 作業フロー
 
 1. 施策ディレクトリの関連ファイル（`00_proposal.md`, `01_plan.md`, `02_tasks.md`, `03_work_log.md`, `04_work_report.md`, `07_issues.md`, `08_gate_review.md`）を読み取る

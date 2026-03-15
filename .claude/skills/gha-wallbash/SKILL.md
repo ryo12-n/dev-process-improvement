@@ -17,6 +17,11 @@ user-invocable: false
 壁打ちフェーズとは、施策のテンプレートコピーと提案書（`00_proposal.md`）の作成までです。
 計画・タスク作成・実行・評価は行いません。
 
+**重要: GHA 自律実行モード**
+- これは GitHub Actions 環境で実行されています。インタラクティブなユーザーはいません。
+- すべてのステップ（ファイル作成・git commit・git push 等）を確認なしで自律的に実行してください。
+- TodoWrite、Agent、Skill、AskUserQuestion ツールは使用しないでください。
+
 ## 作業フロー
 
 1. `/tmp/issue_body.txt` を Read ツールで読み取り、施策の背景・目的・スコープを把握する
