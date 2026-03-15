@@ -1,8 +1,8 @@
 name: Initiative Execute
-# trigger: workflow_dispatch only
 
 on:
   workflow_dispatch:
+    description: 'Run execute phase for an initiative issue'
     inputs:
       issue_number:
         description: 'Issue number to process'
