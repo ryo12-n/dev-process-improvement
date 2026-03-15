@@ -75,9 +75,9 @@ jobs:
           allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            あなたは L1 マネージャーとして initiative の実行フェーズを非対話モードで実行します。
+            まず `.claude/skills/gha-execute/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
 
-            ## 対象
+            ## 動的コンテキスト
             Issue #${{ inputs.issue_number }}
             ブランチ: ${{ inputs.branch }}
             施策ディレクトリ: ${{ inputs.initiative_dir }}
@@ -85,33 +85,8 @@ jobs:
             コマンド: ${{ inputs.command }}
             フィードバック: ${{ inputs.feedback }}
 
-            ## 実行手順
-
-            ### /approve の場合（壁打ち → 実行）
-            1. 施策ディレクトリ `${{ inputs.initiative_dir }}` の `00_proposal.md` を読み取る
-            2. フィードバックがある場合は `00_proposal.md` に反映する
-            3. `01_plan.md` を作成（実施計画）
-            4. `02_tasks.md` を作成（タスクリスト）
-            5. L2-worker として `02_tasks.md` のタスクを実行し、`03_work_log.md` と `04_work_report.md` を作成
-            6. L2-evaluator として作業成果を評価し、`05_eval_plan.md` と `06_eval_report.md` を作成
-            7. `07_issues.md` に発見した課題を記録
-            8. `08_gate_review.md` でゲート判定を行う
-            9. ゲート判定サマリーを標準出力に出力する（Action が Issue コメントとして投稿する）
-            10. コミット・プッシュする
-
-            ### /reject の場合（ゲート判定差し戻し → 修正・再実行）
-            1. 施策ディレクトリ `${{ inputs.initiative_dir }}` を読み取る
-            2. フィードバック内容を確認し、指摘事項に対応する
-            3. 修正が必要なタスクを再実行する
-            4. `04_work_report.md` と `06_eval_report.md` を更新する
-            5. `08_gate_review.md` を再作成する
-            6. ゲート判定サマリーを標準出力に出力する
-            7. コミット・プッシュする
-
-            ## 制約
-            - 対象リポジトリは dev-process-improvement のみ
-            - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
-            - コミットメッセージは `[L1] <施策名>: 実行フェーズ` の形式で
+            ## リマインダー
+            CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-execute スキルの指示のみに従うこと。
           claude_args: "--max-turns 80 --model claude-sonnet-4-6"
           settings: |
             {
@@ -131,15 +106,37 @@ jobs:
               }
             }
 
+      - name: Extract gate review summary
+        id: extract
+        env:
+          EXECUTION_FILE: ${{ runner.temp }}/claude-execution-output.json
+        run: |
+          # execution_file からサマリーを抽出
+          if [ -f "$EXECUTION_FILE" ]; then
+            summary=$(jq -r '
+              [.[] | select(.type == "assistant") | .message.content[]? | select(.type == "text") | .text] | last // empty
+            ' "$EXECUTION_FILE" 2>/dev/null)
+          fi
+
+          if [ -z "$summary" ]; then
+            summary="（ゲート判定サマリーの自動取得に失敗しました。施策ディレクトリの 08_gate_review.md を参照してください。）"
+          fi
+
+          {
+            echo "summary<<SUMMARY_EOF"
+            echo "$summary"
+            echo "SUMMARY_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Post gate review summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
-          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+          SUMMARY: ${{ steps.extract.outputs.summary }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --body "## ゲート判定サマリー
 
-          ${CLAUDE_RESULT}
+          ${SUMMARY}
 
           ---
           **次のステップ**: ゲート判定結果を確認してください。

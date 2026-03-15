@@ -43,3 +43,93 @@
 
 ## 作業ログ
 
+### [2026-03-15 11:00] タスクID: T-001
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/gha-wallbash/SKILL.md` を作成
+- `initiative-wallbash.yml` の prompt セクション（行46〜79）から指示・制約を抽出
+- SKILL.md 標準構造（frontmatter `user-invocable: false` + あなたの役割 / 作業フロー / やること / やらないこと）で記述
+- CLAUDE.md・l1-manager のルールに従わない旨を明記
+**成果物**: `.claude/skills/gha-wallbash/SKILL.md`
+
+### [2026-03-15 11:05] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/gha-execute/SKILL.md` を作成
+- `initiative-execute.yml` の prompt セクション（行77〜115）から指示・制約を抽出
+- approve / reject の2サブフローを含めた
+**成果物**: `.claude/skills/gha-execute/SKILL.md`
+
+### [2026-03-15 11:10] タスクID: T-003
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/gha-close/SKILL.md` を作成
+- `initiative-close.yml` の prompt セクション（行45〜71）から指示・制約を抽出
+- 知見ルーティング・アーカイブ移動の手順を記載
+**成果物**: `.claude/skills/gha-close/SKILL.md`
+
+### [2026-03-15 11:15] タスクID: T-004
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/gha-question/SKILL.md` を作成
+- `initiative-question.yml` の prompt セクション（行48〜68）から指示・制約を抽出
+- 読み取り専用であることを明記
+**成果物**: `.claude/skills/gha-question/SKILL.md`
+
+### [2026-03-15 11:20] タスクID: T-005
+**状態**: 完了
+**作業内容**:
+- 4ワークフロー YAML の prompt セクションをスキルファイル参照方式にリファクタ
+- 各プロンプトを「Read 指示 + 動的コンテキスト + 1行リマインダー」に短縮
+- 動的パラメータ（Issue番号、ブランチ名、フィードバック内容等）は YAML に残した
+**成果物**: 4つの YAML ファイル更新
+
+### [2026-03-15 11:30] タスクID: T-006
+**状態**: 完了
+**作業内容**:
+- `initiative-execute.yml`, `initiative-close.yml`, `initiative-question.yml` の3ファイルで `steps.claude.outputs.result` を jq 抽出パターンに置換
+- `initiative-wallbash.yml` の実装パターン（行100〜130）をリファレンスとして踏襲
+- 各ファイルに Extract ステップを追加し、フォールバックメッセージを含めた
+- 環境変数名を `CLAUDE_RESULT` → `SUMMARY` に変更し、`steps.extract.outputs.summary` を参照
+**成果物**: 3つの YAML ファイル更新
+
+### [2026-03-15 11:40] タスクID: T-007
+**状態**: 完了
+**作業内容**:
+- `gha-guideline/SKILL.md` セクション5.1に `initiative-question.yml` を追加
+- セクション5.1の各ワークフローに対応するスキルファイルパスを追記
+- セクション5.2に `initiative-question.yml` の権限マトリクスを追加（contents:read, issues:write, Read/Glob/Grep/Bash(ls *)）
+- セクション5.3に `initiative-question.yml` の設計判断を追加
+- 関連ファイル一覧に `initiative-question.yml` と4つの GHA スキルファイルを追加
+**成果物**: `gha-guideline/SKILL.md` 更新
+
+### [2026-03-15 11:45] タスクID: T-008
+**状態**: 完了
+**作業内容**:
+- `docs/workflow.md` に「GHA Initiative スキル」セクションを追加（自動施策化フローの後、オートメーションメンテナンスセッションの前）
+- スキル一覧テーブル（4スキル）と設計方針を記載
+**成果物**: `docs/workflow.md` 更新
+
+### [2026-03-15 11:50] タスクID: T-009
+**状態**: 完了
+**作業内容**:
+- `refs/claude-code-action/knowledge.md` に知見 #12（スキル分離アプローチ）と #13（execution_file 統一）を追記
+- 「知見の詳細」セクションに「GHA 専用スキル分離アプローチ」サブセクションを追加
+**成果物**: `refs/claude-code-action/knowledge.md` 更新
+
+### [2026-03-15 11:55] タスクID: T-010
+**状態**: 完了
+**作業内容**:
+- `inbox/gha-execution-file-fix-rollout.md` を `git rm` で削除（execution_file 修正の横展開が T-006 で完了したため）
+**成果物**: ファイル削除
+
+### [2026-03-15 12:00] タスクID: T-013
+**状態**: 完了
+**作業内容**:
+- メタルール横断検証を実施（3領域）
+- (1) メタルールフロー記述: 新 GHA スキルは user-invocable: false で GHA からのみ使用。他スキルのフロー記述に影響なし → 合格
+- (2) workflow.md 同期: T-008 で GHA Initiative スキルセクションを追加済み → 合格（修正済）
+- (3) TG-008 基準連動: GHA スキルはセッション型ライフサイクル（壁打ち/計画/実行/評価/ゲート判定）に該当しないため、TG-008 の走査対象には含めない → 該当なし
+- 気づき: gha-skills-mapping.yml に initiative ワークフローのマッピングがないが、タスクスコープ外のため 07_issues.md に起票
+**成果物**: 検証結果を 04_work_report.md に記載
+
