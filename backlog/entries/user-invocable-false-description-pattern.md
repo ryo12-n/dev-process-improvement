@@ -1,5 +1,8 @@
 # user-invocable: false スキルの description 設計パターン
 
+> **バックログ ID**: BL-044
+
+
 ## 種別
 ルール改善の種
 

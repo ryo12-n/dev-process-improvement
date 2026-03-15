@@ -1,5 +1,8 @@
 # triage-standard-policy テーブル幅肥大化への対応検討
 
+> **バックログ ID**: BL-043
+
+
 ## 気づき
 
 backlog-maintenance セッションタイプの追加により、triage-standard-policy の適用マトリクスが5セッションタイプ×15列に拡大し、マークダウンテーブルの可読性が低下している。

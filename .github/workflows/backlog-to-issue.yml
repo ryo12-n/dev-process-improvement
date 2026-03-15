@@ -3,8 +3,8 @@ name: Backlog to Issue
 on:
   workflow_dispatch:
     inputs:
-      initiative_name:
-        description: 'バックログの施策名（backlog.csv の施策名列）'
+      backlog_id:
+        description: 'バックログ ID（BL-001 形式）'
         required: true
         type: string
 
@@ -17,27 +17,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Find backlog entry
+      - name: Find backlog entry by ID
         id: find
         env:
-          INITIATIVE_NAME: ${{ inputs.initiative_name }}
+          BACKLOG_ID: ${{ inputs.backlog_id }}
         run: |
-          # backlog.csv から施策名で検索
-          # CSV列: 施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名,施策ディレクトリ名
-          line=$(awk -F',' -v name="$INITIATIVE_NAME" '
-            { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $1) }
-            $1 == name { print $0; exit }
-          ' backlog/backlog.csv)
-
-          if [ -z "$line" ]; then
-            echo "::error::施策名 '${INITIATIVE_NAME}' が backlog.csv に見つかりません"
+          # BL-xxx 形式のバリデーション
+          if ! echo "$BACKLOG_ID" | grep -qE '^BL-[0-9]{3}$'; then
+            echo "::error::ID の形式が不正です。BL-001 のような BL-XXX 形式で指定してください: '${BACKLOG_ID}'"
             exit 1
           fi
 
-          file=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $7); print $7 }')
-          desc=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $6); print $6 }')
+          # backlog.csv から ID で検索
+          # CSV列: ID,施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名,施策ディレクトリ名
+          line=$(awk -F',' -v id="$BACKLOG_ID" '
+            { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $1) }
+            $1 == id { print $0; exit }
+          ' backlog/backlog.csv)
+
+          if [ -z "$line" ]; then
+            echo "::error::ID '${BACKLOG_ID}' が backlog.csv に見つかりません"
+            exit 1
+          fi
+
+          name=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $2); print $2 }')
+          file=$(echo "$line" | awk -F',' '{ gsub(/^[[:space:]]+|[[:space:]]+$/, "", $8); print $8 }')
+          echo "name=$name" >> "$GITHUB_OUTPUT"
           echo "file=$file" >> "$GITHUB_OUTPUT"
-          echo "description=$desc" >> "$GITHUB_OUTPUT"
 
       - name: Read backlog entry
         id: entry
@@ -56,22 +62,15 @@ jobs:
       - name: Create issue with initiative-start label
         env:
           GH_TOKEN: ${{ github.token }}
-          INITIATIVE_NAME: ${{ inputs.initiative_name }}
-          INITIATIVE_DESC: ${{ steps.find.outputs.description }}
-          INITIATIVE_FILE: ${{ steps.find.outputs.file }}
+          BACKLOG_ID: ${{ inputs.backlog_id }}
+          INITIATIVE_NAME: ${{ steps.find.outputs.name }}
           ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
         run: |
           gh issue create \
-            --title "${INITIATIVE_NAME}" \
+            --title "[${BACKLOG_ID}] ${INITIATIVE_NAME}" \
             --label "initiative-start" \
-            --body "## 施策: ${INITIATIVE_NAME}
-
-          **簡易説明**: ${INITIATIVE_DESC}
-          **バックログファイル**: \`backlog/entries/${INITIATIVE_FILE}\`
+            --body "${ENTRY_CONTENT}
 
           ---
-
-          ${ENTRY_CONTENT}
-
-          ---
-          > backlog-to-issue ワークフローにより自動作成"
+          > **起票元**: backlog-to-issue ワークフロー（${BACKLOG_ID}）
+          > **バックログファイル**: \`backlog/entries/${{ steps.find.outputs.file }}\`"
