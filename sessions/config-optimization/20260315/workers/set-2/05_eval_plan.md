@@ -45,3 +45,21 @@
 - **客観性**: 実際のファイル（settings.json, rules/, CLAUDE.md）を直接確認し、レポートの記載と照合
 - **漏れ検出**: リファレンスに記載のベストプラクティスと現状を照合し、レポートに記載されていないギャップがないか確認
 - **リファレンス整合**: scan_report の引用・参照がリファレンスの内容と一致しているか確認
+
+### 実ファイル照合結果
+
+評価者が直接確認した事実:
+
+| 確認項目 | レポート記載 | 実際の値 | 整合 |
+|---------|------------|---------|------|
+| settings.json allow ルール数 | 18件 | 18件 | OK |
+| settings.json deny ルール数 | 14件 | 14件 | OK |
+| rules/ ファイル数 | 5件 | 5件 | OK |
+| rules/ 合計行数 | 292行 | 292行 | OK |
+| commit-message.md 行数 | 139行 | 139行 | OK |
+| session-start-branch-cleanup.md 行数 | 88行 | 88行 | OK |
+| skills/ ディレクトリ数 | 24 | 24 | OK |
+| CLAUDE.md 行数 | 192行 | 192行 | OK |
+| hooks/ 使用ファイル | session-start-branch-cleanup.sh のみ | 同左 | OK |
+| settings.local.json 存在 | 不存在 | 不存在 | OK |
+| GHA スキルに disable-model-invocation | 未設定 | 未設定（確認: gha-close, gha-execute, gha-wallbash） | OK |
