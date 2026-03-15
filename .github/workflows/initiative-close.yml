@@ -1,8 +1,8 @@
 name: Initiative Close
-# trigger: workflow_dispatch only
 
 on:
   workflow_dispatch:
+    description: 'Run close phase for an initiative issue'
     inputs:
       issue_number:
         description: 'Issue number to process'
