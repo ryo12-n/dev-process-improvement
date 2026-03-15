@@ -43,6 +43,7 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
+          allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
             あなたは initiative に関する質問に回答するアシスタントです。
