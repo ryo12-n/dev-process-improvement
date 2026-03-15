@@ -166,7 +166,18 @@ jobs:
           |------|-----|
           | 施策名 | \`${INITIATIVE_NAME}\` |
           | ディレクトリ | \`sessions/initiatives/${INITIATIVE_NAME}/\` |
-          | ブランチ | \`initiative/${INITIATIVE_NAME}\` |"
+          | ブランチ | \`initiative/${INITIATIVE_NAME}\` |
+
+          <details><summary>📖 コマンドリファレンス</summary>
+
+          | コマンド | 用途 | 使用可能フェーズ |
+          |---------|------|----------------|
+          | \`@ai-task /continue <フィードバック>\` | ドラフトを更新 | wallbashing |
+          | \`@ai-task /approve\` | 次フェーズへ進む | wallbashing, gate-review |
+          | \`@ai-task /reject <理由>\` | ゲート判定を差し戻し | gate-review |
+          | \`@ai-task /question <質問>\` | 施策について質問 | 任意 |
+
+          </details>"
 
       - name: Post wallbash summary to issue
         env:

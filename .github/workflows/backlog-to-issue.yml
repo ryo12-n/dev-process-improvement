@@ -48,8 +48,10 @@ jobs:
 
       - name: Read backlog entry
         id: entry
+        env:
+          ENTRY_FILE: ${{ steps.find.outputs.file }}
         run: |
-          filepath="backlog/entries/${{ steps.find.outputs.file }}"
+          filepath="backlog/entries/${ENTRY_FILE}"
           if [ ! -f "$filepath" ]; then
             echo "::error::バックログエントリ $filepath が見つかりません"
             exit 1
@@ -67,6 +69,7 @@ jobs:
           BACKLOG_ID: ${{ inputs.backlog_id }}
           INITIATIVE_NAME: ${{ steps.find.outputs.name }}
           ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
+          ENTRY_FILE: ${{ steps.find.outputs.file }}
         run: |
           issue_url=$(gh issue create \
             --title "[${BACKLOG_ID}] ${INITIATIVE_NAME}" \
@@ -74,7 +77,10 @@ jobs:
 
           ---
           > **起票元**: backlog-to-issue ワークフロー（${BACKLOG_ID}）
-          > **バックログファイル**: \`backlog/entries/${{ steps.find.outputs.file }}\`")
+          > **バックログファイル**: \`backlog/entries/${ENTRY_FILE}\`
+
+          ---
+          💡 **使い方**: この Issue に \`@ai-task /start\` とコメントすると施策を開始できます。")
 
           # Issue 番号を抽出
           issue_number=$(echo "$issue_url" | grep -oP '\d+$')
