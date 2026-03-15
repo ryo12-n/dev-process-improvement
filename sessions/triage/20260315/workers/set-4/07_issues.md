@@ -28,3 +28,15 @@
   - docs/workflow.md: マネージャー共通ポリシーセクションを「7つのマネージャー」に更新し、config-optimizer-manager を追加
   - session-flow-policy §5.1 のチェックリストに「manager-common-policy §1 の適用対象テーブル更新」を追加することを検討
 - **関連タスク**: TG-006, TG-008
+
+### [2026-03-15] manager-common-policy §9 関連ファイル一覧に config-optimizer-manager も欠落
+- **種別**: 改善提案（ワーカー課題の補完）
+- **発見者**: 評価者（独自検証時）
+- **内容**:
+  1. ワーカーは §9 関連ファイル一覧から automation-manager が欠落していることを報告したが、config-optimizer-manager も同様に §9 に記載されていない
+  2. §9 には l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager の5件のみが記載されている
+  3. §1 適用対象テーブルには config-optimizer-manager が含まれているにもかかわらず、§9 の連動更新対象に含まれていない。これはポリシー変更時に config-optimizer-manager への通知漏れを引き起こすリスクがある
+- **対応方針（案）**:
+  - ワーカーの課題（上記）の対応方針に「§9 に config-optimizer-manager と automation-manager の双方を追加」を含める
+  - §1 と §9 の対応関係を一致させることで、新マネージャー追加時の整合性確認を容易にする
+- **関連タスク**: TG-008（評価者独自検証）
