@@ -238,6 +238,28 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 
 ---
 
+## 6. 実践知見リファレンス
+
+`claude-code-action` の実装時に判明した制約・ハマりポイント・対策は `refs/claude-code-action/knowledge.md` に蓄積されている。
+
+新規ワークフロー作成時・既存ワークフローのデバッグ時に参照すること。主要なトピック:
+
+- **outputs の仕様**: `result` output は存在しない。execution_file のフォールバックパス
+- **permission パターンマッチ**: フラグ付きコマンド（`cp -r` 等）の別途 allow が必要
+- **スコープ制御**: Claude が CLAUDE.md/.claude/skills/ を読み込んでプロンプト範囲を超える問題と対策
+- **allowed_bots**: `workflow_dispatch` 経由での actor 認証
+- **破壊的操作の防止**: `git rebase`/`git reset --hard` のプロンプトベース禁止
+
+### 知見の追記ルール
+
+GHA ワークフローの作成・修正・デバッグで新たな制約・ハマりポイント・対策が判明した場合、`refs/claude-code-action/knowledge.md` の「蓄積された知見」テーブルに追記すること。
+
+- 連番（#）を振り、施策名・日付・カテゴリ・内容を記入する
+- 詳細な説明が必要な場合は「知見の詳細」セクションにサブセクションを追加する
+- カテゴリ: `API仕様` / `権限` / `認証` / `前提条件` / `スコープ制御` / `安全性` / `ターン消費` / `GHA設定` / `その他`
+
+---
+
 ## 関連ファイル一覧
 
 本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
@@ -251,6 +273,7 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `.github/workflows/initiative-execute.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `.github/workflows/initiative-close.yml` | 権限マトリクス（セクション5）の更新が必要な場合 |
 | `docs/workflow.md` | 新規スキル追加のため、スキル一覧セクションの更新が必要 |
+| `refs/claude-code-action/knowledge.md` | 実践知見の蓄積先。セクション6で参照 |
 
 ---
 
