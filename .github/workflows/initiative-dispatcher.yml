@@ -1,0 +1,229 @@
+name: Initiative Dispatcher
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  dispatch:
+    if: >
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login != 'github-actions[bot]' &&
+      contains(github.event.comment.body, '@ai-task')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      actions: write
+    steps:
+      - name: Add eyes reaction
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh api repos/${REPO}/issues/comments/${COMMENT_ID}/reactions \
+            -f content=eyes --silent || true
+
+      - name: Parse command
+        id: parse
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          # @ai-task /command [args...] の形式をパース
+          command=$(echo "$COMMENT_BODY" | grep -oP '@ai-task\s+/\K\S+' | head -1)
+
+          if [ -z "$command" ]; then
+            echo "error=unknown_command" >> "$GITHUB_OUTPUT"
+            echo "error_message=コマンドが認識できません。\`@ai-task /start\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "command=$command" >> "$GITHUB_OUTPUT"
+
+          # コマンド以降のテキストを引数として抽出
+          args=$(echo "$COMMENT_BODY" | sed -n 's|.*@ai-task\s\+/'"$command"'\s*||p')
+          echo "args=$args" >> "$GITHUB_OUTPUT"
+
+      - name: Get issue labels
+        id: labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          labels=$(gh issue view "$ISSUE_NUMBER" --json labels --jq '.labels[].name' | tr '\n' ',')
+          echo "labels=$labels" >> "$GITHUB_OUTPUT"
+
+          # フラグ設定
+          if echo "$labels" | grep -q "initiative"; then
+            echo "has_initiative=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_initiative=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          if echo "$labels" | grep -q "initiative:wallbashing"; then
+            echo "phase=wallbashing" >> "$GITHUB_OUTPUT"
+          elif echo "$labels" | grep -q "initiative:gate-review"; then
+            echo "phase=gate-review" >> "$GITHUB_OUTPUT"
+          elif echo "$labels" | grep -q "initiative:executing"; then
+            echo "phase=executing" >> "$GITHUB_OUTPUT"
+          elif echo "$labels" | grep -q "initiative:completed"; then
+            echo "phase=completed" >> "$GITHUB_OUTPUT"
+          else
+            echo "phase=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Get initiative metadata
+        id: meta
+        if: steps.labels.outputs.has_initiative == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Issue の全コメントからメタデータコメントを検索
+          meta_body=$(gh api "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
+            --jq '[.[] | select(.body | contains("initiative-metadata"))][0].body' 2>/dev/null || echo "")
+
+          if [ -z "$meta_body" ]; then
+            echo "::warning::No initiative metadata comment found for Issue #${ISSUE_NUMBER}"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "found=true" >> "$GITHUB_OUTPUT"
+
+          # HTML コメント内のメタデータを抽出
+          initiative_name=$(echo "$meta_body" | grep 'initiative_name:' | head -1 | sed 's/.*initiative_name:[[:space:]]*//')
+          initiative_dir=$(echo "$meta_body" | grep 'initiative_dir:' | head -1 | sed 's/.*initiative_dir:[[:space:]]*//')
+          branch=$(echo "$meta_body" | grep 'branch:' | head -1 | sed 's/.*branch:[[:space:]]*//')
+
+          echo "initiative_name=$initiative_name" >> "$GITHUB_OUTPUT"
+          echo "initiative_dir=$initiative_dir" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Route and dispatch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMAND: ${{ steps.parse.outputs.command }}
+          PARSE_ERROR: ${{ steps.parse.outputs.error }}
+          PARSE_ERROR_MESSAGE: ${{ steps.parse.outputs.error_message }}
+          HAS_INITIATIVE: ${{ steps.labels.outputs.has_initiative }}
+          PHASE: ${{ steps.labels.outputs.phase }}
+          ARGS: ${{ steps.parse.outputs.args }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          META_FOUND: ${{ steps.meta.outputs.found }}
+          INITIATIVE_DIR: ${{ steps.meta.outputs.initiative_dir }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        id: route
+        run: |
+          # パースエラーがあればエラー出力
+          if [ "$PARSE_ERROR" = "unknown_command" ]; then
+            echo "action=error" >> "$GITHUB_OUTPUT"
+            echo "error_message=$PARSE_ERROR_MESSAGE" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          dispatch_ok=""
+
+          case "$COMMAND" in
+            start)
+              if [ "$HAS_INITIATIVE" = "true" ]; then
+                echo "action=error" >> "$GITHUB_OUTPUT"
+                echo "error_message=この Issue は既に initiative として開始されています（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
+              else
+                gh workflow run initiative-wallbash.yml \
+                  -f issue_number="$ISSUE_NUMBER"
+                dispatch_ok=true
+              fi
+              ;;
+            approve)
+              if [ "$PHASE" = "wallbashing" ]; then
+                # メタデータが必須
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。壁打ちフェーズが正常に完了していない可能性があります。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-execute.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f command=approve \
+                    -f feedback="$ARGS" \
+                    -f phase=wallbashing \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
+              elif [ "$PHASE" = "gate-review" ]; then
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-close.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
+              else
+                echo "action=error" >> "$GITHUB_OUTPUT"
+                echo "error_message=\`/approve\` は \`initiative:wallbashing\` または \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
+              fi
+              ;;
+            reject)
+              if [ "$PHASE" = "gate-review" ]; then
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-execute.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f command=reject \
+                    -f feedback="$ARGS" \
+                    -f phase=gate-review \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
+              else
+                echo "action=error" >> "$GITHUB_OUTPUT"
+                echo "error_message=\`/reject\` は \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
+              fi
+              ;;
+            question)
+              if [ "$HAS_INITIATIVE" = "true" ]; then
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-question.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f question="$ARGS" \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
+              else
+                echo "action=error" >> "$GITHUB_OUTPUT"
+                echo "error_message=\`/question\` は initiative として開始された Issue でのみ使用できます。" >> "$GITHUB_OUTPUT"
+              fi
+              ;;
+            *)
+              echo "action=error" >> "$GITHUB_OUTPUT"
+              echo "error_message=不明なコマンド: \`/${COMMAND}\`。\`/start\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+          if [ -n "$dispatch_ok" ]; then
+            echo "action=dispatched" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post error comment
+        if: steps.route.outputs.action == 'error' && steps.route.outputs.error_message != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ERROR_MESSAGE: ${{ steps.route.outputs.error_message }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "⚠️ **ディスパッチエラー**
+
+          ${ERROR_MESSAGE}"
