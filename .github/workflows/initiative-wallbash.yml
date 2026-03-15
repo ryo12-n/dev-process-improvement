@@ -116,21 +116,8 @@ jobs:
           | ディレクトリ | \`sessions/initiatives/${INITIATIVE_NAME}/\` |
           | ブランチ | \`initiative/${INITIATIVE_NAME}\` |"
 
-      - name: Post wallbash summary to issue
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ inputs.issue_number }}
-          SUMMARY: ${{ steps.extract.outputs.summary }}
-        run: |
-          # Claude の出力を Issue コメントとして投稿
-          gh issue comment "$ISSUE_NUMBER" --body "## 壁打ちサマリー
-
-          ${SUMMARY}
-
-          ---
-          **次のステップ**: 内容を確認し、\`@ai-task /approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`@ai-task /approve <フィードバック内容>\` の形式でコメントしてください。"
-
       - name: Create PR
+        id: pr
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
@@ -140,11 +127,14 @@ jobs:
           branch=$(git branch --show-current)
           if [ "$branch" = "main" ]; then
             echo "::warning::Claude did not create a branch. Skipping PR creation."
+            echo "pr_url=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
           # PR を作成（権限エラー時はスキップ）
-          gh pr create \
+          pr_url=$(gh pr create \
             --base main \
             --head "$branch" \
             --title "initiative: ${ISSUE_TITLE}" \
@@ -153,7 +143,41 @@ jobs:
           Issue: #${ISSUE_NUMBER}
 
           壁打ちフェーズで作成された施策提案。
-          \`@ai-task /approve\` コメントで実行フェーズに進みます。" || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
+          \`@ai-task /approve\` コメントで実行フェーズに進みます。" 2>&1) || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
+
+          echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
+
+      - name: Post wallbash summary to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          SUMMARY: ${{ steps.extract.outputs.summary }}
+          INITIATIVE_NAME: ${{ steps.extract.outputs.initiative_name }}
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          PR_URL: ${{ steps.pr.outputs.pr_url }}
+          REPO: ${{ github.repository }}
+        run: |
+          # 成果物リンクを構築
+          artifacts="### 成果物
+          - [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/sessions/initiatives/${INITIATIVE_NAME}/00_proposal.md)"
+
+          # PR リンク
+          pr_link=""
+          if [ -n "$PR_URL" ]; then
+            pr_link="
+          ### Pull Request
+          - ${PR_URL}"
+          fi
+
+          gh issue comment "$ISSUE_NUMBER" --body "## 壁打ちサマリー
+
+          ${SUMMARY}
+
+          ${artifacts}
+          ${pr_link}
+
+          ---
+          **次のステップ**: 内容を確認し、\`@ai-task /approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`@ai-task /approve <フィードバック内容>\` の形式でコメントしてください。"
 
       - name: Update labels
         env:

@@ -94,10 +94,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
           SUMMARY: ${{ steps.extract.outputs.summary }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          BRANCH: ${{ inputs.branch }}
+          REPO: ${{ github.repository }}
         run: |
+          # 成果物リンクを構築
+          artifacts="### 成果物
+          - [\`施策ディレクトリ\`](https://github.com/${REPO}/tree/${BRANCH}/${INITIATIVE_DIR})
+          - [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md)"
+
+          # PR リンクを取得
+          pr_url=$(gh pr list --head "$BRANCH" --base main --state open --json url --jq '.[0].url' 2>/dev/null || echo "")
+          pr_link=""
+          if [ -n "$pr_url" ]; then
+            pr_link="
+          ### Pull Request
+          - ${pr_url}"
+          fi
+
           gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
 
           ${SUMMARY}
+
+          ${artifacts}
+          ${pr_link}
 
           ---
           施策が完了しました。PR のマージをお願いします。"

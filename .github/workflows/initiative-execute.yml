@@ -129,10 +129,31 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
           SUMMARY: ${{ steps.extract.outputs.summary }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          BRANCH: ${{ inputs.branch }}
+          REPO: ${{ github.repository }}
         run: |
+          # 成果物リンクを構築
+          artifacts="### 成果物
+          - [\`04_work_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}04_work_report.md)
+          - [\`06_eval_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}06_eval_report.md)
+          - [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md)"
+
+          # PR リンクを取得
+          pr_url=$(gh pr list --head "$BRANCH" --base main --state open --json url --jq '.[0].url' 2>/dev/null || echo "")
+          pr_link=""
+          if [ -n "$pr_url" ]; then
+            pr_link="
+          ### Pull Request
+          - ${pr_url}"
+          fi
+
           gh issue comment "$ISSUE_NUMBER" --body "## ゲート判定サマリー
 
           ${SUMMARY}
+
+          ${artifacts}
+          ${pr_link}
 
           ---
           **次のステップ**: ゲート判定結果を確認してください。
