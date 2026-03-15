@@ -8,6 +8,26 @@ on:
         description: 'Issue number to process'
         required: true
         type: number
+      mode:
+        description: 'Wallbash mode: init (first run) or continue (iterate with feedback)'
+        required: false
+        type: string
+        default: 'init'
+      feedback:
+        description: 'Feedback content for continue mode'
+        required: false
+        type: string
+        default: ''
+      initiative_dir:
+        description: 'Initiative directory path (for continue mode, e.g. sessions/initiatives/my-initiative/)'
+        required: false
+        type: string
+        default: ''
+      branch:
+        description: 'Initiative branch name (for continue mode, e.g. initiative/my-initiative)'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   wallbash:
@@ -21,6 +41,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Checkout existing branch (continue mode)
+        if: inputs.mode == 'continue'
+        env:
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          git fetch origin "$BRANCH"
+          git checkout "$BRANCH"
 
       - name: Extract initiative info from issue
         id: info
@@ -37,9 +65,19 @@ jobs:
           # Issue 本文を一時ファイルに保存（Claude のプロンプトで参照）
           echo "$body" > /tmp/issue_body.txt
 
+      - name: Save feedback to file (continue mode)
+        if: inputs.mode == 'continue'
+        env:
+          FEEDBACK: ${{ inputs.feedback }}
+        run: |
+          echo "$FEEDBACK" > /tmp/feedback.txt
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
+        env:
+          WALLBASH_MODE: ${{ inputs.mode }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
         with:
           allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -49,7 +87,12 @@ jobs:
 
             ## 動的コンテキスト
             Issue #${{ inputs.issue_number }}: ${{ steps.info.outputs.title }}
+            モード: ${{ inputs.mode }}
+            施策ディレクトリ: ${{ inputs.initiative_dir }}
+            ブランチ: ${{ inputs.branch }}
+
             Issue 本文は `/tmp/issue_body.txt` に保存されています。
+            フィードバック（continue モード時）は `/tmp/feedback.txt` に保存されています。
           claude_args: "--max-turns 30 --model claude-sonnet-4-6"
           show_full_output: true
           settings: |
@@ -71,14 +114,21 @@ jobs:
         id: extract
         env:
           EXECUTION_FILE: ${{ runner.temp }}/claude-execution-output.json
+          MODE: ${{ inputs.mode }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
         run: |
-          # ブランチ名から施策名を取得
-          branch=$(git branch --show-current)
-          if [ "$branch" != "main" ]; then
-            initiative_name=$(echo "$branch" | sed 's|^initiative/||')
+          if [ "$MODE" = "continue" ]; then
+            # continue モードではメタデータから施策名を取得
+            initiative_name=$(echo "$INITIATIVE_DIR" | sed 's|^sessions/initiatives/||;s|/$||')
           else
-            echo "::error::Claude did not create an initiative branch"
-            exit 1
+            # init モードではブランチ名から施策名を取得
+            branch=$(git branch --show-current)
+            if [ "$branch" != "main" ]; then
+              initiative_name=$(echo "$branch" | sed 's|^initiative/||')
+            else
+              echo "::error::Claude did not create an initiative branch"
+              exit 1
+            fi
           fi
           echo "initiative_name=$initiative_name" >> "$GITHUB_OUTPUT"
 
@@ -100,6 +150,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Post initiative metadata
+        if: inputs.mode == 'init'
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
@@ -117,82 +168,43 @@ jobs:
           | ディレクトリ | \`sessions/initiatives/${INITIATIVE_NAME}/\` |
           | ブランチ | \`initiative/${INITIATIVE_NAME}\` |"
 
-      - name: Create PR
-        id: pr
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ inputs.issue_number }}
-          ISSUE_TITLE: ${{ steps.info.outputs.title }}
-        run: |
-          # 現在のブランチ名を取得
-          branch=$(git branch --show-current)
-          if [ "$branch" = "main" ]; then
-            echo "::warning::Claude did not create a branch. Skipping PR creation."
-            echo "pr_url=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "branch=$branch" >> "$GITHUB_OUTPUT"
-
-          initiative_name=$(echo "$branch" | sed 's|^initiative/||')
-
-          # PR を作成（権限エラー時はスキップ）
-          # PR body をファイル経由で渡す（HEREDOC + YAML ブロックスカラーの競合を回避）
-          cat > /tmp/pr_body.md << PRBODY
-          ## 施策: ${ISSUE_TITLE}
-
-          Issue: #${ISSUE_NUMBER}
-
-          ## フェーズ進捗
-
-          | フェーズ | ステータス | 成果物 |
-          |---------|----------|--------|
-          | 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${GITHUB_REPOSITORY}/blob/${branch}/sessions/initiatives/${initiative_name}/00_proposal.md) |
-          | 実行 | ⏳ 未着手 | |
-          | ゲート判定 | ⏳ 未着手 | |
-          | クローズ | ⏳ 未着手 | |
-          PRBODY
-          pr_url=$(gh pr create \
-            --base main \
-            --head "$branch" \
-            --title "initiative: ${ISSUE_TITLE}" \
-            --body-file /tmp/pr_body.md 2>&1) || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
-
-          echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
-
       - name: Post wallbash summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
           SUMMARY: ${{ steps.extract.outputs.summary }}
           INITIATIVE_NAME: ${{ steps.extract.outputs.initiative_name }}
-          BRANCH: ${{ steps.pr.outputs.branch }}
-          PR_URL: ${{ steps.pr.outputs.pr_url }}
           REPO: ${{ github.repository }}
+          MODE: ${{ inputs.mode }}
         run: |
+          branch="initiative/${INITIATIVE_NAME}"
+
           # 成果物リンクを構築
           artifacts="### 成果物
-          - [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/sessions/initiatives/${INITIATIVE_NAME}/00_proposal.md)"
+          - [\`00_proposal.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00_proposal.md)
+          - [\`01_plan.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/01_plan.md)
+          - [\`02_tasks.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/02_tasks.md)
+          - [\`00a_wallbash_log.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00a_wallbash_log.md)"
 
-          # PR リンク
-          pr_link=""
-          if [ -n "$PR_URL" ]; then
-            pr_link="
-          ### Pull Request
-          - ${PR_URL}"
+          if [ "$MODE" = "init" ]; then
+            header="## 壁打ちサマリー（Round 1）"
+          else
+            header="## 壁打ちサマリー（継続）"
           fi
 
-          gh issue comment "$ISSUE_NUMBER" --body "## 壁打ちサマリー
+          gh issue comment "$ISSUE_NUMBER" --body "${header}
 
           ${SUMMARY}
 
           ${artifacts}
-          ${pr_link}
 
           ---
-          **次のステップ**: 内容を確認し、\`@ai-task /approve\` コメントで実行フェーズに進んでください。フィードバックがある場合は \`@ai-task /approve <フィードバック内容>\` の形式でコメントしてください。"
+          **次のステップ**:
+          - フィードバックがある場合: \`@ai-task /continue <フィードバック内容>\` で壁打ちを継続してください
+          - 内容を承認する場合: \`@ai-task /approve\` コメントで実行フェーズに進んでください（フィードバック付き承認: \`@ai-task /approve <フィードバック内容>\`）"
 
       - name: Update labels
+        if: inputs.mode == 'init'
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
