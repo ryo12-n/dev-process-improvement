@@ -34,9 +34,9 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-E01 | 全変更ファイルの整合性を検証する: (1) `gha-wallbash/SKILL.md` の init/continue フローが `initiative-wallbash.yml` の inputs と対応していること (2) dispatcher の `/continue` routing が wallbash ワークフローの inputs に合致すること (3) execute の PR 作成ステップが wallbash からの PR 削除と整合すること (4) テンプレートの `00a_wallbash_log.md` が gha-wallbash スキルの参照と一致すること | 4項目の検証結果が `06_eval_report.md` に記載されている | 🔴 | ⬜ |
-| T-E02 | 評価中に発見した知見を `06_eval_report.md` の「評価中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-E03 | 評価中に新たに発見した課題を `07_issues.md` へ起票し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-E01 | 全変更ファイルの整合性を検証する: (1) `gha-wallbash/SKILL.md` の init/continue フローが `initiative-wallbash.yml` の inputs と対応していること (2) dispatcher の `/continue` routing が wallbash ワークフローの inputs に合致すること (3) execute の PR 作成ステップが wallbash からの PR 削除と整合すること (4) テンプレートの `00a_wallbash_log.md` が gha-wallbash スキルの参照と一致すること | 4項目の検証結果が `06_eval_report.md` に記載されている | 🔴 | ✅ |
+| T-E02 | 評価中に発見した知見を `06_eval_report.md` の「評価中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-E03 | 評価中に新たに発見した課題を `07_issues.md` へ起票し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ---
 **作成者**: L1
