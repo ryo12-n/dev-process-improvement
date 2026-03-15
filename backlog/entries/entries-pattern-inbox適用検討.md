@@ -1,5 +1,8 @@
 # inbox/ への entries/ パターン適用検討
 
+> **バックログ ID**: BL-038
+
+
 ## 発見元
 - 施策: `sessions/initiatives/management-structure-review/`
 - 08_gate_review.md の次施策候補

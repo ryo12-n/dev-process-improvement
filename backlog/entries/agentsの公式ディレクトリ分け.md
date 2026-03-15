@@ -1,3 +1,6 @@
+
+> **バックログ ID**: BL-036
+
 以下の内容の通り、agentsのディレクトリごとの仕様を調べた。
 ファクトチェックをして欲しい。その後以下のファイルへ追記したい。
 .claude/skills/claude-directory-guide/SKILL.md

@@ -1,5 +1,8 @@
 # session-flow-policy §5.1 チェックリストの精度向上
 
+> **バックログ ID**: BL-042
+
+
 ## 気づき
 
 新セッションタイプ追加時（backlog-maintenance-session 施策）の実施・評価で、session-flow-policy §5.1 チェックリストに明記されていない連動更新箇所が発見された。

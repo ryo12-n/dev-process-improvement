@@ -1,0 +1,121 @@
+name: Initiative Close
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  close:
+    if: >
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login != 'github-actions[bot]' &&
+      contains(github.event.issue.labels.*.name, 'initiative:gate-review') &&
+      startsWith(github.event.comment.body, '/approve')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR branch and checkout
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          # Issue 番号に紐づく PR を検索し、ブランチ名を取得
+          pr_json=$(gh pr list --search "$ISSUE_NUMBER" --json number,headRefName,body --jq ".[] | select(.body | contains(\"#${ISSUE_NUMBER}\"))")
+
+          if [ -z "$pr_json" ]; then
+            echo "::error::No PR found linked to Issue #${ISSUE_NUMBER}"
+            exit 1
+          fi
+
+          branch=$(echo "$pr_json" | jq -r '.headRefName' | head -1)
+          pr_number=$(echo "$pr_json" | jq -r '.number' | head -1)
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
+
+          # PR ブランチをチェックアウト
+          git fetch origin "$branch"
+          git checkout "$branch"
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            あなたは L1 マネージャーとして initiative のクローズフェーズを実行します。
+
+            ## 対象
+            Issue #${{ github.event.issue.number }}
+            PR #${{ steps.pr.outputs.pr_number }} (ブランチ: ${{ steps.pr.outputs.branch }})
+
+            ## 実行手順
+
+            1. 施策ディレクトリを特定する（`sessions/initiatives/` 配下で `08_gate_review.md` が存在するディレクトリを探す）
+            2. 知見ルーティングを実行する:
+               - `04_work_report.md` の「作業中の知見」と `06_eval_report.md` の「評価中の知見」を確認
+               - ルール化候補は該当ファイルへの反映を検討
+               - 次施策候補は `inbox/` にファイルを作成
+            3. 施策ディレクトリを `_archive/` に移動する:
+               ```bash
+               git mv sessions/initiatives/<施策名>/ sessions/initiatives/_archive/<施策名>/
+               ```
+            4. 変更をコミット・プッシュする
+            5. 完了サマリーを標準出力に出力する（施策の成果・知見ルーティング結果・次施策候補の概要）
+
+            ## 制約
+            - 対象リポジトリは dev-process-improvement のみ
+            - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
+            - コミットメッセージは `[L1] <施策名>: クローズ（アーカイブ移動・知見ルーティング）` の形式で
+          claude_args: "--max-turns 30 --model claude-sonnet-4-6"
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Bash(git *)",
+                  "Bash(cp *)",
+                  "Bash(mkdir *)",
+                  "Bash(rm *)",
+                  "Bash(ls *)",
+                  "Read",
+                  "Write",
+                  "Edit",
+                  "Glob",
+                  "Grep"
+                ]
+              }
+            }
+
+      - name: Post close summary to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CLAUDE_RESULT: ${{ steps.claude.outputs.result }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
+
+          ${CLAUDE_RESULT}
+
+          ---
+          施策が完了しました。PR のマージをお願いします。"
+
+      - name: Close issue and update labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          # ラベルを更新して Issue をクローズ
+          gh issue edit "$ISSUE_NUMBER" \
+            --remove-label "initiative:gate-review" \
+            --add-label "initiative:completed" 2>/dev/null || true
+
+          gh issue close "$ISSUE_NUMBER" \
+            --comment "施策のクローズ処理が完了しました。"

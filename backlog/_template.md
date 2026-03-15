@@ -4,6 +4,7 @@
 
 | 項目 | 内容 |
 |------|------|
+| **バックログ ID** | <!-- BL-XXX 形式。backlog.csv の ID 列と一致させること --> |
 | **優先度** | 🔴 高 / 🟡 中 / 🔵 低 |
 | **ステータス** | 候補 / initiative 開始済 / 完了 |
 | **対象リポジトリ** | ai-driven-dev-patterns / dev-process-improvement / ai-research-notebook / 横断 <!-- 必須 --> |
