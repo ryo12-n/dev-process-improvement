@@ -141,22 +141,22 @@ jobs:
           # Issue タイトルを取得
           issue_title=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title')
 
-          # PR 説明を更新
-          gh pr edit "$pr_number" --body "$(cat <<PRBODY
-## 施策: ${issue_title}
+          # PR 説明をファイル経由で更新（HEREDOC + YAML ブロックスカラーの競合を回避）
+          cat > /tmp/pr_body.md << PRBODY
+          ## 施策: ${issue_title}
 
-Issue: #${ISSUE_NUMBER}
+          Issue: #${ISSUE_NUMBER}
 
-## フェーズ進捗
+          ## フェーズ進捗
 
-| フェーズ | ステータス | 成果物 |
-|---------|----------|--------|
-| 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}00_proposal.md) |
-| 実行 | ✅ 完了 | [\`04_work_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}04_work_report.md) |
-| ゲート判定 | ✅ 完了 | [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md) |
-| クローズ | ✅ 完了 | [\`施策ディレクトリ\`](https://github.com/${REPO}/tree/${BRANCH}/${INITIATIVE_DIR}) |
-PRBODY
-          )"
+          | フェーズ | ステータス | 成果物 |
+          |---------|----------|--------|
+          | 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}00_proposal.md) |
+          | 実行 | ✅ 完了 | [\`04_work_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}04_work_report.md) |
+          | ゲート判定 | ✅ 完了 | [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md) |
+          | クローズ | ✅ 完了 | [\`施策ディレクトリ\`](https://github.com/${REPO}/tree/${BRANCH}/${INITIATIVE_DIR}) |
+          PRBODY
+          gh pr edit "$pr_number" --body-file /tmp/pr_body.md
 
       - name: Close issue and update labels
         env:
