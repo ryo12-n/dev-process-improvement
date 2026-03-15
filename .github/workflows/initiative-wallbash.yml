@@ -40,6 +40,7 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
+          allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
             あなたは L1 マネージャーとして initiative の壁打ちフェーズを実行します。
