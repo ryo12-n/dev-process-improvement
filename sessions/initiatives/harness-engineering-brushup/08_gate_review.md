@@ -63,12 +63,24 @@
 | ISS-HEB-001 | 低 | バックログ登録対象として扱う | フェーズ2で改善候補として登録 |
 | ISS-HEB-002 | 中 | バックログ登録対象として扱う | フェーズ2の改善候補#1・#2として登録 |
 
+## reject フィードバック対応（2026-03-15）
+
+**フィードバック**: この観点でのチェックをdev-process-improvement側でも定期的に実施する仕組みを構築したいのでbacklog起票しておいて欲しい
+
+**対応内容**:
+- `backlog/entries/harness-engineering-periodic-check-dpi.md` を新規作成（BL-075）
+- `backlog/backlog.csv` に BL-075 を追加
+- 優先度: 🔵 低、対象リポジトリ: dev-process-improvement
+
+---
+
 ## 総合判定
 - [x] **条件付き通過**: 以下の条件を満たした上で次フェーズに進む
 
 **条件**:
 1. フェーズ2（T-E02）で改善候補5件（優先度高/中）をバックログ・inbox に登録する
 2. フェーズ2（T-008）で ISS-HEB-001・ISS-HEB-002 を 課題管理.csv に転記する
+3. ~~BL-075（dpi側定期チェック）をbacklog起票する~~ → reject 対応で実施済み
 
 ## 判定理由
 
