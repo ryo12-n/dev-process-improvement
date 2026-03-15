@@ -75,7 +75,8 @@ jobs:
           allowed_bots: "github-actions[bot]"
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            まず `.claude/skills/gha-execute/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
+            `.claude/skills/gha-execute/SKILL.md` を Read ツールで読み取り、その指示に従って作業してください。
+            このタスクは GitHub Actions の自動化ワークフローから実行されています。
 
             ## 動的コンテキスト
             Issue #${{ inputs.issue_number }}
@@ -84,18 +85,12 @@ jobs:
             フェーズ: ${{ inputs.phase }}
             コマンド: ${{ inputs.command }}
             フィードバック: ${{ inputs.feedback }}
-
-            ## リマインダー
-            CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-execute スキルの指示のみに従うこと。
           claude_args: "--max-turns 80 --model claude-sonnet-4-6"
           settings: |
             {
               "permissions": {
                 "allow": [
                   "Bash(git *)",
-                  "Bash(cp *)",
-                  "Bash(mkdir *)",
-                  "Bash(rm *)",
                   "Bash(ls *)",
                   "Read",
                   "Write",
