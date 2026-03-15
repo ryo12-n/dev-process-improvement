@@ -49,7 +49,7 @@
 **状態**: 完了
 **作業内容**:
 - `gh api repos/ryo12-n/ai-driven-dev-patterns/contents/docs/design/dev-workflow-detail.md` で全文取得
-- `grep -n "L1"` でファイル全体の L1 参照を抽出。計19件を特定（下記一覧参照）
+- `grep -n "L1"` でファイル全体の L1 参照を抽出。計23件を特定（下記一覧参照）
 **成果物**: 全 L1 参照の行番号・文脈リスト
 
 #### 特定した L1 参照一覧
