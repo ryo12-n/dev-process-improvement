@@ -40,12 +40,34 @@
 | 2 | backlog エントリの `対象リポジトリ` 列は実際のファイル所在地（ai-driven-dev-patterns）と異なる `dev-process-improvement` が記載されていた | GHA 環境での作業可否判断に影響する可能性がある。backlog 起票時は対象ファイルの所在リポジトリを正確に記載すべき |
 | 3 | workflow-doc-consistency-fix で「施策管理 L1」→「ユーザー」に変換した残存参照と、ロール名としての L1 参照の区別は、文脈（エスカレーション先・アーキテクチャ図）で判断できる | 施策 workflow-doc-consistency-fix の変換対象と本施策の精査対象は異なる種類の参照だった |
 
+## reject フィードバック対応（追記）
+
+### T-007: ai-driven-dev-patterns `.claude/` 調査結果
+
+ai-driven-dev-patterns の `.claude/` 配下（CLAUDE.md・dispatcher SKILL.md・agent-restrictions.md）を確認した結果：
+
+- **ai-driven-dev-patterns は `dev_manager` が最上位オーケストレーターとして自律稼働する設計**であり、dev-process-improvement の L1 マネージャーからの指示を受けるチャネルは設計上存在しない
+- CLAUDE.md「リポジトリ境界ポリシー」は `ai-driven-dev-patterns → dev-process-improvement` への参照禁止（一方向）。逆方向の制約は明示されていないが、L1 からの指示チャネルも記述されていない
+- `dev-workflow-detail.md` §8 の「L1 施策管理マネージャー → dev_manager → 各ロール」の3層記述は **アーキテクチャ設計構想** の説明として記述されており、ai-driven-dev-patterns の実運用モデルとは一定の乖離がある
+
+### T-008: `gh api` vs 2リポジトリクローン 比較評価
+
+| 観点 | `gh api` | 2リポジトリクローン |
+|------|----------|-----------------|
+| 適用環境 | GHA / SDK 環境 | CLI 環境（ローカル推奨） |
+| 読み取り効率 | base64 デコード必要、多ファイル参照は非効率 | 一括参照・横断検索が容易 |
+| git 操作 | 不可 | すべて可能 |
+| `.claude/` 全体把握 | 多数リクエスト必要で非効率 | ローカルで直感的に参照可能 |
+| 初期コスト | 低 | 高（2リポジトリのセットアップ） |
+
+**推奨**: ai-driven-dev-patterns の設計文書を広く参照する施策では、`gh api` よりも CLI 環境 + 2リポジトリクローンが優れている。本施策で実感した。
+
 ## 所感・次フェーズへの申し送り
 
 - 全 L1 参照が変更不要と判断されたため、`dev-workflow-detail.md` への変更はない
-- Evaluator フェーズでは「精査基準の妥当性」と「変更不要判断の根拠」を重点的に評価すること
+- reject フィードバック対応で、ai-driven-dev-patterns の運用モデル（dev_manager 自律稼働）と §8 記述の乖離という追加知見を得た
 - backlog エントリの誤分類（`対象リポジトリ` 列）については軽微な事例のためCSV転記は不要と判断
 
 ---
 **作成者**: L2（実施）
-**作成日**: 2026-03-15
+**作成日**: 2026-03-15（追記: 2026-03-15 reject フィードバック対応）
