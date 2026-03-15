@@ -1,6 +1,7 @@
 # inbox/ への entries/ パターン適用検討
 
 > **バックログ ID**: BL-038
+> **対象リポジトリ**: dev-process-improvement
 
 
 ## 発見元

@@ -1,6 +1,7 @@
 # user-invocable: false スキルの description 設計パターン
 
 > **バックログ ID**: BL-044
+> **対象リポジトリ**: dev-process-improvement
 
 
 ## 種別

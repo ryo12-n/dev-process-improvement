@@ -6,6 +6,7 @@
 ## メタ情報
 | 項目 | 内容 |
 |------|------|
+| **対象リポジトリ** | dev-process-improvement |
 | **起票日** | 2026-03-08 |
 | **発生元** | metacognitive-improvement-enforcement 施策 (08_gate_review.md 次施策候補) |
 

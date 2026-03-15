@@ -1,6 +1,7 @@
 # session-flow-policy §5.1 チェックリストの精度向上
 
 > **バックログ ID**: BL-042
+> **対象リポジトリ**: dev-process-improvement
 
 
 ## 気づき
