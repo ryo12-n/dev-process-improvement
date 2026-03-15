@@ -37,7 +37,7 @@ jobs:
 
           if [ -z "$command" ]; then
             echo "error=unknown_command" >> "$GITHUB_OUTPUT"
-            echo "error_message=コマンドが認識できません。\`@ai-task /start\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+            echo "error_message=コマンドが認識できません。\`@ai-task /start\`, \`/continue <フィードバック>\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -145,6 +145,26 @@ jobs:
                 dispatch_ok=true
               fi
               ;;
+            continue)
+              if [ "$PHASE" = "wallbashing" ]; then
+                # メタデータが必須
+                if [ "$META_FOUND" != "true" ]; then
+                  echo "action=error" >> "$GITHUB_OUTPUT"
+                  echo "error_message=施策メタデータが見つかりません。壁打ちフェーズが正常に完了していない可能性があります。" >> "$GITHUB_OUTPUT"
+                else
+                  gh workflow run initiative-wallbash.yml \
+                    -f issue_number="$ISSUE_NUMBER" \
+                    -f mode=continue \
+                    -f feedback="$ARGS" \
+                    -f initiative_dir="$INITIATIVE_DIR" \
+                    -f branch="$BRANCH"
+                  dispatch_ok=true
+                fi
+              else
+                echo "action=error" >> "$GITHUB_OUTPUT"
+                echo "error_message=\`/continue\` は \`initiative:wallbashing\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
+              fi
+              ;;
             approve)
               if [ "$PHASE" = "wallbashing" ]; then
                 # メタデータが必須
@@ -217,7 +237,7 @@ jobs:
               ;;
             *)
               echo "action=error" >> "$GITHUB_OUTPUT"
-              echo "error_message=不明なコマンド: \`/${COMMAND}\`。\`/start\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+              echo "error_message=不明なコマンド: \`/${COMMAND}\`。\`/start\`, \`/continue <フィードバック>\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
               ;;
           esac
 

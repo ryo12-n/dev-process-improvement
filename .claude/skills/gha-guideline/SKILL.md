@@ -208,7 +208,7 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `daily-triage.yml` | CLI + `--allowedTools` | `schedule` / `workflow_dispatch` | 日次トリアージ |
 | `test-permissions.yml` | Action + settings JSON | `workflow_dispatch` | E2E 権限テスト |
 | `backlog-candidate-propose.yml` | なし（Shell のみ） | `schedule` / `workflow_dispatch` | バックログ候補の Issue 作成 |
-| `initiative-wallbash.yml` | Action + settings JSON | `issues:labeled` / `workflow_dispatch` | Initiative 壁打ちフェーズ（テンプレートコピー・提案作成・壁打ちサマリー投稿）。スキル: `.claude/skills/gha-wallbash/SKILL.md` |
+| `initiative-wallbash.yml` | Action + settings JSON | `workflow_dispatch` | Initiative 壁打ちフェーズ（init: テンプレートコピー・ドラフト作成 / continue: フィードバック反映・ドラフト更新）。`/continue` で反復可能。スキル: `.claude/skills/gha-wallbash/SKILL.md` |
 | `initiative-execute.yml` | Action + settings JSON | `issue_comment:created` | Initiative 実行フェーズ（計画・実行・評価・ゲート判定）。スキル: `.claude/skills/gha-execute/SKILL.md` |
 | `initiative-close.yml` | Action + settings JSON | `issue_comment:created` | Initiative クローズフェーズ（アーカイブ移動・知見ルーティング・Issue クローズ）。スキル: `.claude/skills/gha-close/SKILL.md` |
 | `initiative-question.yml` | Action + settings JSON | `workflow_dispatch` | Initiative 質問回答（読み取り専用）。スキル: `.claude/skills/gha-question/SKILL.md` |
@@ -234,7 +234,7 @@ Shell ステップで gh コマンドを使用する場合も同様に `GH_TOKEN
 | `daily-triage.yml` | git/gh ともに Shell | Claude の作業はファイル編集のみ。git commit/push、gh pr create は固定パターンで Shell ステップが実行 |
 | `test-permissions.yml` | git/gh ともに Claude に委任 | E2E テスト目的で全権限の動作確認が必要。本番用途ではない |
 | `backlog-candidate-propose.yml` | Shell のみ | Claude Code を使用しないワークフロー |
-| `initiative-wallbash.yml` | git を Claude に委任、gh を Shell | Claude が施策ブランチ作成・テンプレートコピー・コミットを動的に実行。PR 作成・ラベル操作・Issue コメント投稿は固定パターンなので Shell |
+| `initiative-wallbash.yml` | git を Claude に委任、gh を Shell | Claude が施策ブランチ作成（init）・ドラフト作成/更新・コミットを動的に実行。PR 作成は壁打ち中は行わず `/approve` 時に execute が担当。ラベル操作・Issue コメント投稿は固定パターンなので Shell |
 | `initiative-execute.yml` | git を Claude に委任、gh を Shell | Claude が計画・実行・評価・ゲート判定を自律実行し、動的にコミット。PR ブランチ取得・ラベル操作・ゲート判定サマリー投稿は固定パターンなので Shell |
 | `initiative-close.yml` | git を Claude に委任、gh を Shell | Claude がアーカイブ移動・知見ルーティングを動的に実行し、コミット。Issue クローズ・ラベル操作は固定パターンなので Shell |
 | `initiative-question.yml` | git/gh ともに Shell（Claude は読み取り専用） | Claude の作業は施策ファイルの読み取りと回答生成のみ。Write/Edit/git/gh は不要 |
