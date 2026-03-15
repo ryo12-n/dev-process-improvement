@@ -1,6 +1,7 @@
 # ai-driven-dev-patterns でのビルトイン skills 評価
 
 > **バックログ ID**: BL-037
+> **対象リポジトリ**: ai-driven-dev-patterns
 
 
 ## 種別

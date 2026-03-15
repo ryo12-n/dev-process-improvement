@@ -1,6 +1,7 @@
 # rules/ → skills/ 移動時の参照パス波及更新
 
 > **バックログ ID**: BL-041
+> **対象リポジトリ**: dev-process-improvement
 
 
 ## 気づき
