@@ -49,6 +49,59 @@ jobs:
           git fetch origin "$BRANCH"
           git checkout "$BRANCH"
 
+      - name: Get issue title
+        id: issue_info
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+        run: |
+          issue_title=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title')
+          echo "title=$issue_title" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR (wallbashing to executing transition)
+        if: inputs.phase == 'wallbashing'
+        id: create_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          ISSUE_TITLE: ${{ steps.issue_info.outputs.title }}
+          BRANCH: ${{ inputs.branch }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          REPO: ${{ github.repository }}
+        run: |
+          # 既存の PR がないか確認
+          existing_pr=$(gh pr list --head "$BRANCH" --base main --state open --json url --jq '.[0].url' 2>/dev/null || echo "")
+          if [ -n "$existing_pr" ]; then
+            echo "PR already exists: $existing_pr"
+            echo "pr_url=$existing_pr" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          initiative_name=$(echo "$BRANCH" | sed 's|^initiative/||')
+
+          # PR body をファイル経由で渡す
+          cat > /tmp/pr_body.md << PRBODY
+          ## 施策: ${ISSUE_TITLE}
+
+          Issue: #${ISSUE_NUMBER}
+
+          ## フェーズ進捗
+
+          | フェーズ | ステータス | 成果物 |
+          |---------|----------|--------|
+          | 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}00_proposal.md) |
+          | 実行 | 🔄 進行中 | |
+          | ゲート判定 | ⏳ 未着手 | |
+          | クローズ | ⏳ 未着手 | |
+          PRBODY
+          pr_url=$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "initiative: ${ISSUE_TITLE}" \
+            --body-file /tmp/pr_body.md 2>&1) || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
+
+          echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
+
       - name: Update labels to executing
         if: inputs.phase == 'wallbashing'
         env:

@@ -20,8 +20,10 @@ user-invocable: false
 
 1. 施策ディレクトリの `00_proposal.md` を読み取る
 2. フィードバックがある場合は `00_proposal.md` に反映する
-3. `01_plan.md` を作成（実施計画）
-4. `02_tasks.md` を作成（タスクリスト）
+3. 既存の壁打ちドラフト（`01_plan.md`, `02_tasks.md`）を読み取る
+   - ドラフトが存在する場合（テンプレートから変更されている場合）: ドラフトを基に不足を補完・最終化する
+   - ドラフトが存在しない場合（テンプレートのまま）: ゼロから `01_plan.md`, `02_tasks.md` を作成する（従来動作のフォールバック）
+4. フィードバックがある場合は `01_plan.md`, `02_tasks.md` にも反映する
 5. L2-worker として `02_tasks.md` のタスクを実行し、`03_work_log.md` と `04_work_report.md` を作成
 6. L2-evaluator として作業成果を評価し、`05_eval_plan.md` と `06_eval_report.md` を作成
 7. `07_issues.md` に発見した課題を記録
