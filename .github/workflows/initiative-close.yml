@@ -51,6 +51,7 @@ jobs:
             ブランチ: ${{ inputs.branch }}
             施策ディレクトリ: ${{ inputs.initiative_dir }}
           claude_args: "--max-turns 30 --model claude-sonnet-4-6"
+          show_full_output: true
           settings: |
             {
               "permissions": {

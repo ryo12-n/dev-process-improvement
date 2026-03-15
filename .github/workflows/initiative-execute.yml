@@ -86,6 +86,7 @@ jobs:
             コマンド: ${{ inputs.command }}
             フィードバック: ${{ inputs.feedback }}
           claude_args: "--max-turns 80 --model claude-sonnet-4-6"
+          show_full_output: true
           settings: |
             {
               "permissions": {
