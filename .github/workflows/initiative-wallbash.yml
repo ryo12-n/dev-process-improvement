@@ -73,6 +73,7 @@ jobs:
             ## 制約
             - 対象リポジトリは dev-process-improvement のみ
             - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
+          show_full_output: true
           claude_args: "--max-turns 30 --model claude-sonnet-4-6"
           settings: |
             {
@@ -91,6 +92,24 @@ jobs:
                 ]
               }
             }
+
+      - name: Dump execution file structure
+        if: always()
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          echo "=== execution_file path ==="
+          echo "$EXECUTION_FILE"
+          echo "=== file exists? ==="
+          ls -la "$EXECUTION_FILE" 2>&1 || echo "File not found"
+          echo "=== jq type check ==="
+          jq 'type' "$EXECUTION_FILE" 2>&1 || echo "jq failed"
+          echo "=== structure sample (first 3 entries if array) ==="
+          jq 'if type == "array" then .[:3] else . end' "$EXECUTION_FILE" 2>&1 || echo "jq failed"
+          echo "=== last entry ==="
+          jq 'if type == "array" then .[-1] else . end' "$EXECUTION_FILE" 2>&1 || echo "jq failed"
+          echo "=== all result type entries ==="
+          jq '[.[] | select(.type == "result")]' "$EXECUTION_FILE" 2>&1 || echo "jq failed"
 
       - name: Extract initiative name
         id: extract
@@ -162,7 +181,7 @@ jobs:
             exit 0
           fi
 
-          # PR を作成
+          # PR を作成（権限エラー時はスキップ）
           gh pr create \
             --base main \
             --head "$branch" \
@@ -172,7 +191,7 @@ jobs:
           Issue: #${ISSUE_NUMBER}
 
           壁打ちフェーズで作成された施策提案。
-          \`@ai-task /approve\` コメントで実行フェーズに進みます。"
+          \`@ai-task /approve\` コメントで実行フェーズに進みます。" || echo "::warning::PR creation failed. Check repository settings for Actions permissions."
 
       - name: Update labels
         env:
