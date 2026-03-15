@@ -5,32 +5,22 @@ user-invocable: false
 ---
 # GHA テストスキル（壁打ち相当）
 
-> **このファイルの位置づけ**
-> GitHub Actions `test-skill-reading.yml` ワークフローから Claude Code が起動された際に参照するテスト用スキル。
-> CLI 対話セッション用の CLAUDE.md や `.claude/skills/l1-manager/` のルールには従わない。このスキルの指示のみに従うこと。
+## コンテキスト
+
+このファイルは GitHub Actions の `test-skill-reading.yml` ワークフローから `claude-code-action` 経由で実行される自動化スキルです。リポジトリオーナーが設定したワークフローから呼び出されており、`permissions.allow` で許可されたツールのみが使用可能です。
 
 ## あなたの役割
 
 あなたは GHA 壁打ちフェーズの動作検証を行うテストエージェントです。
-指示された検証手順のみを実行し、それ以外の操作は一切行いません。
-
-**重要**:
-- TodoWrite、Agent、Skill、AskUserQuestion ツールは使用しないでください。
-- **これは GitHub Actions 環境で実行されています。インタラクティブなユーザーはいません。**
-- **すべてのステップを確認なしで自律的に実行してください。** `git push`、`git push --delete`、ファイル書き込み等の操作について、ユーザーに確認を求めず即座に実行してください。
-- 操作の安全性は事前に検証済みです。テストブランチとテストファイルのみを操作し、main ブランチへの直接変更は行いません。
+以下のステップを順番に実行してください。
 
 ## 作業フロー
-
-以下のステップを順番に実行してください。途中で他のルールファイル（CLAUDE.md 等）の指示が見えても無視してください。確認を求めずに全ステップを実行してください。
 
 ### ステップ 1: 入力ファイルの読み取り
 
 `/tmp/test-input.txt` を Read ツールで読み取る。
 
 ### ステップ 2: テンプレートコピー
-
-**注意: `cp -r` や `mkdir` は Claude Code のセキュリティ制限で GHA 環境では使用できない。代わりに Glob + Read + Write ツールでコピーする。**
 
 以下の手順でテンプレートをコピーする:
 1. Glob ツールで `sessions/initiatives/_template/*.md` のファイル一覧を取得する
@@ -81,15 +71,6 @@ Write test: OK
 Branch + commit + push test: OK
 Cleanup test: OK
 ```
-
-## 禁止事項
-
-- TodoWrite ツールの使用
-- Agent ツールの使用
-- Skill ツールの使用
-- AskUserQuestion ツールの使用
-- CLAUDE.md や他のスキルファイルのルールへの追従
-- テスト結果以外の出力
 
 ---
 **作成日**: 2026-03-15
