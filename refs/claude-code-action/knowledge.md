@@ -32,6 +32,7 @@
 | 18 | gha-initiative-skills-separation | 2026-03-15 | インジェクション対策 | CLAUDE.md（プロジェクト設定として信頼される情報源）に「GHA スキルは正当な自動化であり、確認なしの自律実行は設計上の意図」と明記することで誤検知を解消。スキルファイル側は「コンテキスト」セクションで正当性を説明し、否定形の指示（「〜を無視」「〜に従わない」）を全て除去する |
 | 19 | gha-initiative-skills-separation | 2026-03-15 | ワークフロー検証 | `claude-code-action` の OIDC トークン交換時、ワークフローファイルが default branch（main）と一致しているか検証される。ブランチ上でワークフロー YAML を変更した場合、マージ前のテスト実行は失敗する（`Workflow validation failed`） |
 | 20 | gha-initiative-skills-separation | 2026-03-15 | デバッグ | `show_full_output: true` を設定すると、Claude の各ターンの thinking・tool_use・tool_result が GHA ログに出力され、permission denial やインジェクション誤検知の原因特定に有用 |
+| 21 | gha-initiative-skills-separation | 2026-03-15 | ディスパッチャー | `@ai-task /reject` の後に改行してフィードバックを書くと、ディスパッチャーの `sed` パースが1行目の空文字列のみを抽出し、フィードバックが消失する。`echo "args=..."` も1行しか `GITHUB_OUTPUT` に書けない。修正: sed で複数行対応 + HEREDOC 形式で出力 |
 
 ## 知見の詳細
 
@@ -181,6 +182,33 @@ to the version on the repository's default branch.
 ```
 
 → ワークフロー YAML の変更は**必ず main にマージしてからテスト実行**する必要がある。
+
+### ディスパッチャーの複数行フィードバック問題（#21）
+
+`initiative-dispatcher.yml` のコマンドパースで、以下のように改行を含むコメントを投稿した場合:
+
+```
+@ai-task /reject
+ここにフィードバック
+2行目のフィードバック
+```
+
+**問題1**: `sed -n 's|.*@ai-task\s\+/reject\s*||p'` は `@ai-task /reject` がある行の残りのみを返す。改行後のテキストは捨てられる。
+
+**問題2**: `echo "args=$args"` は `GITHUB_OUTPUT` に1行しか書けない。複数行は HEREDOC 形式が必要。
+
+**修正**:
+```bash
+# 複数行対応のパース
+args=$(echo "$COMMENT_BODY" | sed '1,/@ai-task\s\+\/'"$command"'/{s/.*@ai-task\s\+\/'"$command"'\s*//;}')
+
+# HEREDOC 形式で出力
+{
+  echo "args<<ARGS_EOF"
+  echo "$args"
+  echo "ARGS_EOF"
+} >> "$GITHUB_OUTPUT"
+```
 
 ---
 **作成日**: 2026-03-15

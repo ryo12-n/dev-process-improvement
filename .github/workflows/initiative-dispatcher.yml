@@ -43,9 +43,15 @@ jobs:
 
           echo "command=$command" >> "$GITHUB_OUTPUT"
 
-          # コマンド以降のテキストを引数として抽出
-          args=$(echo "$COMMENT_BODY" | sed -n 's|.*@ai-task\s\+/'"$command"'\s*||p')
-          echo "args=$args" >> "$GITHUB_OUTPUT"
+          # コマンド以降のテキストを引数として抽出（複数行対応）
+          args=$(echo "$COMMENT_BODY" | sed '1,/@ai-task\s\+\/'"$command"'/{s/.*@ai-task\s\+\/'"$command"'\s*//;}')
+
+          # 複数行対応で GITHUB_OUTPUT に書き込み（HEREDOC 形式）
+          {
+            echo "args<<ARGS_EOF"
+            echo "$args"
+            echo "ARGS_EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Get issue labels
         id: labels
