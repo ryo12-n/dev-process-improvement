@@ -103,3 +103,32 @@
 **成果物**: l1-manager/SKILL.md 更新
 **課題・気づき**: なし
 
+### [2026-03-15 10:50] タスクID: T-008
+**状態**: 完了
+**作業内容**:
+- `docs/workflow.md` のイニシアティブセッションフローに以下を追記:
+  - L1 マネージャーの 02_tasks.md 作成時: ドメインエージェント選定手順
+  - L2 ワーカーの作業フロー: 参照ドメインエージェントの Read 手順
+  - L2 サブエージェント起動時の情報: 参照ドメインエージェント（任意）
+  - マネージャー共通ポリシー一覧: §10 ドメインエージェント参照を追記
+**成果物**: docs/workflow.md 更新
+**課題・気づき**: なし
+
+### [2026-03-15 10:55] タスクID: T-009
+**状態**: 完了
+**作業内容**:
+- `backlog/entries/domain-agent-review-session.md` を作成（BL-067）
+- `backlog/backlog.csv` に対応行を追加
+- 定期レビューセッション（活用状況分析・knowledge.md 更新）の施策候補として起票
+**成果物**: backlog/entries/domain-agent-review-session.md, backlog.csv 更新
+**課題・気づき**: なし
+
+### [2026-03-15 11:00] タスクID: T-010
+**状態**: 完了
+**作業内容**:
+- `backlog/entries/domain-agent-expansion.md` を作成（BL-068）
+- `backlog/backlog.csv` に対応行を追加
+- 他マネージャーへの展開施策として起票、依存施策として agency-agents-integration を明記
+**成果物**: backlog/entries/domain-agent-expansion.md, backlog.csv 更新
+**課題・気づき**: なし
+

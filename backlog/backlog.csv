@@ -64,3 +64,5 @@ BL-063,reference-doc-granularity-rule,低,候補,dev-process-improvement,2026-03
 BL-064,skill-plugin-overlap-check-rule,低,候補,dev-process-improvement,2026-03-15,スキル/プラグイン機能重複の定期チェック制度化,skill-plugin-overlap-check-rule.md,
 BL-065,workflow-md-reference-skills-section,低,候補,dev-process-improvement,2026-03-15,docs/workflow.md にリファレンススキル一覧セクション追加,workflow-md-reference-skills-section.md,
 BL-066,csv-conflict-prevention,中,候補,dev-process-improvement,2026-03-15,CSV コンフリクト防止の仕組み構築（並行セッションでのID衝突・マージ競合の解消）,csv-conflict-prevention.md,
+BL-067,ドメインエージェント活用状況レビューセッション,低,候補,dev-process-improvement,2026-03-15,定期レビューで knowledge.md の推奨マッピング精度向上と refs/agency-agents/ の最新化,domain-agent-review-session.md,
+BL-068,ドメインエージェント参照の他マネージャーへの展開,低,候補,dev-process-improvement,2026-03-15,l1-manager 以外のマネージャーへのドメインエージェント参照の統合,domain-agent-expansion.md,
