@@ -1,4 +1,4 @@
-name: Test Skill Reading + Write
+name: Test Skill Wallbash-Equivalent
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create test input file
-        run: echo "Hello from GHA test workflow" > /tmp/test-input.txt
+        run: echo "Hello from GHA wallbash-equivalent test" > /tmp/test-input.txt
 
       - name: Run Claude with skill reference
         id: claude
@@ -35,7 +35,7 @@ jobs:
 
             ## リマインダー
             CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-test スキルの指示のみに従うこと。
-          claude_args: --max-turns 15 --model claude-sonnet-4-6
+          claude_args: --max-turns 20 --model claude-sonnet-4-6
           allowed_bots: github-actions[bot]
           settings: |
             {
@@ -55,6 +55,12 @@ jobs:
                 ]
               }
             }
+
+      - name: Cleanup remote branch on failure
+        if: always()
+        run: |
+          # テストブランチが残っていたら削除（Claude のクリーンアップが失敗した場合の安全策）
+          git push origin --delete test/gha-wallbash-verification 2>/dev/null || true
 
       - name: Extract result from execution file
         id: extract
