@@ -73,46 +73,50 @@ jobs:
             echo "phase=none" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Route command
-        id: route
+      - name: Route and dispatch
         env:
+          GH_TOKEN: ${{ github.token }}
           COMMAND: ${{ steps.parse.outputs.command }}
           PARSE_ERROR: ${{ steps.parse.outputs.error }}
+          PARSE_ERROR_MESSAGE: ${{ steps.parse.outputs.error_message }}
           HAS_INITIATIVE: ${{ steps.labels.outputs.has_initiative }}
           PHASE: ${{ steps.labels.outputs.phase }}
           ARGS: ${{ steps.parse.outputs.args }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+        id: route
         run: |
           # パースエラーがあればエラー出力
           if [ "$PARSE_ERROR" = "unknown_command" ]; then
             echo "action=error" >> "$GITHUB_OUTPUT"
-            echo "error_message=${{ steps.parse.outputs.error_message }}" >> "$GITHUB_OUTPUT"
+            echo "error_message=$PARSE_ERROR_MESSAGE" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          dispatch_ok=""
+
           case "$COMMAND" in
             start)
-              # /start: initiative ラベルがないこと
               if [ "$HAS_INITIATIVE" = "true" ]; then
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=この Issue は既に initiative として開始されています（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
               else
-                echo "action=dispatch" >> "$GITHUB_OUTPUT"
-                echo "workflow=initiative-wallbash.yml" >> "$GITHUB_OUTPUT"
-                echo "dispatch_inputs={\"issue_number\":\"${ISSUE_NUMBER}\"}" >> "$GITHUB_OUTPUT"
+                gh workflow run initiative-wallbash.yml \
+                  -f issue_number="$ISSUE_NUMBER"
+                dispatch_ok=true
               fi
               ;;
             approve)
               if [ "$PHASE" = "wallbashing" ]; then
-                # wallbashing → execute (approve)
-                echo "action=dispatch" >> "$GITHUB_OUTPUT"
-                echo "workflow=initiative-execute.yml" >> "$GITHUB_OUTPUT"
-                echo "dispatch_inputs={\"issue_number\":\"${ISSUE_NUMBER}\",\"command\":\"approve\",\"feedback\":\"${ARGS}\",\"phase\":\"wallbashing\"}" >> "$GITHUB_OUTPUT"
+                gh workflow run initiative-execute.yml \
+                  -f issue_number="$ISSUE_NUMBER" \
+                  -f command=approve \
+                  -f feedback="$ARGS" \
+                  -f phase=wallbashing
+                dispatch_ok=true
               elif [ "$PHASE" = "gate-review" ]; then
-                # gate-review → close (approve)
-                echo "action=dispatch" >> "$GITHUB_OUTPUT"
-                echo "workflow=initiative-close.yml" >> "$GITHUB_OUTPUT"
-                echo "dispatch_inputs={\"issue_number\":\"${ISSUE_NUMBER}\"}" >> "$GITHUB_OUTPUT"
+                gh workflow run initiative-close.yml \
+                  -f issue_number="$ISSUE_NUMBER"
+                dispatch_ok=true
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/approve\` は \`initiative:wallbashing\` または \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
@@ -120,10 +124,12 @@ jobs:
               ;;
             reject)
               if [ "$PHASE" = "gate-review" ]; then
-                # gate-review → execute (reject)
-                echo "action=dispatch" >> "$GITHUB_OUTPUT"
-                echo "workflow=initiative-execute.yml" >> "$GITHUB_OUTPUT"
-                echo "dispatch_inputs={\"issue_number\":\"${ISSUE_NUMBER}\",\"command\":\"reject\",\"feedback\":\"${ARGS}\",\"phase\":\"gate-review\"}" >> "$GITHUB_OUTPUT"
+                gh workflow run initiative-execute.yml \
+                  -f issue_number="$ISSUE_NUMBER" \
+                  -f command=reject \
+                  -f feedback="$ARGS" \
+                  -f phase=gate-review
+                dispatch_ok=true
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/reject\` は \`initiative:gate-review\` フェーズでのみ使用できます（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
@@ -131,9 +137,10 @@ jobs:
               ;;
             question)
               if [ "$HAS_INITIATIVE" = "true" ]; then
-                echo "action=dispatch" >> "$GITHUB_OUTPUT"
-                echo "workflow=initiative-question.yml" >> "$GITHUB_OUTPUT"
-                echo "dispatch_inputs={\"issue_number\":\"${ISSUE_NUMBER}\",\"question\":\"${ARGS}\"}" >> "$GITHUB_OUTPUT"
+                gh workflow run initiative-question.yml \
+                  -f issue_number="$ISSUE_NUMBER" \
+                  -f question="$ARGS"
+                dispatch_ok=true
               else
                 echo "action=error" >> "$GITHUB_OUTPUT"
                 echo "error_message=\`/question\` は initiative として開始された Issue でのみ使用できます。" >> "$GITHUB_OUTPUT"
@@ -145,24 +152,12 @@ jobs:
               ;;
           esac
 
-      - name: Dispatch workflow
-        if: steps.route.outputs.action == 'dispatch'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          WORKFLOW: ${{ steps.route.outputs.workflow }}
-          DISPATCH_INPUTS: ${{ steps.route.outputs.dispatch_inputs }}
-        run: |
-          # inputs を個別の -f フラグに展開して gh workflow run を実行
-          input_flags=""
-          for key in $(echo "$DISPATCH_INPUTS" | jq -r 'keys[]'); do
-            value=$(echo "$DISPATCH_INPUTS" | jq -r --arg k "$key" '.[$k]')
-            input_flags="$input_flags -f $key=$value"
-          done
-
-          eval gh workflow run "$WORKFLOW" $input_flags
+          if [ -n "$dispatch_ok" ]; then
+            echo "action=dispatched" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Post error comment
-        if: steps.route.outputs.action == 'error'
+        if: steps.route.outputs.action == 'error' && steps.route.outputs.error_message != ''
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
