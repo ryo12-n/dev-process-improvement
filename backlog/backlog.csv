@@ -1,6 +1,6 @@
 ID,施策名,優先度,ステータス,対象リポジトリ,起票日,簡易説明,ファイル名,施策ディレクトリ名
 BL-001,LLMローカル開発のセキュリティ強化,低,候補,横断,2026-03-03,API キー管理のセキュリティ強化と安全な開発環境の確立,LLMローカル開発のセキュリティ強化.md,
-BL-002,dev-workflow-detail L1参照精査,低,候補,dev-process-improvement,2026-03-05,dev-workflow-detail.md 内の L1 参照を設計方針と整合させる,dev-workflow-detail L1参照精査.md,
+BL-002,dev-workflow-detail L1参照精査,低,完了,dev-process-improvement,2026-03-05,dev-workflow-detail.md 内の L1 参照を設計方針と整合させる,dev-workflow-detail L1参照精査.md,dev-workflow-detail-l1-ref-review
 BL-003,sessionsテンプレート間連携ガイド,低,候補,ai-driven-dev-patterns,2026-03-04,sessions/_template/ 4ファイル間のデータフロー関係を明示,sessionsテンプレート間連携ガイド.md,
 BL-004,ハーネスエンジニアリング観点でのブラッシュアップ,低,候補,ai-driven-dev-patterns,2026-03-01,ハーネスエンジニアリング5観点での体系的なレビューと改善,ハーネスエンジニアリング観点でのブラッシュアップ.md,
 BL-005,マルチAIエージェント共通ルール適用,中,候補,ai-driven-dev-patterns,2026-02-25,Devin 等の複数AIエージェントで一貫したプロセス品質を維持,マルチAIエージェント共通ルール適用.md,
