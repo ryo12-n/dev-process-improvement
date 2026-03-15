@@ -55,6 +55,7 @@ jobs:
             施策ディレクトリ: ${{ inputs.initiative_dir }}
             質問: ${{ inputs.question }}
           claude_args: "--max-turns 10 --model claude-sonnet-4-6"
+          show_full_output: true
           settings: |
             {
               "permissions": {

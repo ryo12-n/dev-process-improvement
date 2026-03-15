@@ -86,6 +86,7 @@ jobs:
             コマンド: ${{ inputs.command }}
             フィードバック: ${{ inputs.feedback }}
           claude_args: "--max-turns 80 --model claude-sonnet-4-6"
+          show_full_output: true
           settings: |
             {
               "permissions": {
@@ -128,15 +129,71 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
           SUMMARY: ${{ steps.extract.outputs.summary }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          BRANCH: ${{ inputs.branch }}
+          REPO: ${{ github.repository }}
         run: |
+          # 成果物リンクを構築
+          artifacts="### 成果物
+          - [\`04_work_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}04_work_report.md)
+          - [\`06_eval_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}06_eval_report.md)
+          - [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md)"
+
+          # PR リンクを取得
+          pr_url=$(gh pr list --head "$BRANCH" --base main --state open --json url --jq '.[0].url' 2>/dev/null || echo "")
+          pr_link=""
+          if [ -n "$pr_url" ]; then
+            pr_link="
+          ### Pull Request
+          - ${pr_url}"
+          fi
+
           gh issue comment "$ISSUE_NUMBER" --body "## ゲート判定サマリー
 
           ${SUMMARY}
+
+          ${artifacts}
+          ${pr_link}
 
           ---
           **次のステップ**: ゲート判定結果を確認してください。
           - 承認する場合: \`@ai-task /approve\` コメントでクローズフェーズに進みます
           - 差し戻す場合: \`@ai-task /reject <フィードバック内容>\` コメントで修正・再実行します"
+
+      - name: Update PR description
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          BRANCH: ${{ inputs.branch }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          REPO: ${{ github.repository }}
+        run: |
+          # PR 番号を取得
+          pr_number=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -z "$pr_number" ]; then
+            echo "::warning::No open PR found for branch $BRANCH"
+            exit 0
+          fi
+
+          # Issue タイトルを取得
+          issue_title=$(gh issue view "$ISSUE_NUMBER" --json title --jq '.title')
+
+          # PR 説明を更新
+          gh pr edit "$pr_number" --body "$(cat <<PRBODY
+## 施策: ${issue_title}
+
+Issue: #${ISSUE_NUMBER}
+
+## フェーズ進捗
+
+| フェーズ | ステータス | 成果物 |
+|---------|----------|--------|
+| 壁打ち | ✅ 完了 | [\`00_proposal.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}00_proposal.md) |
+| 実行 | ✅ 完了 | [\`04_work_report.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}04_work_report.md) |
+| ゲート判定 | ✅ 完了 | [\`08_gate_review.md\`](https://github.com/${REPO}/blob/${BRANCH}/${INITIATIVE_DIR}08_gate_review.md) |
+| クローズ | ⏳ 未着手 | |
+PRBODY
+          )"
 
       - name: Update labels to gate-review
         env:
