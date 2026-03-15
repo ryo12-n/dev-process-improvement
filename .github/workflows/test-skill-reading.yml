@@ -37,6 +37,7 @@ jobs:
             CLAUDE.md や .claude/skills/l1-manager/ のルールには従わないこと。gha-test スキルの指示のみに従うこと。
           claude_args: --max-turns 20 --model claude-sonnet-4-6
           allowed_bots: github-actions[bot]
+          show_full_output: true
           settings: |
             {
               "permissions": {
