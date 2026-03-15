@@ -1,0 +1,98 @@
+# GHA ↔ Skills 整合性マッピングマニフェスト
+# TG-010 で使用し、GHA 定義とスキル定義間のドリフトを検出する。
+
+version: "1.0"
+
+mappings:
+  - id: triage-gha
+    description: "トリアージセッションの GHA プロンプト ↔ スキル定義"
+    gha_source:
+      type: prompt
+      path: .github/prompts/triage.md
+    skill_source:
+      manager: .claude/skills/triage-manager/SKILL.md
+      agents:
+        - .claude/skills/triage-manager/agents/triage-worker.md
+        - .claude/skills/triage-manager/agents/triage-evaluator.md
+    checkpoints:
+      - type: task_ids
+        description: "TG タスク ID の一致確認"
+        pattern: "TG-\\d{3}"
+      - type: workflow_steps
+        description: "作業フローステップの一致確認"
+        keys:
+          - "セッションフォルダの作成"
+          - "事前調査"
+          - "実施計画の作成"
+          - "ワーカー走査の実行"
+          - "評価の実行"
+          - "結果集約・レポート作成"
+          - "ゲート判定"
+          - "アクション実施"
+      - type: report_sections
+        description: "レポート構造セクションの一致確認"
+        keys:
+          - "inbox"
+          - "backlog 棚卸し"
+          - "課題管理 CSV"
+          - "backlog 関係性分析"
+          - "initiative 状態確認"
+          - "知見集約"
+          - "課題集約"
+      - type: file_templates
+        description: "テンプレートファイル参照の一致確認"
+        pattern: "sessions/triage/_template/"
+    inherent_differences:
+      - category: wall-beating-omission
+        description: "GHA 版は非対話のため壁打ちフェーズを省略"
+        severity: expected
+      - category: single-agent-mode
+        description: "GHA 版はサブエージェント不使用、単一エージェントで逐次実行"
+        severity: expected
+      - category: no-commit
+        description: "GHA 版はコミット不要（GHA ワークフローが担当）"
+        severity: expected
+      - category: no-todo-registration
+        description: "GHA 版はセッションライフサイクル todo 登録不要"
+        severity: expected
+      - category: no-branch-cleanup
+        description: "GHA 版はブランチ整理不要（クリーン環境）"
+        severity: expected
+
+  - id: l1-auto-execute-gha
+    description: "L1 自動施策化の GHA ワークフロー ↔ スキル定義"
+    gha_source:
+      type: workflow-inline
+      path: .github/workflows/backlog-auto-execute.yml
+      prompt_location: "jobs.execute.steps[2].with.prompt"
+    skill_source:
+      manager: .claude/skills/l1-manager/SKILL.md
+      agents:
+        - .claude/skills/l1-manager/agents/l2-worker.md
+        - .claude/skills/l1-manager/agents/l2-evaluator.md
+    checkpoints:
+      - type: file_numbers
+        description: "番号付き出力ファイルの参照一致確認"
+        pattern: "\\d{2}_\\w+\\.md"
+      - type: workflow_steps
+        description: "実行ステップシーケンスの一致確認"
+        keys:
+          - "_template コピー"
+          - "proposal/plan/tasks 作成"
+          - "worker 実行"
+          - "evaluator 実行"
+          - "gate_review 作成"
+          - "backlog エントリ削除"
+      - type: file_templates
+        description: "テンプレートファイル参照の一致確認"
+        pattern: "sessions/initiatives/_template/"
+    inherent_differences:
+      - category: wall-beating-omission
+        description: "自動実行のため壁打ちフェーズを省略"
+        severity: expected
+      - category: single-agent-mode
+        description: "単一エージェントで全ロールを順次実行"
+        severity: expected
+      - category: scope-restriction
+        description: "対象リポジトリは dev-process-improvement のみ"
+        severity: expected
