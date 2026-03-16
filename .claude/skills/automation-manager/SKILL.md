@@ -181,6 +181,7 @@ automation 固有の補足:
 | `backlog/backlog.csv` | 追記（backlog 起票提案時に行を追加） |
 | `inbox/*.md` | 作成（知見ルーティング: アクション可能な洞察の起票） |
 | `プロセス改善_課題管理.csv` | 追記（課題 CSV 転記） |
+| `issues/entries/ISS-XXX.md` | 作成（課題 CSV 転記時の詳細ファイル） |
 
 ---
 
