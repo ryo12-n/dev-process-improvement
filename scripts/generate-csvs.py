@@ -126,6 +126,8 @@ def _parse_md_table(text: str, section_name: str) -> dict | None:
         if len(parts) >= 2:
             key = parts[0].strip("* ")
             val = parts[1].strip()
+            # Remove HTML comments from values
+            val = re.sub(r"<!--.*?-->", "", val).strip()
             # Skip separator rows
             if re.match(r"^[-:]+$", key) or re.match(r"^[-:]+$", val):
                 continue
@@ -194,9 +196,11 @@ PRIORITY_EMOJI_TO_TEXT = {
     "🔴 高": "高",
     "🟡 中": "中",
     "🔵 低": "低",
+    "🟢 低": "低",
     "🔴": "高",
     "🟡": "中",
     "🔵": "低",
+    "🟢": "低",
     "高": "高",
     "中": "中",
     "低": "低",
