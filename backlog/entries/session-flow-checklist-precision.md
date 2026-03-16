@@ -1,8 +1,18 @@
 # session-flow-policy §5.1 チェックリストの精度向上
 
-> **バックログ ID**: BL-042
-> **対象リポジトリ**: dev-process-improvement
+## メタ情報
 
+| 項目 | 内容 |
+|------|------|
+| **バックログ ID** | BL-042 |
+| **優先度** | 🔵 低 |
+| **ステータス** | 候補 |
+| **対象リポジトリ** | dev-process-improvement |
+| **施策ディレクトリ名** |  |
+| **起票日** | 2026-03-12 |
+| **依存する環境前提** |  |
+
+## 課題・背景
 
 ## 気づき
 
@@ -24,3 +34,15 @@
 - 施策: `sessions/initiatives/backlog-maintenance-session/`
 - 08_gate_review.md 必須把握事項 #1
 - worker/evaluator 双方から同じ知見が報告された
+
+## 期待効果
+
+
+
+## 補足・参考情報
+
+- 施策: `sessions/initiatives/backlog-maintenance-session/`
+- 08_gate_review.md 必須把握事項 #1
+- worker/evaluator 双方から同じ知見が報告された
+
+## 関連エントリ

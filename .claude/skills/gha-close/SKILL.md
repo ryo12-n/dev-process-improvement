@@ -51,7 +51,7 @@ user-invocable: false
 - コミットメッセージは `[L1] <施策名>: クローズ（アーカイブ移動・知見ルーティング）` の形式で
 - ファイル作成は Write ツールを使用する（`Bash(mkdir *)` は sandbox でブロックされる）
 - ツール使用が sandbox にブロックされた場合、同じ操作のリトライは行わず代替手段に切り替える
-- CSV への行追加は Edit ツールを使用する（`Bash(echo >> file)` は sandbox の出力リダイレクトブロックで失敗する）
+- CSV は `scripts/generate-csvs.py` で .md から自動生成される。課題転記時は `issues/entries/ISS-XXX.md` を作成する
 
 ---
 **作成日**: 2026-03-15

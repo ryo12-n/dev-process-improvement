@@ -178,7 +178,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 - マネージャーの成果物（pre_investigation, plan, dispatch_log, report, gate）は編集しない
 - リファレンスの直接更新は行わない
 - 設定ファイル（`.claude/` 配下）の直接変更は行わない
-- `プロセス改善_課題管理.csv` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
+- `issues/entries/ISS-XXX.md` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
 - 評価基準が曖昧な場合は自己判断で進めない（`07_issues.md` に起票してマネージャーに確認する）
 
 ---
