@@ -11,3 +11,15 @@
 ### [2026-03-16] Set-1 Worker 起動
 - 指示内容: AT-001〜AT-004 全タスク（新規候補スキャン・既存候補再評価・実装進捗確認・backlog起票提案）
 - 完了条件: 02_scan_plan.md, 03_work_log.md, 04_scan_report.md の作成完了
+
+### [2026-03-16] Set-1 Worker 完了
+- 結果サマリ:
+  - AT-001: 新規候補2件検出（GHAワークフロー権限整合性チェック、initiativeディスパッチャー入力バリデーション）
+  - AT-002: 5件の変更提案（AC-001ステータス更新、AC-002/AC-012 backlog紐付け、AC-010/AC-014 優先度変更）
+  - AT-003: AC-001 実装完了確認（SessionStart hook）
+  - AT-004: 新規backlog起票なし、候補登録2件・ステータス更新5件を提案
+  - 課題起票: 1件（候補管理とbacklogのステータス乖離）
+- Evaluator 起動判断: 起動する（成果物の品質は十分）
+
+### [2026-03-16] Set-1 Evaluator 起動
+- 評価対象: 04_scan_report.md, 03_work_log.md, 07_issues.md
