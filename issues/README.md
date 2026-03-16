@@ -27,14 +27,15 @@ issues/
 
 ## CSV との関係
 
-| 管理対象 | CSV | issues/ |
-|---------|-----|---------|
-| 全体一覧・ステータス管理 | 主 | - |
-| 課題の詳細情報 | 要約（3行以内） | 詳細（制限なし） |
-| リンク | `詳細ファイル` 列で参照 | - |
+**`issues/entries/ISS-XXX.md` が正の情報源（Source of Truth）**。`プロセス改善_課題管理.csv` は `scripts/generate-csvs.py` により .md ファイルから自動生成される（PreToolUse hook で git commit 前に自動実行）。
 
-CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入することで、CSV から詳細ファイルへのナビゲーションを確保する。
+CSV は手動で編集しないこと。課題の追加・更新は `.md` ファイルに対して行う。
+
+| 管理対象 | .md ファイル | CSV（自動生成） |
+|---------|-------------|----------------|
+| 全体一覧・ステータス管理 | 正の情報源 | 俯瞰用（自動生成） |
+| 課題の詳細情報 | 詳細（制限なし） | 要約（自動抽出） |
 
 ## 作成タイミング
 
-L2（実施/評価）が `07_issues.md` の課題を CSV へ転記する際に、同時に `issues/entries/ISS-XXX.md` を作成する。
+L2（実施/評価）が `07_issues.md` の課題を転記する際に、`issues/entries/ISS-XXX.md` を作成する。ID は `python3 scripts/generate-csvs.py --next-issue-id` で取得する。
