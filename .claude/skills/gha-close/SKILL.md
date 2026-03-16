@@ -21,6 +21,7 @@ user-invocable: false
    - `04_work_report.md` の「作業中の知見」と `06_eval_report.md` の「評価中の知見」を確認
    - ルール化候補は該当ファイルへの反映を検討
    - 次施策候補は `inbox/` にファイルを作成
+   - 外部リポジトリの知見は `refs/<リポ名>/knowledge.md` に Write ツールで書き込む（Write ツールは親ディレクトリを自動作成するため mkdir は不要）
 3. 施策ディレクトリを `_archive/` に移動する:
    ```bash
    git mv <施策ディレクトリ> sessions/initiatives/_archive/<施策名>/
@@ -48,6 +49,9 @@ user-invocable: false
 - 対象リポジトリは dev-process-improvement のみ
 - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
 - コミットメッセージは `[L1] <施策名>: クローズ（アーカイブ移動・知見ルーティング）` の形式で
+- ファイル作成は Write ツールを使用する（`Bash(mkdir *)` は sandbox でブロックされる）
+- ツール使用が sandbox にブロックされた場合、同じ操作のリトライは行わず代替手段に切り替える
+- CSV への行追加は Edit ツールを使用する（`Bash(echo >> file)` は sandbox の出力リダイレクトブロックで失敗する）
 
 ---
 **作成日**: 2026-03-15

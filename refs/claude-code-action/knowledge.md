@@ -33,6 +33,8 @@
 | 19 | gha-initiative-skills-separation | 2026-03-15 | ワークフロー検証 | `claude-code-action` の OIDC トークン交換時、ワークフローファイルが default branch（main）と一致しているか検証される。ブランチ上でワークフロー YAML を変更した場合、マージ前のテスト実行は失敗する（`Workflow validation failed`） |
 | 20 | gha-initiative-skills-separation | 2026-03-15 | デバッグ | `show_full_output: true` を設定すると、Claude の各ターンの thinking・tool_use・tool_result が GHA ログに出力され、permission denial やインジェクション誤検知の原因特定に有用 |
 | 21 | gha-initiative-skills-separation | 2026-03-15 | ディスパッチャー | `@ai-task /reject` の後に改行してフィードバックを書くと、ディスパッチャーの `sed` パースが1行目の空文字列のみを抽出し、フィードバックが消失する。`echo "args=..."` も1行しか `GITHUB_OUTPUT` に書けない。修正: sed で複数行対応 + HEREDOC 形式で出力 |
+| 22 | harness-engineering-brushup | 2026-03-15 | ターン消費 | gha-close の知見ルーティングで `mkdir -p refs/ai-driven-dev-patterns` が sandbox にブロックされ 4回リトライ→max-turns(30)到達。Write ツール使用を SKILL.md に明記して解決。#14/#15 の知見がスキルに未反映だったことが原因 |
+| 23 | harness-engineering-brushup | 2026-03-16 | セキュリティ制限 | `echo "..." >> file` の出力リダイレクト（`>>`）も sandbox にブロックされる。CSV 追記等は Edit ツールで代替する。#14 の mkdir ブロックと同根（Bash の出力操作全般が制限対象） |
 
 ## 知見の詳細
 
