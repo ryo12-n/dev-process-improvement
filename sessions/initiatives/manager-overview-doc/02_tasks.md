@@ -21,13 +21,13 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `.claude/skills/manager-overview/SKILL.md` を新規作成する。frontmatter は `name: manager-overview`, `description: 'マネージャーセッション全体の責務・連携関係のオーバービュー。整合性管理や新規マネージャー設計時に参照する'`, `user-invocable: false` とする | ファイルが存在し、frontmatter が正しい | 🔴 | ⬜ |
-| T-002 | §1 責務一覧テーブルを作成する。全8マネージャー（L1, L1-impl, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer）について、責務・トリガー・主要出力・サブエージェント構成を1行ずつ記載する。各 SKILL.md の「あなたの役割」セクションと「担当ファイル」セクションを参照すること | 8マネージャー全行が記載され、各列に具体的な内容がある | 🔴 | ⬜ |
-| T-003 | §2 連携フロー図をテキストベースで作成する。以下のフローを含めること: (1) メインデータフロー: inbox → triage → backlog → L1 → archive → metacognition、(2) 自動化フロー: automation → backlog起票 → L1施策化、(3) 同期フロー: sync → 外部リポ反映、(4) メンテナンスフロー: backlog-maintenance → backlog整理、(5) 設定最適化フロー: config-optimizer → backlog/inbox起票。各マネージャーの出力が別マネージャーの入力にどう繋がるかを矢印で示す | 5つのフローが全て記載され、マネージャー間の入出力関係が読み取れる | 🔴 | ⬜ |
-| T-004 | §3 共通基盤セクションを作成する。`manager-common-policy` の §1〜§10 について、どのマネージャーがどの § を参照しているかのマッピングテーブルを作成する。各マネージャーの SKILL.md 内の `manager-common-policy §X に従う` という記述を grep して正確に対応づけること | §1〜§10 × 8マネージャーの対応マトリクスが記載されている | 🟡 | ⬜ |
-| T-005 | §4 関連ファイル一覧を作成する。本スキルが参照している全マネージャーの SKILL.md パスと、`manager-common-policy` のパスを列挙する | 全8マネージャーの SKILL.md パスが記載されている | 🟡 | ⬜ |
-| T-006 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
-| T-007 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
+| T-001 | `.claude/skills/manager-overview/SKILL.md` を新規作成する。frontmatter は `name: manager-overview`, `description: 'マネージャーセッション全体の責務・連携関係のオーバービュー。整合性管理や新規マネージャー設計時に参照する'`, `user-invocable: false` とする | ファイルが存在し、frontmatter が正しい | 🔴 | ✅ |
+| T-002 | §1 責務一覧テーブルを作成する。全8マネージャー（L1, L1-impl, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer）について、責務・トリガー・主要出力・サブエージェント構成を1行ずつ記載する。各 SKILL.md の「あなたの役割」セクションと「担当ファイル」セクションを参照すること | 8マネージャー全行が記載され、各列に具体的な内容がある | 🔴 | ✅ |
+| T-003 | §2 連携フロー図をテキストベースで作成する。以下のフローを含めること: (1) メインデータフロー: inbox → triage → backlog → L1 → archive → metacognition、(2) 自動化フロー: automation → backlog起票 → L1施策化、(3) 同期フロー: sync → 外部リポ反映、(4) メンテナンスフロー: backlog-maintenance → backlog整理、(5) 設定最適化フロー: config-optimizer → backlog/inbox起票。各マネージャーの出力が別マネージャーの入力にどう繋がるかを矢印で示す | 5つのフローが全て記載され、マネージャー間の入出力関係が読み取れる | 🔴 | ✅ |
+| T-004 | §3 共通基盤セクションを作成する。`manager-common-policy` の §1〜§10 について、どのマネージャーがどの § を参照しているかのマッピングテーブルを作成する。各マネージャーの SKILL.md 内の `manager-common-policy §X に従う` という記述を grep して正確に対応づけること | §1〜§10 × 8マネージャーの対応マトリクスが記載されている | 🟡 | ✅ |
+| T-005 | §4 関連ファイル一覧を作成する。本スキルが参照している全マネージャーの SKILL.md パスと、`manager-common-policy` のパスを列挙する | 全8マネージャーの SKILL.md パスが記載されている | 🟡 | ✅ |
+| T-006 | 作業中に発見した知見を `04_work_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ✅ |
+| T-007 | `07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `プロセス改善_課題管理.csv` へ転記する。転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/entries/ISS-XXX.md` のパスを記入する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ✅ |
 
 ## 評価タスク
 
