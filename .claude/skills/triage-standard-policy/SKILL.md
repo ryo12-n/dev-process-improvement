@@ -31,17 +31,17 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator | auto-manager | auto-worker | auto-evaluator | co-manager | co-worker | co-evaluator |
-|---------|:----------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須（3回） | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
+| ステージ | L1-manager | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator | auto-manager | auto-worker | auto-evaluator | co-manager | co-worker | co-evaluator | sc-manager | sc-worker | sc-evaluator |
+|---------|:----------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:----------:|:---------:|:------------:|
+| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
+| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
+| 実施（作業履歴） | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
+| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
+| 実施（気づき記録） | N/A | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
+| レポート | N/A | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
+| ゲート判定 | 必須 | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須（3回） | N/A | N/A | 必須（3回） | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
@@ -51,17 +51,17 @@ user-invocable: false
 
 ### 1.3 記録先ファイルの対応
 
-| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 | 同期系 | バックログメンテナンス系 | オートメーション系 |
-|---------|----------------|-------------|-----------|--------|---------------------|------------------|
-| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
-| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md | 01_plan.md | 01_plan.md |
-| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md |
-| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
-| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md |
-| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
-| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
-| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md |
+| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 | 同期系 | バックログメンテナンス系 | オートメーション系 | セッション一貫性系 |
+|---------|----------------|-------------|-----------|--------|---------------------|------------------|-----------------|
+| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
+| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md |
+| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md |
+| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
+| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md |
+| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
+| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
+| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 03_report.md |
 
 ---
 
@@ -79,6 +79,7 @@ user-invocable: false
 | backlog-maintenance-worker | backlog-maintenance-evaluator | backlog-maintenance-manager |
 | automation-worker | automation-evaluator | automation-manager |
 | config-collection-worker / config-analysis-worker / config-proposal-worker | config-optimizer-evaluator | config-optimizer-manager |
+| sc-collection-worker / sc-analysis-worker / sc-proposal-worker | sc-evaluator | session-consistency-manager |
 
 ### 2.2 ペアリングルール
 
@@ -139,6 +140,11 @@ user-invocable: false
 - `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md`
 - `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md`
 - `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md`
+- `.claude/skills/session-consistency-manager/SKILL.md`
+- `.claude/skills/session-consistency-manager/agents/sc-collection-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-analysis-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-proposal-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-evaluator.md`
 - 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
 
 ### 3.2 チェック項目
@@ -228,6 +234,16 @@ user-invocable: false
 | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | ライフサイクル適用マトリクスの変更が実装計画ワーカー定義に影響する場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-worker.md` | ライフサイクル適用マトリクスの変更が実装ワーカー定義に影響する場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-evaluator.md` | ペアリング対称性要件の変更が実装評価者定義に影響する場合 |
+| `.claude/skills/config-optimizer-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がconfig最適化マネージャー定義に影響する場合 |
+| `.claude/skills/config-optimizer-manager/agents/config-collection-worker.md` | ライフサイクル適用マトリクスの変更がconfig収集ワーカー定義に影響する場合 |
+| `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md` | ライフサイクル適用マトリクスの変更がconfig分析ワーカー定義に影響する場合 |
+| `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md` | ライフサイクル適用マトリクスの変更がconfig提案ワーカー定義に影響する場合 |
+| `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md` | ペアリング対称性要件の変更がconfig最適化評価者定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がセッション一貫性マネージャー定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/agents/sc-collection-worker.md` | ライフサイクル適用マトリクスの変更がSC収集ワーカー定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/agents/sc-analysis-worker.md` | ライフサイクル適用マトリクスの変更がSC分析ワーカー定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/agents/sc-proposal-worker.md` | ライフサイクル適用マトリクスの変更がSC提案ワーカー定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/agents/sc-evaluator.md` | ペアリング対称性要件の変更がSC評価者定義に影響する場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | ペアリング要件・ライフサイクル定義が新セッション作成ポリシーに影響する場合 |
 | `docs/workflow.md` | 標準ポリシーの変更がワークフロー記述に影響する場合（人間向け可視化） |
 

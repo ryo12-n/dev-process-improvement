@@ -63,6 +63,9 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 | `co-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定・集約レポート | `[co-mgr] 20260314: 事前調査・Phase 1 ワーカーディスパッチ` |
 | `co-worker` | `YYYYMMDD` | ワーカー: 情報収集・現状分析・最適化提案 | `[co-worker] 20260314: Phase 1 情報収集完了・リファレンス更新` |
 | `co-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[co-eval] 20260314: Phase 2 評価レポート作成` |
+| `sc-mgr` | `YYYYMMDD` | マネージャー: 事前調査・計画・ディスパッチ・ゲート判定・集約レポート | `[sc-mgr] 20260316: 事前調査・Phase 1 ワーカーディスパッチ` |
+| `sc-worker` | `YYYYMMDD` | ワーカー: 情報収集・現状分析・改善提案 | `[sc-worker] 20260316: Phase 1 情報収集完了・リファレンス更新` |
+| `sc-eval` | `YYYYMMDD` | 評価者: 評価レポート | `[sc-eval] 20260316: Phase 2 評価レポート作成` |
 | `maintenance` | 作業対象を示す名前 | 設定変更・リファクタ等の保守作業 | `[maintenance] settings: $schema と deny ルールを追加` |
 
 ---
