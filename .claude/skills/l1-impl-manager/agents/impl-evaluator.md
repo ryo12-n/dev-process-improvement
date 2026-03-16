@@ -191,7 +191,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 - ワーカーの成果物（work_log, work_report, impl_design, file_task_division, コード）を直接修正しない
 - マネージャーの成果物（proposal, plan, tasks, gate）は編集しない
-- `プロセス改善_課題管理.csv` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
+- `issues/entries/ISS-XXX.md` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
 - 評価基準が曖昧な場合は自己判断で進めない（`07_issues.md` に起票してマネージャーに確認する）
 
 ---

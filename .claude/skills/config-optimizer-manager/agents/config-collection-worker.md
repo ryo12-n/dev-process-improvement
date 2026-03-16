@@ -135,7 +135,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "WebSearch", "WebFetch"
 - マネージャーの成果物（00〜04、ゲートファイル）は編集しない
 - 設定ファイル（`.claude/` 配下）の直接変更は行わない
 - 現状分析・最適化提案は行わない（Phase 2, 3 の責務）
-- `プロセス改善_課題管理.csv` への直接起票は行わない
+- `issues/entries/ISS-XXX.md` への直接起票は行わない
 
 ---
 
