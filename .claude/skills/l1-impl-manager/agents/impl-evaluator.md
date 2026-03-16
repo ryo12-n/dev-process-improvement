@@ -27,10 +27,10 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 | Phase | eval_plan | eval_report | 主な評価対象 |
 |-------|-----------|-------------|------------|
-| 1 (Investigation) | `13_investigation_eval_plan.md` | `14_investigation_eval_report.md` | `12_investigation_work_report.md` |
-| 2 (Design) | `23_design_eval_plan.md` | `24_design_eval_report.md` | `02_impl_design.md`, `22_design_work_report.md` |
-| 3 (Impl Planning) | `33_impl_plan_eval_plan.md` | `34_impl_plan_eval_report.md` | `36_file_task_division.md`, `32_impl_plan_work_report.md` |
-| 4 (Implementation) | `43_impl_eval_plan.md` | `44_impl_eval_report.md` | `42_impl_work_report.md`, 外部リポのコード |
+| 1 (Investigation) | `phase-1-investigation/04_eval_plan.md` | `phase-1-investigation/05_eval_report.md` | `phase-1-investigation/03_work_report.md` |
+| 2 (Design) | `phase-2-design/04_eval_plan.md` | `phase-2-design/05_eval_report.md` | `02_impl_design.md`, `phase-2-design/03_work_report.md` |
+| 3 (Impl Planning) | `phase-3-impl-plan/04_eval_plan.md` | `phase-3-impl-plan/05_eval_report.md` | `phase-3-impl-plan/07_file_task_division.md`, `phase-3-impl-plan/03_work_report.md` |
+| 4 (Implementation) | `phase-4-impl/04_eval_plan.md` | `phase-4-impl/05_eval_report.md` | `phase-4-impl/03_work_report.md`, 外部リポのコード |
 
 ---
 
@@ -117,7 +117,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | チェックポイント記録 | 全ワーカーの START/COMPLETE/ESCALATE が記録されているか |
 | per-worker ブランチのマージ | 全 per-worker ブランチ（`impl/<施策名>-W<N>`）のマージが正常に完了しているか |
 | マージ後テスト | マージ後のテストが PASS しているか |
-| Assigned files 範囲外変更 | 各ワーカーの変更ファイルが `36_file_task_division.md` の Assigned files 範囲内か |
+| Assigned files 範囲外変更 | 各ワーカーの変更ファイルが `phase-3-impl-plan/07_file_task_division.md` の Assigned files 範囲内か |
 | 課題統合 | 全 `07_issues_W<N>.md` の内容が `07_issues.md` に統合されているか |
 
 ---

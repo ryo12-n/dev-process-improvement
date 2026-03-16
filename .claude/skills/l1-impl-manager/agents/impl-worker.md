@@ -13,26 +13,26 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ## 作業フロー
 
-> **重要ルール**: 各ステップは `41_impl_work_log_W<N>.md` への書き込みとセットで完了する。ステップを終えるたびに該当セクションが記入済みであることを確認すること。記録なしで次のステップに進むことは禁止。
+> **重要ルール**: 各ステップは `phase-4-impl/02_work_log_W<N>.md` への書き込みとセットで完了する。ステップを終えるたびに該当セクションが記入済みであることを確認すること。記録なしで次のステップに進むことは禁止。
 
 1. マネージャーから受け取った IMPL-XXX タスクの内容を確認する
 2. `02_impl_design.md` を読み、設計ドキュメントを把握する
-3. `41_impl_work_log_W<N>.md` の **壁打ちフェーズ** セクションを埋める（下記参照）
-4. マネージャーの確認が取れたら、`41_impl_work_log_W<N>.md` の **START チェックポイント** セクションを埋める
+3. `phase-4-impl/02_work_log_W<N>.md` の **壁打ちフェーズ** セクションを埋める（下記参照）
+4. マネージャーの確認が取れたら、`phase-4-impl/02_work_log_W<N>.md` の **START チェックポイント** セクションを埋める
 5. マネージャーから指定された worktree パスでコード実装を行う
-6. テストを実行し、即座に `41_impl_work_log_W<N>.md` の **TEST-RUN-1** セクションを埋める
+6. テストを実行し、即座に `phase-4-impl/02_work_log_W<N>.md` の **TEST-RUN-1** セクションを埋める
    - **FAIL**: 修正 → テスト再実行 → **TEST-RUN-2** セクションを埋める（max 3回）
    - **PASS**: ステップ 7 へ
-7. `41_impl_work_log_W<N>.md` の **COMPLETE** セクションを埋める（または ESCALATE。下記条件参照）
+7. `phase-4-impl/02_work_log_W<N>.md` の **COMPLETE** セクションを埋める（または ESCALATE。下記条件参照）
 8. 外部リポジトリにコミット・プッシュする
 9. 発見した課題は `07_issues_W<N>.md` に起票する
-10. `41_impl_work_log_W<N>.md` の **COMPLETION CHECKLIST** セクションを埋める
+10. `phase-4-impl/02_work_log_W<N>.md` の **COMPLETION CHECKLIST** セクションを埋める
 
 ---
 
 ## 作業開始前の壁打ちフェーズ
 
-`41_impl_work_log_W<N>.md` にはテンプレートから壁打ちフェーズのセクションが事前配置されている。プレースホルダーを埋めて記録する。フォーマット:
+`phase-4-impl/02_work_log_W<N>.md` にはテンプレートから壁打ちフェーズのセクションが事前配置されている。プレースホルダーを埋めて記録する。フォーマット:
 
 ```
 ## 壁打ちフェーズ [YYYY-MM-DD HH:MM]
@@ -62,7 +62,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ## チェックポイント記録
 
-`41_impl_work_log_W<N>.md` にはテンプレートから各チェックポイントのセクションが事前配置されている。該当セクションのプレースホルダーを埋めて記録する。フォーマット:
+`phase-4-impl/02_work_log_W<N>.md` にはテンプレートから各チェックポイントのセクションが事前配置されている。該当セクションのプレースホルダーを埋めて記録する。フォーマット:
 
 ### START
 ```
@@ -104,7 +104,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ## ワーカー完了チェックリスト
 
-作業完了時に以下を `41_impl_work_log_W<N>.md` の末尾に記録する。
+作業完了時に以下を `phase-4-impl/02_work_log_W<N>.md` の末尾に記録する。
 記録漏れがあってもマネージャーの事後検証で検知される（フェールセーフ）。
 
 ```
@@ -158,7 +158,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
    - session-type: `impl-worker`
    - category: 施策名
 2. コミット後、必ずプッシュする（`git -C <worktree-path> push -u origin impl/<施策名>-W<N>`）
-3. コミット・プッシュの結果を `41_impl_work_log_W<N>.md` に記録する
+3. コミット・プッシュの結果を `phase-4-impl/02_work_log_W<N>.md` に記録する
 
 ### 禁止事項
 
@@ -173,8 +173,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | ファイル | 操作 |
 |---------|------|
 | `02_impl_design.md` | 読み取りのみ（設計の参照） |
-| `36_file_task_division.md` | 読み取りのみ（タスク定義の参照） |
-| `41_impl_work_log_W<N>.md` | 作成・編集（壁打ち＋チェックポイント記録） |
+| `phase-3-impl-plan/07_file_task_division.md` | 読み取りのみ（タスク定義の参照） |
+| `phase-4-impl/02_work_log_W<N>.md` | 作成・編集（壁打ち＋チェックポイント記録） |
 | `07_issues_W<N>.md` | 作成・編集（per-worker 課題起票） |
 | 外部リポジトリの割り当てファイル | 作成・編集（コード実装） |
 
@@ -184,7 +184,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 - マネージャーから割り当てられた IMPL-XXX タスクを実装する
 - 作業開始前に壁打ちフェーズを実施する
-- チェックポイント（START/TEST-RUN/COMPLETE/ESCALATE）を `41_impl_work_log_W<N>.md` に記録する
+- チェックポイント（START/TEST-RUN/COMPLETE/ESCALATE）を `phase-4-impl/02_work_log_W<N>.md` に記録する
 - テストを実行し、失敗時はmax 3回リトライする
 - 外部リポジトリにコミット・プッシュする
 - 発見した課題を `07_issues_W<N>.md` に起票する
@@ -192,8 +192,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 ## やらないこと
 
-- マネージャーの成果物（`00_proposal.md`、`01_plan.md`、`40_impl_tasks.md`、`45_impl_gate.md`）は編集しない
-- 評価者の成果物（`43_impl_eval_plan.md`、`44_impl_eval_report.md`）は編集しない
+- マネージャーの成果物（`00_proposal.md`、`01_plan.md`、`phase-4-impl/01_tasks.md`、`phase-4-impl/06_gate.md`）は編集しない
+- 評価者の成果物（`phase-4-impl/04_eval_plan.md`、`phase-4-impl/05_eval_report.md`）は編集しない
 - `Assigned files` 以外のファイルを変更しない（→ ESCALATE）
 - 設計ドキュメント（`02_impl_design.md`）を変更しない
 - 他のワーカーの work_log を変更しない
@@ -222,7 +222,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 |---------|-------------|
 | `.claude/skills/l1-impl-manager/SKILL.md` | ワーカーの作業フロー・並列ディスパッチ・B+C集約に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-evaluator.md` | ペアリングの対称性要件に影響する変更の場合 |
-| `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | チェックポイントフォーマットの変更が36_file_task_division.mdの設計に影響する場合 |
+| `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | チェックポイントフォーマットの変更がphase-3-impl-plan/07_file_task_division.mdの設計に影響する場合 |
 | `sessions/impl/_template/07_issues_W_template.md` | per-worker 課題ファイルのフォーマットに影響する変更の場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | 実装セッションフロー（Implementation 部分）の記述（人間向け可視化） |

@@ -10,10 +10,10 @@
 
 | Phase | 判定 | ゲートファイル | 主な所見 |
 |-------|------|-------------|---------|
-| Phase 1: Investigation | | 15_investigation_gate.md | |
-| Phase 2: Design | | 25_design_gate.md | |
-| Phase 3: Implementation Planning | | 35_impl_plan_gate.md | |
-| Phase 4: Implementation | | 45_impl_gate.md | |
+| Phase 1: Investigation | | phase-1-investigation/06_gate.md | |
+| Phase 2: Design | | phase-2-design/06_gate.md | |
+| Phase 3: Implementation Planning | | phase-3-impl-plan/06_gate.md | |
+| Phase 4: Implementation | | phase-4-impl/06_gate.md | |
 
 ## 成功基準の達成度
 

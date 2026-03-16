@@ -43,8 +43,8 @@
 
 | Worker | Work Log | Issues | External Branch | Worktree Path |
 |--------|----------|--------|-----------------|---------------|
-| W1 | 41_impl_work_log_W1.md | 07_issues_W1.md | impl/<施策名>-W1 | <ext-repo>/.worktrees/impl-W1 |
-| W2 | 41_impl_work_log_W2.md | 07_issues_W2.md | impl/<施策名>-W2 | <ext-repo>/.worktrees/impl-W2 |
+| W1 | phase-4-impl/02_work_log_W1.md | 07_issues_W1.md | impl/<施策名>-W1 | <ext-repo>/.worktrees/impl-W1 |
+| W2 | phase-4-impl/02_work_log_W2.md | 07_issues_W2.md | impl/<施策名>-W2 | <ext-repo>/.worktrees/impl-W2 |
 
 <!-- ワーカー数に応じて行を追加 -->
 
