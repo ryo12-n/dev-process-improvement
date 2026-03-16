@@ -60,6 +60,8 @@ user-invocable: false
 - 対象リポジトリは dev-process-improvement のみ
 - コミットメッセージ規約（`.claude/rules/commit-message.md`）に従う
 - コミットメッセージは `[L1] <施策名>: 実行フェーズ` の形式で
+- ファイル作成は Write ツールを使用する（`Bash(mkdir *)` は sandbox でブロックされる）
+- ツール使用が sandbox にブロックされた場合、同じ操作のリトライは行わず代替手段に切り替える
 
 ---
 **作成日**: 2026-03-15
