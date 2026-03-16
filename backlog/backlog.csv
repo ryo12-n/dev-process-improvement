@@ -68,7 +68,7 @@ BL-068,claude-md-import-shrink,高,候補,dev-process-improvement,2026-03-15,CLA
 BL-069,gha-skills-disable-model-invocation,中,候補,dev-process-improvement,2026-03-15,GHA スキル6件に disable-model-invocation 設定,gha-skills-disable-model-invocation.md,
 BL-070,path-scoped-rules-introduction,中,候補,dev-process-improvement,2026-03-15,path-scoped rules 導入と commit-message.md 分離,path-scoped-rules-introduction.md,
 BL-071,sandbox-enable-settings-local,高,候補,dev-process-improvement,2026-03-15,sandbox 有効化 + settings.local.json 導入,sandbox-enable-settings-local.md,
-BL-072,session-artifacts-structure-refactor,中,候補,dev-process-improvement,2026-03-15,非施策セッション成果物の構造・プレフィックス見直し（全マネージャーセッション対象）,session-artifacts-structure-refactor.md,
+BL-072,session-artifacts-structure-refactor,中,進行中,dev-process-improvement,2026-03-15,非施策セッション成果物の構造・プレフィックス見直し（全マネージャーセッション対象）,session-artifacts-structure-refactor.md,session-artifacts-structure-refactor
 BL-073,ドメインエージェント活用状況レビューセッション,低,候補,dev-process-improvement,2026-03-15,定期レビューで knowledge.md の推奨マッピング精度向上と refs/agency-agents/ の最新化,domain-agent-review-session.md,
 BL-074,ドメインエージェント参照の他マネージャーへの展開,低,候補,dev-process-improvement,2026-03-15,l1-manager 以外のマネージャーへのドメインエージェント参照の統合,domain-agent-expansion.md,
 BL-075,ハーネスエンジニアリング観点での定期チェック（dpi）,低,候補,dev-process-improvement,2026-03-15,dev-process-improvement の5観点定期チェック仕組みの構築,harness-engineering-periodic-check-dpi.md,

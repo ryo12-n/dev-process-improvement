@@ -1,7 +1,7 @@
 # Implementation Work Report: [施策名]
 
 > このファイルは L1 (impl-mgr) が B+C 集約方式で構築する。
-> B: git log + 全 41_impl_work_log_W*.md の集約
+> B: git log + 全 phase-4-impl/02_work_log_W*.md の集約
 > C: 各 impl-worker のチェックポイント記録
 
 ## Wave Summary

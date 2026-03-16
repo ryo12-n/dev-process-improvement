@@ -13,11 +13,18 @@
 
 ## 未転記メモ
 
-<!-- 以下のフォーマットで追記する -->
-<!--
-### [YYYY-MM-DD] タイトル
-- **種別**: 不具合 / 改善提案 / リスク / 知見
-- **内容**: 何が起きたか・気づいたこと
-- **対応方針（案）**: どう対処するか（未確定でよい）
-- **関連タスク**: T-XXX（あれば）
--->
+### [2026-03-16] impl テンプレート内に旧ファイル名参照が残存（8件）
+- **種別**: 不具合
+- **内容**: T-E01 の旧ファイル名残存チェックで、impl テンプレート内 4 ファイルに計 8 件の旧ファイル名参照が残存していることを検出した。SKILL.md/エージェント定義の更新は完了しているが、テンプレートファイル内の相互参照が更新されていない。
+  - `08_gate_summary.md`: `15_investigation_gate.md`, `25_design_gate.md`, `35_impl_plan_gate.md`, `45_impl_gate.md` (4件)
+  - `phase-3-impl-plan/07_file_task_division.md`: `41_impl_work_log_W1.md`, `41_impl_work_log_W2.md` (2件)
+  - `phase-4-impl/03_work_report.md`: `41_impl_work_log_W*.md` (1件)
+  - `phase-4-impl/06_gate.md`: `44_impl_eval_report.md` (1件)
+- **対応方針（案）**: 各ファイルの旧参照を新パスに置換する（単純なテキスト置換で対応可能）
+- **関連タスク**: T-E01
+
+### [2026-03-16] l1-impl-manager SKILL.md に旧番号体系の略記が残存（1件）
+- **種別**: 不具合
+- **内容**: `.claude/skills/l1-impl-manager/SKILL.md` 436 行目の `各フェーズの eval_report（14, 24, 34, 44）の知見` が旧プレフィックス番号を使用。新構造では `phase-X-xxx/05_eval_report.md`。
+- **対応方針（案）**: 括弧内を新パス参照に更新する
+- **関連タスク**: T-E01
