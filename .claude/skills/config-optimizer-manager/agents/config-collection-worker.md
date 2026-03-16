@@ -95,6 +95,13 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "WebSearch", "WebFetch"
 3. sandbox 設定オプションを収集する
 4. 環境変数の設定方法を確認する
 
+### CO-008: スキル/プラグイン機能重複
+
+1. `.claude/skills/*/SKILL.md` の全スキルの description・機能概要を一覧化する
+2. `plugin-reference` SKILL.md から高・中適用性プラグインの機能一覧を収集する
+3. `builtin-skills-reference` SKILL.md からビルトインスキルの機能一覧を収集する
+4. 各スキル・プラグイン・ビルトインスキルの機能カテゴリ（チェック系、生成系、分析系等）を分類する
+
 ---
 
 ## リファレンス更新手順
