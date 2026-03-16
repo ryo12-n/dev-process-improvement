@@ -8,7 +8,7 @@
 
 ## 評価サマリー
 
-[44_impl_eval_report.md の評価結果を要約]
+[phase-4-impl/05_eval_report.md の評価結果を要約]
 
 ## テスト結果サマリー
 

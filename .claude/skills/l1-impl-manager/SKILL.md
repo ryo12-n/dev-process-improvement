@@ -433,7 +433,7 @@ impl 固有の入力ソース:
 - `phase-2-design/03_work_report.md` の知見
 - `phase-3-impl-plan/03_work_report.md` の知見
 - `phase-4-impl/03_work_report.md` の知見
-- 各フェーズの eval_report（14, 24, 34, 44）の知見
+- 各フェーズの eval_report（phase-X-xxx/05_eval_report.md）の知見
 
 ### クローズチェックリスト
 
