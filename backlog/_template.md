@@ -18,7 +18,7 @@
 | **バックログ ID** | <!-- BL-XXX 形式。backlog.csv の ID 列と一致させること --> |
 | **優先度** | 🔴 高 / 🟡 中 / 🔵 低 |
 | **ステータス** | 候補 / initiative 開始済 / 完了 |
-| **対象リポジトリ** | ai-driven-dev-patterns / dev-process-improvement / ai-research-notebook / 横断 <!-- 必須 --> |
+| **対象リポジトリ** | ai-driven-dev-patterns / dev-process-improvement / ai-research-notebook / 横断 <!-- 必須。精査・変更対象ファイルが実際に存在するリポジトリを記載すること。複数リポジトリにまたがる場合は「横断」とし制約事項に両リポジトリ名を明記する。GHA/SDK 環境は1リポジトリ制約があるため実行環境の選定に影響する --> |
 | **施策ディレクトリ名** | <!-- 施策化時に L1 が記入する。sessions/initiatives/ 配下のディレクトリ名（英語）。TG-002 突合に使用 --> |
 | **起票日** | YYYY-MM-DD |
 | **依存する環境前提** | <!-- この施策が前提とする環境条件を列挙する（例: SDK 環境 / ローカル CLI / GHA）。BM-003 の前提条件変化チェックで参照される --> |
@@ -49,7 +49,7 @@
 - [ ] バックログ ID を `BL-XXX` 形式で記載し、`backlog.csv` の ID 列と一致させた
 - [ ] 優先度を 🔴/🟡/🔵 のいずれかで記載した
 - [ ] ステータスを「候補 / initiative 開始済 / 完了」のいずれかで記載した
-- [ ] **対象リポジトリ**を明記した（`ai-driven-dev-patterns` / `dev-process-improvement` / `横断` のいずれか）
+- [ ] **対象リポジトリ**を明記した（`ai-driven-dev-patterns` / `dev-process-improvement` / `横断` のいずれか）。精査・変更対象ファイルが実際に存在するリポジトリを記載し、GHA/SDK 環境での実施可否判断に影響しないか確認した
 - [ ] 「依存する環境前提」に前提となる環境条件を記載した（不明な場合は「なし」と記載）
 - [ ] 関連エントリがある場合は「関連エントリ」セクションに `BL-XXX: <施策名>` 形式で記載した
 - [ ] `backlog.csv` に対応する行を追加した
