@@ -20,13 +20,13 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `git mv` でディレクトリリネーム | `session-lifecycle-policy/` が存在する | 🔴 | ⬜ |
-| T-002 | `session-lifecycle-policy/SKILL.md` の編集（§3削除、メタ情報更新） | frontmatter・タイトル・内容が更新済み | 🔴 | ⬜ |
-| T-003 | `triage-manager/SKILL.md` に TG-008 セクション統合 | TG-008 チェックリストが統合済み、内部参照が更新済み | 🔴 | ⬜ |
-| T-004 | 実質的参照の更新（triage-worker, session-consistency-manager 等） | 各ファイルの参照が正確に更新済み | 🔴 | ⬜ |
-| T-005 | 関連ファイルテーブルのパス一括置換（24ファイル） | 全ファイルのパスが `session-lifecycle-policy` に更新済み | 🟡 | ⬜ |
-| T-006 | docs/workflow.md・管理ファイルの更新 | docs, backlog, inbox, issues の参照が更新済み | 🟡 | ⬜ |
-| T-007 | 残存参照の検証 | grep で旧名参照がアクティブファイルにゼロ | 🔴 | ⬜ |
+| T-001 | `git mv` でディレクトリリネーム | `session-lifecycle-policy/` が存在する | 🔴 | ✅ |
+| T-002 | `session-lifecycle-policy/SKILL.md` の編集（§3削除、メタ情報更新） | frontmatter・タイトル・内容が更新済み | 🔴 | ✅ |
+| T-003 | `triage-manager/SKILL.md` に TG-008 セクション統合 | TG-008 チェックリストが統合済み、内部参照が更新済み | 🔴 | ✅ |
+| T-004 | 実質的参照の更新（triage-worker, session-consistency-manager 等） | 各ファイルの参照が正確に更新済み | 🔴 | ✅ |
+| T-005 | 関連ファイルテーブルのパス一括置換（24ファイル） | 全ファイルのパスが `session-lifecycle-policy` に更新済み | 🟡 | ✅ |
+| T-006 | docs/workflow.md・管理ファイルの更新 | docs, backlog, inbox, issues の参照が更新済み | 🟡 | ✅ |
+| T-007 | 残存参照の検証 | grep で旧名参照がアクティブファイルにゼロ | 🔴 | ✅ |
 
 ---
 **作成者**: L1
