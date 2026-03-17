@@ -1,12 +1,12 @@
 ---
 name: manager-common-policy
-description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer）に共通する運用パターンを定義するポリシー'
+description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer, session-consistency）に共通する運用パターンを定義するポリシー'
 user-invocable: false
 ---
 # マネージャーセッション共通ポリシー
 
 > **このファイルの位置づけ**
-> 7つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager, config-optimizer-manager）に共通する運用パターンを一元的に定義する。
+> 8つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager, config-optimizer-manager, session-consistency-manager）に共通する運用パターンを一元的に定義する。
 > 各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
 
 ---
@@ -24,6 +24,7 @@ user-invocable: false
 | バックログメンテナンスマネージャー | `.claude/skills/backlog-maintenance-manager/SKILL.md` |
 | 自動化マネージャー | `.claude/skills/automation-manager/SKILL.md` |
 | config最適化マネージャー | `.claude/skills/config-optimizer-manager/SKILL.md` |
+| セッション一貫性マネージャー | `.claude/skills/session-consistency-manager/SKILL.md` |
 
 各マネージャースキルは、本ポリシーの該当セクション番号（§N）を参照する形で共通パターンを取り込む。
 
@@ -184,6 +185,7 @@ TaskCreate({ description: "ステップN: <ステップの要約>" })
 | `.claude/skills/backlog-maintenance-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/automation-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/config-optimizer-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
+| `.claude/skills/session-consistency-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | オーケストレーション関連の必須記載に影響する変更の場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
 | `docs/workflow.md` | マネージャー共通ポリシーの記述（人間向け可視化） |
