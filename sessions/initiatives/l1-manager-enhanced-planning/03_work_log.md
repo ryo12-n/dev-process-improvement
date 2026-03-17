@@ -317,3 +317,87 @@
 - 04_work_report.md に施策フェーズ2 実施レポートを作成（知見セクション・メタルール検証結果・転記判断を含む）
 - 07_issues.md を確認: 施策フェーズ2 で新規施策横断課題なし。転記対象なし
 **成果物**: `04_work_report.md`（施策フェーズ2 実施レポート追記）
+
+---
+
+## 施策フェーズ3: ドメインエージェント深層統合（計画）
+
+## 壁打ちフェーズ [2026-03-17 16:00]
+
+### 理解のサマリー
+- タスクの目的: Evaluator にドメインエージェント参照フローを追加し、有効性フィードバックループ（06_eval_report.md → knowledge.md）を構築する。Worker に既に導入済みのドメインエージェント参照パターンを Evaluator に対称的に拡張する
+- スコープ: l2-evaluator.md（参照フロー追加）、SKILL.md（evaluator ディスパッチ手順更新）、manager-common-policy §10（§10.5 新設）、05_eval_plan.md テンプレート（参照セクション追加）、06_eval_report.md テンプレート（フィードバックセクション追加）、knowledge.md（Evaluator 向け推奨マッピング追加）、docs/workflow.md（深層統合の可視化）
+- 完了条件: 02a_task_division.md に施策フェーズ3 のタスク分割が追記され、03_work_log.md に壁打ちフェーズと作業履歴が記録され、04_work_report.md に計画レポートが記載されている
+
+### 前提条件チェック
+- [x] 施策計画（01_plan.md）の内容を理解: 理解済み — 施策フェーズ3 の成功基準は「Evaluator にドメインエージェントが注入され、有効性フィードバックが機能する」
+- [x] 提案書（00_proposal.md）の確認: 確認済み — ドメインエージェントがノイズになるリスクに対し、有効性フィードバックで追跡し不要なら除外可能とする対策
+- [x] 変更対象ファイル群の特定: 特定済み — 下記調査結果参照
+
+### 変更対象ファイル調査結果
+
+**変更対象**:
+1. `.claude/skills/l1-manager/agents/l2-evaluator.md` — 作業フロー step 1 にドメインエージェント参照を追加。l2-worker.md の既存パターン（step 1 で `refs/agency-agents/` を Read）を踏襲
+2. `.claude/skills/l1-manager/SKILL.md` — Phase 5 L2-evaluator ディスパッチ手順にドメインエージェント参照の伝達を明記
+3. `.claude/skills/manager-common-policy/SKILL.md` — §10.5 を新設し、Evaluator 向けドメインエージェント参照の具体的手順とフィードバック責務を定義
+4. `sessions/initiatives/_template/05_eval_plan.md` — ドメインエージェント参照セクションを追加
+5. `sessions/initiatives/_template/06_eval_report.md` — ドメインエージェント有効性フィードバックセクションを追加
+6. `refs/agency-agents/knowledge.md` — Evaluator 向け推奨マッピングとフィードバック受領構造を追加
+7. `docs/workflow.md` — Phase 5 セクションにドメインエージェント参照行追加、フィードバックループの可視化
+
+**参照のみ（Read-only）**:
+- `.claude/skills/l1-manager/agents/l2-worker.md` — 既存ドメインエージェント参照パターンの確認（対称性を保つための参照）
+- `00_proposal.md`, `01_plan.md` — 背景・計画の参照
+
+### 設計判断
+
+1. **Worker/Evaluator の対称性**: l2-worker.md の step 1 で `02_tasks.md` の「参照ドメインエージェント」Evaluator 向けエージェントを Read するパターンを、l2-evaluator.md にも同じ構造で追加する。ただし Evaluator は「評価に活かす」点が Worker の「作業に活かす」と異なるため、活用方法の記述は Evaluator 固有にする
+
+2. **フィードバックループの設計**: 06_eval_report.md に「ドメインエージェント有効性フィードバック」セクションを新設し、有効だった観点・不要だった観点・推奨更新事項を記録する。L1 がゲート判定時にこの内容を確認し、knowledge.md への反映を判断する
+
+3. **knowledge.md の拡張方針**: 既存の「施策タイプ別推奨マッピング」テーブルに Evaluator 向け推奨列を追加する方式を採用（別建てテーブルではなく、同一テーブルに Worker/Evaluator 両方を含める）。加えて「蓄積された知見」テーブルにフィードバック起源の知見を追加できる構造にする
+
+4. **§10.5 の位置づけ**: §10.3 は Worker/Evaluator 共通の「渡し方」を定義しているが、Evaluator 固有の「活用方法」（評価計画への反映・評価基準への活用・フィードバック責務）は §10.5 として分離する
+
+### 不明点・確認事項
+確認事項なし：計画開始
+
+### 分析計画
+
+1. l2-evaluator.md の変更箇所の特定（l2-worker.md の対称パターン分析）
+2. SKILL.md の Phase 5 evaluator ディスパッチ変更箇所の特定
+3. manager-common-policy §10 の拡張箇所の特定
+4. テンプレート群（05_eval_plan.md, 06_eval_report.md）の変更箇所の特定
+5. knowledge.md の拡張方針の決定
+6. docs/workflow.md の変更箇所の特定
+7. タスク分割・コンフリクトマトリクス・Wave 割当の作成
+
+---
+
+### [2026-03-17 16:10] 計画項目: 変更対象の詳細分析
+**状態**: 完了
+**作業内容**:
+- l2-worker.md の既存ドメインエージェント参照パターンを精読（step 1: `02_tasks.md` の「参照ドメインエージェント」セクションを確認 → エージェント `.md` ファイルを Read → 専門知識として参照）
+- l2-evaluator.md の現状を精読 — ドメインエージェント参照が一切なし。作業フローは step 1 が `01_plan.md` と `04_work_report.md` の読み取りから開始
+- manager-common-policy §10 を精読 — §10.3 で既に「Worker 向けと Evaluator 向けでそれぞれ異なるドメインエージェントを指定できる」と記載されているが、Evaluator 側の具体的手順は未定義
+- l1-manager SKILL.md の evaluator ディスパッチ箇所を確認 — Phase 5 セクションの起動時に渡す観点にドメインエージェント情報が含まれていない
+- knowledge.md の推奨マッピングを確認 — 全て Worker 向けの推奨のみ。Evaluator 向け推奨列は存在しない
+- 05_eval_plan.md テンプレートを確認 — ドメインエージェント参照セクションなし
+- 06_eval_report.md テンプレートを確認 — フィードバックセクションなし
+- docs/workflow.md の Phase 5 セクションを確認 — Worker 側（Phase 4）には「参照ドメインエージェントがある場合」の記載があるが、Evaluator 側（Phase 5）にはない
+**判断・気づき**:
+- 全7箇所の変更で新規ファイル作成なし。全て既存ファイルの拡張で完結する
+- コンフリクトマトリクス上、全タスクのファイル書き込み先が完全に分離されているため、Wave 1 で5タスク並列が可能
+- T3-007（docs/workflow.md）は T3-001 と T3-003 の成果物を参照するため Wave 2 に配置
+
+### [2026-03-17 16:20] 計画項目: タスク分割・コンフリクトマトリクス・Wave 割当の作成
+**状態**: 完了
+**作業内容**:
+- 7タスクに分割（T3-001〜T3-007）
+- コンフリクトマトリクスを作成し、競合なしを確認
+- Wave 割当: Wave 1（T3-001〜T3-005、並列実行可）、Wave 2（T3-006〜T3-007、Wave 1 完了後）
+- 02a_task_division.md に施策フェーズ3 セクションを追記
+**判断・気づき**:
+- 施策フェーズ2 と異なり新規ファイル作成がないため、タスク構成がシンプル
+- Wave 1 の5タスクは全て異なるファイルを MODIFY するため、最大5並列が可能
+- フィードバックループの構築は T3-003（policy 定義）、T3-004（テンプレート）、T3-005（knowledge.md 構造）の3タスクにまたがるが、各タスクの担当ファイルが分離されているため並列で問題なし
