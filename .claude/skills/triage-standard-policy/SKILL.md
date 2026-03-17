@@ -111,6 +111,8 @@ user-invocable: false
 ### 3.1 走査対象
 
 - `.claude/skills/l1-manager/SKILL.md`
+- `.claude/skills/l1-manager/agents/l2-plan-worker.md`
+- `.claude/skills/l1-manager/agents/l2-plan-evaluator.md`
 - `.claude/skills/l1-manager/agents/l2-worker.md`
 - `.claude/skills/l1-manager/agents/l2-evaluator.md`
 - `.claude/skills/triage-manager/SKILL.md`

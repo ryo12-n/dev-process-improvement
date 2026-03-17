@@ -42,6 +42,89 @@
 ---
 
 ### [2026-03-17 10:05] タスクID: T-001
-**状態**: 着手
+**状態**: 完了
 **作業内容**:
-- l2-plan-worker.md の作成開始
+- `.claude/skills/l1-manager/agents/l2-plan-worker.md` を作成
+- impl-plan-worker パターンを応用し、l1-manager 向けに調整
+- 必須6セクション（役割・作業フロー・やること・やらないこと・担当ファイル・停止ルール）を備えた
+- 02a_task_division.md のフォーマット定義を内蔵（T-XXX形式、ドメインエージェント推奨欄含む）
+**成果物**: `.claude/skills/l1-manager/agents/l2-plan-worker.md`
+
+### [2026-03-17 10:15] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- `.claude/skills/l1-manager/agents/l2-plan-evaluator.md` を作成
+- l2-evaluator との対称性を確認し、対称性確認テーブルを含めた
+- 重点評価項目（タスク粒度・アノテーション・コンフリクトマトリクス・依存関係・Wave割当・ドメインエージェント推奨・完了条件）を定義
+**成果物**: `.claude/skills/l1-manager/agents/l2-plan-evaluator.md`
+
+### [2026-03-17 10:25] タスクID: T-003
+**状態**: 完了
+**作業内容**:
+- `sessions/initiatives/_template/02a_task_division.md` を作成
+- タスク割当・Conflict Check Matrix・Wave Assignment・Domain Agent Recommendations・Summary セクションを定義
+**成果物**: `sessions/initiatives/_template/02a_task_division.md`
+
+### [2026-03-17 10:35] タスクID: T-004
+**状態**: 完了
+**作業内容**:
+- l1-manager SKILL.md のフェーズ構造を Phase A/B/C/D → Phase 1〜6 に変更
+- セッションライフサイクル todo を14ステップに更新（パターン1）
+- Phase 2（計画ワーカーディスパッチ）、Phase 3（計画評価・タスク作成）フローを追加
+- L2 壁打ちフェーズ応答フローに plan-worker/evaluator を追加
+- 関連ファイル一覧に plan-worker/evaluator を追加
+**成果物**: `.claude/skills/l1-manager/SKILL.md`（変更）
+
+### [2026-03-17 10:45] タスクID: T-005
+**状態**: 完了
+**作業内容**:
+- `sessions/initiatives/_template/02_tasks.md` を拡張
+- Worker Set Assignment テーブル追加（Set / Worker / Evaluator / 担当タスク / Wave）
+- Set Dispatch Order セクション追加（順序 / Set / 前提条件 / 備考）
+- ドメインエージェント欄を Worker/Evaluator に分離（「対象」列追加）
+**成果物**: `sessions/initiatives/_template/02_tasks.md`（変更）
+
+### [2026-03-17 10:55] タスクID: T-006
+**状態**: 完了
+**作業内容**:
+- `sessions/initiatives/_template/08_gate_review.md` を更新
+- Phase A→B/B→C/C→D → Phase 1→2/2→3/3→4/4→5/5→6 の5段階チェック構造に変更
+- Phase 1→2: Plan-Worker ディスパッチ前チェック3項目
+- Phase 2→3: Plan-Evaluator ディスパッチ前チェック4項目
+- Phase 3→4: Worker ディスパッチ前チェック5項目
+- Phase 4→5: Evaluator ディスパッチ前チェック8項目
+- Phase 5→6: 最終ゲート判定前チェック5項目
+**成果物**: `sessions/initiatives/_template/08_gate_review.md`（変更）
+
+### [2026-03-17 11:05] タスクID: T-007
+**状態**: 完了
+**作業内容**:
+- manager-common-policy SKILL.md の §2 に §2.3（計画ワーカーディスパッチパターン）を追加
+- §10.3 を更新し、L2-evaluator へのドメインエージェント参照を追加。Worker/Evaluator で異なるエージェント指定が可能であることを明記
+**成果物**: `.claude/skills/manager-common-policy/SKILL.md`（変更）
+
+### [2026-03-17 11:15] タスクID: T-008
+**状態**: 完了
+**作業内容**:
+- docs/workflow.md のイニシアティブフローを Phase 1〜6 構造に更新
+- 計画ワーカーフェーズ（Phase 2: l2-plan-worker、Phase 3: l2-plan-evaluator + タスク作成）を可視化
+- フェーズゲートチェックテーブルを3段階→5段階に更新
+- L2サブエージェント起動セクションに計画ワーカー起動順序を追加
+- session-flow-policy SKILL.md のセッションタイプ一覧にplan-worker/evaluator を追加
+**成果物**: `docs/workflow.md`, `.claude/skills/session-flow-policy/SKILL.md`（変更）
+
+### [2026-03-17 11:25] タスクID: T-F03
+**状態**: 完了
+**作業内容**:
+- メタルール横断検証を実施
+- フロー記述: l1-manager SKILL.md 内の旧 Phase A/B/C/D 参照が全て Phase 1〜6 に更新されていることを grep で確認（合格）
+- workflow.md 同期: docs/workflow.md のイニシアティブフローが Phase 1〜6 構造と整合していることを確認（合格）
+- TG-008 基準連動: triage-standard-policy SKILL.md の走査対象リストに l2-plan-worker.md, l2-plan-evaluator.md を追加（修正済）
+**成果物**: triage-standard-policy SKILL.md（走査対象追加）
+
+### [2026-03-17 11:30] タスクID: T-F01, T-F02
+**状態**: 完了
+**作業内容**:
+- T-F01: 04_work_report.md に知見セクション（ルール化候補・参考情報）を記録
+- T-F02: 07_issues.md を確認。施策横断課題なし、転記対象なし
+**成果物**: `04_work_report.md`, `07_issues.md`
