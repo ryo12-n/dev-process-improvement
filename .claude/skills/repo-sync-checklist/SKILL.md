@@ -27,7 +27,7 @@ user-invocable: true
 | 2 | `sessions/initiatives/_template/` | 00〜08 の番号付きファイル | initiative テンプレートを持ち込む場合はそのまま適用 |
 | 3 | `sessions/initiatives/_archive/` | 完了済み施策の移動先 | 同等のアーカイブディレクトリを作成 |
 | 4 | テンプレートコピー手順の改善 | workers/ を空ディレクトリで作成、ワーカーセットは _template/workers/_template/ から直接コピー | triage 構成を持ち込む場合のみ適用 |
-| 5 | トリアージ構成 | `triage-standard-policy`（ライフサイクル適用マトリクス）、`triage-manager` + agents（triage-worker, triage-evaluator）、`triage/_template/`（セッションテンプレート） | 同期先に独自のトリアージ実装がある場合は差分を確認し、不足している要素（ポリシー・テンプレート・エージェント定義）を補完導入する |
+| 5 | トリアージ構成 | `session-lifecycle-policy`（ライフサイクル適用マトリクス）、`triage-manager` + agents（triage-worker, triage-evaluator）、`triage/_template/`（セッションテンプレート） | 同期先に独自のトリアージ実装がある場合は差分を確認し、不足している要素（ポリシー・テンプレート・エージェント定義）を補完導入する |
 | 6 | `sessions/` ディレクトリ利用ガイド | CLAUDE.md にセッション種別ごとのディレクトリ用途・使い分けを記載。README にエントリーポイントとして案内 | 同期先の CLAUDE.md または README に `sessions/` 配下の構成と用途（initiatives/ は施策管理、triage/ はトリアージ等）の案内を追加する |
 
 **チェック**:

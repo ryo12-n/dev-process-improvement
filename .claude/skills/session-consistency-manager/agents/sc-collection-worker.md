@@ -84,9 +84,9 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 2. 各マネージャー SKILL.md での参照箇所（`manager-common-policy §N` の記述）を検索する
 3. 参照パターンの網羅性を記録する
 
-### SC-006: triage-standard-policy 適用マトリクス整合
+### SC-006: session-lifecycle-policy 適用マトリクス整合
 
-1. `triage-standard-policy` §1.2 の適用マトリクスを読み取る
+1. `session-lifecycle-policy` §1.2 の適用マトリクスを読み取る
 2. マトリクスに記載されているセッションタイプと、実際に存在するセッション定義を突合する
 3. マトリクスの各セル値（必須/推奨/条件付き/N/A）を記録する
 

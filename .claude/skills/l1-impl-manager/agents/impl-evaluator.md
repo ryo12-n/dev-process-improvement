@@ -233,5 +233,5 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | Phase 3 ペアリング対称性に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-worker.md` | Phase 4 ペアリング対称性に影響する変更の場合 |
 | `sessions/impl/_template/` | テンプレート構成に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | 実装セッションフロー（評価部分）の記述（人間向け可視化） |

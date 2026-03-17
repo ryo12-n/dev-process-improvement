@@ -45,14 +45,14 @@ user-invocable: false
 
 ### 3. TG-008 基準の連動更新
 
-ルール変更が `.claude/skills/triage-standard-policy/SKILL.md`（トリアージ標準ポリシー）のチェック基準に影響する場合、基準文書も更新する。
+ルール変更が `.claude/skills/session-lifecycle-policy/SKILL.md`（トリアージ標準ポリシー）のチェック基準に影響する場合、基準文書も更新する。
 
 - [ ] 変更内容が以下のいずれかに該当するかを確認した:
   - ライフサイクルステージの追加・変更・削除
   - ペアリング対称性要件の変更
   - 課題起票・ルーティング手段の変更
   - 停止ルール・スコープの変更
-- [ ] 該当する場合、`triage-standard-policy/SKILL.md` のチェック基準を更新した
+- [ ] 該当する場合、`session-lifecycle-policy/SKILL.md` のチェック基準を更新した
 - [ ] 適用マトリクス（セクション 1.2）に変更が必要な場合は更新した
 
 ### 4. パス変更・リネームの走査対象網羅性
@@ -110,7 +110,7 @@ settings.json の deny リストを変更する場合、以下を確認する。
 | `.claude/skills/l1-manager/SKILL.md` | 「タスクリストに含める固定タスク」セクションのチェックリスト参照 |
 | `.claude/skills/l1-manager/agents/l2-worker.md` | L2 ワーカーの作業完了前チェック手順に影響する変更の場合 |
 | `docs/workflow.md` | 「ルール変更時の連動更新」セクションの記述 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | チェック項目3の基準変更が TG-008 走査観点に影響する場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | チェック項目3の基準変更が TG-008 走査観点に影響する場合 |
 
 ---
 

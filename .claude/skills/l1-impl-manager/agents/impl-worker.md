@@ -224,5 +224,5 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | `.claude/skills/l1-impl-manager/agents/impl-evaluator.md` | ペアリングの対称性要件に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | チェックポイントフォーマットの変更がphase-3-impl-plan/07_file_task_division.mdの設計に影響する場合 |
 | `sessions/impl/_template/07_issues_W_template.md` | per-worker 課題ファイルのフォーマットに影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | 実装セッションフロー（Implementation 部分）の記述（人間向け可視化） |

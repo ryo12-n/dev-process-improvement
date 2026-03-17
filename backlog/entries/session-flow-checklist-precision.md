@@ -20,14 +20,14 @@
 
 ### チェックリストに含まれていない更新箇所
 
-- `triage-standard-policy` の §1.3 記録先対応テーブル
-- `triage-standard-policy` の §2.1 ペアリング構造テーブル
-- `triage-standard-policy` の §3.1 走査対象リスト
+- `session-lifecycle-policy` の §1.3 記録先対応テーブル
+- `session-lifecycle-policy` の §2.1 ペアリング構造テーブル
+- `session-lifecycle-policy` の §3.1 走査対象リスト
 - 各変更ファイルの「関連ファイル一覧」セクション
 
 ### 提案
 
-§5.1 チェックリストに triage-standard-policy の更新箇所を明示する項目を追加し、次のセッションタイプ追加時の漏れを防ぐ。
+§5.1 チェックリストに session-lifecycle-policy の更新箇所を明示する項目を追加し、次のセッションタイプ追加時の漏れを防ぐ。
 
 ## 発見元
 

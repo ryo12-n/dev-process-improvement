@@ -108,7 +108,7 @@ session-flow-policy §3.2 の対称性要件:
 
 ---
 
-## 6. SC-006: triage-standard-policy 適用マトリクス整合
+## 6. SC-006: session-lifecycle-policy 適用マトリクス整合
 
 ### マトリクス列（セッションタイプ）一覧
 

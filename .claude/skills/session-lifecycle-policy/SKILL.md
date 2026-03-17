@@ -1,13 +1,14 @@
 ---
-name: triage-standard-policy
-description: 'トリアージ走査（TG-008）・ペアリング検証・ライフサイクル準拠チェック時に参照するガイドライン'
+name: session-lifecycle-policy
+description: 'セッションタイプ横断のライフサイクルパターン・ペアリング要件を定義するガイドライン'
 user-invocable: false
 ---
-# トリアージ標準ポリシーガイドライン
+# セッションライフサイクルポリシーガイドライン
 
 > **このファイルの位置づけ**
-> セッションタイプ間で共通するライフサイクルパターン・ペアリング要件・準拠チェック基準を定義する。
+> セッションタイプ間で共通するライフサイクルパターン・ペアリング要件を定義する。
 > `.claude/skills/` 配下のスキル・エージェント定義が個々のルールの正の情報源であり、本ガイドラインはそれらの横断的な整合性を担保するための基準文書である。
+> TG-008 チェックリストは `triage-manager/SKILL.md` に統合済み。
 
 ---
 
@@ -105,102 +106,6 @@ user-invocable: false
 
 ---
 
-## 3. トリアージ走査用チェックリスト（TG-008）
-
-トリアージセッションで、ロール定義（`.claude/skills/` 配下のスキル・エージェント定義）やセッションルールがガイドラインに準拠しているかを確認するためのチェックリスト。
-
-### 3.1 走査対象
-
-- `.claude/skills/l1-manager/SKILL.md`
-- `.claude/skills/l1-manager/agents/l2-worker.md`
-- `.claude/skills/l1-manager/agents/l2-evaluator.md`
-- `.claude/skills/triage-manager/SKILL.md`
-- `.claude/skills/triage-manager/agents/triage-worker.md`
-- `.claude/skills/triage-manager/agents/triage-evaluator.md`
-- `.claude/skills/metacognition-manager/SKILL.md`
-- `.claude/skills/metacognition-manager/agents/metacognition-worker.md`
-- `.claude/skills/metacognition-manager/agents/metacognition-evaluator.md`
-- `.claude/skills/sync-manager/SKILL.md`
-- `.claude/skills/sync-manager/agents/sync-worker.md`
-- `.claude/skills/sync-manager/agents/sync-evaluator.md`
-- `.claude/skills/backlog-maintenance-manager/SKILL.md`
-- `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md`
-- `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md`
-- `.claude/skills/automation-manager/SKILL.md`
-- `.claude/skills/automation-manager/agents/automation-worker.md`
-- `.claude/skills/automation-manager/agents/automation-evaluator.md`
-- `.claude/skills/l1-impl-manager/SKILL.md`
-- `.claude/skills/l1-impl-manager/agents/investigation-worker.md`
-- `.claude/skills/l1-impl-manager/agents/design-worker.md`
-- `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md`
-- `.claude/skills/l1-impl-manager/agents/impl-worker.md`
-- `.claude/skills/l1-impl-manager/agents/impl-evaluator.md`
-- `.claude/skills/config-optimizer-manager/SKILL.md`
-- `.claude/skills/config-optimizer-manager/agents/config-collection-worker.md`
-- `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md`
-- `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md`
-- `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md`
-- `.claude/skills/session-consistency-manager/SKILL.md`
-- `.claude/skills/session-consistency-manager/agents/sc-collection-worker.md`
-- `.claude/skills/session-consistency-manager/agents/sc-analysis-worker.md`
-- `.claude/skills/session-consistency-manager/agents/sc-proposal-worker.md`
-- `.claude/skills/session-consistency-manager/agents/sc-evaluator.md`
-- 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
-
-### 3.2 チェック項目
-
-#### A. ライフサイクル完備チェック
-
-- [ ] セクション1.2の適用マトリクスで「必須」となっているステージが、ロール定義に含まれているか
-- [ ] 壁打ちフェーズの定義があるか（記録先ファイル・フォーマットが明記されているか）
-- [ ] 計画ステージが適切に定義されているか（マネージャー系は立案、ワーカー系は実施/評価計画）
-- [ ] レポートの構成が明記されているか
-- [ ] 「推奨」ステージの欠落がないか（欠落している場合は課題として起票）
-
-#### B. ペアリング整合性チェック
-
-- [ ] 実施者と対応する評価者の両方のロール定義が存在するか
-- [ ] 実施者の成果物が評価者の入力として参照されているか（担当ファイルテーブルで確認）
-- [ ] ペアリングの対称性要件（セクション2.3）が満たされているか
-- [ ] オーケストレーターのルール定義に、実施者→評価者の起動順序が明記されているか
-
-#### C. 課題起票・ルーティングチェック
-
-- [ ] 課題起票の方法（中間バッファ経由 or CSV直接起票）がロール定義に明記されているか
-- [ ] 知見記録セクション（「ルール化候補」「参考情報」の分類テーブル）が定義されているか
-- [ ] 知見集約のルーティング先が明記されているか（マネージャー系のみ）
-
-#### D. マネージャー共通ポリシー準拠チェック
-
-- [ ] ゲート判定基準の定義があるか（直接記載または `manager-common-policy` §4 参照）
-- [ ] 差し戻し手順の定義があるか（直接記載または `manager-common-policy` §7 参照）
-
-#### E. 停止ルール・スコープチェック
-
-- [ ] 「やること」「やらないこと」セクションが存在し、スコープが明確か
-- [ ] 停止ルールが定義されているか
-- [ ] 停止時の起票/報告フォーマットが明記されているか
-- [ ] 担当ファイルテーブルがあり、各ファイルの操作権限（読み取り/編集/追記）が明記されているか
-
-#### E. メタルール横断整合性チェック
-
-- [ ] テンプレートファイルのパス参照がスキル・エージェント定義内のフロー記述と一致しているか
-- [ ] `.claude/skills/` 配下の変更が `docs/workflow.md` の対応セクションに反映されているか
-- [ ] `.claude/rules/` 配下のルール変更が本チェックリスト（TG-008）の基準に反映されているか
-
-### 3.3 不適合時のアクション
-
-| 不適合の種類 | アクション |
-|-------------|----------|
-| 「必須」ステージの欠落 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 高、CSV は自動生成） |
-| 「推奨」ステージの欠落 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 中、CSV は自動生成） |
-| ペアリング不整合 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 高、CSV は自動生成） |
-| フォーマット不備（停止ルール・担当ファイル等の欠落） | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 低、CSV は自動生成） |
-| 軽微な記述ズレ（表現の不統一等） | トリアージセッション内で修正 |
-| テンプレート・ルールとメタルールの不整合 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 中、CSV は自動生成）。軽微なパス参照ズレはセッション内で修正 |
-
----
-
 ---
 
 ## 関連ファイル一覧
@@ -213,8 +118,7 @@ user-invocable: false
 | `.claude/skills/l1-manager/SKILL.md` | ライフサイクルステージ・ペアリング要件の変更がマネージャー定義に影響する場合 |
 | `.claude/skills/l1-manager/agents/l2-worker.md` | ライフサイクル適用マトリクスの変更がワーカー定義に影響する場合 |
 | `.claude/skills/l1-manager/agents/l2-evaluator.md` | ライフサイクル適用マトリクスの変更が評価者定義に影響する場合 |
-| `.claude/skills/triage-manager/SKILL.md` | TG-008 チェック基準の変更がマネージャーのルールに影響する場合 |
-| `.claude/skills/triage-manager/agents/triage-worker.md` | TG-008 走査手順・チェック項目の変更がワーカーの走査手順に影響する場合 |
+| `.claude/skills/triage-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がマネージャー定義に影響する場合（TG-008 チェックリストは triage-manager 側に統合済み） |
 | `.claude/skills/triage-manager/agents/triage-evaluator.md` | ペアリング対称性要件の変更が評価者定義に影響する場合 |
 | `.claude/skills/metacognition-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がメタ認知マネージャー定義に影響する場合 |
 | `.claude/skills/metacognition-manager/agents/metacognition-worker.md` | ライフサイクル適用マトリクスの変更がメタ認知ワーカー定義に影響する場合 |
@@ -252,3 +156,4 @@ user-invocable: false
 **作成日**: 2026-03-05
 **作成者**: L2（実施）
 **関連施策**: トリアージ標準ポリシーガイドライン
+**リネーム日**: 2026-03-17（triage-standard-policy → session-lifecycle-policy、§3 TG-008 チェックリストを triage-manager に移動）
