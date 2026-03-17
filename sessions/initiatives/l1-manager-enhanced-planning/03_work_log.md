@@ -214,3 +214,41 @@
 - T2-001（parallel-dev.md）は他全タスクの Read-only 依存先であるため、必ず Wave 1 で先行
 - 既存ファイル変更群は SKILL.md と l2-worker.md が相互参照関係にあるが MODIFY 競合はないため同一 Wave で可
 - per-worker テンプレート（03_work_log_W_template.md, 07_issues_W_template.md）は T2-004 に含める
+
+---
+
+## 施策フェーズ2: 実施ワーカー作業
+
+## 壁打ちフェーズ [2026-03-17 11:59]
+
+### 理解のサマリー
+- タスクの目的: 施策フェーズ2 の T2-001〜T2-007 を実行し、並列ワーカーディスパッチの仕組み（parallel-dev.md ルール、SKILL.md Phase 4 並列ディスパッチ、l2-worker.md per-worker 対応、テンプレート群、ポリシー更新、workflow.md 可視化）を完成させる
+- スコープ: Wave 1（T2-001）→ Wave 2（T2-002〜T2-005, T2-007 逐次実行）→ Wave 3（T2-006 固定タスク）
+- 完了条件: 全タスク完了、03_work_log.md に作業履歴、04_work_report.md に施策フェーズ2 レポート、07_issues.md に課題記録、コミット・プッシュ済み
+
+### 前提条件チェック
+- [x] 依存タスクの完了状態: 完了（施策フェーズ1 ゲート通過、02a_task_division.md 施策フェーズ2 セクション作成済み）
+- [x] 必要ツール・コマンドの利用可否: 確認済み（Read, Write, Edit, Bash）
+- [x] 環境の準備状況（ファイル・ディレクトリの存在等）: 確認済み
+  - l1-impl-manager SKILL.md: 存在確認済み（並列ディスパッチ機構の参考パターン）
+  - l1-manager SKILL.md: 存在確認済み（変更対象）
+  - l2-worker.md: 存在確認済み（変更対象）
+  - manager-common-policy SKILL.md: 存在確認済み（変更対象）
+  - session-flow-policy SKILL.md: 存在確認済み（変更対象）
+  - docs/workflow.md: 存在確認済み（変更対象）
+  - _template/ ディレクトリ: 存在確認済み
+  - ブランチ: claude/l1-manager-WG7FF チェックアウト済み
+
+### 不明点・確認事項
+確認事項なし：実施開始
+
+### タスク実施計画
+
+1. **Wave 1: T2-001** — parallel-dev.md 新規作成（impl-manager の並列ディスパッチ機構を参考に l1-manager 向けに簡略化）
+2. **Wave 2（逐次実行）**:
+   - T2-002: l1-manager SKILL.md Phase 4 並列ディスパッチ機構追加
+   - T2-003: l2-worker.md per-worker ファイル対応
+   - T2-004: テンプレート群更新（per-worker テンプレート新規作成 + 02_tasks.md/03_work_log.md 更新）
+   - T2-005: manager-common-policy §2.2 + session-flow-policy §4.2 更新
+   - T2-007: docs/workflow.md 並列ディスパッチ可視化
+3. **Wave 3: T2-006** — 知見セクション記録 + メタルール横断検証
