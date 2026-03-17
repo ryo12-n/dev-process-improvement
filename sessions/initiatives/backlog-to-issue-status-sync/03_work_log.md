@@ -49,3 +49,32 @@
 - ワークフローファイルへの変更が最も複雑（M）だが、他2件は S（1行変更程度）
 - GHA セキュリティチェックリストへの準拠は T-001 の Acceptance criteria に明記
 **課題・気づき**: なし
+
+---
+
+## 壁打ちフェーズ [2026-03-17 21:12]
+
+### 理解のサマリー
+- タスクの目的: T-001〜T-005 を順次実行し、backlog-to-issue.yml の修正、generate-csvs.py の STATUS_MAP 追加、backlog/README.md の更新、知見記録、課題転記を完了する
+- スコープ: `.github/workflows/backlog-to-issue.yml`（scheduled-create ジョブ修正）、`scripts/generate-csvs.py`（STATUS_MAP 1行追加）、`backlog/README.md`（ステータス値説明更新）、`04_work_report.md`（知見記録）、`07_issues.md`（課題転記確認）
+- 完了条件: 全5タスクの完了条件を満たし、03_work_log.md と 04_work_report.md に記録がある状態でコミット済み
+- Worker ID: なし（順次ディスパッチ）
+
+### 前提条件チェック
+- [x] 依存タスクの完了状態: 計画フェーズ完了済み（02_tasks.md、02a_task_division.md 作成済み）
+- [x] 必要ツール・コマンドの利用可否: 確認済み（Read, Edit, Bash 利用可能）
+- [x] 環境の準備状況（ファイル・ディレクトリの存在等）: 確認済み（対象ファイル3件すべて存在確認済み）
+- [x] Worker ID 確認: 指定なし → 本体ファイル使用
+- [x] per-worker ファイルの存在確認（並列時のみ）: 該当なし
+
+### 不明点・確認事項
+なし
+
+確認事項なし：実施開始
+
+### タスク実施計画
+1. T-001: backlog-to-issue.yml の scheduled-create ジョブを修正（3箇所: permissions、--state、ステータス更新ステップ追加）
+2. T-002: generate-csvs.py の STATUS_MAP に「起票済み」を追加
+3. T-003: backlog/README.md のステータス値説明を更新
+4. T-004: 04_work_report.md に知見を記録
+5. T-005: 07_issues.md の課題転記確認

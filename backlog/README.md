@@ -15,7 +15,7 @@
 | ID | バックログ ID（BL-001 形式）。一意の識別子 |
 | 施策名 | 施策の名称 |
 | 優先度 | 高 / 中 / 低 |
-| ステータス | 候補 / initiative 開始済 |
+| ステータス | 候補 / 起票済み / initiative 開始済 |
 | 対象リポジトリ | ai-driven-dev-patterns / dev-process-improvement / 横断 |
 | 起票日 | YYYY-MM-DD |
 | 簡易説明 | 施策の1行説明 |
