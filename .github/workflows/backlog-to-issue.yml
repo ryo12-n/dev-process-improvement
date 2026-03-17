@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
-      contents: read
+      contents: write
       actions: write
     steps:
       - uses: actions/checkout@v4
@@ -124,7 +124,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           BACKLOG_ID: ${{ steps.select.outputs.id }}
         run: |
-          existing=$(gh issue list --search "[${BACKLOG_ID}] in:title" --state all --json number --jq length)
+          existing=$(gh issue list --search "[${BACKLOG_ID}] in:title" --state open --json number --jq length)
           echo "existing_count=$existing" >> "$GITHUB_OUTPUT"
           if [ "$existing" -gt 0 ]; then
             echo "Duplicate issue found for ${BACKLOG_ID}. Skipping."
@@ -179,3 +179,16 @@ jobs:
           gh workflow run initiative-wallbash.yml \
             -f issue_number="$ISSUE_NUMBER"
           echo "Dispatched initiative-wallbash.yml for Issue #${ISSUE_NUMBER}"
+
+      - name: Update backlog entry status
+        if: steps.select.outputs.has_candidate == 'true' && steps.dup_check.outputs.existing_count == '0'
+        env:
+          ENTRY_FILE: ${{ steps.select.outputs.file }}
+        run: |
+          filepath="backlog/entries/${ENTRY_FILE}"
+          sed -i 's/| \*\*ステータス\*\* | 候補 |/| **ステータス** | 起票済み |/' "$filepath"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$filepath"
+          git commit -m "chore: update backlog entry status to 起票済み (${ENTRY_FILE})"
+          git push

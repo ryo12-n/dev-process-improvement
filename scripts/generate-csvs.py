@@ -209,6 +209,7 @@ PRIORITY_EMOJI_TO_TEXT = {
 # Status mapping (normalize)
 STATUS_MAP = {
     "候補": "候補",
+    "起票済み": "起票済み",
     "initiative 開始済": "進行中",
     "進行中": "進行中",
     "完了": "完了",
