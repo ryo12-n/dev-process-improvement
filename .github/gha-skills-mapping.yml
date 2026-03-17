@@ -62,9 +62,10 @@ mappings:
   - id: l1-auto-execute-gha
     description: "L1 自動施策化の GHA ワークフロー ↔ スキル定義"
     gha_source:
-      type: workflow-inline
-      path: .github/workflows/backlog-auto-execute.yml
-      prompt_location: "jobs.execute.steps[2].with.prompt"
+      type: prompt
+      path: .claude/skills/gha-execute/SKILL.md
+      # 旧: type: workflow-inline, path: .github/workflows/backlog-auto-execute.yml
+      # 実態: initiative-execute.yml が gha-execute/SKILL.md を Read で参照する構造
     skill_source:
       manager: .claude/skills/l1-manager/SKILL.md
       agents:

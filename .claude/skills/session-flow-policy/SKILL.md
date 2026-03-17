@@ -165,6 +165,9 @@ name: triageWorker
 - [ ] `docs/workflow.md` に新セッションタイプのフローを追記した
 - [ ] コミットメッセージ規約（`commit-message.md`）に新セッションタイプを追加した（必要な場合）
 - [ ] `.claude/skills/session-lifecycle-policy/SKILL.md` の適用マトリクスに新セッションタイプを追加した（必要な場合）
+- [ ] `.claude/skills/session-lifecycle-policy/SKILL.md` の §1.2（適用マトリクス）と §1.3（記録先対応テーブル）の列が一致している（新系統追加時）
+- [ ] `.claude/skills/manager-common-policy/SKILL.md` の §1 マネージャー一覧テーブルと §9 に新マネージャーが追加されている（必要な場合）
+- [ ] `README.md` のディレクトリ構成・セッション種別テーブル・AI向けスキルテーブルに新セッションタイプが記載されている
 
 ---
 
