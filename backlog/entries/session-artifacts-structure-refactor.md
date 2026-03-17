@@ -6,7 +6,8 @@
 |------|------|
 | **バックログ ID** | BL-072 |
 | **優先度** | 🟡 中 |
-| **ステータス** | 候補 |
+| **ステータス** | 完了 |
+| **施策ディレクトリ名** | session-artifacts-structure-refactor |
 | **対象リポジトリ** | dev-process-improvement |
 | **起票日** | 2026-03-15 |
 | **起票元** | config-optimization/20260315 セッション終了時の気づき |
