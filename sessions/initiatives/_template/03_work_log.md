@@ -1,5 +1,7 @@
 # 作業履歴: [施策名]
 
+> **並列ディスパッチ時の注意**: Worker ID（`W<N>`）が指定されている場合は、本ファイルではなく per-worker ファイル（`03_work_log_W<N>.md`）に記録すること。テンプレート: `_template/03_work_log_W_template.md`
+
 ## 壁打ちフェーズ [YYYY-MM-DD HH:MM]
 
 ### 理解のサマリー

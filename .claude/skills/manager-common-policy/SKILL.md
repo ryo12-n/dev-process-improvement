@@ -48,7 +48,11 @@ user-invocable: false
 
 - **基本は逐次**: ワーカーセットは1つずつ（worker → evaluator → 次の set）を基本とする
 - **セット内**: worker 完了後に evaluator を起動する（並列起動禁止）
-- **例外**: ファイル分離が確認できた場合、マネージャー判断で並列ディスパッチ可（`.claude/rules/parallel-dev.md` に従う）
+- **例外（並列ディスパッチ）**: `.claude/rules/parallel-dev.md` の前提条件3項目をすべて満たす場合、マネージャー判断で Wave 方式の並列ディスパッチを許可する:
+  1. Conflict Check Matrix でファイル競合なし
+  2. Wave 割当定義済み
+  3. per-worker ファイル（`03_work_log_W<N>.md`, `07_issues_W<N>.md`）作成済み
+- **Wave 完了後処理**: per-worker 課題ファイルの本体統合・タスクステータス更新を実施（`.claude/rules/parallel-dev.md` §4 参照）
 
 ### §2.3 計画ワーカーディスパッチパターン（l1-manager 固有）
 
