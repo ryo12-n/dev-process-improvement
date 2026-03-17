@@ -54,16 +54,26 @@
 
 dev-process-improvement の施策パターンに基づき、各タイプで参照すべきドメインエージェントを推奨する。
 
-| # | 施策タイプ | 推奨エージェント | 参照パス | 参照理由 |
-|---|-----------|----------------|---------|---------|
-| 1 | ルール変更（skills/rules 変更） | specialized-workflow-architect | `specialized/specialized-workflow-architect.md` | ワークフロー設計の専門知識。ルール間整合性・影響範囲の分析に活用 |
-| 2 | GHA 構築・自動化 | engineering-devops-automator | `engineering/engineering-devops-automator.md` | CI/CD パイプライン・自動化の専門知識。GHA ワークフロー設計に活用 |
-| 3 | テンプレート改善 | specialized-document-generator | `specialized/specialized-document-generator.md` | ドキュメント構造設計の専門知識。テンプレートの構造最適化に活用 |
-| 4 | セキュリティ施策 | engineering-security-engineer | `engineering/engineering-security-engineer.md` | セキュリティ設計の専門知識。権限モデル・脅威分析に活用 |
-| 5 | 評価・品質保証系 | testing-workflow-optimizer | `testing/testing-workflow-optimizer.md` | テストワークフロー最適化の専門知識。評価計画・基準設計に活用 |
-| 6 | 自動化候補評価 | automation-governance-architect | `specialized/automation-governance-architect.md` | 自動化ガバナンスの専門知識。費用対効果・リスク評価に活用 |
-| 7 | コードレビュー・実装系 | engineering-code-reviewer, engineering-software-architect | `engineering/engineering-code-reviewer.md`, `engineering/engineering-software-architect.md` | コード品質・アーキテクチャの専門知識。実装タスクの品質向上に活用 |
-| 8 | プロセス改善・ワークフロー最適化 | project-management-project-shepherd, testing-workflow-optimizer | `project-management/project-management-project-shepherd.md`, `testing/testing-workflow-optimizer.md` | プロジェクト管理・ワークフロー最適化の専門知識。プロセス設計に活用 |
+| # | 施策タイプ | Worker 向け推奨 | Worker 参照パス | Worker 参照理由 | Evaluator 向け推奨 | Evaluator 参照パス | Evaluator 参照理由 |
+|---|-----------|----------------|---------------|----------------|-------------------|------------------|-------------------|
+| 1 | ルール変更（skills/rules 変更） | specialized-workflow-architect | `specialized/specialized-workflow-architect.md` | ワークフロー設計の専門知識。ルール間整合性・影響範囲の分析に活用 | testing-workflow-optimizer | `testing/testing-workflow-optimizer.md` | ルール変更の品質・テスト可能性の評価に活用 |
+| 2 | GHA 構築・自動化 | engineering-devops-automator | `engineering/engineering-devops-automator.md` | CI/CD パイプライン・自動化の専門知識。GHA ワークフロー設計に活用 | engineering-security-engineer | `engineering/engineering-security-engineer.md` | GHA セキュリティ・権限設計の評価に活用 |
+| 3 | テンプレート改善 | specialized-document-generator | `specialized/specialized-document-generator.md` | ドキュメント構造設計の専門知識。テンプレートの構造最適化に活用 | specialized-workflow-architect | `specialized/specialized-workflow-architect.md` | テンプレートとワークフローの整合性評価に活用 |
+| 4 | セキュリティ施策 | engineering-security-engineer | `engineering/engineering-security-engineer.md` | セキュリティ設計の専門知識。権限モデル・脅威分析に活用 | compliance-auditor | `specialized/compliance-auditor.md` | コンプライアンス観点でのセキュリティ評価に活用 |
+| 5 | 評価・品質保証系 | testing-workflow-optimizer | `testing/testing-workflow-optimizer.md` | テストワークフロー最適化の専門知識。評価計画・基準設計に活用 | testing-workflow-optimizer | `testing/testing-workflow-optimizer.md` | Worker と同一エージェント。評価基準の妥当性検証に活用 |
+| 6 | 自動化候補評価 | automation-governance-architect | `specialized/automation-governance-architect.md` | 自動化ガバナンスの専門知識。費用対効果・リスク評価に活用 | testing-workflow-optimizer | `testing/testing-workflow-optimizer.md` | 自動化のテスト戦略・品質保証の評価に活用 |
+| 7 | コードレビュー・実装系 | engineering-code-reviewer, engineering-software-architect | `engineering/engineering-code-reviewer.md`, `engineering/engineering-software-architect.md` | コード品質・アーキテクチャの専門知識。実装タスクの品質向上に活用 | engineering-code-reviewer | `engineering/engineering-code-reviewer.md` | コード品質基準に基づく実装評価に活用 |
+| 8 | プロセス改善・ワークフロー最適化 | project-management-project-shepherd, testing-workflow-optimizer | `project-management/project-management-project-shepherd.md`, `testing/testing-workflow-optimizer.md` | プロジェクト管理・ワークフロー最適化の専門知識。プロセス設計に活用 | specialized-workflow-architect | `specialized/specialized-workflow-architect.md` | ワークフロー設計の品質・整合性の評価に活用 |
+
+## Evaluator フィードバック受領
+
+Evaluator が `06_eval_report.md` の「ドメインエージェント有効性フィードバック」セクションで記録した内容は、L1 がゲート判定時に確認し、以下の基準で本ファイルに反映する。
+
+| フィードバック内容 | 反映先 | 反映方法 |
+|----------------|--------|---------|
+| 推奨マッピングの追加・変更提案 | 施策タイプ別推奨マッピングテーブル | L1 が妥当と判断した場合、Evaluator 向け推奨列を更新 |
+| エージェントの有効性/ノイズに関する知見 | 蓄積された知見テーブル | 知見カテゴリ「運用」として追記（施策名・日付付き） |
+| エージェント定義自体への改善提案 | 蓄積された知見テーブル or inbox/ | 規模に応じて知見として蓄積、または施策化提案として inbox に起票 |
 
 ## 蓄積された知見
 
