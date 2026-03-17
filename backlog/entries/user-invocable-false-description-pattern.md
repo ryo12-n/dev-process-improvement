@@ -1,13 +1,19 @@
 # user-invocable: false スキルの description 設計パターン
 
-> **バックログ ID**: BL-044
-> **対象リポジトリ**: dev-process-improvement
+## メタ情報
 
+| 項目 | 内容 |
+|------|------|
+| **バックログ ID** | BL-044 |
+| **優先度** | 🔵 低 |
+| **ステータス** | 候補 |
+| **対象リポジトリ** | dev-process-improvement |
+| **施策ディレクトリ名** |  |
+| **起票日** | 2026-03-12 |
+| **依存する環境前提** |  |
 
-## 種別
-ルール改善の種
+## 課題・背景
 
-## 内容
 `user-invocable: false` のスキルでは、description に「何の情報を持つか」+「どの文脈で参照するか」の2要素を含めるパターンが有効。
 
 builtin-skills-reference の例:
@@ -15,8 +21,12 @@ builtin-skills-reference の例:
 
 この形式により、Claude がオンデマンドで適切なタイミングでスキルを自動参照できる。
 
-## 背景
-builtin-skills-evaluation 施策の評価中に L2-evaluator が発見した知見。現時点では事例が1件のみであり、パターンの一般化には追加事例の蓄積が必要。
+## 期待効果
 
-## 出典
-- `sessions/initiatives/_archive/builtin-skills-evaluation/06_eval_report.md`（評価中の知見 ルール化候補 #1）
+
+
+## 補足・参考情報
+
+
+
+## 関連エントリ

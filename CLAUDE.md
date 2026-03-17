@@ -170,7 +170,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 
 ## 環境分離ポリシー
 
-`backlog.csv` の `対象リポジトリ` 列で施策の適用先を管理する。
+`backlog/entries/*.md` のメタ情報テーブル `対象リポジトリ` で施策の適用先を管理する（`backlog.csv` は .md から自動生成）。
 
 | 対象リポジトリ | 説明 | 実行環境 |
 |--------------|------|---------|
@@ -180,7 +180,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 
 ### 運用ガイドライン
 
-- **施策起票時**: `backlog/entries/<施策名>.md` に対象リポジトリを明記する。`backlog.csv` の `対象リポジトリ` 列も同時に記入する
+- **施策起票時**: `backlog/entries/<施策名>.md` に対象リポジトリを明記する（CSV は自動生成されるため手動更新不要）
 - **環境依存の制約**: Claude Code Web（SDK 環境）は1セッション=1リポジトリの制約がある（ISS-027）。`ai-driven-dev-patterns` への変更が必要な施策はローカル CLI 環境での実施を推奨する
 - **改善提案を含むタスク**: `02_tasks.md` の完了条件に「適用対象環境（CLI / SDK / 横断）を明記すること」を含める（l1-manager のタスクリスト作成ガイドに準拠）
 
@@ -189,4 +189,4 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 本リポジトリ（dev-process-improvement）は ai-driven-dev-patterns のコンテキストに **依存する側** である。
 
 - ai-driven-dev-patterns のリソース（roles/、CLAUDE.md、openspec/ 等）を `claude --add-dir` 等で参照し、改善結果を書き戻す
-- 課題管理: `プロセス改善_課題管理.csv` で独立管理（ai-driven-dev-patterns の `課題管理.csv` とは別体系）
+- 課題管理: `issues/entries/ISS-XXX.md` で独立管理（CSV は自動生成。ai-driven-dev-patterns の `課題管理.csv` とは別体系）

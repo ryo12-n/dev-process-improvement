@@ -162,7 +162,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 - 設定ファイル（`.claude/` 配下）の直接変更は行わない
 - 最適化提案は行わない（Phase 3 の責務。ギャップの特定まで）
 - リファレンスの更新は行わない（Phase 1 の責務）
-- `プロセス改善_課題管理.csv` への直接起票は行わない
+- `issues/entries/ISS-XXX.md` への直接起票は行わない
 
 ---
 

@@ -125,8 +125,8 @@ evaluator を起動する前に、worker の成果物について以下の共通
 マネージャーがゲート判定またはレポートを作成する前に、以下の手順で課題を集約する。
 
 1. ワーカーセットの `07_issues.md` の未転記メモを読む
-2. 施策スコープ外・他のセッションでも再発しうる課題 → `プロセス改善_課題管理.csv` へ転記
-3. 転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する
+2. 施策スコープ外・他のセッションでも再発しうる課題 → `issues/entries/ISS-XXX.md` を作成する（CSV は自動生成）
+3. 転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。ID は `python3 scripts/generate-csvs.py --next-issue-id` で取得する
 4. 転記済みの項目に `[転記済 ISS-XXX]` を記す
 5. 当セッション内だけで完結する軽微な修正メモ → 「転記不要」と判断
 

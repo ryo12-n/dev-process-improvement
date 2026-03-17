@@ -1,8 +1,18 @@
 # triage-standard-policy テーブル幅肥大化への対応検討
 
-> **バックログ ID**: BL-043
-> **対象リポジトリ**: dev-process-improvement
+## メタ情報
 
+| 項目 | 内容 |
+|------|------|
+| **バックログ ID** | BL-043 |
+| **優先度** | 🔵 低 |
+| **ステータス** | 候補 |
+| **対象リポジトリ** | dev-process-improvement |
+| **施策ディレクトリ名** |  |
+| **起票日** | 2026-03-12 |
+| **依存する環境前提** |  |
+
+## 課題・背景
 
 ## 気づき
 
@@ -14,3 +24,14 @@ backlog-maintenance セッションタイプの追加により、triage-standard
 
 - 施策: `sessions/initiatives/backlog-maintenance-session/`
 - 08_gate_review.md 必須把握事項 #2
+
+## 期待効果
+
+
+
+## 補足・参考情報
+
+- 施策: `sessions/initiatives/backlog-maintenance-session/`
+- 08_gate_review.md 必須把握事項 #2
+
+## 関連エントリ
