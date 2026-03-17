@@ -71,5 +71,44 @@
 | impl-plan-worker パターン（IMPL-XXX 形式、07_file_task_division.md）は Phase 別ディレクトリ構造を前提としているため、l1-manager の単一ディレクトリ構造への応用では Wave Assignment と Set Assignment の対応関係を明確にする必要がある | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | 施策フェーズ2（並列ワーカーディスパッチ）の設計時 |
 
 ---
-**作成者**: L2-worker
+
+# 作業レポート: l1-manager-enhanced-planning（施策フェーズ2 計画）
+
+## サマリー
+
+施策フェーズ2（並列ワーカーディスパッチ）のタスク分割を完了した。変更対象ファイルを調査し、7タスク・3 Wave の計画を `02a_task_division.md` に追記した。per-worker ファイル分離方式を採用し、git worktree は不要と判断した。
+
+## タスク分割の概要
+
+| Wave | タスク | 内容 |
+|------|--------|------|
+| Wave 1 | T2-001 | parallel-dev.md 新規作成（他タスクの依存先） |
+| Wave 2 | T2-002〜T2-005, T2-007 | 既存ファイル変更（SKILL.md, l2-worker.md, テンプレート群, ポリシー群, workflow.md） |
+| Wave 3 | T2-006 | 固定タスク（知見記録・CSV 転記・メタルール横断検証） |
+
+## 設計判断
+
+| 判断 | 選択 | 根拠 |
+|------|------|------|
+| 隔離方式 | per-worker ファイル分離（worktree 不要） | dev-process-improvement は文書中心リポジトリ。git-worktree-guideline §4 の判断に準拠 |
+| 並列ディスパッチの単位 | Wave 方式（02a_task_division.md の Wave Assignment を利用） | impl-manager の Wave 方式を l1-manager 向けに簡略化。外部リポ worktree は不要 |
+| 新規テンプレート | 03_work_log_W_template.md, 07_issues_W_template.md | per-worker ファイルのフォーマットを標準化 |
+| parallel-dev.md の配置 | `.claude/rules/` | manager-common-policy §2.2 が既にこのパスを参照。全セッション共通のルールとして配置 |
+
+## 計画中の知見
+
+### ルール化候補
+
+| 知見 | 根拠 | ルール化の方向性 |
+|------|------|----------------|
+| per-worker ファイル統合手順の標準化 | impl-manager は per-worker ブランチのマージ + 課題ファイル統合を Wave 完了後処理として定義しているが、l1-manager は文書中心のためブランチマージは不要で課題・ログファイルの統合のみ必要 | parallel-dev.md に統合手順を定義し、各マネージャーから参照する形を取る |
+
+### 参考情報
+
+| 情報 | ソース | 活用場面 |
+|------|--------|---------|
+| impl-manager の3層検証チェックリスト（事前検証・ワーカーセルフチェック・事後検証）は l1-manager にも応用可能だが、l1-manager では外部リポ worktree がないため事前検証の項目を簡略化できる | `.claude/skills/l1-impl-manager/SKILL.md` | T2-002（l1-manager SKILL.md 変更）の実装時に参照 |
+
+---
+**作成者**: L2-plan-worker
 **作成日**: 2026-03-17

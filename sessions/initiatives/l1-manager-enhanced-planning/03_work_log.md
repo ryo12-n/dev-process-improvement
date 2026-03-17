@@ -128,3 +128,89 @@
 - T-F01: 04_work_report.md に知見セクション（ルール化候補・参考情報）を記録
 - T-F02: 07_issues.md を確認。施策横断課題なし、転記対象なし
 **成果物**: `04_work_report.md`, `07_issues.md`
+
+---
+
+## 施策フェーズ2: 並列ワーカーディスパッチ
+
+## 壁打ちフェーズ [2026-03-17 14:00]
+
+### 理解のサマリー
+- タスクの目的: l1-manager の Phase 4（実施ワーカーディスパッチ）に並列実行の仕組みを導入する。現在は Worker が1つずつ順次ディスパッチされているが、独立タスクセットについては並列ディスパッチできるようにする
+- スコープ: parallel-dev.md（新規ルール）、SKILL.md（Phase 4 並列ディスパッチ追加）、l2-worker.md（per-worker ファイル対応）、テンプレート群（per-worker ファイル追加）、manager-common-policy（§2 並列ディスパッチ詳細化）、session-flow-policy（並列ディスパッチ条件の更新）
+- 完了条件: 02a_task_division.md に施策フェーズ2 のタスク分割が追記され、04_work_report.md に計画レポートが追記されている
+
+### 前提条件チェック
+- [x] 施策計画（01_plan.md）の内容を理解: 理解済み — 施策フェーズ2 の成功基準は「独立タスクセットが同時実行される」
+- [x] 提案書（00_proposal.md）の確認: 確認済み — 並列ディスパッチでファイル衝突リスクが高いため、コンフリクトマトリクスによる事前検証 + L1承認ゲートが対策として挙げられている
+- [x] 変更対象ファイル群の特定: 特定済み — 下記調査結果参照
+
+### 変更対象ファイル調査結果
+
+**新規作成**:
+- `.claude/rules/parallel-dev.md` — 並列開発ルール（§2.2 で参照されているが未作成）
+
+**変更対象**:
+1. `.claude/skills/l1-manager/SKILL.md` — Phase 4 に並列ディスパッチ機構を追加。impl-manager のハイブリッド方式を l1-manager 向けに簡略化（外部リポ worktree は不要、per-worker ファイル分離のみ）
+2. `.claude/skills/l1-manager/agents/l2-worker.md` — per-worker ファイル（03_work_log_W<N>.md, 07_issues_W<N>.md）への対応追加。isolation: worktree は dev-process-improvement が文書中心のため不要（git-worktree-guideline §4 の判断に準拠）
+3. `sessions/initiatives/_template/02_tasks.md` — Set Dispatch Order に並列ディスパッチの Wave 情報を追加
+4. `sessions/initiatives/_template/03_work_log.md` — per-worker テンプレート追加の参照
+5. `.claude/skills/manager-common-policy/SKILL.md` — §2.2 の並列ディスパッチ条件を詳細化。per-worker ファイル分離パターンを追加
+6. `.claude/skills/session-flow-policy/SKILL.md` — §4.2 並列ディスパッチ条件の更新
+
+**参照のみ（Read-only）**:
+- `.claude/skills/l1-impl-manager/SKILL.md` — 並列ディスパッチ機構の参考パターン
+- `docs/git-worktree-guideline.md` — worktree 判断基準の参照
+- `00_proposal.md`, `01_plan.md` — 背景・計画の参照
+
+### 設計判断
+
+1. **worktree vs per-worker ファイル分離**: dev-process-improvement は文書中心リポジトリであり、l1-manager の L2-worker は主に `.claude/skills/` や `sessions/initiatives/` 配下のファイルを編集する。impl-manager のような外部リポジトリのコード変更はないため、worktree による物理隔離は不要。per-worker ファイル分離（03_work_log_W<N>.md, 07_issues_W<N>.md）で競合を回避する方式が適切。ただし、**将来の worktree 活用のフック**として parallel-dev.md に escalation パスを記載する
+
+2. **並列ディスパッチの単位**: Wave 方式（02a_task_division.md の Wave Assignment を利用）。同一 Wave 内のタスクは担当ファイルが分離されていることがコンフリクトマトリクスで検証済みであるため、並列実行が安全
+
+3. **成果物統合**: Wave 完了後に L1 マネージャーが per-worker ファイルを統合する。07_issues_W<N>.md → 07_issues.md への統合、03_work_log_W<N>.md の確認
+
+### 不明点・確認事項
+確認事項なし：計画開始
+
+### 分析計画
+
+1. parallel-dev.md の設計（新規ルールファイル）
+2. l1-manager SKILL.md の Phase 4 変更箇所の特定
+3. l2-worker.md の per-worker ファイル対応箇所の特定
+4. テンプレート群の変更箇所の特定
+5. manager-common-policy §2 の変更箇所の特定
+6. session-flow-policy §4 の変更箇所の特定
+7. タスク分割・コンフリクトマトリクス・Wave 割当の作成
+
+---
+
+### [2026-03-17 14:10] 計画項目: 変更対象の詳細分析
+**状態**: 完了
+**作業内容**:
+- impl-manager SKILL.md の並列ディスパッチ機構を参考パターンとして精読
+- git-worktree-guideline.md §4 の判断基準を確認（dev-process-improvement は文書中心リポジトリのため worktree 不要、per-worker ファイル分離で十分）
+- 各変更対象ファイルの具体的な変更箇所を特定:
+  1. **parallel-dev.md（新規）**: ルールファイル。並列ディスパッチの前提条件・per-worker ファイルパターン・Wave 方式・成果物統合手順を定義
+  2. **SKILL.md**: Phase 4 セクションに並列ディスパッチ機構（事前準備・Wave ディスパッチ・事後処理）を追加。L2 への指示に per-worker ファイル情報を含める
+  3. **l2-worker.md**: 担当ファイルテーブルに per-worker ファイル（03_work_log_W<N>.md, 07_issues_W<N>.md）を追加。壁打ちフェーズに Worker ID の確認を追加
+  4. **02_tasks.md テンプレート**: Set Dispatch Order に Wave/並列情報を反映
+  5. **03_work_log.md テンプレート**: per-worker 版テンプレートの参照注記を追加
+  6. **manager-common-policy**: §2.2 に per-worker ファイル分離パターンの詳細を追加
+  7. **session-flow-policy**: §4.2 に per-worker ファイル前提条件を追加
+**判断・気づき**:
+- impl-manager は外部リポの worktree + per-worker ファイルのハイブリッド方式だが、l1-manager は per-worker ファイル分離のみで十分
+- parallel-dev.md はルールファイル（.claude/rules/）に配置する。§2.2 が既にこのパスを参照している
+- テンプレート群は per-worker テンプレート（03_work_log_W_template.md, 07_issues_W_template.md）の新規作成が必要
+
+### [2026-03-17 14:20] 計画項目: タスク分割・コンフリクトマトリクス・Wave 割当の作成
+**状態**: 完了
+**作業内容**:
+- 7タスクに分割（T2-001〜T2-007）
+- コンフリクトマトリクスを作成し、競合なしを確認
+- Wave 割当: Wave 1（T2-001 新規作成群、並列可）、Wave 2（T2-002〜T2-005 既存ファイル変更群、T2-001 に依存）、Wave 3（T2-006〜T2-007 固定タスク）
+**判断・気づき**:
+- T2-001（parallel-dev.md）は他全タスクの Read-only 依存先であるため、必ず Wave 1 で先行
+- 既存ファイル変更群は SKILL.md と l2-worker.md が相互参照関係にあるが MODIFY 競合はないため同一 Wave で可
+- per-worker テンプレート（03_work_log_W_template.md, 07_issues_W_template.md）は T2-004 に含める
