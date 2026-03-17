@@ -78,3 +78,18 @@
 3. T-003: backlog/README.md のステータス値説明を更新
 4. T-004: 04_work_report.md に知見を記録
 5. T-005: 07_issues.md の課題転記確認
+
+---
+
+### [2026-03-17 21:15] 実施: T-001〜T-005
+**状態**: 完了（L2-worker が API 500 エラーで中断したが、作業自体は完了済み。L1 が成果物を検証しコミット）
+**作業内容**:
+- T-001: `.github/workflows/backlog-to-issue.yml` の3箇所修正（permissions contents:write、--state open、ステータス更新ステップ追加）
+- T-002: `scripts/generate-csvs.py` の STATUS_MAP に `"起票済み": "起票済み"` を追加
+- T-003: `backlog/README.md` のステータス値説明に「起票済み」を追加
+- T-004: `04_work_report.md` に知見を記録（ルール化候補2件、参考情報2件）
+- T-005: `07_issues.md` を確認。未転記メモなし（転記対象の課題なし）
+**判断・気づき**:
+- L2-worker の API 500 エラーは外部要因。作業成果物には問題なし
+- GHA セキュリティチェックリスト準拠を確認済み（`${{ }}` は `env:` 経由）
+**課題・気づき**: なし
