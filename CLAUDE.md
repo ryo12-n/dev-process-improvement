@@ -62,6 +62,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 | `issues/` | 判明した課題・技術的制約の詳細管理。ルート直下に README・`_template.md`、`entries/` に `ISS-XXX.md` を格納。CSV（全体俯瞰ハブ）と対になる |
 | `docs/` | ルールの人間向け可視化・ログ |
 | `templates/` | 施策テンプレート |
+| `.claude/templates/` | 評価フレームワーク等の汎用テンプレート（Claude がオンデマンドで参照） |
 
 ### inbox と refs の使い分け
 
@@ -162,6 +163,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 | Claude 常時参照 | Claude | `.claude/rules/` | コミットメッセージ規約等（全セッション共通） |
 | Claude オンデマンド参照（スキル） | Claude | `.claude/skills/` | セッションルール（l1-manager, triage-manager 等） |
 | Claude 独立コンテキスト（エージェント） | Claude | `.claude/skills/*/agents/` | ワーカー・評価者エージェント（l2-worker, triage-worker 等） |
+| Claude オンデマンド参照（テンプレート） | Claude | `.claude/templates/` | 費用対効果評価フレームワーク等の汎用テンプレート |
 | 人間用 | 人間 | `docs/`, `README.md` | workflow.md、運用手順 |
 
 **判断基準**: 「毎回のリクエストで参照が必要か？」→ Yes なら `rules/`、No なら `skills/`。
