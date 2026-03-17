@@ -1,12 +1,12 @@
 ---
 name: manager-common-policy
-description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer）に共通する運用パターンを定義するポリシー'
+description: 'マネージャーセッション（l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer, session-consistency）に共通する運用パターンを定義するポリシー'
 user-invocable: false
 ---
 # マネージャーセッション共通ポリシー
 
 > **このファイルの位置づけ**
-> 7つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager, config-optimizer-manager）に共通する運用パターンを一元的に定義する。
+> 8つのマネージャーセッション（l1-manager, triage-manager, metacognition-manager, sync-manager, backlog-maintenance-manager, automation-manager, config-optimizer-manager, session-consistency-manager）に共通する運用パターンを一元的に定義する。
 > 各マネージャースキルは固有ロジックを自身の SKILL.md に記載し、共通パターンは本ポリシーを参照する。
 
 ---
@@ -24,6 +24,7 @@ user-invocable: false
 | バックログメンテナンスマネージャー | `.claude/skills/backlog-maintenance-manager/SKILL.md` |
 | 自動化マネージャー | `.claude/skills/automation-manager/SKILL.md` |
 | config最適化マネージャー | `.claude/skills/config-optimizer-manager/SKILL.md` |
+| セッション一貫性マネージャー | `.claude/skills/session-consistency-manager/SKILL.md` |
 
 各マネージャースキルは、本ポリシーの該当セクション番号（§N）を参照する形で共通パターンを取り込む。
 
@@ -132,8 +133,8 @@ evaluator を起動する前に、worker の成果物について以下の共通
 マネージャーがゲート判定またはレポートを作成する前に、以下の手順で課題を集約する。
 
 1. ワーカーセットの `07_issues.md` の未転記メモを読む
-2. 施策スコープ外・他のセッションでも再発しうる課題 → `プロセス改善_課題管理.csv` へ転記
-3. 転記時は `issues/_template.md` をコピーして `issues/ISS-XXX.md` を作成し、課題詳細を記載する。CSV の `詳細ファイル` 列に `issues/ISS-XXX.md` のパスを記入する
+2. 施策スコープ外・他のセッションでも再発しうる課題 → `issues/entries/ISS-XXX.md` を作成する（CSV は自動生成）
+3. 転記時は `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。ID は `python3 scripts/generate-csvs.py --next-issue-id` で取得する
 4. 転記済みの項目に `[転記済 ISS-XXX]` を記す
 5. 当セッション内だけで完結する軽微な修正メモ → 「転記不要」と判断
 
@@ -192,8 +193,9 @@ TaskCreate({ description: "ステップN: <ステップの要約>" })
 | `.claude/skills/backlog-maintenance-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/automation-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/config-optimizer-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
+| `.claude/skills/session-consistency-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | オーケストレーション関連の必須記載に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
 | `docs/workflow.md` | マネージャー共通ポリシーの記述（人間向け可視化） |
 | `.claude/rules/parallel-dev.md` | §2.2 並列ディスパッチ条件・per-worker ファイル分離パターンの正の情報源 |
 | `refs/agency-agents/knowledge.md` | §10 ドメインエージェント参照で使用するエージェントカタログ |

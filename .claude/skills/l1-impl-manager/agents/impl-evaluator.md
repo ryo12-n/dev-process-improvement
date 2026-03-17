@@ -191,7 +191,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 - ワーカーの成果物（work_log, work_report, impl_design, file_task_division, コード）を直接修正しない
 - マネージャーの成果物（proposal, plan, tasks, gate）は編集しない
-- `プロセス改善_課題管理.csv` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
+- `issues/entries/ISS-XXX.md` への直接起票は行わない（課題は `07_issues.md` に起票してマネージャーに委ねる）
 - 評価基準が曖昧な場合は自己判断で進めない（`07_issues.md` に起票してマネージャーに確認する）
 
 ---
@@ -233,5 +233,5 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 | `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md` | Phase 3 ペアリング対称性に影響する変更の場合 |
 | `.claude/skills/l1-impl-manager/agents/impl-worker.md` | Phase 4 ペアリング対称性に影響する変更の場合 |
 | `sessions/impl/_template/` | テンプレート構成に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | 実装セッションフロー（評価部分）の記述（人間向け可視化） |

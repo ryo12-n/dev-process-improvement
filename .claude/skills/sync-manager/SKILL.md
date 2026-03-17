@@ -184,6 +184,6 @@ sync 固有の入力ソース:
 | `sessions/sync/_template/` | セッションテンプレートの構成に影響する変更の場合 |
 | `.claude/skills/repo-sync-checklist/SKILL.md` | チェックリストの参照方法・セクション構成に影響する変更の場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | セッション構造の基本パターンに影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクル適用マトリクス・ペアリング要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクル適用マトリクス・ペアリング要件に影響する変更の場合 |
 | `.claude/rules/commit-message.md` | コミットメッセージ規約（sync-mgr セッション種別）に影響する変更の場合 |
 | `docs/workflow.md` | 同期セッションフローの記述（人間向け可視化） |

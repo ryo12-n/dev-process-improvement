@@ -237,13 +237,13 @@ triage 固有の補足:
   2. 「施策ディレクトリ名」列が空欄のエントリは、`backlog/entries/<ファイル名>` と `sessions/initiatives/` 配下のディレクトリ名・各施策の `00_proposal.md` の「backlog元ファイル」フィールドで照合する（フォールバック）
   3. 上記で一致が見つかった場合、施策化済みと判定する
   4. 施策化済みのファイルを `03_report.md` の「削除・クローズ候補」セクションにレポート記載する
-  5. `backlog.csv` にエントリが残存している場合も「CSV残存エントリ」として検出・レポートする
+  5. `backlog/entries/*.md` のステータスが「完了」でないものを「未クローズエントリ」として検出・レポートする（CSV は .md から自動生成）
   - **対象リポジトリ未記入チェック**: `backlog/entries/` の各ファイルおよび `backlog.csv` で「対象リポジトリ」が未記入のエントリを検出し、レポートに記載する
   - 削除はユーザーの許可を得てから実施する
 - **完了済み initiative のアーカイブ確認**: `sessions/initiatives/` 配下で `08_gate_review.md` が「通過」判定のものがあれば、`l1-manager` スキルのクローズチェックリストに従いアーカイブ対象としてレポートに記載する
 - **ルールとworkflowの整合性チェック**: `.claude/skills/*/SKILL.md`、`agents/*.md` と `docs/workflow.md` を見比べ、記述の乖離を確認する
   - 軽微なズレはそのセッション内で修正する
-  - 大きな乖離は `プロセス改善_課題管理.csv` に起票する
+  - 大きな乖離は `issues/entries/ISS-XXX.md` を作成して起票する（CSV は自動生成）
   - スキル定義の「関連ファイル一覧」セクションが実際の参照先と一致しているかを確認する（TGタスク追加時の更新漏れを検出する）
   - **参考資料（ドラフト）ステータスチェック**: `CLAUDE.md` の「docs/ 文書分類」テーブルで「参考資料（ドラフト）」に分類されている文書について以下を確認する
     - ステータスバナー（`> **文書ステータス**: ドラフト（参考資料）` で始まる3行ブロック）が文書冒頭に存在するか
@@ -254,18 +254,18 @@ triage 固有の補足:
     - セッション種別テーブル: 起動型スキルが全て記載されているか
     - AI 向けスキル定義テーブル: 起動型スキルとその agents が全て記載されているか
     - ドキュメントマップ: リンク先が実在するファイルを指しているか
-    - 乖離発見時のアクション: 軽微なズレはそのセッション内で修正する。大きな乖離は `プロセス改善_課題管理.csv` に起票する
-- **セッション構造標準ポリシーチェック（TG-008）**: 新規・変更されたスキル定義（`.claude/skills/*/SKILL.md`）、エージェント定義（`.claude/skills/*/agents/*.md`）およびセッションルール（`roles/*.md`）が `.claude/skills/triage-standard-policy/SKILL.md`（triage-standard-policy スキル）の標準構造に準拠しているかを確認する
+    - 乖離発見時のアクション: 軽微なズレはそのセッション内で修正する。大きな乖離は `issues/entries/ISS-XXX.md` を作成して起票する（CSV は自動生成）
+- **セッション構造標準ポリシーチェック（TG-008）**: 新規・変更されたスキル定義（`.claude/skills/*/SKILL.md`）、エージェント定義（`.claude/skills/*/agents/*.md`）およびセッションルール（`roles/*.md`）が `session-lifecycle-policy`（§1: ライフサイクルパターン、§2: ペアリング要件）の標準構造に準拠しているかを確認する（チェックリストは本ファイルの「TG-008 チェックリスト」セクションを参照）
   - 確認対象: 壁打ちフェーズ定義の有無、計画→実施→レポートのライフサイクル完備、実施者/評価者ペアリングの対称性、知見記録セクションの存在、課題起票・ルーティング手段の明記
-  - 「必須」ステージの欠落は `プロセス改善_課題管理.csv` に優先度「高」で起票する
-  - 「推奨」ステージの欠落は `プロセス改善_課題管理.csv` に優先度「中」で起票する
+  - 「必須」ステージの欠落は `issues/entries/ISS-XXX.md` を作成して起票する（優先度: 高、CSV は自動生成）
+  - 「推奨」ステージの欠落は `issues/entries/ISS-XXX.md` を作成して起票する（優先度: 中、CSV は自動生成）
   - 軽微な記述ズレ（表現の不統一等）はそのセッション内で修正する
 - **情報欠損リスク評価（TG-009）**: 各セットのワーカー走査結果に削除・統合候補が含まれる場合、当該セットのタスクに TG-009 を含める。削除・統合候補がない場合はスキップする。TG-009 の結果はマネージャーがアクション実施前に確認し、リスクが「高」のファイルについては施策化や知見保全を優先する
 - **GHA ↔ Skills 整合性チェック（TG-010）**: `.github/gha-skills-mapping.yml` のマッピングマニフェストに基づき、GHA プロンプト/ワークフローとスキル定義の間のドリフトを検出する
   - マニフェスト内の各マッピングについて、チェックポイント（task_ids, workflow_steps, report_sections, file_templates, file_numbers）を突合する
   - inherent_differences（期待される差異）が実際にまだ有効かを検証する
   - ドリフト重大度: CRITICAL（Skill にあるが GHA にないタスクID等、機能欠落の可能性）/ WARNING（ワークフローステップ・レポート構造の不一致）/ INFO（軽微な差異、inherent_differences の確認結果）
-  - CRITICAL ドリフトは `プロセス改善_課題管理.csv` に起票する。WARNING は `03_report.md` に記載しアクション方針を決定する
+  - CRITICAL ドリフトは `issues/entries/ISS-XXX.md` を作成して起票する（CSV は自動生成）。WARNING は `03_report.md` に記載しアクション方針を決定する
   - マニフェストファイルが存在しない場合は `07_issues.md` に起票し、TG-010 をスキップする
 
 ---
@@ -291,6 +291,102 @@ PR 作成後、以下のサマリをユーザーに提示する：
 
 ---
 
+## TG-008 チェックリスト（セッション構造標準ポリシー準拠）
+
+> TG-008 の基準チェックリスト。ライフサイクルパターン・ペアリング要件の定義は `session-lifecycle-policy` を参照。
+
+### 走査対象
+
+- `.claude/skills/l1-manager/SKILL.md`
+- `.claude/skills/l1-manager/agents/l2-worker.md`
+- `.claude/skills/l1-manager/agents/l2-evaluator.md`
+- `.claude/skills/triage-manager/SKILL.md`
+- `.claude/skills/triage-manager/agents/triage-worker.md`
+- `.claude/skills/triage-manager/agents/triage-evaluator.md`
+- `.claude/skills/metacognition-manager/SKILL.md`
+- `.claude/skills/metacognition-manager/agents/metacognition-worker.md`
+- `.claude/skills/metacognition-manager/agents/metacognition-evaluator.md`
+- `.claude/skills/sync-manager/SKILL.md`
+- `.claude/skills/sync-manager/agents/sync-worker.md`
+- `.claude/skills/sync-manager/agents/sync-evaluator.md`
+- `.claude/skills/backlog-maintenance-manager/SKILL.md`
+- `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md`
+- `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md`
+- `.claude/skills/automation-manager/SKILL.md`
+- `.claude/skills/automation-manager/agents/automation-worker.md`
+- `.claude/skills/automation-manager/agents/automation-evaluator.md`
+- `.claude/skills/l1-impl-manager/SKILL.md`
+- `.claude/skills/l1-impl-manager/agents/investigation-worker.md`
+- `.claude/skills/l1-impl-manager/agents/design-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-plan-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-worker.md`
+- `.claude/skills/l1-impl-manager/agents/impl-evaluator.md`
+- `.claude/skills/config-optimizer-manager/SKILL.md`
+- `.claude/skills/config-optimizer-manager/agents/config-collection-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md`
+- `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md`
+- `.claude/skills/session-consistency-manager/SKILL.md`
+- `.claude/skills/session-consistency-manager/agents/sc-collection-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-analysis-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-proposal-worker.md`
+- `.claude/skills/session-consistency-manager/agents/sc-evaluator.md`
+- 新規作成または変更されたロール定義ファイル（`roles/*.md` を含む）
+
+### チェック項目
+
+#### A. ライフサイクル完備チェック
+
+- [ ] `session-lifecycle-policy` §1.2 の適用マトリクスで「必須」となっているステージが、ロール定義に含まれているか
+- [ ] 壁打ちフェーズの定義があるか（記録先ファイル・フォーマットが明記されているか）
+- [ ] 計画ステージが適切に定義されているか（マネージャー系は立案、ワーカー系は実施/評価計画）
+- [ ] レポートの構成が明記されているか
+- [ ] 「推奨」ステージの欠落がないか（欠落している場合は課題として起票）
+
+#### B. ペアリング整合性チェック
+
+- [ ] 実施者と対応する評価者の両方のロール定義が存在するか
+- [ ] 実施者の成果物が評価者の入力として参照されているか（担当ファイルテーブルで確認）
+- [ ] ペアリングの対称性要件（`session-lifecycle-policy` §2.3）が満たされているか
+- [ ] オーケストレーターのルール定義に、実施者→評価者の起動順序が明記されているか
+
+#### C. 課題起票・ルーティングチェック
+
+- [ ] 課題起票の方法（中間バッファ経由 or CSV直接起票）がロール定義に明記されているか
+- [ ] 知見記録セクション（「ルール化候補」「参考情報」の分類テーブル）が定義されているか
+- [ ] 知見集約のルーティング先が明記されているか（マネージャー系のみ）
+
+#### D. マネージャー共通ポリシー準拠チェック
+
+- [ ] ゲート判定基準の定義があるか（直接記載または `manager-common-policy` §4 参照）
+- [ ] 差し戻し手順の定義があるか（直接記載または `manager-common-policy` §7 参照）
+
+#### E. 停止ルール・スコープチェック
+
+- [ ] 「やること」「やらないこと」セクションが存在し、スコープが明確か
+- [ ] 停止ルールが定義されているか
+- [ ] 停止時の起票/報告フォーマットが明記されているか
+- [ ] 担当ファイルテーブルがあり、各ファイルの操作権限（読み取り/編集/追記）が明記されているか
+
+#### F. メタルール横断整合性チェック
+
+- [ ] テンプレートファイルのパス参照がスキル・エージェント定義内のフロー記述と一致しているか
+- [ ] `.claude/skills/` 配下の変更が `docs/workflow.md` の対応セクションに反映されているか
+- [ ] `.claude/rules/` 配下のルール変更が本チェックリスト（TG-008）の基準に反映されているか
+
+### 不適合時のアクション
+
+| 不適合の種類 | アクション |
+|-------------|----------|
+| 「必須」ステージの欠落 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 高、CSV は自動生成） |
+| 「推奨」ステージの欠落 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 中、CSV は自動生成） |
+| ペアリング不整合 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 高、CSV は自動生成） |
+| フォーマット不備（停止ルール・担当ファイル等の欠落） | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 低、CSV は自動生成） |
+| 軽微な記述ズレ（表現の不統一等） | トリアージセッション内で修正 |
+| テンプレート・ルールとメタルールの不整合 | `issues/entries/ISS-XXX.md` を作成して起票（優先度: 中、CSV は自動生成）。軽微なパス参照ズレはセッション内で修正 |
+
+---
+
 ## 関連ファイル一覧
 
 本スキルファイルの内容を変更した場合、以下のファイルの連動更新が必要になる可能性がある。
@@ -307,7 +403,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 | `CLAUDE.md` | 「docs/ 文書分類」テーブル（参考資料ステータスチェックの分類基準として参照） |
 | `agents/triage-worker.md` | ワーカーの作業フロー・担当ファイルに影響する変更の場合 |
 | `agents/triage-evaluator.md` | 評価基準・レポート構成に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | TG-008 の基準文書（triage-standard-policy スキル）。チェック項目の変更時に連動更新 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクルパターン・ペアリング要件の定義（TG-008 チェックリストから参照） |
 | `.github/gha-skills-mapping.yml` | TG-010 のマッピングマニフェスト。TG タスク追加・スキル定義変更時に連動更新 |
 | `.github/prompts/triage.md` | GHA トリアージプロンプト。TG タスク追加・フロー変更時に連動更新 |
 

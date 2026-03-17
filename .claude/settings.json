@@ -11,6 +11,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-commit-generate-csvs.sh"
+          }
+        ]
+      }
     ]
   },
   "permissions": {

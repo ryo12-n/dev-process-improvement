@@ -155,6 +155,7 @@ name: triageWorker
 | バックログメンテナンスフロー | `.claude/skills/backlog-maintenance-manager/` | `agents/backlog-maintenance-worker.md`, `agents/backlog-maintenance-evaluator.md` |
 | オートメーションフロー | `.claude/skills/automation-manager/` | `agents/automation-worker.md`, `agents/automation-evaluator.md` |
 | config最適化フロー | `.claude/skills/config-optimizer-manager/` | `agents/config-collection-worker.md`, `agents/config-analysis-worker.md`, `agents/config-proposal-worker.md`, `agents/config-optimizer-evaluator.md` |
+| セッション一貫性チェックフロー | `.claude/skills/session-consistency-manager/` | `agents/sc-collection-worker.md`, `agents/sc-analysis-worker.md`, `agents/sc-proposal-worker.md`, `agents/sc-evaluator.md` |
 
 ### 5.1 新セッションタイプ追加時のチェックリスト
 
@@ -163,7 +164,7 @@ name: triageWorker
 - [ ] ペアリングの対称性要件を満たしている
 - [ ] `docs/workflow.md` に新セッションタイプのフローを追記した
 - [ ] コミットメッセージ規約（`commit-message.md`）に新セッションタイプを追加した（必要な場合）
-- [ ] `.claude/skills/triage-standard-policy/SKILL.md` の適用マトリクスに新セッションタイプを追加した（必要な場合）
+- [ ] `.claude/skills/session-lifecycle-policy/SKILL.md` の適用マトリクスに新セッションタイプを追加した（必要な場合）
 
 ---
 
@@ -189,7 +190,7 @@ name: triageWorker
 | `.claude/skills/backlog-maintenance-manager/SKILL.md` | SKILL.md の必須要素の変更がバックログメンテナンスマネージャー定義に影響する場合 |
 | `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-worker.md` | エージェント定義の必須要素の変更がバックログメンテナンスワーカー定義に影響する場合 |
 | `.claude/skills/backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md` | エージェント定義の必須要素の変更がバックログメンテナンス評価者定義に影響する場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
 | `docs/workflow.md` | セッションフロー構造の変更がワークフロー記述に影響する場合（人間向け可視化） |
 | `.claude/rules/commit-message.md` | セッション種別の追加・変更がコミットメッセージ規約に影響する場合 |
 

@@ -6,8 +6,9 @@
 |------|------|
 | **バックログ ID** | BL-031 |
 | **優先度** | 🟡 中 |
-| **ステータス** | 候補 |
+| **ステータス** | 完了 |
 | **対象リポジトリ** | dev-process-improvement |
+| **施策ディレクトリ名** | automation-manager-session |
 | **起票日** | 2026-03-10 |
 
 ## 課題・背景
@@ -27,7 +28,7 @@
 ## 補足・参考情報
 
 - **先行施策**: `sessions/initiatives/_archive/ai-automation-tool-review/` の成果物（評価フレームワーク・ロードマップ）をベースとする
-- **成果物スコープ**: `.claude/skills/automation-manager/SKILL.md`, `agents/automation-worker.md`, `agents/automation-evaluator.md`, `sessions/automation/_template/`, `docs/workflow.md` 更新, `commit-message.md` 更新, `triage-standard-policy` ライフサイクル行列更新
+- **成果物スコープ**: `.claude/skills/automation-manager/SKILL.md`, `agents/automation-worker.md`, `agents/automation-evaluator.md`, `sessions/automation/_template/`, `docs/workflow.md` 更新, `commit-message.md` 更新, `session-lifecycle-policy` ライフサイクル行列更新
 - **ワーカータスク案**: AT-001（新規自動化候補スキャン）、AT-002（既存候補の再評価）、AT-003（実装進捗確認）、AT-004（backlog 起票提案）
 - **コミットプレフィックス**: `[auto-mgr]`, `[auto-worker]`, `[auto-eval]`
 - **関連 backlog**: SessionStart-hookブランチ整理自動化（行39）、PreToolUse-hookコミットメッセージバリデーション（行40）、PostToolUse-hookルール変更連動チェック（行41）は、本セッションで追跡対象となる自動化施策の例
