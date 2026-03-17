@@ -195,6 +195,7 @@ TaskCreate({ description: "ステップN: <ステップの要約>" })
 | `.claude/skills/session-flow-policy/SKILL.md` | オーケストレーション関連の必須記載に影響する変更の場合 |
 | `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
 | `docs/workflow.md` | マネージャー共通ポリシーの記述（人間向け可視化） |
+| `.claude/rules/parallel-dev.md` | §2.2 並列ディスパッチ条件・per-worker ファイル分離パターンの正の情報源 |
 | `refs/agency-agents/knowledge.md` | §10 ドメインエージェント参照で使用するエージェントカタログ |
 
 ---
