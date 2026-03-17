@@ -252,3 +252,68 @@
    - T2-005: manager-common-policy §2.2 + session-flow-policy §4.2 更新
    - T2-007: docs/workflow.md 並列ディスパッチ可視化
 3. **Wave 3: T2-006** — 知見セクション記録 + メタルール横断検証
+
+---
+
+### [2026-03-17 12:00] タスクID: T2-001
+**状態**: 完了
+**作業内容**:
+- `.claude/rules/parallel-dev.md` を新規作成
+- §1: 前提条件（Conflict Check Matrix 検証済み・Wave 割当定義済み・per-worker ファイル作成済み）
+- §2: per-worker ファイル分離パターン（03_work_log_W<N>.md, 07_issues_W<N>.md）
+- §3: Wave 方式の運用ルール（Wave 内は並列、Wave 間は逐次、事前検証チェックリスト）
+- §4: 成果物統合手順（課題ファイル統合・作業ログ確認・タスクステータス更新）
+- §5: worktree 方式への escalation パス（将来の拡張用フック）
+**成果物**: `.claude/rules/parallel-dev.md`
+
+### [2026-03-17 12:10] タスクID: T2-002
+**状態**: 完了
+**作業内容**:
+- l1-manager SKILL.md の Phase 4 に逐次/並列の分岐を追加
+- 「Phase 4 並列ディスパッチ手順」セクションを新設（事前準備・Wave ディスパッチ・完了後処理）
+- セッションライフサイクル todo パターン1 のステップ10に並列ディスパッチステップを反映
+- 関連ファイル一覧に parallel-dev.md を追加
+**成果物**: `.claude/skills/l1-manager/SKILL.md`（変更）
+
+### [2026-03-17 12:20] タスクID: T2-003
+**状態**: 完了
+**作業内容**:
+- l2-worker.md の担当ファイルテーブルに per-worker ファイル追加
+- 壁打ちフェーズに Worker ID 確認・per-worker ファイル存在確認を追加
+- 作業フローに順次/並列の判別条件を明記（Worker ID 指定あり → per-worker ファイル使用）
+- 「やること」セクションに per-worker ファイルへの記録を追加
+- 関連ファイル一覧に per-worker テンプレート・parallel-dev.md を追加
+**成果物**: `.claude/skills/l1-manager/agents/l2-worker.md`（変更）
+
+### [2026-03-17 12:30] タスクID: T2-004
+**状態**: 完了
+**作業内容**:
+- `sessions/initiatives/_template/03_work_log_W_template.md` を新規作成（Worker 情報・壁打ち・作業ログセクション）
+- `sessions/initiatives/_template/07_issues_W_template.md` を新規作成（Worker 情報・課題起票セクション）
+- 02_tasks.md テンプレートと 03_work_log.md テンプレートは plan-worker により更新済みのため追加変更なし
+**成果物**: `_template/03_work_log_W_template.md`, `_template/07_issues_W_template.md`
+
+### [2026-03-17 12:35] タスクID: T2-005
+**状態**: 完了（変更なし）
+**作業内容**:
+- manager-common-policy §2.2 を確認 → plan-worker が per-worker ファイル分離パターン・parallel-dev.md 参照・Wave 完了後処理を追加済み
+- session-flow-policy §4.2 を確認 → plan-worker が per-worker ファイル作成の前提条件を追加済み
+- 両ファイルとも完了条件を満たしているため、追加変更は不要
+**課題・気づき**: plan-worker が関連ファイルを先行更新するパターンが有効（知見として記録済み）
+
+### [2026-03-17 12:40] タスクID: T2-007
+**状態**: 完了（変更なし）
+**作業内容**:
+- docs/workflow.md の Phase 4 セクションを確認 → plan-worker が並列/逐次の判断フロー・Wave 方式・per-worker 分離・統合手順を可視化済み
+- 完了条件を満たしているため、追加変更は不要
+
+### [2026-03-17 12:50] タスクID: T2-006
+**状態**: 完了
+**作業内容**:
+- メタルール横断検証を3領域で実施（全合格）
+  - フロー記述: parallel-dev.md を参照する全ファイルのフロー記述が実態と一致
+  - workflow.md 同期: Phase 4 セクションの並列ディスパッチ可視化が変更内容と整合
+  - TG-008 基準連動: parallel-dev.md は `.claude/rules/` 配下であり TG-008 走査対象外。一般チェックでカバー
+- 04_work_report.md に施策フェーズ2 実施レポートを作成（知見セクション・メタルール検証結果・転記判断を含む）
+- 07_issues.md を確認: 施策フェーズ2 で新規施策横断課題なし。転記対象なし
+**成果物**: `04_work_report.md`（施策フェーズ2 実施レポート追記）

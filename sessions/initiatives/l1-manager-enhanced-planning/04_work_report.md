@@ -112,3 +112,76 @@
 ---
 **作成者**: L2-plan-worker
 **作成日**: 2026-03-17
+
+---
+
+# 作業レポート: l1-manager-enhanced-planning（施策フェーズ2 実施）
+
+## サマリー
+
+施策フェーズ2（並列ワーカーディスパッチ）の全タスク（T2-001〜T2-007）を完了した。新規ファイル3件（parallel-dev.md、per-worker テンプレート2件）の作成と既存ファイル2件（SKILL.md、l2-worker.md）の変更を実施した。T2-005（manager-common-policy §2.2 + session-flow-policy §4.2）と T2-007（docs/workflow.md）は plan-worker による更新済みのため追加変更不要であった。
+
+## タスク結果
+
+| ID | タスク | 結果 | 備考 |
+|----|--------|------|------|
+| T2-001 | parallel-dev.md 新規作成 | 完了 | §1〜§5 の5セクション構成。前提条件・per-worker 分離・Wave 方式・統合手順・worktree escalation |
+| T2-002 | l1-manager SKILL.md Phase 4 並列ディスパッチ機構追加 | 完了 | Phase 4 に逐次/並列分岐追加、並列ディスパッチ手順セクション新設、todo パターン1 更新 |
+| T2-003 | l2-worker.md per-worker ファイル対応 | 完了 | 担当ファイル・壁打ち・作業フロー・やることを更新。順次/並列の判別条件明記 |
+| T2-004 | テンプレート群更新 | 完了 | per-worker テンプレート2件新規作成。02_tasks.md・03_work_log.md は plan-worker 更新済み |
+| T2-005 | manager-common-policy §2.2 + session-flow-policy §4.2 更新 | 完了（変更なし） | plan-worker が §2.2 に per-worker 分離パターン・§4.2 に per-worker 前提条件を追加済み |
+| T2-007 | docs/workflow.md 並列ディスパッチ可視化 | 完了（変更なし） | plan-worker が Phase 4 セクションに並列/逐次の判断フロー・Wave 方式・統合手順を可視化済み |
+| T2-006 | 知見セクション + メタルール横断検証 | 完了 | 本セクション参照 |
+
+## 成果物一覧
+
+### 新規作成
+| ファイル | 説明 |
+|---------|------|
+| `.claude/rules/parallel-dev.md` | 並列ディスパッチルール（前提条件・per-worker 分離・Wave 方式・統合手順・worktree escalation） |
+| `sessions/initiatives/_template/03_work_log_W_template.md` | per-worker 作業ログテンプレート |
+| `sessions/initiatives/_template/07_issues_W_template.md` | per-worker 課題起票テンプレート |
+
+### 変更
+| ファイル | 変更内容 |
+|---------|---------|
+| `.claude/skills/l1-manager/SKILL.md` | Phase 4 並列ディスパッチ手順追加、todo パターン1 更新、関連ファイル一覧に parallel-dev.md 追加 |
+| `.claude/skills/l1-manager/agents/l2-worker.md` | 担当ファイルに per-worker ファイル追加、壁打ちに Worker ID 確認追加、順次/並列判別条件追加 |
+
+## 計画に対する実績
+
+| 計画項目 | 計画 | 実績 |
+|---------|------|------|
+| 新規ファイル | 3件（parallel-dev.md, 2テンプレート） | 3件 |
+| 既存ファイル変更 | 5件（SKILL.md, l2-worker.md, 02_tasks.md, manager-common-policy, session-flow-policy） | 2件（SKILL.md, l2-worker.md）。残り3件は plan-worker が更新済み |
+| docs/workflow.md 更新 | 1件 | 0件（plan-worker が更新済み） |
+
+## メタルール横断検証結果（T2-006）
+
+| 領域 | 結果 | 詳細 |
+|------|------|------|
+| メタルールフロー記述 | 合格 | parallel-dev.md を参照する l1-manager SKILL.md・l2-worker.md・manager-common-policy・session-flow-policy のフロー記述が変更後の実態と一致 |
+| workflow.md 同期 | 合格 | docs/workflow.md の Phase 4 セクションに並列ディスパッチの判断フロー・Wave 方式・per-worker 分離・統合手順が可視化済み |
+| TG-008 基準連動 | 該当なし | parallel-dev.md は `.claude/rules/` 配下のルールファイルであり、TG-008 の走査対象（`.claude/skills/` 配下のスキル・エージェント定義）には該当しない。TG-008 §3.2 の一般チェック（「ルール変更がチェック基準に反映されているか」）でカバーされる |
+
+## 07_issues.md 転記判断
+
+施策フェーズ2 で新規起票された施策横断課題はなし。既存の ISS-INT-001（triage-standard-policy ペアリング構造テーブル未更新）は施策フェーズ1 の課題であり、施策フェーズ2 のスコープ外。転記対象なし。
+
+## 作業中の知見
+
+### ルール化候補
+
+| 知見 | 根拠 | ルール化の方向性 |
+|------|------|----------------|
+| plan-worker が 02_tasks.md テンプレート・03_work_log.md テンプレート・manager-common-policy §2.2・session-flow-policy §4.2・docs/workflow.md を事前に更新していたため、実施ワーカーの変更量が大幅に削減された。計画ワーカーが関連ファイルの先行更新を行うパターンは、実施フェーズの効率化に有効 | T2-004, T2-005, T2-007 で変更不要だった実績 | plan-worker の成果物定義に「関連ファイルの先行更新」を含めるかどうかを検討。ただし plan-worker のスコープ拡大はコンテキスト圧迫のリスクがある |
+
+### 参考情報
+
+| 情報 | ソース | 活用場面 |
+|------|--------|---------|
+| impl-manager の並列ディスパッチ機構は worktree + per-worker ブランチのハイブリッド方式だが、l1-manager は per-worker ファイル分離のみで十分であり、parallel-dev.md §5 に escalation パスとして worktree 方式への移行基準を記載した | `.claude/skills/l1-impl-manager/SKILL.md`、`.claude/rules/parallel-dev.md` | 将来コード実装を含む施策で並列ディスパッチが必要になった場合の参照先 |
+
+---
+**作成者**: L2-worker
+**作成日**: 2026-03-17
