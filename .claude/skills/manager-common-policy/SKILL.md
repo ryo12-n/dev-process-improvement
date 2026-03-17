@@ -187,7 +187,7 @@ TaskCreate({ description: "ステップN: <ステップの要約>" })
 | `.claude/skills/config-optimizer-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/session-consistency-manager/SKILL.md` | 共通パターンの参照先セクション番号に影響する変更の場合 |
 | `.claude/skills/session-flow-policy/SKILL.md` | オーケストレーション関連の必須記載に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクル・ペアリング要件に影響する変更の場合 |
 | `docs/workflow.md` | マネージャー共通ポリシーの記述（人間向け可視化） |
 | `refs/agency-agents/knowledge.md` | §10 ドメインエージェント参照で使用するエージェントカタログ |
 

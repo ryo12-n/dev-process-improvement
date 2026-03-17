@@ -106,7 +106,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 2. 直接記載 vs 参照の不統一を検出する
 3. 参照漏れのセクションを特定する
 
-### SC-006: triage-standard-policy 適用マトリクス整合
+### SC-006: session-lifecycle-policy 適用マトリクス整合
 
 1. マトリクスの列（セッションタイプ）と実在するセッション定義を照合する
 2. 各セル値とロール定義の実態を照合する

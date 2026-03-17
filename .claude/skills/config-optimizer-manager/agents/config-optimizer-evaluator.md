@@ -219,5 +219,5 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 | `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md` | Phase 2 ペアリング対称性に影響する変更の場合 |
 | `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md` | Phase 3 ペアリング対称性に影響する変更の場合 |
 | `sessions/config-optimization/_template/` | テンプレート構成に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ライフサイクルステージ・ペアリング対称性要件に影響する変更の場合 |
 | `docs/workflow.md` | config最適化セッションフロー（評価部分）の記述（人間向け可視化） |

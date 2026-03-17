@@ -1,4 +1,4 @@
-# triage-standard-policy テーブル幅肥大化への対応検討
+# session-lifecycle-policy テーブル幅肥大化への対応検討
 
 ## メタ情報
 
@@ -16,7 +16,7 @@
 
 ## 気づき
 
-backlog-maintenance セッションタイプの追加により、triage-standard-policy の適用マトリクスが5セッションタイプ×15列に拡大し、マークダウンテーブルの可読性が低下している。
+backlog-maintenance セッションタイプの追加により、session-lifecycle-policy の適用マトリクスが5セッションタイプ×15列に拡大し、マークダウンテーブルの可読性が低下している。
 
 今後さらにセッションタイプが追加される場合、テーブル形式の再設計（縦横の転置、セッションタイプ別の分割テーブル等）を検討する余地がある。
 

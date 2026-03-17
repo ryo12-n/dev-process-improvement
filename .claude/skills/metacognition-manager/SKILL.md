@@ -225,7 +225,7 @@ PR 作成後、以下のサマリをユーザーに提示する：
 | `docs/workflow.md` | メタ認知セッションフローの記述（人間向け可視化） |
 | `agents/metacognition-worker.md` | ワーカーの作業フロー・担当ファイルに影響する変更の場合 |
 | `agents/metacognition-evaluator.md` | 評価基準・レポート構成に影響する変更の場合 |
-| `.claude/skills/triage-standard-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
+| `.claude/skills/session-lifecycle-policy/SKILL.md` | ペアリング要件・ライフサイクル定義の変更が標準ポリシーに影響する場合 |
 
 ---
 
