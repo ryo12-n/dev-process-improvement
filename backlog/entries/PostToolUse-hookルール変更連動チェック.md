@@ -23,3 +23,8 @@
 
 - 実装方針・設定例JSON: `sessions/initiatives/ai-automation-tool-review/04_work_report.md` の「順位3」セクション参照
 - 元施策: `sessions/initiatives/ai-automation-tool-review/`
+
+## 関連エントリ
+
+- BL-082: PostToolUse hook 自動検証
+- **統合候補（2026-03-17 BM-005 検出）**: BL-030 + BL-082 を「PostToolUse hook 品質チェック統合」として統合推奨（同一実装基盤: ルール変更連動 + 行数/フロントマター検証を1つの hook で実装）
