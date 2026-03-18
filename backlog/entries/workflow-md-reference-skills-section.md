@@ -22,3 +22,8 @@ workflow.md の網羅性向上。
 ## 補足・参考情報
 
 トリアージ 20260315 で inbox から backlog 候補として追加。
+
+## 関連エントリ
+
+- BL-054: docs/workflow.md initiative GHA記述追加
+- **統合候補（2026-03-17 BM-005 検出）**: BL-054 + BL-065 を「docs/workflow.md 網羅性改善」として統合推奨（同一ファイル対象、GHA記述 + リファレンススキル一覧を同時追加）

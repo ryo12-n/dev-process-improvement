@@ -46,3 +46,5 @@
 - worker/evaluator 双方から同じ知見が報告された
 
 ## 関連エントリ
+
+- **前提変化（2026-03-17 BM-003 検出）**: session-lifecycle-policy-rename 施策完了により `session-flow-policy` → `session-lifecycle-policy` にリネーム済み。本エントリのタイトル・本文の参照名を `session-lifecycle-policy` に更新し、現在の構造に合わせてスコープを再定義すること
