@@ -28,6 +28,7 @@
 
 <!-- 毎セッション / 毎施策 / 不定期 -->
 
+<!-- 費用対効果分析: 基底テンプレート .claude/templates/cost-effectiveness-evaluation.md を参照 -->
 ## 費用対効果分析
 
 | 評価軸 | 値 | 備考 |
