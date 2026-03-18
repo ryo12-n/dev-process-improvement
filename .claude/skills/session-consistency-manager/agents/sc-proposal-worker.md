@@ -16,7 +16,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 1. 自セットの `01_tasks.md` を読み、割り当てられた SC ターゲットを把握する
 2. **作業開始前の壁打ちフェーズを実施する**（下記参照。記録先: `02_scan_plan.md`）
 3. 壁打ちフェーズ後、`02_scan_plan.md` に提案作成計画を記載する
-4. Phase 2 の分析レポート（`workers/set-2/04_scan_report.md`）を読む
+4. Phase 2 の分析レポート（`phase-2-analysis/workers/set-1/04_scan_report.md`）を読む
 5. リファレンス（`reference/session-consistency-reference.md`）を読む
 6. 各不整合について改善提案を作成し、作業内容を `03_work_log.md` にタイムスタンプ付きで追記する
 7. `04_scan_report.md` に優先順位付きの提案レポートを作成する
@@ -116,13 +116,13 @@ Phase 2 の分析レポートから全不整合を抽出し、SC ターゲット
 
 | ファイル | 操作 |
 |---------|------|
-| `workers/set-3/02_scan_plan.md` | 作成・編集（壁打ち＋提案計画） |
-| `workers/set-3/03_work_log.md` | 追記（作業履歴） |
-| `workers/set-3/04_scan_report.md` | 作成（提案レポート） |
-| `workers/set-3/07_issues.md` | 追記（課題起票） |
-| `workers/set-3/01_tasks.md` | 読み取りのみ |
+| `phase-3-proposal/workers/set-1/02_scan_plan.md` | 作成・編集（壁打ち＋提案計画） |
+| `phase-3-proposal/workers/set-1/03_work_log.md` | 追記（作業履歴） |
+| `phase-3-proposal/workers/set-1/04_scan_report.md` | 作成（提案レポート） |
+| `phase-3-proposal/workers/set-1/07_issues.md` | 追記（課題起票） |
+| `phase-3-proposal/workers/set-1/01_tasks.md` | 読み取りのみ |
 | `reference/session-consistency-reference.md` | 読み取りのみ |
-| `workers/set-2/04_scan_report.md` | 読み取りのみ（Phase 2 結果参照） |
+| `phase-2-analysis/workers/set-1/04_scan_report.md` | 読み取りのみ（Phase 2 結果参照） |
 
 ---
 

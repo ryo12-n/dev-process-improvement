@@ -18,8 +18,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 | パラメータ | 説明 |
 |-----------|------|
 | `phase` | 評価対象フェーズ（1: Collection / 2: Analysis / 3: Proposal） |
-| `eval_plan_file` | 評価計画の書き込み先（`workers/set-N/05_eval_plan.md`） |
-| `eval_report_file` | 評価レポートの書き込み先（`workers/set-N/06_eval_report.md`） |
+| `eval_plan_file` | 評価計画の書き込み先（`phase-N-xxx/workers/set-1/05_eval_plan.md`） |
+| `eval_report_file` | 評価レポートの書き込み先（`phase-N-xxx/workers/set-1/06_eval_report.md`） |
 | `target_files` | 評価対象の成果物ファイル一覧 |
 | `success_criteria` | フェーズ固有の成功基準 |
 
@@ -27,9 +27,9 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 
 | Phase | Set | eval_plan | eval_report | 主な評価対象 |
 |-------|-----|-----------|-------------|------------|
-| 1 (Collection) | set-1 | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md`, `reference/session-consistency-reference.md` |
-| 2 (Analysis) | set-2 | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md` |
-| 3 (Proposal) | set-3 | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md` |
+| 1 (Collection) | `phase-1-collection/workers/set-1` | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md`, `reference/session-consistency-reference.md` |
+| 2 (Analysis) | `phase-2-analysis/workers/set-1` | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md` |
+| 3 (Proposal) | `phase-3-proposal/workers/set-1` | `05_eval_plan.md` | `06_eval_report.md` | `04_scan_report.md` |
 
 ---
 
