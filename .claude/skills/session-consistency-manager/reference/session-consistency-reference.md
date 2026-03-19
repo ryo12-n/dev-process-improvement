@@ -1,8 +1,8 @@
 # Session Consistency Reference
 
-> **Snapshot Date**: 2026-03-17
+> **Snapshot Date**: 2026-03-19
 > **Source**: `.claude/skills/` 配下のセッション定義、`sessions/*/_template/` 配下のテンプレート
-> **Freshness**: 初回収集 2026-03-17。
+> **Freshness**: 初回収集 2026-03-17。2回目収集 2026-03-19（差分なし）。
 
 ---
 
@@ -260,10 +260,9 @@ session-flow-policy §3.2 の対称性要件:
 
 ### 未登録セッションタイプ
 
-| セッション定義 | 推奨 session-type | 備考 |
-|-------------|-----------------|------|
-| l2-plan-worker | 未登録 | l1-manager の Phase 2 で使用。L2-worker に含まれるか不明 |
-| l2-plan-evaluator | 未登録 | l1-manager の Phase 3 で使用。L2-evaluator に含まれるか不明 |
+なし。全セッションタイプが登録済み。
+
+> **備考**: l2-plan-worker は L2-worker に、l2-plan-evaluator は L2-evaluator にそれぞれ包含されている（commit-message.md 37-38行目の括弧内包含記述「l2-plan-worker を含む」「l2-plan-evaluator を含む」による）。
 
 ---
 
@@ -301,8 +300,8 @@ session-flow-policy §3.2 の対称性要件:
 
 | 参照元 | 参照先（不在） | 備考 |
 |--------|-------------|------|
-| `l1-manager/agents/l2-plan-evaluator.md` | `.claude/skills/triage-standard-policy/SKILL.md` | 旧名称。2026-03-17 に session-lifecycle-policy にリネーム済み。参照先を更新すべき |
-| `l1-manager/agents/l2-plan-worker.md` | `.claude/skills/triage-standard-policy/SKILL.md` | 同上 |
+| `l1-manager/agents/l2-plan-evaluator.md` (112行目, 198行目) | `.claude/skills/triage-standard-policy/SKILL.md` | 旧名称。2026-03-17 に session-lifecycle-policy にリネーム済み。参照先を更新すべき |
+| `l1-manager/agents/l2-plan-worker.md` (195行目) | `.claude/skills/triage-standard-policy/SKILL.md` | 同上 |
 
 ---
 
@@ -311,7 +310,8 @@ session-flow-policy §3.2 の対称性要件:
 | 日付 | 変更内容 |
 |------|---------|
 | 2026-03-17 | 初回収集。全8ターゲット（SC-001〜SC-008）の情報を記録。9マネージャー SKILL.md、27エージェント定義、9テンプレートディレクトリを走査。SC-008 で壊れた参照2件を検出（l2-plan-worker, l2-plan-evaluator の triage-standard-policy 参照）。SC-007 で未登録の可能性がある session-type 2件を検出（l2-plan-worker, l2-plan-evaluator）。 |
+| 2026-03-19 | 2回目収集。全8ターゲットを再走査。前回スナップショットからの差分なし。壊れた参照2件（l2-plan-worker, l2-plan-evaluator）は依然として未修正。SC-008 の壊れた参照の行番号を詳細化（l2-plan-evaluator: 112行目, 198行目、l2-plan-worker: 195行目）。 |
 
 ---
 **最終更新者**: sc-collection-worker
-**最終更新日**: 2026-03-17
+**最終更新日**: 2026-03-19
