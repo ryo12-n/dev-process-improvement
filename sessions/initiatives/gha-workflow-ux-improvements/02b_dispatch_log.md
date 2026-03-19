@@ -36,19 +36,10 @@
 
 ### Phase 4: 実施ワーカー
 
-<!--
-### [YYYY-MM-DD HH:MM] Phase 4 Worker 起動（Set-N）
-- 指示内容: ...
-- 担当タスク: T-001〜T-XXX
-- 完了条件: ...
-- Worker ID: （並列時のみ）W<N>
-
-### [YYYY-MM-DD HH:MM] Phase 4 Worker 完了（Set-N）
-- 結果サマリ: ...
-- 成果物: 03_work_log.md, 04_work_report.md
-- **コストデータ**: input_tokens=_____ output_tokens=_____
-- Evaluator 起動判断: 起動する / 差し戻し
--->
+### [2026-03-19] Phase 4 Worker 起動（Set-1）
+- 指示内容: T-001〜T-009 を逐次実行（YAML/Markdown 編集 + 固定タスク）
+- 担当タスク: T-001〜T-009
+- 完了条件: 全タスク完了、04_work_report.md 作成、03_work_log.md 記録
 
 ### Phase 5: 評価ワーカー
 
