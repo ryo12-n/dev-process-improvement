@@ -52,3 +52,41 @@
 - T-004（SKILL.md 更新）が最も注意が必要。既存フローの可読性維持のため、行追加中心を推奨
 - session-lifecycle-policy の TG-008 基準は triage-manager に統合済みで、initiative テンプレート変更への直接影響は軽微と判断。ただし T-006 で確認が必要
 **課題・気づき**: なし
+
+---
+
+## 壁打ちフェーズ [2026-03-19 11:00]（実施ワーカー）
+
+### 理解のサマリー
+- タスクの目的: initiative セッションにディスパッチログ（02b_dispatch_log.md）とコスト計測（09_cost_record.md）を標準装備し、L1 マネージャースキルにその記録手順を組み込む
+- スコープ: T-001〜T-008 + T-RC の全タスクを Wave 1→2→3→固定タスク→RC の順で実行
+- 完了条件: 全タスク完了、03_work_log.md に作業履歴、04_work_report.md に作業レポート、07_issues.md に課題があれば起票
+- Worker ID: なし（順次ディスパッチ）
+
+### 前提条件チェック
+- [x] 依存タスクの完了状態: 完了（計画フェーズ完了済み、02a_task_division.md 作成済み）
+- [x] 必要ツール・コマンドの利用可否: 確認済み（Read/Write/Edit/Bash 使用可能）
+- [x] 環境の準備状況（ファイル・ディレクトリの存在等）: 確認済み（_template/ ディレクトリ存在、参照ファイル全て確認済み）
+- [x] Worker ID 確認: 指定なし → 本体ファイル使用
+- [x] per-worker ファイルの存在確認（並列時のみ）: 該当なし
+
+### 不明点・確認事項
+なし
+
+確認事項なし：実施開始
+
+---
+
+## 実施計画サマリ
+
+Wave 1（T-001, T-002, T-003, T-005）→ Wave 2（T-004）→ Wave 3（T-006）→ 固定タスク（T-007, T-008）→ RC（T-RC）の順で逐次実行する。
+
+1. T-001: `_template/02b_dispatch_log.md` 新設 — triage の dispatch_log を参考に Phase 2〜5 構造に適合
+2. T-002: `_template/09_cost_record.md` 新設 — session-cost-measurement.md の Section B・C を参考に集計シート設計
+3. T-003: `_template/08_gate_review.md` 更新 — 既存チェック項目を維持しフェーズコスト小計行を追加
+4. T-005: `.claude/templates/session-cost-measurement.md` 更新 — サンプリング→全施策方式への整合性更新
+5. T-004: `.claude/skills/l1-manager/SKILL.md` 更新 — ディスパッチログ・コスト記録手順を既存フローに行追加
+6. T-006: メタルール横断検証 — docs/workflow.md 更新、TG-008 確認
+7. T-007: 知見記録
+8. T-008: 課題転記
+9. T-RC: rule-change-checklist 全7項目確認
