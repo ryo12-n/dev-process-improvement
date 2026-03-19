@@ -32,37 +32,229 @@ user-invocable: false
 
 ### 1.2 セッションタイプ別の適用マトリクス
 
-| ステージ | L1-manager | L2-plan-worker | L2-plan-evaluator | L2-worker | L2-evaluator | impl-manager | impl-worker (Ph1-3) | impl-worker (Ph4) | impl-evaluator | triage-manager | triage-worker | triage-evaluator | meta-manager | meta-worker | meta-evaluator | sync-manager | sync-worker | sync-evaluator | bm-manager | bm-worker | bm-evaluator | auto-manager | auto-worker | auto-evaluator | co-manager | co-worker | co-evaluator | sc-manager | sc-worker | sc-evaluator |
-|---------|:----------:|:--------------:|:----------------:|:---------:|:------------:|:------------:|:-------------------:|:-----------------:|:--------------:|:--------------:|:-------------:|:----------------:|:------------:|:-----------:|:--------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:------------:|:-----------:|:--------------:|:----------:|:---------:|:------------:|:----------:|:---------:|:------------:|
-| 壁打ち | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 推奨 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 | 必須（事前調査） | 必須 | 必須 |
-| 計画 | 必須（立案） | 必須（実施計画） | 必須（評価計画） | 必須（実施計画） | 必須（評価計画） | 必須（4フェーズ立案） | 必須（実施計画） | N/A（チェックポイント） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | 必須（評価計画） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） | 必須（立案） | N/A（受領側） | N/A（受領側） |
-| 実施（作業履歴） | N/A | 必須 | N/A | 必須 | N/A | N/A | 必須 | 必須（チェックポイント） | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A |
-| 実施（課題起票） | 条件付き | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 必須 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 | 必須 | 必須 | 推奨 |
-| 実施（気づき記録） | N/A | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | N/A（B+C集約） | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 必須 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 | N/A | 必須 | 推奨 |
-| レポート | N/A | 必須 | 必須 | 必須 | 必須 | 必須（B+C集約） | 必須 | N/A（B+C集約） | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | N/A | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 | 必須 |
-| 評価 | N/A | N/A | 必須 | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 |
-| ゲート判定 | 必須 | N/A | N/A | N/A | N/A | 必須（4回） | N/A | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須 | N/A | N/A | 条件付き | N/A | N/A | 条件付き | N/A | N/A | 必須（3回） | N/A | N/A | 必須（3回） | N/A | N/A |
-| 知見集約ルーティング | 必須 | N/A | N/A | N/A | N/A | 必須 | N/A | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A | 必須 | N/A | N/A |
+全セッションタイプのロールを **マネージャー**・**ワーカー**・**評価ワーカー** の 3 アーキタイプに集約する。
+
+| ステージ | マネージャー | ワーカー | 評価ワーカー |
+|---------|:----------:|:------:|:----------:|
+| 壁打ち | 必須 | 必須 | 必須 |
+| 計画 | 必須（立案） | 必須（実施計画）^1 | 必須（評価計画）^1 |
+| 実施（作業履歴） | N/A | 必須 | N/A |
+| 実施（課題起票） | 必須^2 | 必須 | 必須 |
+| 実施（気づき記録） | N/A | 必須 | 必須 |
+| レポート | 必須^3 | 必須 | 必須 |
+| 評価 | N/A | N/A | 必須 |
+| ゲート判定 | 必須^4 | N/A | N/A |
+| 知見集約ルーティング | 必須 | N/A | N/A |
 
 **凡例**:
 - **必須**: ロール定義に含まれていなければならない
-- **推奨**: 含まれていることが望ましい（欠落している場合はトリアージで課題として起票）
-- **条件付き**: 特定条件下でのみ実施（条件はロール定義に明記されていること）
 - **N/A**: 該当ロールの責務外（他ロールが担当）
+
+#### 例外テーブル
+
+| 注記 | 対象ロール | 例外内容 |
+|------|----------|---------|
+| ^1 | 3-phase ワーカー/評価ワーカー（triage, meta, bm, auto, co, sc） | 計画はマネージャーが作成し受領する（N/A）。ただし壁打ちフェーズ内で作業/評価計画を記載するため、壁打ちは必須 |
+| ^2 | L1-manager | 条件付き（ワーカー成果物の課題をゲート判定時に集約転記。直接起票は条件付き） |
+| ^3 | L1-manager | N/A（ワーカー成果物を直接ゲート判定に使用）。sync-manager も同様 |
+| ^3 | impl-manager | 必須（B+C 集約レポート） |
+| ^4 | 3-phase マネージャー（triage, meta, bm, auto） | 条件付き（PR レビューでユーザー承認を得る形式） |
+| ^4 | multi-phase マネージャー（co, sc） | 必須（3 回：各フェーズゲート） |
+| ^4 | impl-manager | 必須（4 回：各フェーズゲート） |
+| — | impl-worker (Ph4) | 計画は N/A（チェックポイント方式）。気づき記録は N/A（B+C 集約）。レポートは N/A（B+C 集約） |
 
 ### 1.3 記録先ファイルの対応
 
-| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 | 同期系 | バックログメンテナンス系 | オートメーション系 | セッション一貫性系 | config最適化系 |
-|---------|----------------|-------------|-----------|--------|---------------------|------------------|-----------------|-----------------|
-| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
-| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md | 01_plan.md |
-| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md |
-| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
-| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md |
-| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
-| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
-| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 03_report.md | 03_report.md |
+ロール別に記録先ファイルを定義する。
+
+#### パターン A: イニシアティブ（l1-manager + l2-worker/evaluator）
+
+| ステージ | マネージャー | ワーカー | 評価ワーカー |
+|---------|------------|---------|------------|
+| 壁打ち | 00_proposal.md, 00a_wallbash_log.md | 03_work_log.md | 05_eval_plan.md |
+| 計画 | 01_plan.md, 02_tasks.md | 03_work_log.md（実施計画を記載） | 05_eval_plan.md |
+| 作業履歴 | — | 03_work_log.md | — |
+| 課題起票 | 08_gate_review.md（集約転記） | 07_issues.md → CSV | 07_issues.md → CSV |
+| 気づき記録 | — | 04_work_report.md | 06_eval_report.md |
+| レポート | — | 04_work_report.md | 06_eval_report.md |
+| 評価 | — | — | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 08_gate_review.md | — | — |
+| 知見集約 | 08_gate_review.md 横展開テーブル | — | — |
+
+#### パターン B: 3フェーズ標準（triage, meta, bm, auto, co, sc 共通）
+
+| ステージ | マネージャー | ワーカー | 評価ワーカー |
+|---------|------------|---------|------------|
+| 壁打ち | 00_pre_investigation.md | 02_scan_plan.md | 05_eval_plan.md |
+| 計画 | 01_plan.md | N/A（受領側） | N/A（受領側） |
+| 作業履歴 | — | 03_work_log.md | — |
+| 課題起票 | 03_report.md（集約転記） | 07_issues.md → マネージャーが CSV 転記 | 07_issues.md → マネージャーが CSV 転記 |
+| 気づき記録 | — | 04_scan_report.md | 06_eval_report.md |
+| レポート | 03_report.md | 04_scan_report.md | 06_eval_report.md |
+| 評価 | — | — | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 04_gate_review.md + PR レビュー | — | — |
+| 知見集約 | 03_report.md | — | — |
+
+#### バリアント B': sync（パターン B との差分のみ）
+
+| ステージ | 差分 |
+|---------|------|
+| 壁打ち（ワーカー） | 03_work_log.md（scan_plan なし） |
+| 壁打ち（評価ワーカー） | 05_eval_plan.md |
+| 計画（ワーカー） | N/A（受領側） |
+| 計画（評価ワーカー） | 必須（05_eval_plan.md に記載） |
+| レポート（ワーカー） | 04_sync_report.md（scan_report ではない） |
+| レポート（マネージャー） | N/A |
+| ゲート判定 | 08_gate_review.md + PR レビュー（04 ではなく 08） |
+| 知見集約 | 08_gate_review.md 横展開テーブル（03_report ではない） |
+
+> **impl**: 4 フェーズ特殊構造。`l1-impl-manager/SKILL.md` を参照
+
+### 1.4 テンプレート構成仕様
+
+各セッションタイプの `sessions/<type>/_template/` に含まれるべきファイルの正解定義。SC-009 チェックの基準となる。
+
+#### 基本モデル: multi-phase manager パターン
+
+```
+_template/
+├── [マネージャールートファイル]
+├── phase-N-xxx/
+│   ├── 01_gate.md                  ← phase ゲート
+│   └── _template/                  ← worker set テンプレート
+│       └── [ワーカー+評価ワーカーファイル]
+```
+
+マネージャーがルートレベルで計画・集約・ゲート判定を行い、各 phase 内で worker set をディスパッチする。
+
+#### §1.4.1 マネージャールートファイル
+
+| ファイル | 用途 | 適用パターン |
+|---------|------|-----------|
+| `00_pre_investigation.md` | 事前調査（壁打ち） | 3-phase, sync, multi-phase |
+| `00_proposal.md` | 提案書（壁打ち） | initiative, impl |
+| `00a_wallbash_log.md` | 壁打ちログ | initiative |
+| `01_plan.md` | 計画 | 全パターン |
+| `02_dispatch_log.md` | ディスパッチ記録 | 3-phase, multi-phase |
+| `02_tasks.md` | タスクリスト | initiative |
+| `02a_task_division.md` | 並列タスク分割 | initiative（並列時） |
+| `02b_dispatch_log.md` | ディスパッチ記録 | initiative |
+| `02_impl_design.md` | 実装設計 | impl |
+| `03_report.md` | 集約レポート | 3-phase, multi-phase |
+| `04_gate_review.md` | ゲートレビュー | 3-phase, multi-phase |
+| `08_gate_review.md` | ゲートレビュー | initiative, sync |
+| `08_gate_summary.md` | ゲートサマリー | impl |
+| `09_cost_record.md` | コスト分析 | initiative |
+
+#### §1.4.2 ワーカーセットテンプレート（共通 7 ファイル）
+
+3-phase / multi-phase の `phase-N-xxx/_template/` または `workers/_template/` 配下:
+
+| ファイル | ロールオーナー | 用途 |
+|---------|-------------|------|
+| `01_tasks.md` | マネージャー(CREATE) / ワーカー(READ) | タスク割当 |
+| `02_scan_plan.md` | ワーカー | スキャン計画 + 壁打ち |
+| `03_work_log.md` | ワーカー | 作業履歴 |
+| `04_scan_report.md` | ワーカー | スキャンレポート |
+| `05_eval_plan.md` | 評価ワーカー | 評価計画 + 壁打ち |
+| `06_eval_report.md` | 評価ワーカー | 評価レポート |
+| `07_issues.md` | ワーカー / 評価ワーカー | 課題バッファ |
+
+#### §1.4.3 Initiative テンプレート（15 ファイル、フラット構造）
+
+`sessions/initiatives/_template/`:
+
+| ファイル | ロールオーナー | 用途 |
+|---------|-------------|------|
+| `00_proposal.md` | マネージャー | 提案書 |
+| `00a_wallbash_log.md` | マネージャー | 壁打ちログ |
+| `01_plan.md` | マネージャー | 計画 |
+| `02_tasks.md` | マネージャー | タスクリスト |
+| `02a_task_division.md` | マネージャー | 並列タスク分割 |
+| `02b_dispatch_log.md` | マネージャー | ディスパッチ記録 |
+| `03_work_log.md` | ワーカー | 作業履歴 |
+| `03_work_log_W_template.md` | ワーカー（並列） | 並列用作業履歴テンプレート |
+| `04_work_report.md` | ワーカー | 作業レポート |
+| `05_eval_plan.md` | 評価ワーカー | 評価計画 |
+| `06_eval_report.md` | 評価ワーカー | 評価レポート |
+| `07_issues.md` | ワーカー / 評価ワーカー | 課題バッファ |
+| `07_issues_W_template.md` | ワーカー（並列） | 並列用課題テンプレート |
+| `08_gate_review.md` | マネージャー | ゲートレビュー |
+| `09_cost_record.md` | マネージャー | コスト分析 |
+
+> **構造上の特徴**: phase 分割なし。ワーカー/評価ワーカーのファイルがルート直下に混在。将来のマネージャー/ワーカー層分離は別施策で検討。
+
+#### §1.4.4 3-Phase 標準テンプレート（triage, meta, bm, auto）
+
+`sessions/<type>/_template/`:
+
+| 階層 | ファイル | ロールオーナー |
+|------|---------|-------------|
+| ルート | `00_pre_investigation.md` | マネージャー |
+| ルート | `01_plan.md` | マネージャー |
+| ルート | `02_dispatch_log.md` | マネージャー |
+| ルート | `03_report.md` | マネージャー |
+| ルート | `04_gate_review.md` | マネージャー |
+| `workers/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
+
+> **構造上の特徴**: 事実上 single-phase。`workers/` は概念的に `phase-1/` と同義。将来の `phase-1-xxx/` 統一は別施策で検討。
+
+#### §1.4.5 Multi-Phase テンプレート（co, sc）
+
+`sessions/<type>/_template/`:
+
+| 階層 | ファイル | ロールオーナー |
+|------|---------|-------------|
+| ルート | `00_pre_investigation.md` | マネージャー |
+| ルート | `01_plan.md` | マネージャー |
+| ルート | `02_dispatch_log.md` | マネージャー |
+| ルート | `03_report.md` | マネージャー |
+| ルート | `04_gate_review.md` | マネージャー |
+| `phase-1-collection/` | `01_gate.md` | マネージャー |
+| `phase-1-collection/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
+| `phase-2-analysis/` | `01_gate.md` | マネージャー |
+| `phase-2-analysis/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
+| `phase-3-proposal/` | `01_gate.md` | マネージャー |
+| `phase-3-proposal/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
+
+> **基本形そのもの**。マネージャーが 3 phase を逐次オーケストレーションし、各 phase 内で worker set をディスパッチする。
+
+#### §1.4.6 Sync テンプレート（9 ファイル、フラット構造）
+
+`sessions/sync/_template/`:
+
+| ファイル | ロールオーナー | 用途 |
+|---------|-------------|------|
+| `00_pre_investigation.md` | マネージャー | 事前調査 |
+| `01_plan.md` | マネージャー | 計画 |
+| `02_dispatch_log.md` | マネージャー | ディスパッチ記録 |
+| `03_work_log.md` | ワーカー | 作業履歴 |
+| `04_sync_report.md` | ワーカー | 同期レポート |
+| `05_eval_plan.md` | 評価ワーカー | 評価計画 |
+| `06_eval_report.md` | 評価ワーカー | 評価レポート |
+| `07_issues.md` | ワーカー / 評価ワーカー | 課題バッファ |
+| `08_gate_review.md` | マネージャー | ゲートレビュー |
+
+> **構造上の特徴**: フラット構造。worker set ディスパッチなし（単一ワーカー + 単一評価ワーカー）。
+
+#### §1.4.7 Impl テンプレート（4 フェーズ特殊構造）
+
+`sessions/impl/_template/`:
+
+| 階層 | ファイル | ロールオーナー |
+|------|---------|-------------|
+| ルート | `00_proposal.md` | マネージャー |
+| ルート | `01_plan.md` | マネージャー |
+| ルート | `02_impl_design.md` | マネージャー |
+| ルート | `07_issues.md` | ワーカー / 評価ワーカー（共有） |
+| ルート | `07_issues_W_template.md` | ワーカー（並列用） |
+| ルート | `08_gate_summary.md` | マネージャー |
+| `phase-1-investigation/` | `01_tasks, 02_work_log, 03_work_report, 04_eval_plan, 05_eval_report, 06_gate` | ワーカー / 評価ワーカー / マネージャー(gate) |
+| `phase-2-design/` | 同上 | 同上 |
+| `phase-3-impl-plan/` | 同上 + `07_file_task_division.md` | 同上 |
+| `phase-4-impl/` | `01_tasks, 02_work_log_W_template, 03_work_report, 04_eval_plan, 05_eval_report, 06_gate` | 同上（並列用テンプレート） |
+
+> **構造上の特徴**: phase 内にファイル直置き（`_template/` sub-dir なし）。各 phase で異なるワーカータイプ（investigation, design, impl-plan, impl）を使用。
 
 ---
 
@@ -144,7 +336,7 @@ user-invocable: false
 | `.claude/skills/config-optimizer-manager/agents/config-analysis-worker.md` | ライフサイクル適用マトリクスの変更がconfig分析ワーカー定義に影響する場合 |
 | `.claude/skills/config-optimizer-manager/agents/config-proposal-worker.md` | ライフサイクル適用マトリクスの変更がconfig提案ワーカー定義に影響する場合 |
 | `.claude/skills/config-optimizer-manager/agents/config-optimizer-evaluator.md` | ペアリング対称性要件の変更がconfig最適化評価者定義に影響する場合 |
-| `.claude/skills/session-consistency-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がセッション一貫性マネージャー定義に影響する場合 |
+| `.claude/skills/session-consistency-manager/SKILL.md` | ライフサイクル適用マトリクスの変更がセッション一貫性マネージャー定義に影響する場合。SC-009（§1.4 テンプレート構成仕様準拠）が §1.4 を参照 |
 | `.claude/skills/session-consistency-manager/agents/sc-collection-worker.md` | ライフサイクル適用マトリクスの変更がSC収集ワーカー定義に影響する場合 |
 | `.claude/skills/session-consistency-manager/agents/sc-analysis-worker.md` | ライフサイクル適用マトリクスの変更がSC分析ワーカー定義に影響する場合 |
 | `.claude/skills/session-consistency-manager/agents/sc-proposal-worker.md` | ライフサイクル適用マトリクスの変更がSC提案ワーカー定義に影響する場合 |

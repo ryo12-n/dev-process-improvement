@@ -173,40 +173,25 @@ session-flow-policy §3.2 の対称性要件:
 
 ## 6. SC-006: session-lifecycle-policy 適用マトリクス整合
 
-### マトリクス列（セッションタイプ）一覧
+### マトリクス構造（2026-03-19 改訂）
 
-| マトリクス上の列名 | 対応するセッション定義 | 存在確認 | 備考 |
-|------------------|---------------------|---------|------|
-| L1-manager | `.claude/skills/l1-manager/SKILL.md` | 存在 | |
-| L2-plan-worker | `l1-manager/agents/l2-plan-worker.md` | 存在 | |
-| L2-plan-evaluator | `l1-manager/agents/l2-plan-evaluator.md` | 存在 | |
-| L2-worker | `l1-manager/agents/l2-worker.md` | 存在 | |
-| L2-evaluator | `l1-manager/agents/l2-evaluator.md` | 存在 | |
-| impl-manager | `.claude/skills/l1-impl-manager/SKILL.md` | 存在 | |
-| impl-worker (Ph1-3) | `l1-impl-manager/agents/investigation-worker.md` 等 | 存在 | |
-| impl-worker (Ph4) | `l1-impl-manager/agents/impl-worker.md` | 存在 | |
-| impl-evaluator | `l1-impl-manager/agents/impl-evaluator.md` | 存在 | |
-| triage-manager | `.claude/skills/triage-manager/SKILL.md` | 存在 | |
-| triage-worker | `triage-manager/agents/triage-worker.md` | 存在 | |
-| triage-evaluator | `triage-manager/agents/triage-evaluator.md` | 存在 | |
-| meta-manager | `.claude/skills/metacognition-manager/SKILL.md` | 存在 | |
-| meta-worker | `metacognition-manager/agents/metacognition-worker.md` | 存在 | |
-| meta-evaluator | `metacognition-manager/agents/metacognition-evaluator.md` | 存在 | |
-| sync-manager | `.claude/skills/sync-manager/SKILL.md` | 存在 | |
-| sync-worker | `sync-manager/agents/sync-worker.md` | 存在 | |
-| sync-evaluator | `sync-manager/agents/sync-evaluator.md` | 存在 | |
-| bm-manager | `.claude/skills/backlog-maintenance-manager/SKILL.md` | 存在 | |
-| bm-worker | `backlog-maintenance-manager/agents/backlog-maintenance-worker.md` | 存在 | |
-| bm-evaluator | `backlog-maintenance-manager/agents/backlog-maintenance-evaluator.md` | 存在 | |
-| auto-manager | `.claude/skills/automation-manager/SKILL.md` | 存在 | |
-| auto-worker | `automation-manager/agents/automation-worker.md` | 存在 | |
-| auto-evaluator | `automation-manager/agents/automation-evaluator.md` | 存在 | |
-| co-manager | `.claude/skills/config-optimizer-manager/SKILL.md` | 存在 | |
-| co-worker | `config-optimizer-manager/agents/config-*-worker.md` | 存在 | 3ワーカー（collection, analysis, proposal） |
-| co-evaluator | `config-optimizer-manager/agents/config-optimizer-evaluator.md` | 存在 | |
-| sc-manager | `.claude/skills/session-consistency-manager/SKILL.md` | 存在 | |
-| sc-worker | `session-consistency-manager/agents/sc-*-worker.md` | 存在 | 3ワーカー（collection, analysis, proposal） |
-| sc-evaluator | `session-consistency-manager/agents/sc-evaluator.md` | 存在 | |
+§1.2 は 3 アーキタイプ（マネージャー/ワーカー/評価ワーカー）+ 例外テーブルに集約された（旧: 30 列の個別セッションタイプ別マトリクス）。
+
+#### アーキタイプ列
+
+| 列名 | 対応するセッション定義 | 備考 |
+|------|---------------------|------|
+| マネージャー | l1-manager, impl-manager, triage-manager, meta-manager, sync-manager, bm-manager, auto-manager, co-manager, sc-manager | 全 9 マネージャー |
+| ワーカー | l2-worker, l2-plan-worker, impl-worker (Ph1-3/Ph4), triage-worker, meta-worker, sync-worker, bm-worker, auto-worker, co-worker (3種), sc-worker (3種) | 全ワーカーロール |
+| 評価ワーカー | l2-evaluator, l2-plan-evaluator, impl-evaluator, triage-evaluator, meta-evaluator, sync-evaluator, bm-evaluator, auto-evaluator, co-evaluator, sc-evaluator | 全評価ワーカーロール |
+
+#### 例外テーブル対象
+
+- ^1: 3-phase ワーカー/評価ワーカー（計画が N/A）
+- ^2: L1-manager（課題起票が条件付き）
+- ^3: L1-manager, sync-manager（レポートが N/A）
+- ^4: ゲート判定回数の差異（3-phase: 条件付き, multi-phase: 3回, impl: 4回）
+- impl-worker (Ph4): 特殊（計画/気づき記録/レポートが N/A）
 
 ### §1.3 記録先ファイル対応
 
@@ -305,12 +290,37 @@ session-flow-policy §3.2 の対称性要件:
 
 ---
 
+## 9. SC-009: テンプレート構成仕様準拠
+
+### 準拠基準
+
+session-lifecycle-policy §1.4 のテンプレート構成仕様。各セッションタイプの `sessions/<type>/_template/` のファイル一覧が仕様と一致すること。
+
+### テンプレート ↔ 仕様突合結果
+
+| セッションタイプ | 仕様セクション | 仕様ファイル数 | 実体ファイル数 | Missing | Extra | 整合 | 備考 |
+|----------------|-------------|-------------|-------------|---------|-------|------|------|
+| initiatives | §1.4.3 | 15 | 15 | 0 | 0 | OK | |
+| triage | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
+| metacognition | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
+| backlog-maintenance | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
+| automation | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
+| config-optimization | §1.4.5 | 5+3×(1+7) | 5+3×(1+7) | 0 | 0 | OK | 3 phase × (gate + 7 worker files) |
+| session-consistency | §1.4.5 | 5+3×(1+7) | 5+3×(1+7) | 0 | 0 | OK | 3 phase × (gate + 7 worker files) |
+| sync | §1.4.6 | 9 | 9 | 0 | 0 | OK | |
+| impl | §1.4.7 | 6+4 phases | 6+4 phases | 0 | 0 | OK | phase-3 に 07_file_task_division.md あり |
+
+> **初回収集**: 2026-03-19。§1.4 仕様を新設し、全テンプレートの実体と突合。全セッションタイプで整合。
+
+---
+
 ## Changelog
 
 | 日付 | 変更内容 |
 |------|---------|
 | 2026-03-17 | 初回収集。全8ターゲット（SC-001〜SC-008）の情報を記録。9マネージャー SKILL.md、27エージェント定義、9テンプレートディレクトリを走査。SC-008 で壊れた参照2件を検出（l2-plan-worker, l2-plan-evaluator の triage-standard-policy 参照）。SC-007 で未登録の可能性がある session-type 2件を検出（l2-plan-worker, l2-plan-evaluator）。 |
 | 2026-03-19 | 2回目収集。全8ターゲットを再走査。前回スナップショットからの差分なし。壊れた参照2件（l2-plan-worker, l2-plan-evaluator）は依然として未修正。SC-008 の壊れた参照の行番号を詳細化（l2-plan-evaluator: 112行目, 198行目、l2-plan-worker: 195行目）。 |
+| 2026-03-19 | SC-009（テンプレート構成仕様準拠）セクションを新設。session-lifecycle-policy §1.4 の仕様に基づき全9テンプレートディレクトリを突合。全セッションタイプで整合。 |
 
 ---
 **最終更新者**: sc-collection-worker
