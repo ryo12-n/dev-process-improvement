@@ -65,8 +65,7 @@ jobs:
           # Issue 本文を一時ファイルに保存（Claude のプロンプトで参照）
           echo "$body" > /tmp/issue_body.txt
 
-      - name: Save feedback to file (continue mode)
-        if: inputs.mode == 'continue'
+      - name: Save feedback to file
         env:
           FEEDBACK: ${{ inputs.feedback }}
         run: |
@@ -92,7 +91,7 @@ jobs:
             ブランチ: ${{ inputs.branch }}
 
             Issue 本文は `/tmp/issue_body.txt` に保存されています。
-            フィードバック（continue モード時）は `/tmp/feedback.txt` に保存されています。
+            フィードバック（init/continue 共通）は `/tmp/feedback.txt` に保存されています。init モードでもフィードバックがある場合は施策のコンテキスト補足として活用してください。
           claude_args: "--max-turns 30 --model claude-sonnet-4-6"
           show_full_output: true
           settings: |
@@ -156,28 +155,32 @@ jobs:
           ISSUE_NUMBER: ${{ inputs.issue_number }}
           INITIATIVE_NAME: ${{ steps.extract.outputs.initiative_name }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --body "<!-- initiative-metadata
-          initiative_name: ${INITIATIVE_NAME}
-          initiative_dir: sessions/initiatives/${INITIATIVE_NAME}/
-          branch: initiative/${INITIATIVE_NAME}
+          cat > /tmp/metadata_comment.md << 'COMMENT_EOF'
+          <!-- initiative-metadata
+          initiative_name: __INITIATIVE_NAME__
+          initiative_dir: sessions/initiatives/__INITIATIVE_NAME__/
+          branch: initiative/__INITIATIVE_NAME__
           -->
           📋 **施策メタデータ**
           | 項目 | 値 |
           |------|-----|
-          | 施策名 | \`${INITIATIVE_NAME}\` |
-          | ディレクトリ | \`sessions/initiatives/${INITIATIVE_NAME}/\` |
-          | ブランチ | \`initiative/${INITIATIVE_NAME}\` |
+          | 施策名 | `__INITIATIVE_NAME__` |
+          | ディレクトリ | `sessions/initiatives/__INITIATIVE_NAME__/` |
+          | ブランチ | `initiative/__INITIATIVE_NAME__` |
 
           <details><summary>📖 コマンドリファレンス</summary>
 
           | コマンド | 用途 | 使用可能フェーズ |
           |---------|------|----------------|
-          | \`@ai-task /continue <フィードバック>\` | ドラフトを更新 | wallbashing |
-          | \`@ai-task /approve\` | 次フェーズへ進む | wallbashing, gate-review |
-          | \`@ai-task /reject <理由>\` | ゲート判定を差し戻し | gate-review |
-          | \`@ai-task /question <質問>\` | 施策について質問 | 任意 |
+          | `@ai /continue <フィードバック>` | ドラフトを更新 | wallbashing |
+          | `@ai /approve` | 次フェーズへ進む | wallbashing, gate-review |
+          | `@ai /reject <理由>` | ゲート判定を差し戻し | gate-review |
+          | `@ai /question <質問>` | 施策について質問 | 任意 |
 
-          </details>"
+          </details>
+          COMMENT_EOF
+          sed -i "s/__INITIATIVE_NAME__/${INITIATIVE_NAME}/g" /tmp/metadata_comment.md
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/metadata_comment.md
 
       - name: Post wallbash summary to issue
         env:
@@ -190,29 +193,36 @@ jobs:
         run: |
           branch="initiative/${INITIATIVE_NAME}"
 
-          # 成果物リンクを構築
-          artifacts="### 成果物
-          - [\`00_proposal.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00_proposal.md)
-          - [\`01_plan.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/01_plan.md)
-          - [\`02_tasks.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/02_tasks.md)
-          - [\`00a_wallbash_log.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00a_wallbash_log.md)"
-
           if [ "$MODE" = "init" ]; then
             header="## 壁打ちサマリー（Round 1）"
           else
             header="## 壁打ちサマリー（継続）"
           fi
 
-          gh issue comment "$ISSUE_NUMBER" --body "${header}
+          cat > /tmp/wallbash_comment.md << COMMENT_EOF
+          ${header}
 
           ${SUMMARY}
 
-          ${artifacts}
+          ### 成果物
+          - [\`00_proposal.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00_proposal.md)
+          - [\`01_plan.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/01_plan.md)
+          - [\`02_tasks.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/02_tasks.md)
+          - [\`00a_wallbash_log.md\`](https://github.com/${REPO}/blob/${branch}/sessions/initiatives/${INITIATIVE_NAME}/00a_wallbash_log.md)
 
           ---
           **次のステップ**:
-          - フィードバックがある場合: \`@ai-task /continue <フィードバック内容>\` で壁打ちを継続してください
-          - 内容を承認する場合: \`@ai-task /approve\` コメントで実行フェーズに進んでください（フィードバック付き承認: \`@ai-task /approve <フィードバック内容>\`）"
+          - フィードバックがある場合:
+          \`\`\`
+          @ai /continue <フィードバック内容>
+          \`\`\`
+          - 内容を承認する場合:
+          \`\`\`
+          @ai /approve
+          \`\`\`
+          （フィードバック付き承認: \`@ai /approve <フィードバック内容>\`）
+          COMMENT_EOF
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/wallbash_comment.md
 
       - name: Update labels
         if: inputs.mode == 'init'

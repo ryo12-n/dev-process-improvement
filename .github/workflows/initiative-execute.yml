@@ -221,7 +221,8 @@ jobs:
           - ${pr_url}"
           fi
 
-          gh issue comment "$ISSUE_NUMBER" --body "## ゲート判定サマリー
+          cat > /tmp/gate_comment.md << COMMENT_EOF
+          ## ゲート判定サマリー
 
           ${SUMMARY}
 
@@ -230,8 +231,16 @@ jobs:
 
           ---
           **次のステップ**: ゲート判定結果を確認してください。
-          - 承認する場合: \`@ai-task /approve\` コメントでクローズフェーズに進みます
-          - 差し戻す場合: \`@ai-task /reject <フィードバック内容>\` コメントで修正・再実行します"
+          - 承認する場合:
+          \`\`\`
+          @ai /approve
+          \`\`\`
+          - 差し戻す場合:
+          \`\`\`
+          @ai /reject <フィードバック内容>
+          \`\`\`
+          COMMENT_EOF
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/gate_comment.md
 
       - name: Update PR description
         env:
