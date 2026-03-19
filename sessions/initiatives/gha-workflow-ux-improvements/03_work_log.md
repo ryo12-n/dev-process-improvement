@@ -72,3 +72,20 @@
 **判断・気づき**:
 - スキルファイルには `@ai-task` 記載がないため、01_plan.md の #11〜#14 の「`@ai-task` → `@ai` の記載更新（該当箇所がある場合）」は不要。ただし gha-close/SKILL.md への feedback 参照追加と gha-wallbash/SKILL.md への feedback 参照追加は必要
 - README の乖離は想定以上に大きい（存在しないワークフロー2件、記載漏れ2件、トリガー不正確1件）
+
+### [2026-03-19 22:35] 計画項目: 02a_task_division.md 作成
+**状態**: 完了
+**作業内容**:
+- 全5ワークフロー YML + README + 4スキル MD を Read で詳細読み取り、変更箇所をステップ名・行番号で特定
+- 5タスクに分割:
+  - T-001: dispatcher.yml（`@ai-task` → `@ai` + feedback 伝播2箇所）
+  - T-002: wallbash.yml（コメント表示 + feedback prompt + gha-wallbash/SKILL.md）
+  - T-003: execute.yml（コメント表示）
+  - T-004: backlog-to-issue.yml（cron + コメント表示）
+  - T-005: README 全面更新 + close.yml feedback + gha-close/SKILL.md
+- Conflict Check Matrix で12ファイルの競合を検証 → 競合0件
+- Wave Assignment: Wave 1（T-001〜T-004 並列）、Wave 2（T-005 は Wave 1 依存）
+**判断・気づき**:
+- gha-execute/SKILL.md、gha-question/SKILL.md は変更不要と判断（`@ai-task` 記載なし、feedback は既に prompt 経由で渡されている）
+- T-005 に initiative-close.yml の feedback input 追加と gha-close/SKILL.md の feedback 記載を同梱。close.yml は他タスクと MODIFY 競合がなく、README 更新と同時に行うのが整合性確認の観点から効率的
+- T-002 の Risk として HEREDOC 内のフェンスドコードブロック（バッククォート3連）の shell エスケープ問題を記載。`--body-file` パターンの採用を推奨
