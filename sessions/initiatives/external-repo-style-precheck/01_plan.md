@@ -12,7 +12,7 @@
 
 ## 成功基準（全体）
 1. `.claude/skills/l1-manager/agents/l2-worker.md` の壁打ちフェーズチェックリストに「外部リポジトリ成果物の記法スタイル確認（外部リポジトリあり施策のみ）」項目が追加されている
-2. `sessions/initiatives/_template/03_work_log.md` / `03_work_log_W_template.md` の対応項目と表現が整合している
+2. `sessions/initiatives/_template/03_work_log.md` / `03_work_log_W_template.md` の対応項目と意味的に整合している（表現の完全一致は不要）
 3. `rule-change-checklist` に従い連動更新対象を確認し、更新要否を記録している
 
 ## リソース・前提条件
