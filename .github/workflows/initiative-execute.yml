@@ -28,6 +28,11 @@ on:
         description: 'Initiative branch name (e.g. initiative/my-initiative)'
         required: true
         type: string
+      retry_count:
+        description: 'Retry count for automatic re-dispatch (0-2)'
+        required: false
+        type: number
+        default: 0
 
 jobs:
   execute:
@@ -36,6 +41,7 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
+      actions: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
@@ -178,6 +184,19 @@ jobs:
             echo "SUMMARY_EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Extract gate verdict
+        id: verdict
+        env:
+          SUMMARY: ${{ steps.extract.outputs.summary }}
+        run: |
+          verdict=$(echo "$SUMMARY" | grep -oP 'GATE_VERDICT:\s*\K.+' | head -1 | xargs)
+          echo "verdict=$verdict" >> "$GITHUB_OUTPUT"
+          if [ -n "$verdict" ]; then
+            echo "Detected verdict: $verdict"
+          else
+            echo "::notice::GATE_VERDICT not found in summary. Auto-dispatch will be skipped."
+          fi
+
       - name: Post gate review summary to issue
         env:
           GH_TOKEN: ${{ github.token }}
@@ -257,3 +276,43 @@ jobs:
           gh issue edit "$ISSUE_NUMBER" \
             --remove-label "initiative:executing" \
             --add-label "initiative:gate-review" 2>/dev/null || true
+
+      - name: Auto-dispatch based on gate verdict
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERDICT: ${{ steps.verdict.outputs.verdict }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          INITIATIVE_DIR: ${{ inputs.initiative_dir }}
+          BRANCH: ${{ inputs.branch }}
+          RETRY_COUNT: ${{ inputs.retry_count }}
+        run: |
+          if [ -z "$VERDICT" ]; then
+            echo "::notice::No GATE_VERDICT detected. Stopping at gate-review label (conventional behavior)."
+            exit 0
+          fi
+
+          if [ "$VERDICT" = "通過" ] || [ "$VERDICT" = "条件付き通過" ]; then
+            echo "Verdict: $VERDICT — Dispatching initiative-close.yml"
+            gh workflow run initiative-close.yml \
+              -f issue_number="$ISSUE_NUMBER" \
+              -f initiative_dir="$INITIATIVE_DIR" \
+              -f branch="$BRANCH"
+          elif [ "$VERDICT" = "差し戻し" ]; then
+            if [ "$RETRY_COUNT" -lt 2 ]; then
+              next_retry=$((RETRY_COUNT + 1))
+              echo "Verdict: 差し戻し — Self-dispatching initiative-execute.yml (retry $next_retry/2)"
+              gh workflow run initiative-execute.yml \
+                -f issue_number="$ISSUE_NUMBER" \
+                -f command="reject" \
+                -f phase="gate-review" \
+                -f initiative_dir="$INITIATIVE_DIR" \
+                -f branch="$BRANCH" \
+                -f retry_count="$next_retry"
+            else
+              echo "Verdict: 差し戻し — Retry limit reached ($RETRY_COUNT/2). Posting comment."
+              gh issue comment "$ISSUE_NUMBER" \
+                --body "自動リトライ上限（2回）に達しました。手動で \`/approve\` または \`/reject\` を使用してください。"
+            fi
+          else
+            echo "::notice::Unknown verdict: $VERDICT. Stopping at gate-review label."
+          fi
