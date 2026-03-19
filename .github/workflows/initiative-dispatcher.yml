@@ -178,7 +178,8 @@ jobs:
                     -f feedback="$ARGS" \
                     -f phase=wallbashing \
                     -f initiative_dir="$INITIATIVE_DIR" \
-                    -f branch="$BRANCH"
+                    -f branch="$BRANCH" \
+                    -f retry_count="0"
                   dispatch_ok=true
                 fi
               elif [ "$PHASE" = "gate-review" ]; then
