@@ -7,7 +7,7 @@
 
 | Phase | Set | 担当タスク | 方式 | ステータス | Worker 完了 | Evaluator 完了 | 備考 |
 |-------|-----|----------|------|-----------|------------|---------------|------|
-| Phase 2 | set-1 | plan-worker | 逐次 | 未着手 | - | - | |
+| Phase 2 | set-1 | plan-worker | 逐次 | 進行中 | - | - | |
 | Phase 3 | set-1 | plan-evaluator | 逐次 | 未着手 | - | - | |
 | Phase 4 | set-1 | worker | 逐次 | 未着手 | - | - | |
 | Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
@@ -15,6 +15,10 @@
 ## ディスパッチ履歴
 
 ### Phase 2: 計画ワーカー
+
+### [2026-03-19] Phase 2 Plan-Worker 起動
+- 指示内容: 01_plan.md の変更対象8ファイルに基づき、ファイルレベルのタスク分割を作成
+- 完了条件: 02a_task_division.md が作成され、04_work_report.md に計画レポートが記載されている
 
 ### Phase 3: 計画評価
 
