@@ -17,7 +17,7 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 2. **作業開始前の壁打ちフェーズを実施する**（下記参照。記録先: `02_scan_plan.md`）
 3. 壁打ちフェーズ後、`02_scan_plan.md` に分析計画を記載する
 4. リファレンス（`reference/claude-code-config-reference.md`）を読む
-5. Phase 1 の収集レポート（`workers/set-1/04_scan_report.md`）を読む
+5. Phase 1 の収集レポート（`phase-1-collection/set-1/04_scan_report.md`）を読む
 6. 各 CO ターゲットについて現状分析を実施し、作業内容を `03_work_log.md` にタイムスタンプ付きで追記する
 7. `04_scan_report.md` に構造化された分析結果を作成する
 8. 作業中に発見した課題は `07_issues.md` に起票する
@@ -135,13 +135,13 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 
 | ファイル | 操作 |
 |---------|------|
-| `workers/set-2/02_scan_plan.md` | 作成・編集（壁打ち＋分析計画） |
-| `workers/set-2/03_work_log.md` | 追記（作業履歴） |
-| `workers/set-2/04_scan_report.md` | 作成（分析結果レポート） |
-| `workers/set-2/07_issues.md` | 追記（課題起票） |
-| `workers/set-2/01_tasks.md` | 読み取りのみ |
+| `phase-2-analysis/set-1/02_scan_plan.md` | 作成・編集（壁打ち＋分析計画） |
+| `phase-2-analysis/set-1/03_work_log.md` | 追記（作業履歴） |
+| `phase-2-analysis/set-1/04_scan_report.md` | 作成（分析結果レポート） |
+| `phase-2-analysis/set-1/07_issues.md` | 追記（課題起票） |
+| `phase-2-analysis/set-1/01_tasks.md` | 読み取りのみ |
 | `reference/claude-code-config-reference.md` | 読み取りのみ |
-| `workers/set-1/04_scan_report.md` | 読み取りのみ（Phase 1 結果参照） |
+| `phase-1-collection/set-1/04_scan_report.md` | 読み取りのみ（Phase 1 結果参照） |
 | `.claude/` 配下の全ファイル | 読み取りのみ（分析対象） |
 | `CLAUDE.md` | 読み取りのみ（分析対象） |
 

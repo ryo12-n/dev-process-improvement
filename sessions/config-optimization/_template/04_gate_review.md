@@ -5,11 +5,11 @@
 
 ## 判定材料
 - 集約レポート: `03_report.md`
-- Phase 1 情報収集: `workers/set-1/04_scan_report.md`, `phase-1-collection/01_gate.md`
-- Phase 2 現状分析: `workers/set-2/04_scan_report.md`, `phase-2-analysis/01_gate.md`
-- Phase 3 最適化提案: `workers/set-3/04_scan_report.md`, `phase-3-proposal/01_gate.md`
-- 各フェーズ評価レポート: `workers/set-N/06_eval_report.md`
-- 課題一覧: `workers/set-N/07_issues.md`
+- Phase 1 情報収集: `phase-1-collection/set-1/04_scan_report.md`, `phase-1-collection/01_gate.md`
+- Phase 2 現状分析: `phase-2-analysis/set-1/04_scan_report.md`, `phase-2-analysis/01_gate.md`
+- Phase 3 最適化提案: `phase-3-proposal/set-1/04_scan_report.md`, `phase-3-proposal/01_gate.md`
+- 各フェーズ評価レポート: `phase-N-xxx/set-1/06_eval_report.md`
+- 課題一覧: `phase-N-xxx/set-1/07_issues.md`
 
 ## 判定
 

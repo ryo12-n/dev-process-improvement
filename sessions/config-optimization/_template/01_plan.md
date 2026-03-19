@@ -32,7 +32,7 @@
 
 | 項目 | 内容 |
 |------|------|
-| タスクファイル | `workers/set-1/01_tasks.md` |
+| タスクファイル | `phase-1-collection/set-1/01_tasks.md` |
 | ワーカー | config-collection-worker |
 | 重点収集対象 | <!-- 事前調査で特に更新が必要と判断した領域 --> |
 
@@ -40,7 +40,7 @@
 
 | 項目 | 内容 |
 |------|------|
-| タスクファイル | `workers/set-2/01_tasks.md` |
+| タスクファイル | `phase-2-analysis/set-1/01_tasks.md` |
 | ワーカー | config-analysis-worker |
 | 重点分析対象 | <!-- 事前調査で特にギャップが疑われる領域 --> |
 
@@ -48,7 +48,7 @@
 
 | 項目 | 内容 |
 |------|------|
-| タスクファイル | `workers/set-3/01_tasks.md` |
+| タスクファイル | `phase-3-proposal/set-1/01_tasks.md` |
 | ワーカー | config-proposal-worker |
 | 提案の方向性 | <!-- 事前調査を踏まえた提案の方向性 --> |
 

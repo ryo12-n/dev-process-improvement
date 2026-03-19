@@ -18,8 +18,8 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 | パラメータ | 説明 |
 |-----------|------|
 | `phase` | 評価対象フェーズ（1: Collection / 2: Analysis / 3: Proposal） |
-| `eval_plan_file` | 評価計画の書き込み先（`workers/set-N/05_eval_plan.md`） |
-| `eval_report_file` | 評価レポートの書き込み先（`workers/set-N/06_eval_report.md`） |
+| `eval_plan_file` | 評価計画の書き込み先（`phase-N-xxx/set-1/05_eval_plan.md`） |
+| `eval_report_file` | 評価レポートの書き込み先（`phase-N-xxx/set-1/06_eval_report.md`） |
 | `target_files` | 評価対象の成果物ファイル一覧 |
 | `success_criteria` | フェーズ固有の成功基準 |
 

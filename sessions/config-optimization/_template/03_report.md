@@ -16,7 +16,7 @@
 
 ## Phase 1: 情報収集結果
 
-<!-- workers/set-1/12_collection_report.md からマージして記載する -->
+<!-- phase-1-collection/set-1/12_collection_report.md からマージして記載する -->
 
 ### リファレンス更新サマリ
 
@@ -32,7 +32,7 @@
 
 ## Phase 2: 現状分析結果
 
-<!-- workers/set-2/22_analysis_report.md からマージして記載する -->
+<!-- phase-2-analysis/set-1/22_analysis_report.md からマージして記載する -->
 
 ### CO ターゲット別ギャップサマリ
 
@@ -48,7 +48,7 @@
 
 ## Phase 3: 最適化提案結果
 
-<!-- workers/set-3/32_proposal_report.md からマージして記載する -->
+<!-- phase-3-proposal/set-1/32_proposal_report.md からマージして記載する -->
 
 ### 提案サマリマトリクス
 
