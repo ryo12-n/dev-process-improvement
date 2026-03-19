@@ -139,6 +139,50 @@ name: triageWorker
 3. per-worker ファイル（`03_work_log_W<N>.md`, `07_issues_W<N>.md`）がマネージャーにより事前作成されていること
 4. 並列化による効果がオーバーヘッドを上回ること（小規模施策では逐次を推奨）
 
+### 4.3 3フェーズセッションの標準ディレクトリ構成
+
+3フェーズセッション（config-optimizer, session-consistency 等）のテンプレートとランタイムパスは以下の標準パターンに従う。
+
+#### テンプレート構成
+
+```
+sessions/<session-type>/_template/
+├── 00_pre_investigation.md
+├── 01_plan.md
+├── 02_dispatch_log.md
+├── 03_report.md
+├── 04_gate_review.md
+├── phase-1-<name>/
+│   ├── 01_gate.md
+│   └── _template/           ← Phase 直下に _template/（workers/ 中間ディレクトリ不要）
+│       ├── 01_tasks.md
+│       ├── 02_scan_plan.md
+│       ├── 03_work_log.md
+│       ├── 04_scan_report.md
+│       ├── 05_eval_plan.md
+│       ├── 06_eval_report.md
+│       └── 07_issues.md
+├── phase-2-<name>/
+│   ├── 01_gate.md
+│   └── _template/
+└── phase-3-<name>/
+    ├── 01_gate.md
+    └── _template/
+```
+
+#### ランタイムパス
+
+Phase 開始時にマネージャーが `_template/` を `set-1/` にコピーして使用する:
+
+- `phase-1-<name>/set-1/01_tasks.md`
+- `phase-2-<name>/set-1/01_tasks.md`
+- `phase-3-<name>/set-1/01_tasks.md`
+
+#### 禁止パターン
+
+- `phase-N-xxx/workers/_template/` — `workers/` 中間ディレクトリは不要
+- `workers/set-N/` — Phase 名を含まないフラットなセット番号
+
 ---
 
 ## 5. 既存セッションタイプとの整合性

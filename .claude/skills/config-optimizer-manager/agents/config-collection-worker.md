@@ -118,12 +118,12 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "WebSearch", "WebFetch"
 
 | ファイル | 操作 |
 |---------|------|
-| `workers/set-1/02_scan_plan.md` | 作成・編集（壁打ち＋収集計画） |
-| `workers/set-1/03_work_log.md` | 追記（作業履歴） |
-| `workers/set-1/04_scan_report.md` | 作成（収集結果レポート） |
-| `workers/set-1/07_issues.md` | 追記（課題起票） |
+| `phase-1-collection/set-1/02_scan_plan.md` | 作成・編集（壁打ち＋収集計画） |
+| `phase-1-collection/set-1/03_work_log.md` | 追記（作業履歴） |
+| `phase-1-collection/set-1/04_scan_report.md` | 作成（収集結果レポート） |
+| `phase-1-collection/set-1/07_issues.md` | 追記（課題起票） |
 | `reference/claude-code-config-reference.md` | 編集（リファレンス更新） |
-| `workers/set-1/01_tasks.md` | 読み取りのみ |
+| `phase-1-collection/set-1/01_tasks.md` | 読み取りのみ |
 
 ---
 

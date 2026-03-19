@@ -52,17 +52,17 @@ user-invocable: false
 
 ### 1.3 記録先ファイルの対応
 
-| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 | 同期系 | バックログメンテナンス系 | オートメーション系 | セッション一貫性系 |
-|---------|----------------|-------------|-----------|--------|---------------------|------------------|-----------------|
-| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
-| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md |
-| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md |
-| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
-| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md |
-| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
-| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
-| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 03_report.md |
+| ステージ | イニシアティブ系 | トリアージ系 | メタ認知系 | 同期系 | バックログメンテナンス系 | オートメーション系 | セッション一貫性系 | config最適化系 |
+|---------|----------------|-------------|-----------|--------|---------------------|------------------|-----------------|-----------------|
+| 壁打ち | 03_work_log.md / 05_eval_plan.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 03_work_log.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md | 02_scan_plan.md / 05_eval_plan.md / 00_pre_investigation.md |
+| 計画 | 01_plan.md / 03_work_log.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md / 05_eval_plan.md | 01_plan.md | 01_plan.md | 01_plan.md | 01_plan.md |
+| 作業履歴 | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md | 03_work_log.md |
+| 課題起票 | 07_issues.md（中間バッファ）→ CSV | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 | 07_issues.md（中間バッファ）→ マネージャーが CSV 転記 |
+| 気づき記録 | 04_work_report.md / 06_eval_report.md | 04_scan_report.md | 04_scan_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md |
+| レポート | 04_work_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_sync_report.md / 06_eval_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md | 04_scan_report.md / 06_eval_report.md / 03_report.md |
+| 評価 | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md | 05_eval_plan.md → 06_eval_report.md |
+| ゲート判定 | 08_gate_review.md | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 08_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） | 04_gate_review.md + PR レビュー（ユーザー承認） |
+| 知見集約 | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 08_gate_review.md 横展開テーブル | 03_report.md | 03_report.md | 03_report.md | 03_report.md |
 
 ---
 
