@@ -9,7 +9,7 @@ jobs:
     if: >
       github.event.issue.pull_request == null &&
       github.event.comment.user.login != 'github-actions[bot]' &&
-      contains(github.event.comment.body, '@ai-task')
+      contains(github.event.comment.body, '@ai')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,19 +32,19 @@ jobs:
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
         run: |
-          # @ai-task /command [args...] の形式をパース
-          command=$(echo "$COMMENT_BODY" | grep -oP '@ai-task\s+/\K\S+' | head -1)
+          # @ai /command [args...] の形式をパース
+          command=$(echo "$COMMENT_BODY" | grep -oP '@ai\s+/\K\S+' | head -1)
 
           if [ -z "$command" ]; then
             echo "error=unknown_command" >> "$GITHUB_OUTPUT"
-            echo "error_message=コマンドが認識できません。\`@ai-task /start\`, \`/continue <フィードバック>\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+            echo "error_message=コマンドが認識できません。\`@ai /start\`, \`/continue <フィードバック>\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           echo "command=$command" >> "$GITHUB_OUTPUT"
 
           # コマンド以降のテキストを引数として抽出（複数行対応）
-          args=$(echo "$COMMENT_BODY" | sed '1,/@ai-task\s\+\/'"$command"'/{s/.*@ai-task\s\+\/'"$command"'\s*//;}')
+          args=$(echo "$COMMENT_BODY" | sed '1,/@ai\s\+\/'"$command"'/{s/.*@ai\s\+\/'"$command"'\s*//;}')
 
           # 複数行対応で GITHUB_OUTPUT に書き込み（HEREDOC 形式）
           {
@@ -141,7 +141,8 @@ jobs:
                 echo "error_message=この Issue は既に initiative として開始されています（現在のフェーズ: ${PHASE}）。" >> "$GITHUB_OUTPUT"
               else
                 gh workflow run initiative-wallbash.yml \
-                  -f issue_number="$ISSUE_NUMBER"
+                  -f issue_number="$ISSUE_NUMBER" \
+                  -f feedback="$ARGS"
                 dispatch_ok=true
               fi
               ;;
@@ -190,7 +191,8 @@ jobs:
                   gh workflow run initiative-close.yml \
                     -f issue_number="$ISSUE_NUMBER" \
                     -f initiative_dir="$INITIATIVE_DIR" \
-                    -f branch="$BRANCH"
+                    -f branch="$BRANCH" \
+                    -f feedback="$ARGS"
                   dispatch_ok=true
                 fi
               else
@@ -238,7 +240,7 @@ jobs:
               ;;
             *)
               echo "action=error" >> "$GITHUB_OUTPUT"
-              echo "error_message=不明なコマンド: \`/${COMMAND}\`。\`/start\`, \`/continue <フィードバック>\`, \`/approve\`, \`/reject\`, \`/question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
+              echo "error_message=不明なコマンド: \`/${COMMAND}\`。\`@ai /start\`, \`@ai /continue <フィードバック>\`, \`@ai /approve\`, \`@ai /reject\`, \`@ai /question <質問>\` のいずれかを使用してください。" >> "$GITHUB_OUTPUT"
               ;;
           esac
 

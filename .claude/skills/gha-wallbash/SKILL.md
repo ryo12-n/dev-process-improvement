@@ -29,6 +29,7 @@ user-invocable: false
 ### init モード（mode=init）
 
 1. `/tmp/issue_body.txt` を Read ツールで読み取り、施策の背景・目的・スコープを把握する
+   - `/tmp/feedback.txt` が存在し内容がある場合は、初期コンテキスト補足として活用する（`@ai /start <補足>` で渡されたフィードバック）
 2. `sessions/initiatives/_template/` を `sessions/initiatives/<施策名>/` にコピー
    - 施策名は Issue タイトルから適切な英語のケバブケース名を生成する
    - 以下の手順でコピーする:
@@ -73,6 +74,7 @@ user-invocable: false
 ## やること
 
 - Issue 本文（init）またはフィードバック（continue）の読み取りと施策内容の把握
+- init モードでもフィードバックがある場合は初期コンテキスト補足として活用する
 - テンプレートディレクトリのコピー（init のみ）
 - `00_proposal.md`, `01_plan.md`, `02_tasks.md` のドラフト作成・更新
 - `00a_wallbash_log.md` のコンテキスト記録

@@ -2,7 +2,7 @@ name: Backlog to Issue
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0 */3 * * *'
   workflow_dispatch:
     inputs:
       backlog_id:
@@ -74,16 +74,22 @@ jobs:
           ENTRY_CONTENT: ${{ steps.entry.outputs.content }}
           ENTRY_FILE: ${{ steps.find.outputs.file }}
         run: |
-          issue_url=$(gh issue create \
-            --title "[${BACKLOG_ID}] ${INITIATIVE_NAME}" \
-            --body "${ENTRY_CONTENT}
+          cat > /tmp/issue_body.md << ISSUE_EOF
+          ${ENTRY_CONTENT}
 
           ---
           > **起票元**: backlog-to-issue ワークフロー（${BACKLOG_ID}）
           > **バックログファイル**: \`backlog/entries/${ENTRY_FILE}\`
 
           ---
-          💡 **使い方**: この Issue に \`@ai-task /start\` とコメントすると施策を開始できます。")
+          💡 **使い方**: この Issue に以下のコマンドをコメントすると施策を開始できます。
+          \`\`\`
+          @ai /start
+          \`\`\`
+          ISSUE_EOF
+          issue_url=$(gh issue create \
+            --title "[${BACKLOG_ID}] ${INITIATIVE_NAME}" \
+            --body-file /tmp/issue_body.md)
 
           # Issue 番号を抽出
           issue_number=$(echo "$issue_url" | grep -oP '\d+$')

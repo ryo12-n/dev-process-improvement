@@ -29,15 +29,15 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | dispatcher.yml: `@ai-task` → `@ai` + feedback 伝播 | dispatcher.yml 内に `@ai-task` 残存なし、feedback が wallbash/close に渡される | 🔴 | ⬜ |
-| T-002 | wallbash.yml: コメント表示改善 + `@ai` + init feedback | コマンドがフェンスドコードブロック + `@ai`、init で feedback が prompt に渡る | 🔴 | ⬜ |
-| T-003 | execute.yml: コメント表示改善 + `@ai` | コマンドがフェンスドコードブロック + `@ai` | 🔴 | ⬜ |
-| T-004 | backlog-to-issue.yml: cron 3h + `@ai` | cron `0 */3 * * *`、Issue 本文が `@ai /start` | 🔴 | ⬜ |
-| T-005 | close.yml feedback + gha スキル更新 + README 全面最新化 | close.yml に feedback input、gha-wallbash/close SKILL に feedback 記述、README 実態一致 | 🔴 | ⬜ |
-| T-006 | 知見記録（固定タスク） | ルール化候補・参考情報の両テーブルに最低1行 | 🔴 | ⬜ |
-| T-007 | メタルール横断検証（固定・ルール変更） | 3領域の検証結果が work_report に記載 | 🔴 | ⬜ |
-| T-008 | ルール変更チェックリスト（固定・ルール変更） | 全7項目の結果が work_log に記録 | 🔴 | ⬜ |
-| T-009 | 課題 CSV 転記確認（固定タスク） | 全課題に転記済/転記不要の判断 | 🔴 | ⬜ |
+| T-001 | dispatcher.yml: `@ai-task` → `@ai` + feedback 伝播 | dispatcher.yml 内に `@ai-task` 残存なし、feedback が wallbash/close に渡される | 🔴 | ✅ |
+| T-002 | wallbash.yml: コメント表示改善 + `@ai` + init feedback | コマンドがフェンスドコードブロック + `@ai`、init で feedback が prompt に渡る | 🔴 | ✅ |
+| T-003 | execute.yml: コメント表示改善 + `@ai` | コマンドがフェンスドコードブロック + `@ai` | 🔴 | ✅ |
+| T-004 | backlog-to-issue.yml: cron 3h + `@ai` | cron `0 */3 * * *`、Issue 本文が `@ai /start` | 🔴 | ✅ |
+| T-005 | close.yml feedback + gha スキル更新 + README 全面最新化 | close.yml に feedback input、gha-wallbash/close SKILL に feedback 記述、README 実態一致 | 🔴 | ✅ |
+| T-006 | 知見記録（固定タスク） | ルール化候補・参考情報の両テーブルに最低1行 | 🔴 | ✅ |
+| T-007 | メタルール横断検証（固定・ルール変更） | 3領域の検証結果が work_report に記載 | 🔴 | ✅ |
+| T-008 | ルール変更チェックリスト（固定・ルール変更） | 全7項目の結果が work_log に記録 | 🔴 | ✅ |
+| T-009 | 課題 CSV 転記確認（固定タスク） | 全課題に転記済/転記不要の判断 | 🔴 | ✅ |
 
 ## タスク詳細
 
