@@ -28,6 +28,10 @@
 
 ### Phase 3: 計画評価
 
+### [2026-03-19] Phase 3 Plan-Evaluator 起動
+- 評価対象: 02a_task_division.md, 04_work_report.md
+- 評価基準: 01_plan.md の成功基準
+
 ### Phase 4: 実施ワーカー
 
 ### Phase 5: 評価ワーカー
