@@ -135,3 +135,48 @@ S規模3件（T-002, T-003, T-005）を実施した。T-002 は initiative-dispa
 ---
 **作成者**: L2-worker W2
 **作成日**: 2026-03-19
+
+---
+
+# 作業レポート: gha-pipeline-autorun — Worker W1 (T-001)
+
+## サマリ
+
+T-001: `initiative-execute.yml` に自動連鎖ディスパッチを追加した。ゲート判定結果（GATE_VERDICT）を自動抽出し、結果に応じて initiative-close.yml のディスパッチ（通過/条件付き通過時）、セルフリトライ（差し戻し時、最大2回）、手動介入要求（リトライ上限到達時）を行う。GHA セキュリティチェックリスト全5項目を遵守。
+
+## タスク実績
+
+| ID | タスク | 計画 | 実績 | 差異・備考 |
+|----|--------|------|------|-----------|
+| T-001 | `initiative-execute.yml` に自動連鎖ディスパッチを追加 | L規模・4箇所の変更 | 完了 | 計画通り。inputs追加、permissions追加、verdict抽出ステップ追加、自動連鎖ディスパッチステップ追加 |
+
+## 成果物一覧
+- `.github/workflows/initiative-execute.yml` — 自動連鎖ディスパッチ追加済み（プライマリ成果物）
+- `03_work_log_W1.md` — 壁打ちフェーズ記録 + 作業履歴
+
+## 発生した課題
+- なし（07_issues_W1.md への起票不要）
+
+## 作業中の知見
+
+### ルール化候補（.claude/rules/ や roles/ に反映できるパターン）
+
+| # | 知見 | 発見元 | 対象ファイル・領域 | 詳細 |
+|---|------|--------|-----------------|------|
+| 1 | GHA ワークフロー間の自動連鎖では verdict 抽出と分岐を分離したステップにすると可読性・デバッグ性が向上する | T-001 実装 | `.github/workflows/initiative-execute.yml` | verdict 抽出を独立ステップ（`Extract gate verdict`）にし、自動ディスパッチステップ（`Auto-dispatch based on gate verdict`）で `steps.verdict.outputs.verdict` を参照する設計により、各ステップの責務が明確になった |
+
+### 参考情報（文脈依存の気づき・今後の参考）
+
+| # | 知見 | 発見元 | 背景・文脈 |
+|---|------|--------|-----------|
+| 1 | `grep -oP` の Perl 互換正規表現は Ubuntu runner ではデフォルトで利用可能 | T-001 実装 | `GATE_VERDICT: <判定>` の抽出に `grep -oP 'GATE_VERDICT:\s*\K.+'` を使用。`\K`（先読みリセット）により前方のラベル部分を除外して判定値のみ取得できる |
+| 2 | `retry_count` の型は `number` だが `gh workflow run -f` では文字列として渡す必要がある | T-001 実装 | GHA の `workflow_dispatch` inputs の `type: number` は UI バリデーション用であり、`gh workflow run -f` では `-f retry_count="$next_retry"` のように文字列として渡す。シェル内の算術演算 `$((RETRY_COUNT + 1))` で整数比較・インクリメントが正常動作する |
+
+## 所感・次フェーズへの申し送り
+- 既存ステップのロジックは一切変更しておらず、新規ステップの追加のみで実装完了
+- verdict 未検出時は従来動作（gate-review ラベルで停止）にフォールバックするため、後方互換性を維持
+- T-005（SKILL.md への GATE_VERDICT 出力制約追加）との結合が必要。GATE_VERDICT がスキル側で出力されないと verdict 未検出扱いとなり従来動作にフォールバックする
+
+---
+**作成者**: L2-worker W1
+**作成日**: 2026-03-19
