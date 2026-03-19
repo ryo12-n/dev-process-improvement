@@ -1,0 +1,98 @@
+name: Initiative Batch Approve
+
+on:
+  workflow_dispatch:
+
+jobs:
+  batch-approve:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: List wallbashing issues
+        id: list
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # initiative:wallbashing ラベルの open Issue を一覧取得
+          issues=$(gh issue list \
+            --label "initiative:wallbashing" \
+            --state open \
+            --json number \
+            --jq '.[].number')
+
+          if [ -z "$issues" ]; then
+            echo "No issues found with initiative:wallbashing label"
+            echo "issue_numbers=" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found issues: $issues"
+            # 改行区切りをそのまま保持
+            {
+              echo "issue_numbers<<ISSUES_EOF"
+              echo "$issues"
+              echo "ISSUES_EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Batch dispatch approve
+        if: steps.list.outputs.issue_numbers != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBERS: ${{ steps.list.outputs.issue_numbers }}
+          REPO: ${{ github.repository }}
+        run: |
+          dispatched=0
+          skipped=0
+
+          while IFS= read -r issue_number; do
+            [ -z "$issue_number" ] && continue
+
+            echo "--- Processing Issue #${issue_number} ---"
+
+            # Issue のコメントからメタデータコメントを検索
+            meta_body=$(gh api "repos/${REPO}/issues/${issue_number}/comments" \
+              --jq '[.[] | select(.body | contains("initiative-metadata"))][0].body' 2>/dev/null || echo "")
+
+            if [ -z "$meta_body" ]; then
+              echo "::warning::Issue #${issue_number}: No initiative metadata comment found. Skipping."
+              skipped=$((skipped + 1))
+              continue
+            fi
+
+            # メタデータから initiative_dir と branch を抽出
+            initiative_dir=$(echo "$meta_body" | grep 'initiative_dir:' | head -1 | sed 's/.*initiative_dir:[[:space:]]*//')
+            branch=$(echo "$meta_body" | grep 'branch:' | head -1 | sed 's/.*branch:[[:space:]]*//')
+
+            if [ -z "$initiative_dir" ] || [ -z "$branch" ]; then
+              echo "::warning::Issue #${issue_number}: initiative_dir or branch not found in metadata. Skipping."
+              skipped=$((skipped + 1))
+              continue
+            fi
+
+            echo "  initiative_dir: ${initiative_dir}"
+            echo "  branch: ${branch}"
+
+            # initiative-execute.yml をディスパッチ
+            gh workflow run initiative-execute.yml \
+              -f issue_number="$issue_number" \
+              -f command=approve \
+              -f phase=wallbashing \
+              -f initiative_dir="$initiative_dir" \
+              -f branch="$branch" \
+              -f retry_count="0"
+
+            echo "  Dispatched initiative-execute.yml for Issue #${issue_number}"
+            dispatched=$((dispatched + 1))
+
+          done <<< "$ISSUE_NUMBERS"
+
+          # 処理サマリーをログ出力
+          echo ""
+          echo "=== Batch Approve Summary ==="
+          echo "Dispatched: ${dispatched}"
+          echo "Skipped: ${skipped}"
+          echo "Total: $((dispatched + skipped))"
