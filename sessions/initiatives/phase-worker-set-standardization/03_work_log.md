@@ -136,3 +136,117 @@
 ---
 
 ## 作業ログ（実施フェーズ）
+
+### [2026-03-19 12:00] タスクID: T-001
+**状態**: 完了（前セッションで実施済み）
+**作業内容**:
+- session-consistency テンプレートの workers/_template/ → _template/ への git mv（3 Phase 分）
+- コミット 4dac7b1 で実施済み
+
+### [2026-03-19 12:05] タスクID: T-002
+**状態**: 完了
+**作業内容**:
+- config-optimization の workers/_template/ 7ファイルを各 phase-N-xxx/_template/ にコピー
+- git rm -r workers/ でルート workers/ を削除
+- 各 phase-N-xxx/_template/ に 7ファイル存在確認
+**成果物**: sessions/config-optimization/_template/phase-{1,2,3}-*/_template/ に各7ファイル
+
+### [2026-03-19 12:10] タスクID: T-003
+**状態**: 完了
+**作業内容**:
+- session-consistency-manager SKILL.md の全パス参照を更新
+- phase-N-xxx/workers/_template/ → phase-N-xxx/_template/
+- phase-N-xxx/workers/set-1/ → phase-N-xxx/set-1/
+- grep -c "workers/" で 0 件確認
+
+### [2026-03-19 12:15] タスクID: T-004
+**状態**: 完了
+**作業内容**:
+- config-optimizer-manager SKILL.md の全パス参照を更新
+- workers/set-1/ → phase-1-collection/set-1/
+- workers/set-2/ → phase-2-analysis/set-1/
+- workers/set-3/ → phase-3-proposal/set-1/
+- workers/set-N/ → phase-N-xxx/set-1/
+- _template/workers/_template/ → phase-N-xxx/_template/
+- grep -c "workers/set-\|workers/_template" で 0 件確認
+
+### [2026-03-19 12:20] タスクID: T-005
+**状態**: 完了
+**作業内容**:
+- session-consistency エージェント定義 4ファイルのパス更新
+- sc-collection-worker.md, sc-analysis-worker.md, sc-proposal-worker.md, sc-evaluator.md
+- workers/set-1/ → set-1/ に一括置換
+- 全4ファイルで grep -c "workers/set-1" が 0
+
+### [2026-03-19 12:25] タスクID: T-006
+**状態**: 完了
+**作業内容**:
+- config-optimizer エージェント定義 4ファイルのパス更新
+- config-collection-worker.md: workers/set-1/ → phase-1-collection/set-1/
+- config-analysis-worker.md: workers/set-2/ → phase-2-analysis/set-1/
+- config-proposal-worker.md: workers/set-3/ → phase-3-proposal/set-1/
+- config-optimizer-evaluator.md: workers/set-N/ → phase-N-xxx/set-1/
+- 全4ファイルで grep -c "workers/set-" が 0
+
+### [2026-03-19 12:30] タスクID: T-007
+**状態**: 完了
+**作業内容**:
+- session-flow-policy §4 の後に §4.3「3フェーズセッションの標準ディレクトリ構成」を追加
+- テンプレート構成・ランタイムパス・禁止パターンを文書化
+- 44行追加
+
+### [2026-03-19 12:35] タスクID: T-008
+**状態**: 完了
+**作業内容**:
+- session-lifecycle-policy §1.3 テーブルに「config最適化系」列を追加
+- Python スクリプトで列挿入（テーブル横幅が広いため）
+- 内容はセッション一貫性系と同じ構成
+
+### [2026-03-19 12:40] タスクID: T-009
+**状態**: 完了
+**作業内容**:
+- docs/workflow.md の2フロー図を更新
+- config最適化フロー（L634-695）: workers/set-N/ → phase-N-xxx/set-1/
+- セッション一貫性フロー（L698-761）: phase-N-xxx/workers/set-1/ → phase-N-xxx/set-1/
+- 両フロー図内で grep -c "workers/" が 0
+
+### [2026-03-19 12:45] タスクID: T-010
+**状態**: 完了
+**作業内容**:
+- 横断 grep で旧パス残存チェック実施
+- SKILL.md/エージェント定義: 対象スコープ内で 0 件 PASS
+- テンプレートディレクトリ: 各 phase-N-xxx/_template/ に 7ファイル PASS
+- session-flow-policy §4.3: 存在確認 PASS
+- session-lifecycle-policy §1.3 config最適化系: 存在確認 PASS
+- 追加発見: sessions/*/_template/*.md 内にも旧パス参照が残存 → 即時修正（01_plan.md, 03_report.md, 04_gate_review.md × 2セッション分）
+**課題・気づき**: テンプレート .md ファイル内のパス参照は SKILL.md 更新時に見落としやすい
+
+### [2026-03-19 12:50] タスクID: T-011
+**状態**: 完了
+**作業内容**:
+- rule-change-checklist 全7項目を確認:
+  1. 関連ファイル一覧の確認: PASS（4つの変更 SKILL.md の関連ファイルを確認・連動更新実施済み）
+  2. docs/workflow.md の更新: PASS（T-009 で更新済み）
+  3. TG-008 基準の連動更新: N/A（ライフサイクルステージの追加なし、ディレクトリ構造変更のみ）
+  4. パス変更の走査対象網羅性: PASS（.claude/skills/, sessions/, docs/ を走査。backlog/ に歴史的参照あるが更新不要）
+  5. deny リスト変更: N/A
+  6. テンプレートの連動更新: PASS（sessions/*/_template/ を T-010 で修正済み）
+  7. コミットメッセージ規約: N/A（新セッション種別の追加なし）
+- 3領域メタルール検証:
+  1. メタルールフロー記述: PASS（session-flow-policy §4.3 + session-lifecycle-policy §1.3）
+  2. workflow.md 同期: PASS（2フロー図更新済み）
+  3. TG-008 基準連動: N/A
+
+### [2026-03-19 12:55] タスクID: T-012
+**状態**: 完了
+**作業内容**:
+- 04_work_report.md の「作業中の知見」セクションに知見を記録
+- ルール化候補: 3件（テンプレート .md パス見落ち、テーブル操作手法、config-optimizer パス体系の複雑性）
+- 参考情報: 2件（backlog 内歴史的参照、reference ファイル内参照）
+
+### [2026-03-19 13:00] タスクID: T-013
+**状態**: 完了
+**作業内容**:
+- 07_issues.md を確認: 未転記メモなし
+- 作業中に施策をまたぐ課題は発生せず
+- 転記対象課題なし
