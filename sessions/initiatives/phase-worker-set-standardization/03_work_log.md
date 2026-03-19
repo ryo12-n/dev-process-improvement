@@ -92,3 +92,47 @@
 **状態**: 完了
 **作業内容**:
 - 計画レポート・知見を 04_work_report.md に記載
+
+---
+
+## 壁打ちフェーズ [2026-03-19 11:00]
+
+### 理解のサマリー
+- タスクの目的: T-001〜T-013 を逐次実行し、Phase/ワーカーセット構成の標準パターン化を実施する
+- スコープ: テンプレートディレクトリ移動、SKILL.md・エージェント定義のパス更新、ポリシーファイル更新、docs/workflow.md 更新、横断検証、メタルール検証、知見記録、課題転記
+- 完了条件: T-001〜T-013 全完了、03_work_log.md に作業履歴、04_work_report.md に作業レポート、07_issues.md の課題転記完了
+- Worker ID: なし（順次ディスパッチ）
+
+### 前提条件チェック
+- [x] 依存タスクの完了状態: 完了（計画ワーカーの 02a_task_division.md 作成済み）
+- [x] 必要ツール・コマンドの利用可否: 確認済み（git mv, git rm, Read, Edit, Grep, Glob）
+- [x] 環境の準備状況: 確認済み — session-consistency の 3 Phase に workers/_template/ あり（各7ファイル）、config-optimization に workers/_template/ あり（7ファイル）、各 phase-N-xxx/ に 01_gate.md のみ
+- [x] Worker ID 確認: 指定なし → 本体ファイル使用
+- [x] per-worker ファイルの存在確認: 該当なし
+
+### 不明点・確認事項
+なし
+
+確認事項なし：実施開始
+
+---
+
+## タスク実施計画
+
+1. T-001: `git mv` で session-consistency テンプレートの `workers/_template/` → `_template/` に移動（3 Phase 分）
+2. T-002: config-optimization の `workers/_template/` 7ファイルを各 Phase の `_template/` にコピー → `git rm -r workers/`
+3. T-003: session-consistency-manager SKILL.md のパス参照更新
+4. T-004: config-optimizer-manager SKILL.md のパス参照更新（最も変更箇所が多い）
+5. T-005: session-consistency エージェント定義 4ファイルのパス更新
+6. T-006: config-optimizer エージェント定義 4ファイルのパス更新
+7. T-007: session-flow-policy §4.3 追加
+8. T-008: session-lifecycle-policy §1.3 に config最適化系列追加
+9. T-009: docs/workflow.md 2フロー図更新
+10. T-010: 横断検証
+11. T-011: メタルール横断検証 + rule-change-checklist
+12. T-012: 知見記録
+13. T-013: 課題転記
+
+---
+
+## 作業ログ（実施フェーズ）
