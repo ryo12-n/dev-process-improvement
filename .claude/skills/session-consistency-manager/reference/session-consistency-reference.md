@@ -121,13 +121,13 @@ session-flow-policy §3.2 の対称性要件:
 |----------------|---------------|----------|------------|
 | initiatives | `sessions/initiatives/_template/` | 13 | 00_proposal, 00a_wallbash_log, 01_plan, 02_tasks, 02a_task_division, 03_work_log, 03_work_log_W_template, 04_work_report, 05_eval_plan, 06_eval_report, 07_issues, 07_issues_W_template, 08_gate_review |
 | impl | `sessions/impl/_template/` | 6+phase dirs | 00_proposal, 01_plan, 02_impl_design, 07_issues, 07_issues_W_template, 08_gate_summary + phase-1〜4 |
-| triage | `sessions/triage/_template/` | 5+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + workers/ |
-| metacognition | `sessions/metacognition/_template/` | 5+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + workers/ |
+| triage | `sessions/triage/_template/` | 5+phase-1-scan | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1-scan/ |
+| metacognition | `sessions/metacognition/_template/` | 5+phase-1-analysis | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1-analysis/ |
 | sync | `sessions/sync/_template/` | 9 | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_work_log, 04_sync_report, 05_eval_plan, 06_eval_report, 07_issues, 08_gate_review |
-| backlog-maintenance | `sessions/backlog-maintenance/_template/` | 5+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + workers/ |
-| automation | `sessions/automation/_template/` | 5+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + workers/ |
-| config-optimization | `sessions/config-optimization/_template/` | 5+phase+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1〜3/ + workers/ |
-| session-consistency | `sessions/session-consistency/_template/` | 5+phase+workers | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1〜3/ + workers/ |
+| backlog-maintenance | `sessions/backlog-maintenance/_template/` | 5+phase-1-scan | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1-scan/ |
+| automation | `sessions/automation/_template/` | 5+phase-1-scan | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1-scan/ |
+| config-optimization | `sessions/config-optimization/_template/` | 5+phase | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1〜3/ |
+| session-consistency | `sessions/session-consistency/_template/` | 5+phase | 00_pre_investigation, 01_plan, 02_dispatch_log, 03_report, 04_gate_review + phase-1〜3/ |
 
 ### テンプレート ↔ 担当ファイル突合結果
 
@@ -135,7 +135,7 @@ session-flow-policy §3.2 の対称性要件:
 |----------------|---------------|----------------|------|------|
 | initiatives (l2-worker) | 00a_wallbash_log, 02a_task_division, 03_work_log_W_template, 05_eval_plan, 06_eval_report, 07_issues_W_template, 08_gate_review | issues/entries/ | 02_tasks, 03_work_log, 03_work_log_W, 04_work_report, 07_issues, 07_issues_W | Worker は自分の担当ファイルのみ操作。テンプレートにはマネージャー・評価者のファイルも含む |
 | initiatives (l2-evaluator) | 00_proposal, 00a_wallbash_log, 02a_task_division, 02_tasks(read), 03_work_log, 03_work_log_W_template, 07_issues_W_template, 08_gate_review | issues/entries/, refs/agency-agents/ | 01_plan(read), 04_work_report(read), 05_eval_plan, 06_eval_report, 07_issues | 正常。evaluator は work_report を読み取り、eval 成果物を作成 |
-| triage (worker) | — | inbox/*.md, backlog/entries/ | 01_tasks, 02_scan_plan, 03_work_log, 04_scan_report, 07_issues | ワーカーセット内テンプレートは workers/_template/ で別管理 |
+| triage (worker) | — | inbox/*.md, backlog/entries/ | 01_tasks, 02_scan_plan, 03_work_log, 04_scan_report, 07_issues | ワーカーセット内テンプレートは phase-1-scan/_template/ で別管理 |
 | sync (worker) | 00_pre_investigation, 02_dispatch_log, 05_eval_plan, 06_eval_report, 08_gate_review | — | 01_plan(read), 03_work_log, 04_sync_report, 07_issues | 正常。テンプレートにはマネージャー・評価者のファイルも含む |
 
 ---
@@ -301,10 +301,10 @@ session-lifecycle-policy §1.4 のテンプレート構成仕様。各セッシ�
 | セッションタイプ | 仕様セクション | 仕様ファイル数 | 実体ファイル数 | Missing | Extra | 整合 | 備考 |
 |----------------|-------------|-------------|-------------|---------|-------|------|------|
 | initiatives | §1.4.3 | 15 | 15 | 0 | 0 | OK | |
-| triage | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
-| metacognition | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
-| backlog-maintenance | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
-| automation | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | workers/_template/ 含む |
+| triage | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | phase-1-scan/_template/ 含む |
+| metacognition | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | phase-1-analysis/_template/ 含む |
+| backlog-maintenance | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | phase-1-scan/_template/ 含む |
+| automation | §1.4.4 | 5+7 | 5+7 | 0 | 0 | OK | phase-1-scan/_template/ 含む |
 | config-optimization | §1.4.5 | 5+3×(1+7) | 5+3×(1+7) | 0 | 0 | OK | 3 phase × (gate + 7 worker files) |
 | session-consistency | §1.4.5 | 5+3×(1+7) | 5+3×(1+7) | 0 | 0 | OK | 3 phase × (gate + 7 worker files) |
 | sync | §1.4.6 | 9 | 9 | 0 | 0 | OK | |

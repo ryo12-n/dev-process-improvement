@@ -117,6 +117,12 @@ jobs:
             pr_link="
           ### Pull Request
           - ${pr_url}"
+          else
+            compare_url="https://github.com/${REPO}/compare/main...${BRANCH}"
+            pr_link="
+          ### Pull Request
+          PR が自動作成されていません。以下の URL から手動で作成してください:
+          - ${compare_url}"
           fi
 
           gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
