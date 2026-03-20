@@ -10,7 +10,7 @@
 | Phase 2 | set-1 | plan-worker | 逐次 | 完了 | 2026-03-19 | - | |
 | Phase 3 | set-1 | plan-evaluator | 逐次 | 完了 | - | 2026-03-19 | |
 | Phase 4 | set-1 | worker | 逐次 | 完了 | 2026-03-20 | - | |
-| Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
+| Phase 5 | set-1 | evaluator | 逐次 | 完了 | - | 2026-03-20 | |
 
 ## ディスパッチ履歴
 
@@ -53,6 +53,17 @@
 - 次アクション: Evaluator 起動
 
 ### Phase 5: 評価ワーカー
+
+### [2026-03-20] Phase 5 Evaluator 起動（Set-1）
+- 評価対象: 8ファイルのポリシー・スキル定義変更 + 04_work_report.md
+- 評価基準: 01_plan.md の成功基準6項目
+
+### [2026-03-20] Phase 5 Evaluator 完了（Set-1）
+- 評価結果: 合格（E-01〜E-09 全項目 PASS、成功基準6項目すべて達成）
+- 成果物: 05_eval_plan.md, 06_eval_report.md
+- 情報提供課題: 2件（GHA旧名残存・MC-002アーカイブ参照、いずれもスコープ外）
+- **コストデータ**: input_tokens=_____ output_tokens=_____
+- 次アクション: Phase 6 ゲート判定
 
 ---
 **記録者**: L1
