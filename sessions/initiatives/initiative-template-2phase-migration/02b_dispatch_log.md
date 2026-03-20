@@ -10,7 +10,7 @@
 | Phase 2 | set-1 | plan-worker | 逐次 | 完了 | 2026-03-20 | - | |
 | Phase 3 | set-1 | plan-evaluator | 逐次 | スキップ | - | - | 小規模施策、L1直接確認 |
 | Phase 4 | set-1 | worker | 逐次 | 完了 | 2026-03-20 | - | |
-| Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
+| Phase 5 | set-1 | evaluator | 逐次 | 進行中 | - | - | |
 
 ## ディスパッチ履歴
 
@@ -62,17 +62,10 @@
 
 ### Phase 5: 評価ワーカー
 
-<!--
-### [YYYY-MM-DD HH:MM] Phase 5 Evaluator 起動
-- 評価対象: 04_work_report.md
-- 評価基準: 02_tasks.md の完了条件
-
-### [YYYY-MM-DD HH:MM] Phase 5 Evaluator 完了
-- 評価結果: 承認 / 要修正
-- 成果物: 05_eval_plan.md, 06_eval_report.md
-- **コストデータ**: input_tokens=_____ output_tokens=_____
-- 次アクション: ゲート判定 / 差し戻し
--->
+### [2026-03-20] Phase 5 Evaluator 起動
+- 評価対象: phase-2-execution/set-1/03_worker_report.md
+- 評価基準: 02_plan.md の成功基準（7項目）
+- 完了条件: phase-2-execution/set-1/06_eval_report.md に評価結果が記載されている
 
 ---
 **記録者**: L1
