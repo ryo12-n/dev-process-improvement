@@ -134,9 +134,9 @@ name: triageWorker
 
 並列ディスパッチは `.claude/rules/parallel-dev.md` に従い、以下をすべて満たす場合のみマネージャー判断で許可する。
 
-1. `02a_task_division.md` の Conflict Check Matrix でファイル書き込み競合がないこと
+1. `phase-1-planning/set-N/08_task_division.md` の Conflict Check Matrix でファイル書き込み競合がないこと
 2. Wave Assignment で依存関係に基づく Wave 分割が定義されていること
-3. per-worker ファイル（`03_work_log_W<N>.md`, `07_issues_W<N>.md`）がマネージャーにより事前作成されていること
+3. set ディレクトリ（`phase-2-execution/set-N/`）がマネージャーにより事前作成されていること
 4. 並列化による効果がオーバーヘッドを上回ること（小規模施策では逐次を推奨）
 
 ### 4.3 3フェーズセッションの標準ディレクトリ構成

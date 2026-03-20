@@ -1,7 +1,7 @@
 # 並列ディスパッチルール
 
 > **このルールの位置づけ**
-> マネージャーセッション（l1-manager, l1-impl-manager 等）が複数ワーカーを並列ディスパッチする際の前提条件・ファイル分離パターン・運用ルールを定義する。
+> マネージャーセッション（l1-manager, l1-impl-manager 等）が複数ワーカーを並列ディスパッチする際の前提条件・set コピー方式・運用ルールを定義する。
 > `manager-common-policy` §2.2 から参照される。
 
 ---
@@ -12,39 +12,45 @@
 
 | # | 条件 | 検証方法 |
 |---|------|---------|
-| 1 | **Conflict Check Matrix 検証済み** | `02a_task_division.md` の Conflict Check Matrix で、同一 Wave 内のタスク間にファイル書き込み競合（同一ファイルに対する複数タスクの CREATE/MODIFY）がないことを確認 |
-| 2 | **Wave 割当定義済み** | `02a_task_division.md` の Wave Assignment で、依存関係に基づく Wave 分割が定義されている |
-| 3 | **per-worker ファイル作成済み** | 各ワーカーの per-worker ファイル（下記 §2）がマネージャーにより事前に作成されている |
+| 1 | **Conflict Check Matrix 検証済み** | `phase-1-planning/set-N/08_task_division.md` の Conflict Check Matrix で、同一 Wave 内のタスク間にファイル書き込み競合（同一ファイルに対する複数タスクの CREATE/MODIFY）がないことを確認 |
+| 2 | **Wave 割当定義済み** | `phase-1-planning/set-N/08_task_division.md` の Wave Assignment で、依存関係に基づく Wave 分割が定義されている |
+| 3 | **set ディレクトリ作成済み** | 各ワーカーの set ディレクトリ（下記 §2）がマネージャーにより事前に作成されている |
 
 **フェールセーフ**: 条件が1つでも満たされていない場合、マネージャーはディスパッチを中止し、不足分を補完してからリトライする。
 
 ---
 
-## §2 per-worker ファイル分離パターン
+## §2 set コピー方式
 
-並列ディスパッチ時、ワーカー間のファイル競合を防ぐため、以下のファイルを per-worker 単位で分離する。
+並列ディスパッチ時、ワーカー間のファイル競合を防ぐため、phase 内の `_template/` を `set-N/` にコピーして各ワーカーに割り当てる。
 
-### §2.1 分離対象ファイル
+### §2.1 set ディレクトリの作成
 
-| 本体ファイル | per-worker ファイル | 用途 |
-|-------------|-------------------|------|
-| `03_work_log.md` | `03_work_log_W<N>.md` | ワーカー N の作業履歴 |
-| `07_issues.md` | `07_issues_W<N>.md` | ワーカー N の課題起票 |
+`phase-2-execution/_template/` を `phase-2-execution/set-N/` にコピーする（N = 1, 2, 3, ...）。
 
-- `<N>` はワーカー番号（1, 2, 3, ...）
-- per-worker ファイルは `_template/03_work_log_W_template.md`、`_template/07_issues_W_template.md` からコピーして作成する
+各 set ディレクトリには以下のワーカーセット 7 ファイルが含まれる:
 
-### §2.2 分離不要なファイル
+| ファイル | 用途 |
+|---------|------|
+| `01_worker_plan.md` | タスク理解・不明点解消（壁打ち） |
+| `02_worker_log.md` | 作業中の判断・メモ |
+| `03_worker_report.md` | 振り返り・課題発見 |
+| `04_eval_plan.md` | 評価観点の整理（壁打ち） |
+| `05_eval_log.md` | 評価中の判断・メモ |
+| `06_eval_report.md` | 評価結果・改善点 |
+| `07_issues.md` | 課題バッファ |
 
-以下のファイルは per-worker 分離不要（各ワーカーの成果物として独立して作成されるため）。
+各 set は独立したワーキングスペースであり、ワーカー間のファイル競合が構造的に発生しない。
 
-- `04_work_report.md` — 順次ディスパッチ時と同じく、最後にまとめて作成する
+### §2.2 set 内の作業分離
+
+set 方式では、ワーカーの全成果物が `set-N/` 内に完結する。`03_worker_report.md` も set 内に作成されるため、分離不要ファイルの概念は不要。
 
 ### §2.3 順次ディスパッチ時の扱い
 
-順次ディスパッチ（従来方式）の場合は per-worker ファイルを使用しない。ワーカーは本体ファイル（`03_work_log.md`、`07_issues.md`）に直接記録する。
+順次ディスパッチ（単一ワーカー）の場合は `set-1/` を使用する。マネージャーは `_template/` を `set-1/` にコピーしてワーカーに割り当てる。
 
-**判別条件**: マネージャーから Worker ID（`W<N>`）が指定されている場合は per-worker ファイルを使用する。Worker ID が指定されていない場合は本体ファイルを使用する。
+**判別条件**: マネージャーから set 番号（`set-N`）が指定されている場合はその set ディレクトリを使用する。set 番号が指定されていない場合は `set-1/` を使用する。
 
 ---
 
@@ -57,8 +63,8 @@
 
 ### §3.2 Wave ディスパッチ手順
 
-1. `02a_task_division.md` の Wave Assignment を確認する
-2. 各ワーカーの per-worker ファイルを作成する（§2.1）
+1. `phase-1-planning/set-N/08_task_division.md` の Wave Assignment を確認する
+2. 各ワーカーの set ディレクトリを作成する（§2.1）
 3. 事前検証チェックリスト（§3.3）を実行する
 4. Wave 内の各ワーカーをサブエージェントとして並列起動する
 5. 全ワーカー完了を待つ
@@ -68,7 +74,7 @@
 ### §3.3 事前検証チェックリスト
 
 ```
-1. [ ] per-worker ファイル（03_work_log_W<N>.md, 07_issues_W<N>.md）が作成済み
+1. [ ] set ディレクトリ（phase-2-execution/set-N/）が作成済み
 2. [ ] Conflict Check Matrix で同一 Wave 内にファイル競合なし
 3. [ ] 前 Wave の完了後処理が完了済み（Wave > 1 の場合）
 ```
@@ -77,43 +83,43 @@
 
 ## §4 成果物統合手順
 
-Wave 完了後（または全 Wave 完了後）に、マネージャーが per-worker ファイルを本体ファイルに統合する。
+Wave 完了後（または全 Wave 完了後）に、マネージャーが set 間の課題を集約する。
 
 ### §4.1 統合手順
 
-1. **課題ファイルの統合**: 各 `07_issues_W<N>.md` の内容を `07_issues.md` に転記する
-   - 課題IDの重複がないことを確認する
-   - 転記元の per-worker ファイルは削除しない（証跡として保持）
-2. **作業ログの確認**: 各 `03_work_log_W<N>.md` の内容を確認する
+1. **課題ファイルの集約確認**: 各 `phase-2-execution/set-N/07_issues.md` の内容を確認する
+   - 施策をまたぐ課題が `issues/entries/ISS-XXX.md` に転記されていることを確認する
+   - 各 set の課題ファイルは個別ファイルとして保持する（ワーカー別の作業経緯を追跡可能にするため）
+2. **作業ログの確認**: 各 `phase-2-execution/set-N/02_worker_log.md` の内容を確認する
    - 全ワーカーが完了状態であることを確認する
-   - per-worker ファイルは統合せず、個別ファイルとして保持する（ワーカー別の作業経緯を追跡可能にするため）
-3. **タスクステータスの更新**: `02_tasks.md` の該当タスクのステータスを更新する
+3. **タスクステータスの更新**: `03_tasks.md` の該当タスクのステータスを更新する
 
 ### §4.2 統合後チェックリスト
 
 ```
 1. [ ] 全ワーカーが完了（COMPLETE）または停止（BLOCK）状態
-2. [ ] per-worker 課題ファイルの内容が 07_issues.md に統合済み
-3. [ ] 02_tasks.md のタスクステータスが更新済み
+2. [ ] 各 set の課題ファイルの内容が確認済み（施策をまたぐ課題は ISS 転記済み）
+3. [ ] 03_tasks.md のタスクステータスが更新済み
 ```
 
 ---
 
 ## §5 worktree 方式への escalation パス
 
-本ルールの per-worker ファイル分離パターンは、文書中心リポジトリ（dev-process-improvement）を主な適用対象として設計されている。
+本ルールの set コピー方式は、文書中心リポジトリ（dev-process-improvement）を主な適用対象として設計されている。
 
-コード実装を伴う外部リポジトリでの並列ディスパッチでは、per-worker ファイル分離に加え、git worktree による物理隔離が必要になる場合がある。その場合は `l1-impl-manager/SKILL.md` の「並列ディスパッチ機構」セクションを参照すること。
+コード実装を伴う外部リポジトリでの並列ディスパッチでは、set コピー方式に加え、git worktree による物理隔離が必要になる場合がある。その場合は `l1-impl-manager/SKILL.md` の「並列ディスパッチ機構」セクションを参照すること。
 
 ### 判断基準
 
 | 条件 | 推奨方式 |
 |------|---------|
-| 文書中心の変更（`.claude/skills/`、`sessions/`、`docs/` 等） | per-worker ファイル分離（本ルール） |
-| コード実装を伴う外部リポジトリの変更 | per-worker ファイル分離 + git worktree（l1-impl-manager 参照） |
+| 文書中心の変更（`.claude/skills/`、`sessions/`、`docs/` 等） | set コピー方式（本ルール） |
+| コード実装を伴う外部リポジトリの変更 | set コピー方式 + git worktree（l1-impl-manager 参照） |
 
 ---
 
 **作成日**: 2026-03-17
-**関連施策**: `sessions/initiatives/l1-manager-enhanced-planning/`
+**最終更新**: 2026-03-20（per-worker ファイル方式 → set コピー方式に改訂）
+**関連施策**: `sessions/initiatives/l1-manager-enhanced-planning/`, `sessions/initiatives/template-structure-unification/`
 **参照元**: `manager-common-policy` §2.2、`session-flow-policy` §4.2
