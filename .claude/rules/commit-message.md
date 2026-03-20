@@ -35,7 +35,7 @@ dev-process-improvement 配下で行うすべての git コミットに適用す
 |-------------|----------|------|-----|
 | `L1` | sessions/initiatives/ 配下のディレクトリ名 | 提案・計画・タスク作成・ゲート判定 | `[L1] commit-message-rules: 提案・計画を作成` |
 | `L2-worker` | 同上 | タスク実施・作業記録・レポート作成（l2-plan-worker を含む） | `[L2-worker] commit-message-rules: ルールファイルを作成` |
-| `L2-evaluator` | 同上 | 評価計画・評価実施・レポート作成（l2-plan-evaluator を含む） | `[L2-evaluator] commit-message-rules: 評価レポートを作成` |
+| `L2-evaluator` | 同上 | 評価計画・評価実施・レポート作成 | `[L2-evaluator] commit-message-rules: 評価レポートを作成` |
 
 ### 非施策作業（EVL-001 対応）
 

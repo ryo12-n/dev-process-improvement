@@ -296,7 +296,7 @@ _template/
 | 実施者 | 評価者 | オーケストレーター |
 |--------|--------|-----------------|
 | L2-worker | L2-evaluator | L1-manager |
-| l2-plan-worker | l2-plan-evaluator | L1-manager |
+| l2-plan-worker | L1-manager（直接確認） | L1-manager |
 | investigation-worker / design-worker / impl-plan-worker / impl-worker | impl-evaluator | l1-impl-manager |
 | triage-worker | triage-evaluator | triage-manager |
 | metacognition-worker | metacognition-evaluator | metacognition-manager |

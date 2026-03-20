@@ -58,7 +58,7 @@ user-invocable: false
 
 ### §2.3 計画ワーカーディスパッチパターン（l1-manager 固有）
 
-l1-manager は実施ワーカー（l2-worker）のディスパッチ前に、計画ワーカー（l2-plan-worker）→計画評価者（l2-plan-evaluator）の順でディスパッチし、ファイルレベルのタスク分割（`phase-1-planning/set-N/08_task_division.md`）を作成させる。計画ワーカーの出力を参考に `03_tasks.md` を作成した後、通常の実施ワーカーディスパッチに進む。詳細は `l1-manager/SKILL.md` の Phase 2〜3 を参照。
+l1-manager は実施ワーカー（l2-worker）のディスパッチ前に、計画ワーカー（l2-plan-worker）をディスパッチし、ファイルレベルのタスク分割（`phase-1-planning/set-N/08_task_division.md`）を作成させる。L1 が直接成果物を確認し、`03_tasks.md` を作成した後、通常の実施ワーカーディスパッチに進む。詳細は `l1-manager/SKILL.md` の Phase A を参照。
 
 ---
 
