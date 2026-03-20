@@ -71,15 +71,15 @@ user-invocable: false
 
 | ステージ | マネージャー | ワーカー | 評価ワーカー |
 |---------|------------|---------|------------|
-| 壁打ち | 00_proposal.md, 00a_wallbash_log.md | 03_work_log.md | 05_eval_plan.md |
-| 計画 | 01_plan.md, 02_tasks.md | 03_work_log.md（実施計画を記載） | 05_eval_plan.md |
-| 作業履歴 | — | 03_work_log.md | — |
-| 課題起票 | 08_gate_review.md（集約転記） | 07_issues.md → CSV | 07_issues.md → CSV |
-| 気づき記録 | — | 04_work_report.md | 06_eval_report.md |
-| レポート | — | 04_work_report.md | 06_eval_report.md |
-| 評価 | — | — | 05_eval_plan.md → 06_eval_report.md |
-| ゲート判定 | 08_gate_review.md | — | — |
-| 知見集約 | 08_gate_review.md 横展開テーブル | — | — |
+| 壁打ち | 01_proposal.md, 00_wallbash_log.md | phase-\*/set-N/01_worker_plan.md | phase-\*/set-N/04_eval_plan.md |
+| 計画 | 02_plan.md, 03_tasks.md | phase-\*/set-N/01_worker_plan.md（実施計画を記載） | phase-\*/set-N/04_eval_plan.md |
+| 作業履歴 | — | phase-\*/set-N/02_worker_log.md | — |
+| 課題起票 | 05_gate_review.md（集約転記） | phase-\*/set-N/07_issues.md → CSV | phase-\*/set-N/07_issues.md → CSV |
+| 気づき記録 | — | phase-\*/set-N/03_worker_report.md | phase-\*/set-N/06_eval_report.md |
+| レポート | — | phase-\*/set-N/03_worker_report.md | phase-\*/set-N/06_eval_report.md |
+| 評価 | — | — | phase-\*/set-N/04_eval_plan.md → phase-\*/set-N/06_eval_report.md |
+| ゲート判定 | 05_gate_review.md | — | — |
+| 知見集約 | 05_gate_review.md 横展開テーブル | — | — |
 
 #### パターン B: 3フェーズ標準（triage, meta, bm, auto, co, sc 共通）
 
@@ -132,19 +132,20 @@ _template/
 | ファイル | 用途 | 適用パターン |
 |---------|------|-----------|
 | `00_pre_investigation.md` | 事前調査（壁打ち） | 3-phase, sync, multi-phase |
-| `00_proposal.md` | 提案書（壁打ち） | initiative, impl |
-| `00a_wallbash_log.md` | 壁打ちログ | initiative |
-| `01_plan.md` | 計画 | 全パターン |
+| `01_proposal.md` | 提案書（壁打ち） | initiative, impl |
+| `00_wallbash_log.md` | 壁打ちログ | initiative |
+| `01_plan.md` | 計画 | 全パターン（initiative 以外） |
+| `02_plan.md` | 計画 | initiative |
 | `02_dispatch_log.md` | ディスパッチ記録 | 3-phase, multi-phase |
-| `02_tasks.md` | タスクリスト | initiative |
-| `02a_task_division.md` | 並列タスク分割 | initiative（並列時） |
-| `02b_dispatch_log.md` | ディスパッチ記録 | initiative |
+| `03_tasks.md` | タスクリスト | initiative |
+| `04_dispatch_log.md` | ディスパッチ記録 | initiative |
 | `02_impl_design.md` | 実装設計 | impl |
 | `03_report.md` | 集約レポート | 3-phase, multi-phase |
 | `04_gate_review.md` | ゲートレビュー | 3-phase, multi-phase |
-| `08_gate_review.md` | ゲートレビュー | initiative, sync |
+| `05_gate_review.md` | ゲートレビュー | initiative |
+| `08_gate_review.md` | ゲートレビュー | sync |
 | `08_gate_summary.md` | ゲートサマリー | impl |
-| `09_cost_record.md` | コスト分析 | initiative |
+| `06_cost_record.md` | コスト分析 | initiative |
 
 #### §1.4.2 ワーカーセットテンプレート（共通 7 ファイル）
 
@@ -160,29 +161,61 @@ _template/
 | `06_eval_report.md` | 評価ワーカー | 評価レポート |
 | `07_issues.md` | ワーカー / 評価ワーカー | 課題バッファ |
 
-#### §1.4.3 Initiative テンプレート（15 ファイル、フラット構造）
+##### initiative 向けワーカーセットテンプレート（7 ファイル）
 
-`sessions/initiatives/_template/`:
+initiative の `phase-N-xxx/_template/` 配下:
 
 | ファイル | ロールオーナー | 用途 |
 |---------|-------------|------|
-| `00_proposal.md` | マネージャー | 提案書 |
-| `00a_wallbash_log.md` | マネージャー | 壁打ちログ |
-| `01_plan.md` | マネージャー | 計画 |
-| `02_tasks.md` | マネージャー | タスクリスト |
-| `02a_task_division.md` | マネージャー | 並列タスク分割 |
-| `02b_dispatch_log.md` | マネージャー | ディスパッチ記録 |
-| `03_work_log.md` | ワーカー | 作業履歴 |
-| `03_work_log_W_template.md` | ワーカー（並列） | 並列用作業履歴テンプレート |
-| `04_work_report.md` | ワーカー | 作業レポート |
-| `05_eval_plan.md` | 評価ワーカー | 評価計画 |
-| `06_eval_report.md` | 評価ワーカー | 評価レポート |
+| `01_worker_plan.md` | ワーカー | タスク理解・不明点解消（壁打ち） |
+| `02_worker_log.md` | ワーカー | 作業中の判断・メモ |
+| `03_worker_report.md` | ワーカー | 振り返り・課題発見 |
+| `04_eval_plan.md` | 評価ワーカー | 評価観点の整理（壁打ち） |
+| `05_eval_log.md` | 評価ワーカー | 評価中の判断・メモ |
+| `06_eval_report.md` | 評価ワーカー | 評価結果・改善点 |
 | `07_issues.md` | ワーカー / 評価ワーカー | 課題バッファ |
-| `07_issues_W_template.md` | ワーカー（並列） | 並列用課題テンプレート |
-| `08_gate_review.md` | マネージャー | ゲートレビュー |
-| `09_cost_record.md` | マネージャー | コスト分析 |
 
-> **構造上の特徴**: phase 分割なし。ワーカー/評価ワーカーのファイルがルート直下に混在。将来のマネージャー/ワーカー層分離は別施策で検討。
+#### §1.4.3 Initiative テンプレート（2-phase 構造）
+
+> **移行中（2026-03-20）**: 本セクションは新テンプレート構造（2-phase + ワーカーセット 7 ファイル）を定義している。実際のテンプレートファイル・ディレクトリ構造の改修は後続施策で実施予定。ポリシーと実ファイルの間に乖離がある期間が存在する。
+
+`sessions/initiatives/_template/`:
+
+```
+_template/
+├── 00_wallbash_log.md              ← マネージャー（壁打ちログ）
+├── 01_proposal.md                  ← マネージャー（提案書）
+├── 02_plan.md                      ← マネージャー（計画）
+├── 03_tasks.md                     ← マネージャー（タスクリスト）
+├── 04_dispatch_log.md              ← マネージャー（ディスパッチ記録）
+├── 05_gate_review.md               ← マネージャー（ゲートレビュー）
+├── 06_cost_record.md               ← マネージャー（コスト分析）
+│
+├── phase-1-planning/
+│   ├── 01_gate.md                  ← phase ゲート
+│   └── _template/                  ← plan-worker/plan-evaluator set テンプレート
+│       ├── 01_worker_plan.md       ← plan-worker: タスク理解・不明点解消
+│       ├── 02_worker_log.md        ← plan-worker: 作業中の判断・メモ
+│       ├── 03_worker_report.md     ← plan-worker: 振り返り・課題発見
+│       ├── 04_eval_plan.md         ← plan-evaluator: 評価観点の整理
+│       ├── 05_eval_log.md          ← plan-evaluator: 評価中の判断・メモ
+│       ├── 06_eval_report.md       ← plan-evaluator: 評価結果・改善点
+│       ├── 07_issues.md            ← 共有: 課題バッファ
+│       └── 08_task_division.md     ← 成果物（ファイルレベルタスク分割）
+│
+└── phase-2-execution/
+    ├── 01_gate.md                  ← phase ゲート
+    └── _template/                  ← worker/evaluator set テンプレート
+        ├── 01_worker_plan.md       ← worker: タスク理解・不明点解消
+        ├── 02_worker_log.md        ← worker: 作業中の判断・メモ
+        ├── 03_worker_report.md     ← worker: 振り返り・課題発見
+        ├── 04_eval_plan.md         ← evaluator: 評価観点の整理
+        ├── 05_eval_log.md          ← evaluator: 評価中の判断・メモ
+        ├── 06_eval_report.md       ← evaluator: 評価結果・改善点
+        └── 07_issues.md            ← 共有: 課題バッファ
+```
+
+> **構造上の特徴**: マネージャールートファイル + 2-phase ネスト構造。各 phase 内に `_template/` があり、ワーカーセット 7 ファイル（§1.4.2 initiative 向け）を格納する。並列ディスパッチ時は `_template/` を `set-N/` にコピーして使用する（W_template は不要）。
 
 #### §1.4.4 3-Phase 標準テンプレート（triage, meta, bm, auto）
 
