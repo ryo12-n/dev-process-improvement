@@ -36,10 +36,10 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | テンプレートディレクトリのリネーム | 4セッションの `workers/_template/` → `phase-1-<name>/_template/` 完了 | 🔴 | ⬜ |
-| T-002 | マネージャー SKILL.md のパス参照更新 | triage-manager, metacognition-manager, backlog-maintenance-manager, automation-manager の `workers/` 参照を `phase-1-<name>/` に置換 | 🔴 | ⬜ |
-| T-003 | エージェント定義のパス参照更新 | 8ファイル（worker×4 + evaluator×4）の `workers/` 参照を `phase-1-<name>/` に置換 | 🔴 | ⬜ |
-| T-004 | ポリシー・参照ファイルの更新 | session-lifecycle-policy §1.4.4、session-flow-policy、session-consistency-reference、sc-collection-worker、repo-sync-checklist の `workers/` 参照を更新 | 🔴 | ⬜ |
+| T-001 | テンプレートディレクトリのリネーム | 4セッションの `workers/_template/` → `phase-1-<name>/_template/` 完了 | 🔴 | ✅ |
+| T-002 | マネージャー SKILL.md のパス参照更新 | triage-manager, metacognition-manager, backlog-maintenance-manager, automation-manager の `workers/` 参照を `phase-1-<name>/` に置換 | 🔴 | ✅ |
+| T-003 | エージェント定義のパス参照更新 | 8ファイル（worker×4 + evaluator×4）の `workers/` 参照を `phase-1-<name>/` に置換 | 🔴 | ✅ |
+| T-004 | ポリシー・参照ファイルの更新 | session-lifecycle-policy §1.4.4、session-flow-policy、session-consistency-reference、sc-collection-worker、repo-sync-checklist の `workers/` 参照を更新 | 🔴 | ✅ |
 
 ### T-001 詳細: テンプレートディレクトリのリネーム
 
@@ -86,7 +86,7 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-E01 | 整合性検証 | `.claude/skills/` 配下で `workers/` 残存ゼロ（grep 検証）。全パス参照が正当 | 🔴 | ⬜ |
+| T-E01 | 整合性検証 | `.claude/skills/` 配下で `workers/` 残存ゼロ（grep 検証）。全パス参照が正当 | 🔴 | ✅ |
 
 ---
 **作成者**: L1
