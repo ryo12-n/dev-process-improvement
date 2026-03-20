@@ -7,10 +7,10 @@
 
 | Phase | Set | 担当タスク | 方式 | ステータス | Worker 完了 | Evaluator 完了 | 備考 |
 |-------|-----|----------|------|-----------|------------|---------------|------|
-| Phase 2 | set-1 | plan-worker | 逐次 | 未着手 / 進行中 / 完了 | - | - | |
-| Phase 3 | set-1 | plan-evaluator | 逐次 | 未着手 / 進行中 / 完了 | - | - | |
-| Phase 4 | set-1 | worker | 逐次 / 並列 | 未着手 / 進行中 / 完了 | - | - | |
-| Phase 5 | set-1 | evaluator | 逐次 | 未着手 / 進行中 / 完了 | - | - | |
+| Phase 2 | set-1 | plan-worker | 逐次 | 完了 | 2026-03-20 | - | |
+| Phase 3 | set-1 | plan-evaluator | 逐次 | スキップ | - | - | 小規模施策、L1直接確認 |
+| Phase 4 | set-1 | worker | 逐次 | 完了 | 2026-03-20 | - | |
+| Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
 
 ## ディスパッチ履歴
 
