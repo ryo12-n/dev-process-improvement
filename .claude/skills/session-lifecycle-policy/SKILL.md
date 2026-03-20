@@ -149,7 +149,7 @@ _template/
 
 #### §1.4.2 ワーカーセットテンプレート（共通 7 ファイル）
 
-3-phase / multi-phase の `phase-N-xxx/_template/` または `workers/_template/` 配下:
+3-phase / multi-phase の `phase-N-xxx/_template/` 配下:
 
 | ファイル | ロールオーナー | 用途 |
 |---------|-------------|------|
@@ -226,9 +226,9 @@ _template/
 | ルート | `02_dispatch_log.md` | マネージャー |
 | ルート | `03_report.md` | マネージャー |
 | ルート | `04_gate_review.md` | マネージャー |
-| `workers/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
+| `phase-1-xxx/_template/` | 共通 7 ファイル（§1.4.2） | ワーカー / 評価ワーカー |
 
-> **構造上の特徴**: 事実上 single-phase。`workers/` は概念的に `phase-1/` と同義。将来の `phase-1-xxx/` 統一は別施策で検討。
+> **構造上の特徴**: 事実上 single-phase。`phase-1-xxx/` パターンに統一済み。
 
 #### §1.4.5 Multi-Phase テンプレート（co, sc）
 
