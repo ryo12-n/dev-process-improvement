@@ -1,7 +1,7 @@
 # File-Level Task Division: [施策名]
 
 > このファイルは L2 計画ワーカー（l2-plan-worker）が作成する。
-> L1 マネージャーはこの成果物を参考に `02_tasks.md` を作成する。
+> L1 マネージャーはこの成果物を参考に `03_tasks.md` を作成する。
 
 ## Parallelism Analysis
 
