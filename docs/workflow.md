@@ -15,143 +15,117 @@
     ※ hook の出力（JSON）を確認し、エラーや警告があればユーザーに報告する
                                                                     ↓
   フェーズ0: 壁打ち（理解のサマリー・不明点をユーザーに確認）
-    → 外部リポジトリがある場合: external-repo-cleanup スキルで前セッションのブランチ整理 → 00_proposal.md に記載し、施策ブランチを作成
+    → 外部リポジトリがある場合: external-repo-cleanup スキルで前セッションのブランチ整理 → 01_proposal.md に記載し、施策ブランチを作成
                                                                     ↓
-  Phase 1: 調査・方針決定・計画作成
-    → 提案(00_proposal.md) → 計画(01_plan.md)
-    → 02b_dispatch_log.md・09_cost_record.md を初期化
-    → Phase 1→2 チェック記録（08_gate_review.md — Plan-Worker ディスパッチ前チェック3項目 + フェーズコスト小計）
+  Phase A: 計画（提案・計画・タスク分割・タスク作成）
+    → 提案(01_proposal.md) → 計画(02_plan.md)
+    → 04_dispatch_log.md・06_cost_record.md を初期化
+    ※ ファイル番号体系: 00_wallbash_log / 01_proposal / 02_plan / 03_tasks / 04_dispatch_log / 05_gate_review / 06_cost_record
                                                                     ↓
-  Phase 2: 計画ワーカーディスパッチ
 [L2 計画ワーカー（l2-plan-worker）] ← L1 が Task ツールでサブエージェントとして起動
     壁打ちフェーズ → 対象ファイル・依存関係を分析
-    → 02a_task_division.md を作成（タスク割当・コンフリクトマトリクス・Wave割当・ドメインエージェント推奨）
-    → 04_work_report.md に計画レポートを作成
+    → phase-1-planning/set-N/08_task_division.md を作成（タスク割当・コンフリクトマトリクス・Wave割当・ドメインエージェント推奨）
+    → phase-1-planning/set-N/03_worker_report.md に計画レポートを作成
                                                                     ↓
-  L1: plan-worker 成果物を確認（スコープ網羅・マトリクス完全性・循環依存なし）
-    + 02b_dispatch_log.md に Plan-Worker 完了エントリ（コストデータ含む）を記録
-    + Phase 2→3 チェック記録（08_gate_review.md — Plan-Evaluator ディスパッチ前チェック4項目 + フェーズコスト小計）
+  L1: plan-worker 成果物を直接確認（スコープ網羅・マトリクス完全性・循環依存なし）
+    + 04_dispatch_log.md に Plan-Worker 完了エントリ（コストデータ含む）を記録
     → 品質不十分なら差し戻し
-                                                                    ↓
-  Phase 3: 計画評価・タスク作成
-[L2 計画評価者（l2-plan-evaluator）] ← L1 が Task ツールでサブエージェントとして起動
-    壁打ちフェーズ → 05_eval_plan.md → コンフリクトマトリクス・依存グラフ・Wave割当の正確性を評価
-    → 06_eval_report.md を作成
-                                                                    ↓
-  L1: 02b_dispatch_log.md に Plan-Evaluator 完了エントリ（コストデータ含む）を記録
-    + Phase 3→4 チェック記録（08_gate_review.md — Worker ディスパッチ前チェック5項目 + フェーズコスト小計）
-    → 02a_task_division.md を参考に 02_tasks.md を作成
+    → phase-1-planning/set-N/08_task_division.md を参考に 03_tasks.md を作成
     → ドメインエージェント選定（任意）: refs/agency-agents/knowledge.md を参照し、施策タイプに適したエージェントを選定
-      → 02_tasks.md の「参照ドメインエージェント」セクションに Worker/Evaluator 別に記載（該当なしなら「なし」）
-    ※ 02_tasks.md には CSV 転記の固定タスクを必ず含める（後述）
+      → 03_tasks.md の「参照ドメインエージェント」セクションに Worker/Evaluator 別に記載（該当なしなら「なし」）
+    ※ 03_tasks.md には CSV 転記の固定タスクを必ず含める（後述）
                                                                     ↓
-  Phase 4: 実施ワーカーディスパッチ
+  Phase B: 実施・評価
   ┌─ 判断: 並列 or 逐次? ─────────────────────────────────────────────┐
   │ 並列条件（.claude/rules/parallel-dev.md §1）:                      │
   │   1. Conflict Check Matrix でファイル競合なし                       │
   │   2. Wave 割当定義済み                                             │
-  │   3. per-worker ファイル作成済み                                    │
+  │   3. set ディレクトリ作成済み（set コピー方式）                      │
   │ → 全条件達成: Wave 方式（並列）  → いずれか未達: 逐次（従来方式）    │
   └───────────────────────────────────────────────────────────────────┘
   【逐次ディスパッチ（デフォルト）】
 [L2 ワーカー（実施）] ← L1 が Task ツールでサブエージェントとして起動
-  参照ドメインエージェントがある場合: 02_tasks.md の指定に従いエージェント定義を Read（専門知識として参照のみ、役割は引き受けない）
-  壁打ちフェーズ → 03_work_log.md に実施計画サマリを記載 → タスク実施 → 作業記録を追記
-  → 04_work_report.md を作成（知見セクションへの記載を含む）
-  ※ 外部リポ変更時: 00_proposal.md の外部リポセクション確認 → 施策ブランチにチェックアウト
+  参照ドメインエージェントがある場合: 03_tasks.md の指定に従いエージェント定義を Read（専門知識として参照のみ、役割は引き受けない）
+  壁打ちフェーズ → phase-2-execution/set-N/01_worker_plan.md にタスク理解・実施計画を記載
+  → タスク実施 → phase-2-execution/set-N/02_worker_log.md に作業記録を追記
+  → phase-2-execution/set-N/03_worker_report.md を作成（知見セクションへの記載を含む）
+  ※ 外部リポ変更時: 01_proposal.md の外部リポセクション確認 → 施策ブランチにチェックアウト
     → コミット・プッシュ（main 直接コミット禁止・push 省略禁止）
-  ※ 課題発見時: 07_issues.md に一時メモ → 施策完了時に issues/entries/ISS-XXX.md へ転記（CSV は自動生成）
+  ※ 課題発見時: phase-2-execution/set-N/07_issues.md に一時メモ → 施策完了時に issues/entries/ISS-XXX.md へ転記（CSV は自動生成）
 
   【並列ディスパッチ（Wave 方式）】— .claude/rules/parallel-dev.md 参照
   L1 事前準備:
-    → per-worker ファイル作成（03_work_log_W<N>.md, 07_issues_W<N>.md をテンプレートからコピー）
+    → phase-2-execution/_template/ を phase-2-execution/set-N/ にコピー（set コピー方式）
     → 事前検証チェックリスト実行
-  Wave 1: [Worker W1] [Worker W2] ... ← 並列起動（Worker ID 付き）
-    → 各 Worker は per-worker ファイルに記録
+  Wave 1: [Worker set-1] [Worker set-2] ... ← 並列起動（set 番号付き）
+    → 各 Worker は自身の set-N/ 内のファイルに記録
   L1 Wave 完了後処理:
-    → per-worker 課題を 07_issues.md に統合
+    → 各 set の課題を確認（施策をまたぐ課題は ISS 転記済みか確認）
     → タスクステータス更新
   Wave 2: [Wave 1 完了後に次 Wave をディスパッチ]
     → ... 全 Wave 完了まで繰り返す
                                                                     ↓
   L1: worker 成果物を確認（タスク完了状態・課題転記状態）
-    + 02b_dispatch_log.md に Worker 完了エントリ（コストデータ含む）を記録
-    + Phase 4→5 チェック記録（08_gate_review.md — Evaluator ディスパッチ前チェック8項目 + フェーズコスト小計を記録）
-    + 09_cost_record.md にフェーズコスト小計を記録
+    + 04_dispatch_log.md に Worker 完了エントリ（コストデータ含む）を記録
     → 品質不十分なら差し戻し
                                                                     ↓
-  Phase 5: 評価ワーカーディスパッチ
 [L2 ワーカー（評価）] ← L1 が Task ツールでサブエージェントとして起動（worker 完了後に順次起動）
-  参照ドメインエージェントがある場合: 02_tasks.md の Evaluator 向け指定に従いエージェント定義を Read（専門知識として参照のみ、役割は引き受けない）
-  壁打ちフェーズ → 05_eval_plan.md（参照ドメインエージェントセクション含む） → 評価実施 → 06_eval_report.md（知見セクション + ドメインエージェント有効性フィードバックへの記載を含む）
-  → 課題があれば 07_issues.md に追記 → issues/entries/ISS-XXX.md へ転記（CSV は自動生成）
+  参照ドメインエージェントがある場合: 03_tasks.md の Evaluator 向け指定に従いエージェント定義を Read（専門知識として参照のみ、役割は引き受けない）
+  壁打ちフェーズ → phase-2-execution/set-N/04_eval_plan.md（参照ドメインエージェントセクション含む）
+  → 評価実施 → phase-2-execution/set-N/05_eval_log.md に評価中の判断・メモを記録
+  → phase-2-execution/set-N/06_eval_report.md を作成（知見セクション + ドメインエージェント有効性フィードバックへの記載を含む）
+  → 課題があれば phase-2-execution/set-N/07_issues.md に追記 → issues/entries/ISS-XXX.md へ転記（CSV は自動生成）
   ※ ドメインエージェントフィードバックループ: 06_eval_report.md の有効性フィードバック → L1 ゲート判定時に確認 → refs/agency-agents/knowledge.md に反映判断
                                                                     ↓
-  Phase 6: レビュー・ゲート判定
+  最終ゲート判定
 [L1 マネージャー]
-  02b_dispatch_log.md に Evaluator 完了エントリ（コストデータ含む）を記録
-  Phase 5→6 チェック記録（08_gate_review.md — 最終ゲート判定前チェック5項目 + フェーズコスト小計を記録）
-  04・06・07・09 を確認 → 08_gate_review.md にゲート判定 + 施策全体コスト集計を記入
-    → 通過     : 次フェーズのタスクを 02_tasks.md に追記
+  04_dispatch_log.md に Evaluator 完了エントリ（コストデータ含む）を記録
+  phase-2-execution/set-N/ の 03・06・07 + 06_cost_record.md を確認 → 05_gate_review.md にゲート判定 + 施策全体コスト集計を記入
+    → 通過     : 施策完了 → クローズ手順へ
     → 条件付き : 条件対応タスクを追記 → L2 に差し戻し
-    → 差し戻し : 計画修正 → 02_tasks.md 修正 → L2 に差し戻し
+    → 差し戻し : 計画修正 → 03_tasks.md 修正 → L2 に差し戻し
                                                                     ↓
-  施策完了（全フェーズ通過）時:
+  施策完了（通過）時:
     → initiative クローズ手順を実施
-      1. 横展開セクション記載確認（08 の必須把握事項・次施策候補が空欄でないこと）
-      2. 課題転記の完了確認（07 の全課題に [転記済 ISS-XXX] or 転記不要）
+      1. 横展開セクション記載確認（05_gate_review の必須把握事項・次施策候補が空欄でないこと）
+      2. 課題転記の完了確認（各 set の 07_issues.md の全課題に [転記済 ISS-XXX] or 転記不要）
       3. 知見のルーティング実行（CSV / refs / backlog / inbox / なし）
       4. backlog ファイルの削除確認
-      5. backlog entries のステータス確認（00_proposal.md の backlog元ファイル or 施策名で特定）
+      5. backlog entries のステータス確認（01_proposal.md の backlog元ファイル or 施策名で特定）
       6. git mv sessions/initiatives/<施策名>/ sessions/initiatives/_archive/<施策名>/
       7. コミット・push
       8. 外部リポジトリがある場合: 各外部リポで施策ブランチから main への PR を作成
       9. PR 作成（dev-process-improvement 本体）
 ```
 
-### フェーズゲートチェック（08_gate_review.md への累積記録）
-
-L1 マネージャーは施策のライフサイクル中、5段階のフェーズチェックを `08_gate_review.md` に累積記録する。
-
-| チェック | タイミング | 項目数 | 内容 |
-|---------|-----------|--------|------|
-| Phase 1→2 | Plan-Worker ディスパッチ前 | 3項目+コスト小計 | 提案の完全性・成功基準の評価可能性・施策ブランチ + フェーズコスト小計 |
-| Phase 2→3 | Plan-Evaluator ディスパッチ前 | 4項目+コスト小計 | スコープ網羅・マトリクス完全性・循環依存なし・計画レポート + フェーズコスト小計 |
-| Phase 3→4 | Worker ディスパッチ前 | 5項目+コスト小計 | 計画評価完了・タスクID/完了条件/優先度・固定タスク・Set Assignment・ドメインエージェント分離 + フェーズコスト小計 |
-| Phase 4→5 | Evaluator ディスパッチ前 | 8項目+コスト小計 | タスク分類・レポート記載・計画対比実績・知見セクション・課題バッファ・CSV転記・外部リポ・メタルール検証 + フェーズコスト小計 |
-| Phase 5→6 | 最終ゲート判定前 | 5項目+コスト小計 | 評価計画カバー率・エビデンス品質・知見セクション・未転記課題・方針推奨 + フェーズコスト小計 |
-
-各チェックの結果は同一ファイル（`08_gate_review.md`）に順次追記され、施策全体のフェーズ遷移記録として残る。
-
 ### 壁打ちフェーズ（フェーズ0）
 
 各セッション（L1・L2 共通）は作業着手前に壁打ちフェーズを実施する。
 
-- **L1**: `00_proposal.md` 作成前に理解のサマリー・不明点を提示し、ユーザーに確認する
-- **L2-worker**: `03_work_log.md` 冒頭にサマリー・前提条件チェック・不明点を記録。不明点があれば停止してL1の確認を待つ
-- **L2-evaluator**: `05_eval_plan.md` 冒頭に同様のフォーマットで記録
+- **L1**: `01_proposal.md` 作成前に理解のサマリー・不明点を提示し、ユーザーに確認する
+- **L2-worker**: `phase-*/set-N/01_worker_plan.md` 冒頭にサマリー・前提条件チェック・不明点を記録。不明点があれば停止してL1の確認を待つ
+- **L2-evaluator**: `phase-*/set-N/04_eval_plan.md` 冒頭に同様のフォーマットで記録
 
 ### L2 サブエージェントの起動
 
 L1 は L2 を **Task ツール（サブエージェント）** として順番に起動する。同一フェーズ内の worker → evaluator は順次起動すること（並列起動しない）。
 
 起動順序:
-1. Phase 2: L2-plan-worker → Phase 2→3 チェック → L2-plan-evaluator（計画フェーズ）
-2. Phase 3→4: 02_tasks.md 作成（L1が02a_task_division.mdを参考に作成）
-3. Phase 4: L2-worker → Phase 4→5 チェック → L2-evaluator（実施・評価フェーズ）
+1. Phase A: L2-plan-worker → L1 が成果物を直接確認 → 03_tasks.md 作成
+2. Phase B: L2-worker → L1 が成果物確認 → L2-evaluator
 
 起動時に渡す情報: 役割とルールファイル、施策パス、タスク範囲、完了の定義、参照ドメインエージェント（Worker/Evaluator 別に指定可。任意、§10.3 + §10.4 参照）
 
-### 固定タスク（02_tasks.md に必ず含める）
+### 固定タスク（03_tasks.md に必ず含める）
 
 | 対象 | やること | 完了条件 |
 |------|---------|---------|
-| L2-worker（レポート作成時） | `04_work_report.md` の「作業中の知見」に知見を記録 | 「ルール化候補」「参考情報」各テーブルに最低1行 |
-| L2-worker（最終タスク） | `07_issues.md` の未転記課題を `issues/entries/ISS-XXX.md` へ転記（CSV は自動生成） | 全課題に `[転記済 ISS-XXX]` or 「転記不要」が付いている |
-| L2-evaluator（レポート作成時） | `06_eval_report.md` の「評価中の知見」に知見を記録 | 「ルール化候補」「参考情報」各テーブルに最低1行 |
-| L2-evaluator（最終タスク） | 評価中発見の課題を `07_issues.md` 起票 → `issues/entries/ISS-XXX.md` へ転記（CSV は自動生成） | 同上 |
-| L2-worker（ルール・テンプレート変更時） | メタルール横断検証（フロー記述・workflow.md・TG-008基準）を実施し結果を記録 | 3領域の検証結果が `04_work_report.md` に記載 |
-| L2-worker（ルール変更時・追加確認） | `rule-change-checklist` スキル（`.claude/skills/rule-change-checklist/SKILL.md`）の全7項目を確認する（パス変更走査・deny リスト・テンプレート・コミットメッセージ規約を含む） | 全7項目の確認結果（確認済み/修正済み/該当なし）が `03_work_log.md` に記録 |
+| L2-worker（レポート作成時） | `phase-*/set-N/03_worker_report.md` の「作業中の知見」に知見を記録 | 「ルール化候補」「参考情報」各テーブルに最低1行 |
+| L2-worker（最終タスク） | `phase-*/set-N/07_issues.md` の未転記課題を `issues/entries/ISS-XXX.md` へ転記（CSV は自動生成） | 全課題に `[転記済 ISS-XXX]` or 「転記不要」が付いている |
+| L2-evaluator（レポート作成時） | `phase-*/set-N/06_eval_report.md` の「評価中の知見」に知見を記録 | 「ルール化候補」「参考情報」各テーブルに最低1行 |
+| L2-evaluator（最終タスク） | 評価中発見の課題を `phase-*/set-N/07_issues.md` 起票 → `issues/entries/ISS-XXX.md` へ転記（CSV は自動生成） | 同上 |
+| L2-worker（ルール・テンプレート変更時） | メタルール横断検証（フロー記述・workflow.md・TG-008基準）を実施し結果を記録 | 3領域の検証結果が `phase-*/set-N/03_worker_report.md` に記載 |
+| L2-worker（ルール変更時・追加確認） | `rule-change-checklist` スキル（`.claude/skills/rule-change-checklist/SKILL.md`）の全7項目を確認する（パス変更走査・deny リスト・テンプレート・コミットメッセージ規約を含む） | 全7項目の確認結果（確認済み/修正済み/該当なし）が `phase-*/set-N/02_worker_log.md` に記録 |
 
 ## 実装マネージャーセッション フロー
 
@@ -841,10 +815,10 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 |-----------|------|------|
 | §1 | 適用対象 | l1, triage, metacognition, sync, backlog-maintenance, automation, config-optimizer, session-consistency の8マネージャー |
 | §2 | ワーカーディスパッチパターン | 共通4項目（役割・場所・スコープ・完了定義）+ 順序制約（基本逐次） |
-| §3 | 成果物確認観点 | 共通最小3項目（タスク分類・レポート記載・課題バッファ）+ 確認結果の `08_gate_review.md` 記録義務 |
+| §3 | 成果物確認観点 | 共通最小3項目（タスク分類・レポート記載・課題バッファ）+ 確認結果の gate_review 記録義務 |
 | §4 | ゲート判定基準 | 通過 / 条件付き通過 / 差し戻しの3択 |
 | §5 | 知見集約手順 | worker/evaluator の知見を集約 + ルーティング判断基準 |
-| §6 | 課題集約手順 | 07_issues.md → CSV転記 → ISS-XXX.md |
+| §6 | 課題集約手順 | set-N/07_issues.md → CSV転記 → ISS-XXX.md |
 | §7 | 差し戻し手順 | 成果物チェック → NG ならフィードバック・再起動 |
 | §8 | セッションライフサイクル todo 登録 | ブランチ整理後・作業フロー前に TaskCreate でステップ登録、TaskUpdate で進捗追跡 |
 | §9 | 関連ファイル一覧 | 8マネージャースキル + session-flow-policy + session-lifecycle-policy + workflow.md |
@@ -910,7 +884,7 @@ manager-common-policy    ← 「運用パターン」（マネージャーの共
 ### 使い方
 
 - **L1**: フォーマット変換タスクの完了条件に「format-conversion-checklist スキルに従い同等性検証が完了している」を含める
-- **L2-worker**: フォーマット変換後、コミット前にチェックリストのステップ 1〜3 を実施し、検証記録テンプレートで結果を `03_work_log.md` に記録する
+- **L2-worker**: フォーマット変換後、コミット前にチェックリストのステップ 1〜3 を実施し、検証記録テンプレートで結果を `phase-*/set-N/02_worker_log.md` に記録する
 - **L2-evaluator**: 検証記録の存在・棚卸し結果の実態一致・省略不可要素の保持を評価する
 
 詳細な手順・検証記録テンプレート・関連ファイル一覧は `.claude/skills/format-conversion-checklist/SKILL.md` を参照。
@@ -1003,23 +977,38 @@ Claude Code に同梱されるビルトイン（バンドル）skills の、dev-
 > - ☑️ = チェックボックス更新のみ（「読み取りのみ（チェックボックス更新は可）」に対応）
 > - 📝 = 条件付き操作（詳細は脚注を参照）
 
+**マネージャールートファイル**
+
 | ファイル | L1 | L2(実施) | L2(評価) |
 |---------|-----|---------|---------|
-| 00_proposal.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
-| 01_plan.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
-| 02_tasks.md | ✏️ 作成・編集 | ☑️ チェック更新可 | 👁️ 読取 |
-| 02b_dispatch_log.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
-| 03_work_log.md | 👁️ 読取（判断根拠を末尾に追記可）*1 | ✏️ 作成・編集 | 👁️ 読取 |
-| 04_work_report.md | 👁️ 読取 | ✏️ 作成・編集 | 👁️ 読取 |
-| 05_eval_plan.md | 👁️ 読取 | 👁️ 読取 | ✏️ 作成・編集 |
+| 00_wallbash_log.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+| 01_proposal.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+| 02_plan.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+| 03_tasks.md | ✏️ 作成・編集 | ☑️ チェック更新可 | 👁️ 読取 |
+| 04_dispatch_log.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+| 05_gate_review.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+| 06_cost_record.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+
+**ワーカーセットファイル（phase-\*/set-N/ 内）**
+
+| ファイル | L1 | L2(実施) | L2(評価) |
+|---------|-----|---------|---------|
+| 01_worker_plan.md | 👁️ 読取 | ✏️ 作成・編集 | 👁️ 読取 |
+| 02_worker_log.md | 👁️ 読取（判断根拠を末尾に追記可）*1 | ✏️ 作成・編集 | 👁️ 読取 |
+| 03_worker_report.md | 👁️ 読取 | ✏️ 作成・編集 | 👁️ 読取 |
+| 04_eval_plan.md | 👁️ 読取 | 👁️ 読取 | ✏️ 作成・編集 |
+| 05_eval_log.md | 👁️ 読取 | 👁️ 読取 | ✏️ 作成・編集 |
 | 06_eval_report.md | 👁️ 読取 | 👁️ 読取 | ✏️ 作成・編集 |
 | 07_issues.md | 📝 転記判断・代理転記（resume 不可時のみ）*2 | ✏️ 一時メモ起票 | ✏️ 一時メモ起票 |
-| 08_gate_review.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
-| 09_cost_record.md | ✏️ 作成・編集 | 👁️ 読取 | 👁️ 読取 |
+
+**共通ファイル**
+
+| ファイル | L1 | L2(実施) | L2(評価) |
+|---------|-----|---------|---------|
 | プロセス改善_課題管理.csv | 👁️ 自動生成（読取のみ） | 👁️ 自動生成（読取のみ） | 👁️ 自動生成（読取のみ） |
 | issues/entries/ISS-XXX.md | 📝 代理作成（resume 不可時のみ） | ✏️ 作成（CSV転記時） | ✏️ 作成（CSV転記時） |
 
-*1: L1 の判断根拠（分岐の理由・起動の意思決定）は `03_work_log.md` の末尾に記録する（`skills/l1-manager/SKILL.md` 参照）。
+*1: L1 の判断根拠（分岐の理由・起動の意思決定）は `02_worker_log.md` の末尾に記録する（`skills/l1-manager/SKILL.md` 参照）。
 *2: L1 が `07_issues.md` の CSV 転記を行うのは、L2-worker を resume できない場合（コンテキスト消失・セッション期限切れ等）に限る。通常は L2-worker を resume して転記を依頼する（`skills/l1-manager/SKILL.md` 参照）。
 
 
@@ -1035,10 +1024,10 @@ Claude Code に同梱されるビルトイン（バンドル）skills の、dev-
 > **inbox との使い分け**: `inbox/` は人間起票のアイデア・提案専用。AI が起票する課題は `issues/` + CSV に一元化する。
 
 ### 起票（L2 が行う）
-1. 施策実施中に課題・知見・リスクを発見したら `07_issues.md` に一時メモを書く
+1. 施策実施中に課題・知見・リスクを発見したら `phase-*/set-N/07_issues.md` に一時メモを書く
 2. 施策完了時または定期レビュー時に、施策をまたいで再発しうる課題を `issues/entries/ISS-XXX.md` として作成する（CSV は自動生成）
 3. 転記時に `issues/_template.md` をコピーして `issues/entries/ISS-XXX.md` を作成し、課題詳細を記載する。ID は `python3 scripts/generate-csvs.py --next-issue-id` で取得する
-4. 転記した項目は `07_issues.md` に `[転記済 ISS-XXX]` を記して削除する
+4. 転記した項目は `phase-*/set-N/07_issues.md` に `[転記済 ISS-XXX]` を記して削除する
 
 ### 対応方針確定・タスク化（L1 が行う）
 1. `issues/entries/` で `ステータス: 起票` のファイルを確認する

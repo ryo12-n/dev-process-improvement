@@ -16,6 +16,11 @@ on:
         description: 'Initiative branch name (e.g. initiative/my-initiative)'
         required: true
         type: string
+      feedback:
+        description: 'Feedback from the user for close phase'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   close:
@@ -51,6 +56,7 @@ jobs:
             Issue #${{ inputs.issue_number }}
             ブランチ: ${{ inputs.branch }}
             施策ディレクトリ: ${{ inputs.initiative_dir }}
+            フィードバック: ${{ inputs.feedback }}
           claude_args: "--max-turns 50 --model claude-sonnet-4-6"
           show_full_output: true
           settings: |
@@ -111,6 +117,12 @@ jobs:
             pr_link="
           ### Pull Request
           - ${pr_url}"
+          else
+            compare_url="https://github.com/${REPO}/compare/main...${BRANCH}"
+            pr_link="
+          ### Pull Request
+          PR が自動作成されていません。以下の URL から手動で作成してください:
+          - ${compare_url}"
           fi
 
           gh issue comment "$ISSUE_NUMBER" --body "## 施策完了サマリー
