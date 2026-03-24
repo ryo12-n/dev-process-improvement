@@ -190,7 +190,6 @@ _template/
 ├── 06_cost_record.md               ← マネージャー（コスト分析）
 │
 ├── phase-1-planning/
-│   ├── 01_gate.md                  ← phase ゲート
 │   └── _template/                  ← plan-worker/plan-evaluator set テンプレート
 │       ├── 01_worker_plan.md       ← plan-worker: タスク理解・不明点解消
 │       ├── 02_worker_log.md        ← plan-worker: 作業中の判断・メモ
@@ -202,7 +201,6 @@ _template/
 │       └── 08_task_division.md     ← 成果物（ファイルレベルタスク分割）
 │
 └── phase-2-execution/
-    ├── 01_gate.md                  ← phase ゲート
     └── _template/                  ← worker/evaluator set テンプレート
         ├── 01_worker_plan.md       ← worker: タスク理解・不明点解消
         ├── 02_worker_log.md        ← worker: 作業中の判断・メモ

@@ -39,6 +39,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 
 - L2セッションが plan や gate_review を直接変更すること（L1の責務）
 - L1セッションが work_log を直接編集すること（L2の責務）
+- L1セッションが施策のタスク対象ファイル（`.claude/skills/`, `.claude/rules/`, `.claude/templates/`, `sessions/initiatives/_template/`, `sessions/triage/_template/`, `docs/` 等）を直接編集すること（L2ワーカーに委任すべき実作業。L1 の担当ファイルは L1 SKILL.md の「担当ファイル」セクションを参照）
 - 施策フォルダの外にあるファイルへの無断変更
 - フェーズゲートを通過していない施策の次フェーズ着手
 - initiative ディレクトリを作成せずに作業を開始すること
