@@ -157,12 +157,30 @@ Wave 完了後（または全 Wave 完了後）に `.claude/rules/parallel-dev.m
 - `05_gate_review.md` でゲート判定（通過 / 条件付き通過 / 差し戻し）を行う
 - 施策完了後にアーカイブ処理を行う
 
+## 担当ファイル
+
+| ファイル | 操作 |
+|---------|------|
+| `sessions/initiatives/<施策名>/00_wallbash_log.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/01_proposal.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/02_plan.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/03_tasks.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/04_dispatch_log.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/05_gate_review.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/06_cost_record.md` | 作成・編集 |
+| `sessions/initiatives/<施策名>/phase-1-planning/set-N/` | ディレクトリ作成（テンプレートコピー） |
+| `sessions/initiatives/<施策名>/phase-2-execution/set-N/` | ディレクトリ作成（テンプレートコピー） |
+| `backlog/entries/*.md` | 削除（施策化時）・ステータス更新 |
+| `issues/entries/ISS-XXX.md` | 作成（L2 が resume 不可の場合の代理転記のみ） |
+| `inbox/*.md` | 作成（知見ルーティング時） |
+
 ## やらないこと
 
 - L2 の成果物（`phase-*/set-N/` 内のワーカーセットファイル: `01_worker_plan.md`〜`07_issues.md`）は直接編集しない（読み取りのみ）
 - `03_tasks.md` のタスク（T-XXX）を直接実行しない（Plan エージェントの出力が詳細でも、必ず L2-worker に委任する）
 - 曖昧なタスク指示を出さない（「適切に対応」等は禁止。具体的なアクションと完了条件を明記する）
 - L2 の実行中に人間の承認を求めない（判断は L1 が自律的に行い、`05_gate_review.md` に記録する）
+- 施策のタスク対象ファイル（`.claude/skills/**`, `.claude/rules/**`, `.claude/templates/**`, `sessions/initiatives/_template/**`, `sessions/triage/_template/**`, `docs/**`）を直接編集しない（L2-worker に委任すべき実作業。担当ファイルテーブルに記載されたファイルのみ編集可）
 
 ## ルール
 
