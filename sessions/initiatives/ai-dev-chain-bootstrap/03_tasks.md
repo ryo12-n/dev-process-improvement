@@ -43,7 +43,7 @@
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
 | T-001 | `projects/_template/` ディレクトリと全プレースホルダーファイル作成（10ファイル） | 全10ファイルが作成済み。`request.md` に要望書記入フォーマット、`backlog.md` に進捗管理テンプレート、`artifacts/` 配下に最小限のスキーマ/セクション骨格が含まれる | 🔴 | ✅ |
-| T-002 | `.claude/skills/project-init/SKILL.md` 骨格作成 | YAML フロントマター（`name`, `description`, `user-invocable: true`）が正しく設定。引数仕様・処理フロー・TODO コメントが記載 | 🔴 | ⬜ |
+| T-002 | `.claude/skills/project-init/SKILL.md` 骨格作成 | YAML フロントマター（`name`, `description`, `user-invocable: true`）が正しく設定。引数仕様・処理フロー・TODO コメントが記載 | 🔴 | ✅ |
 | T-003 | 5 gen-* Skills（`gen-req` / `gen-design` / `gen-tests` / `gen-ci` / `gen-tasks`）の SKILL.md 骨格作成 | 5ファイル全てにフロントマター・引数仕様・入出力仕様・チェーン内前後関係・TODO コメントが記載 | 🔴 | ⬜ |
 | T-004 | 作業中に発見した知見を `phase-2-execution/set-N/03_worker_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
 | T-005 | `phase-2-execution/set-N/07_issues.md` の未転記課題を確認し、施策をまたぐ課題を `issues/entries/ISS-XXX.md` に作成する（CSV は自動生成）。転記時は `issues/_template.md` をコピーして作成し課題詳細を記載する | 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている | 🔴 | ⬜ |
