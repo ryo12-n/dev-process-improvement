@@ -19,6 +19,7 @@ paths:
       operationId: getExample
       tags:
         - Example
+      parameters: []
       responses:
         "200":
           description: "成功"
@@ -29,8 +30,20 @@ paths:
                 properties:
                   message:
                     type: string
+        "400":
+          description: "リクエストエラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: "認証エラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "リソース未検出"
           content:
             application/json:
               schema:
