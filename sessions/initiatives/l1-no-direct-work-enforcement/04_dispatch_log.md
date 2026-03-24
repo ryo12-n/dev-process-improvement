@@ -11,7 +11,7 @@
 | Phase 4 | set-1 | worker (T-001) | 並列 | 完了 | 完了 | - | Wave 1 |
 | Phase 4 | set-2 | worker (T-002) | 並列 | 完了 | 完了 | - | Wave 1 |
 | Phase 4 | set-3 | worker (T-003) | 逐次 | 完了 | 完了 | - | Wave 2 |
-| Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
+| Phase 5 | set-1 | evaluator | 逐次 | 完了 | - | 完了 | |
 
 ## ディスパッチ履歴
 
@@ -46,6 +46,16 @@
 - **コストデータ**: Set-3 total_tokens=51499
 
 ### Phase 5: 評価ワーカー
+
+### [2026-03-24] Phase 5 Evaluator 起動（Set-1）
+- 評価対象: set-1/set-2/set-3 の 03_worker_report.md
+- 評価基準: 02_plan.md の成功基準 4 項目
+
+### [2026-03-24] Phase 5 Evaluator 完了
+- 評価結果: 全8項目合格、成功基準4項目すべて達成
+- 成果物: 04_eval_plan.md, 05_eval_log.md, 06_eval_report.md
+- **コストデータ**: total_tokens=58320
+- 次アクション: ゲート判定（通過）
 
 ---
 **記録者**: L1
