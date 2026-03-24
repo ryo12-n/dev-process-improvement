@@ -1,0 +1,35 @@
+# OpenAPI 仕様: [プロジェクト名]
+# このファイルは /gen-design が requirements.json から自動生成します。
+# プレースホルダー — gen-design 実行時に上書きされます。
+
+openapi: "3.0.3"
+info:
+  title: "[プロジェクト名] API"
+  version: "0.1.0"
+  description: ""
+
+servers:
+  - url: http://localhost:3000
+    description: ローカル開発環境
+
+paths:
+  /example:
+    get:
+      summary: "サンプルエンドポイント"
+      operationId: getExample
+      tags:
+        - example
+      responses:
+        "200":
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas: {}
+  securitySchemes: {}
