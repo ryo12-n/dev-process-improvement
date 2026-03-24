@@ -46,9 +46,9 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | initiatives テンプレートから 01_gate.md を削除 | `_template/phase-*/01_gate.md` が削除済み。他セッションタイプは未変更 | 🔴 | ⬜ |
-| T-002 | スキル・ルール更新（_template/ 削除ステップ追加 + 01_gate.md 参照除去） | l1-manager, parallel-dev, session-lifecycle-policy が更新済み。session-flow-policy は変更なし | 🔴 | ⬜ |
-| T-003 | 可視化文書・整合性リファレンスの連動更新 | docs/workflow.md, session-consistency-reference.md が更新済み | 🟡 | ⬜ |
+| T-001 | initiatives テンプレートから 01_gate.md を削除 | `_template/phase-*/01_gate.md` が削除済み。他セッションタイプは未変更 | 🔴 | ✅ |
+| T-002 | スキル・ルール更新（_template/ 削除ステップ追加 + 01_gate.md 参照除去） | l1-manager, parallel-dev, session-lifecycle-policy が更新済み。session-flow-policy は変更なし | 🔴 | ✅ |
+| T-003 | 可視化文書・整合性リファレンスの連動更新 | docs/workflow.md, session-consistency-reference.md が更新済み | 🟡 | ✅ |
 
 ## 施策フェーズ2 タスク（評価）
 <!-- 施策フェーズ1 の全ワーカー完了後に評価ワーカーをディスパッチ -->
