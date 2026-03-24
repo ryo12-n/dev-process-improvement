@@ -14,7 +14,7 @@
 | # | タスク | 施策名 | 優先度 | ステータス | 備考 |
 |---|--------|--------|--------|-----------|------|
 | 1 | 壊れた参照修正・リネーム追従 | batch-reference-fix-and-rename | 高 | 完了 | アーカイブ済み |
-| 2 | GHAスキル設定・マッピング | batch-gha-minor-fixes | 高 | 未着手 | 4件、dev-process-improvement内で完結 |
+| 2 | GHAスキル設定・マッピング | batch-gha-minor-fixes | 高 | 完了 | アーカイブ済み |
 | 3 | docs/workflow.md・テンプレート修正 | batch-template-doc-fixes | 中 | 未着手 | 6件 |
 | 4 | ルール・ポリシー軽微追記 | batch-rule-policy-minor-additions | 中 | 未着手 | 7件 |
 | 5 | aidd関連軽微修正 | batch-aidd-minor-fixes | 中 | 未着手 | 6件、CLI --add-dir 環境必要 |
