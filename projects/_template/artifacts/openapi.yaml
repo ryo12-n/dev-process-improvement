@@ -18,7 +18,8 @@ paths:
       summary: "サンプルエンドポイント"
       operationId: getExample
       tags:
-        - example
+        - Example
+      parameters: []
       responses:
         "200":
           description: "成功"
@@ -29,7 +30,76 @@ paths:
                 properties:
                   message:
                     type: string
+        "400":
+          description: "リクエストエラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: "認証エラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "リソース未検出"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: "サーバーエラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      security:
+        - bearerAuth: []
+      x-fr-id: "FR-XXX"
 
 components:
-  schemas: {}
-  securitySchemes: {}
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          description: "HTTPステータスコード"
+        message:
+          type: string
+          description: "エラーメッセージ"
+        details:
+          type: array
+          items:
+            type: string
+          description: "エラー詳細"
+    PaginatedResponse:
+      type: object
+      required:
+        - items
+        - total
+        - page
+        - per_page
+      properties:
+        items:
+          type: array
+          items: {}
+          description: "結果アイテム一覧"
+        total:
+          type: integer
+          description: "全件数"
+        page:
+          type: integer
+          description: "現在のページ番号"
+        per_page:
+          type: integer
+          description: "1ページあたりの件数"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
