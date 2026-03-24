@@ -1,31 +1,11 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "_comment": "gen-req が生成する要件定義 JSON。このファイルはプレースホルダー。",
   "project": {
     "name": "",
     "version": "0.1.0",
     "description": ""
   },
-  "functional_requirements": [
-    {
-      "id": "FR-001",
-      "title": "",
-      "description": "",
-      "priority": "high",
-      "user_stories": [],
-      "acceptance_criteria": []
-    }
-  ],
-  "non_functional_requirements": [
-    {
-      "id": "NFR-001",
-      "category": "performance",
-      "title": "",
-      "description": "",
-      "metric": "",
-      "target": ""
-    }
-  ],
+  "functional_requirements": [],
+  "non_functional_requirements": [],
   "constraints": [],
   "assumptions": [],
   "out_of_scope": []
