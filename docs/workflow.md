@@ -1072,6 +1072,33 @@ Claude Code に同梱されるビルトイン（バンドル）skills の、dev-
 *1: L1 の判断根拠（分岐の理由・起動の意思決定）は `02_worker_log.md` の末尾に記録する（`skills/l1-manager/SKILL.md` 参照）。
 *2: L1 が `07_issues.md` の CSV 転記を行うのは、L2-worker を resume できない場合（コンテキスト消失・セッション期限切れ等）に限る。通常は L2-worker を resume して転記を依頼する（`skills/l1-manager/SKILL.md` 参照）。
 
+### L1 マネージャーの担当ファイル制約
+
+> **正の情報源**: `.claude/skills/l1-manager/SKILL.md`（「担当ファイル」セクション + 「やらないこと」セクション）
+
+L1 マネージャーが作成・編集可能なファイルは、上記「マネージャールートファイル」テーブルに加え、以下に限定される。
+
+| ファイル | 操作 |
+|---------|------|
+| `phase-1-planning/set-N/`, `phase-2-execution/set-N/` | ディレクトリ作成（テンプレートコピー） |
+| `backlog/entries/*.md` | 削除（施策化時）・ステータス更新 |
+| `issues/entries/ISS-XXX.md` | 作成（L2 が resume 不可の場合の代理転記のみ） |
+| `inbox/*.md` | 作成（知見ルーティング時） |
+
+**L1 が直接編集してはならないファイル（= L2-worker に委任すべき実作業対象）:**
+
+| パスパターン | 理由 |
+|------------|------|
+| `.claude/skills/**` | スキル定義の変更は実作業 |
+| `.claude/rules/**` | ルールファイルの変更は実作業 |
+| `.claude/templates/**` | テンプレートの変更は実作業 |
+| `sessions/initiatives/_template/**` | 施策テンプレートの変更は実作業 |
+| `sessions/triage/_template/**` | トリアージテンプレートの変更は実作業 |
+| `docs/**` | ドキュメントの変更は実作業 |
+| `phase-*/set-N/` 内のワーカーセットファイル | L2 成果物（既存ルール） |
+
+L1 は `03_tasks.md` のタスク（T-XXX）を直接実行せず、必ず L2-worker に委任する。担当ファイルテーブルに記載されたファイルのみ編集可能であり、施策のタスク対象ファイルを直接変更することは禁止されている。
+
 
 ## 課題管理フロー
 
