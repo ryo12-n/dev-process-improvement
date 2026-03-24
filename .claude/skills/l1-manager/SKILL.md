@@ -272,6 +272,7 @@ L1 が直接確認する（plan-evaluator は使用しない）。
 
 - `phase-2-execution/set-N/03_worker_report.md` に計画対比の実績が記載されているか
 - `phase-2-execution/set-N/03_worker_report.md` の「作業中の知見」セクションに最低1行の記載があるか
+- ルール化候補に即時適用可能なもの（3条件: スコープ内・内容明確・競合なし）がある場合、修正が適用済み（worker）/ 修正提案済み（evaluator）か
 - `phase-2-execution/set-N/07_issues.md` の課題に `[転記済 ISS-XXX]` が付いているか（CSV転記が完了しているか）
 - 外部リポジトリへの変更がある場合: 施策ブランチにコミット・プッシュされているか（`main` への直接コミットがないか）
 
