@@ -38,7 +38,7 @@
 
 | ID | タスク | 完了条件 | 優先度 | ステータス |
 |----|--------|---------|--------|-----------|
-| T-001 | `.claude/skills/gen-design/SKILL.md` の処理フロー（プロンプト）を実装する。TODO 5項目を全て解消する: (1) 要件から設計を導出するプロンプト設計（FR→エンドポイント対応付け、NFR→アーキテクチャ設計） (2) `openapi.yaml` 生成ガイド（OpenAPI 3.0.3 準拠、paths/components/securitySchemes） (3) `design.md` テンプレート定義（アーキテクチャ・データモデル・コンポーネント・API設計方針・セキュリティ・ADR） (4) バリデーション（`requirements.json` 不在時エラー） (5) 既存ファイル上書き確認。gen-req の 7 ステップパターンを踏襲する | SKILL.md に TODO が残っていない。処理フローが実行可能なプロンプトとして実装されている。gen-req の 7 ステップ構造と整合 | 🔴 | ⬜ |
+| T-001 | `.claude/skills/gen-design/SKILL.md` の処理フロー（プロンプト）を実装する。TODO 5項目を全て解消する: (1) 要件から設計を導出するプロンプト設計（FR→エンドポイント対応付け、NFR→アーキテクチャ設計） (2) `openapi.yaml` 生成ガイド（OpenAPI 3.0.3 準拠、paths/components/securitySchemes） (3) `design.md` テンプレート定義（アーキテクチャ・データモデル・コンポーネント・API設計方針・セキュリティ・ADR） (4) バリデーション（`requirements.json` 不在時エラー） (5) 既存ファイル上書き確認。gen-req の 7 ステップパターンを踏襲する | SKILL.md に TODO が残っていない。処理フローが実行可能なプロンプトとして実装されている。gen-req の 7 ステップ構造と整合 | 🔴 | ✅ |
 | T-002 | `projects/_template/artifacts/openapi.yaml` と `design.md` を SKILL.md のプロンプト実装と整合する構造に更新する。overview.md の入出力仕様との整合も確認する | テンプレートが SKILL.md のプロンプトと整合。overview.md の仕様と一致 | 🔴 | ⬜ |
 | T-003 | サンプルデータでの動作テスト。`/gen-design projects/test-gen-req` の処理フローに従って手動実行し、`openapi.yaml` / `design.md` を生成する。生成結果の OpenAPI 準拠・内容整合を確認する | 生成された `openapi.yaml` が OpenAPI 3.0.3 準拠の有効な YAML。`design.md` が人間可読。FR/NFR とエンドポイント・アーキテクチャの対応が取れている | 🔴 | ⬜ |
 | T-004 | 作業中に発見した知見を `phase-2-execution/set-1/03_worker_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載） | 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある | 🔴 | ⬜ |
