@@ -26,7 +26,7 @@
 
 ### §2.1 set ディレクトリの作成
 
-`phase-2-execution/_template/` を `phase-2-execution/set-N/` にコピーする（N = 1, 2, 3, ...）。
+`phase-2-execution/_template/` を `phase-2-execution/set-N/` にコピーする（N = 1, 2, 3, ...）。全 set のコピー完了後、`phase-2-execution/_template/` を削除する。
 
 各 set ディレクトリには以下のワーカーセット 7 ファイルが含まれる:
 

@@ -56,6 +56,7 @@
   【並列ディスパッチ（Wave 方式）】— .claude/rules/parallel-dev.md 参照
   L1 事前準備:
     → phase-2-execution/_template/ を phase-2-execution/set-N/ にコピー（set コピー方式）
+    → 全 set のコピー完了後、_template/ を削除
     → 事前検証チェックリスト実行
   Wave 1: [Worker set-1] [Worker set-2] ... ← 並列起動（set 番号付き）
     → 各 Worker は自身の set-N/ 内のファイルに記録
