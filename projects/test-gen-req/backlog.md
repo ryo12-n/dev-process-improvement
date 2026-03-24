@@ -26,8 +26,8 @@
 
 | フェーズ | Skill | 成果物 | ステータス | 最終実行日 |
 |---------|-------|--------|-----------|-----------|
-| 要件定義 | `/gen-req` | `artifacts/requirements.json`, `artifacts/requirements.md` | `pending` | - |
-| 設計 | `/gen-design` | `artifacts/openapi.yaml`, `artifacts/design.md` | `pending` | - |
+| 要件定義 | `/gen-req` | `artifacts/requirements.json`, `artifacts/requirements.md` | `done` | 2026-03-24 |
+| 設計 | `/gen-design` | `artifacts/openapi.yaml`, `artifacts/design.md` | `done` | 2026-03-24 |
 | テスト設計 | `/gen-tests` | `artifacts/tests.json`, `artifacts/tests.md` | `pending` | - |
 | CI 設計 | `/gen-ci` | `artifacts/ci/pipeline.yaml` | `pending` | - |
 | タスク生成 | `/gen-tasks` | `artifacts/tasks.json` | `pending` | - |
@@ -41,5 +41,5 @@
 | <!-- T-001 --> | <!-- タスク名 --> | <!-- high/medium/low --> | `pending` | <!-- T-XXX --> | <!-- - --> | `auto` |
 
 ---
-**最終更新**: YYYY-MM-DD
+**最終更新**: 2026-03-24
 **更新者**: system
