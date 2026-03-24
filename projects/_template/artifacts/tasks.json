@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "_comment": "gen-tasks が生成するタスク仕様 JSON。このファイルはプレースホルダー。",
+  "project": {
+    "name": "",
+    "version": "0.1.0"
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "",
+      "description": "",
+      "type": "implementation",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "related_requirements": ["FR-001"],
+      "related_tests": ["TC-001"],
+      "estimated_effort": "small",
+      "target_files": [],
+      "acceptance_criteria": []
+    }
+  ],
+  "execution_order": [
+    {
+      "wave": 1,
+      "tasks": ["TASK-001"],
+      "rationale": ""
+    }
+  ]
+}
