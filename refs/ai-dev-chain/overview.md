@@ -98,7 +98,7 @@ dev-process-improvement/
 |---|------|----------------|------|
 | M1 | `projects/_template/` とディレクトリ骨格を作成 | ai-dev-chain-bootstrap | ✅ 完了 |
 | M2 | `project-init` Skill 作成 | ai-dev-chain-bootstrap | ✅ 完了（骨格） |
-| M3 | `gen-req` Skill 作成・動作確認 | ai-dev-chain-gen-req | 🔲 未着手 |
+| M3 | `gen-req` Skill 作成・動作確認 | ai-dev-chain-gen-req | ✅ 完了 |
 | M4 | `gen-design` Skill 作成・動作確認 | ai-dev-chain-gen-design | 🔲 未着手 |
 | M5 | `gen-tests` Skill 作成・動作確認 | ai-dev-chain-gen-tests | 🔲 未着手 |
 | M6 | `gen-ci` Skill 作成・動作確認 | ai-dev-chain-gen-ci | 🔲 未着手 |

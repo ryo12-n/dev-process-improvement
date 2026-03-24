@@ -1,0 +1,46 @@
+# CI パイプライン: [プロジェクト名]
+# このファイルは /gen-ci が tests.json から自動生成します。
+# プレースホルダー — gen-ci 実行時に上書きされます。
+
+name: "[プロジェクト名] CI"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: echo "TODO: セットアップステップを gen-ci で生成"
+      - name: Lint
+        run: echo "TODO: リンターを gen-ci で生成"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: echo "TODO: セットアップステップを gen-ci で生成"
+      - name: Unit Tests
+        run: echo "TODO: ユニットテスト実行コマンドを gen-ci で生成"
+      - name: Integration Tests
+        run: echo "TODO: 統合テスト実行コマンドを gen-ci で生成"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: echo "TODO: セットアップステップを gen-ci で生成"
+      - name: Build
+        run: echo "TODO: ビルドコマンドを gen-ci で生成"
