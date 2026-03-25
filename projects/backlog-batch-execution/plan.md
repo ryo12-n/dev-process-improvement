@@ -16,7 +16,7 @@ backlog-inventory-batch 施策で棚卸し・分類した78件のバックログ
 |---|--------|---------|------|--------|-----------|
 | 1 | batch-reference-fix-and-rename | 4件 | 壊れた参照修正・リネーム追従ルール追加 | 高 | 完了 |
 | 2 | batch-gha-minor-fixes | 4件 | GHAスキル設定追加・マッピング登録 | 高 | 完了 |
-| 3 | batch-template-doc-fixes | 6件 | docs/workflow.md更新・テンプレート統一 | 中 | 未着手 |
+| 3 | batch-template-doc-fixes | 6件 | docs/workflow.md更新・テンプレート統一 | 中 | 完了 |
 | 4 | batch-rule-policy-minor-additions | 7件 | ルール・ポリシーへの軽微な追記 | 中 | 未着手 |
 | 5 | batch-aidd-minor-fixes | 6件 | ai-driven-dev-patterns関連の軽微修正 | 中 | 未着手 |
 | 6 | batch-skill-session-tweaks | 8件 | スキル・セッション定義の微調整 | 低 | 未着手 |
@@ -26,7 +26,7 @@ backlog-inventory-batch 施策で棚卸し・分類した78件のバックログ
 | # | 統合施策候補 | 対象エントリ | ステータス |
 |---|------------|------------|-----------|
 | 1 | 非施策セッション GHA 自動化 | BL-055 + BL-057 | 未着手 |
-| 2 | docs/workflow.md 網羅性改善 | BL-054 + BL-065 | 未着手 |
+| 2 | docs/workflow.md 網羅性改善 | BL-054 + BL-065 | バッチ消化済み（batch-template-doc-fixes で対応） |
 | 3 | PostToolUse hook 品質チェック統合 | BL-030 + BL-082 | 未着手 |
 
 ### M/L個別施策
@@ -42,4 +42,4 @@ M残り28件、L9件は通常のトリアージ・施策フローで個別対応
 
 ---
 **作成日**: 2026-03-24
-**最終更新**: 2026-03-24
+**最終更新**: 2026-03-25
