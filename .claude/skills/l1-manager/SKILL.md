@@ -212,6 +212,8 @@ Wave 完了後（または全 Wave 完了後）に `.claude/rules/parallel-dev.m
 
 `03_tasks.md` を作成する際は、以下のタスクを**必ず**含めること。
 
+#### 無条件タスク（全施策共通）
+
 **実施ワーカー（l2-worker）向け**（レポート作成時に実施）:
 - やること: 作業中に発見した知見を `phase-2-execution/set-N/03_worker_report.md` の「作業中の知見」セクションに記録する。「ルール化候補」と「参考情報」に分類し、各テーブルに最低1行記載する（該当なしの場合は「なし — 理由: ○○」と記載）
 - 完了条件: 「ルール化候補」「参考情報」の両テーブルに最低1行の記載がある
@@ -232,8 +234,11 @@ Wave 完了後（または全 Wave 完了後）に `.claude/rules/parallel-dev.m
 - 完了条件: 全課題に `[転記済 ISS-XXX]` または「転記不要」の判断が付いている
 - 優先度: 高（評価レポート提出前に完了すること）
 
-**実施ワーカー（l2-worker）向け**（ルール・テンプレート変更施策の場合）:
-- 適用条件: `.claude/skills/`, `.claude/rules/`, `initiatives/_template/`, `triage/_template/` 配下のファイルを変更する施策
+#### 条件付きタスク（ルール・テンプレート変更施策）
+
+> 適用条件: `.claude/skills/`, `.claude/rules/`, `initiatives/_template/`, `triage/_template/` 配下のファイルを変更する施策
+
+**実施ワーカー（l2-worker）向け**（メタルール横断検証）:
 - やること: 以下3領域のメタルール横断検証を実施し、結果を `phase-2-execution/set-N/03_worker_report.md` に記録する
   1. メタルールフロー記述: 変更対象パスを参照しているスキル・エージェント定義のフロー記述が変更後の実態と一致しているか確認・修正
   2. workflow.md 同期: `docs/workflow.md` の該当セクションが変更内容と整合しているか確認・更新
@@ -241,14 +246,20 @@ Wave 完了後（または全 Wave 完了後）に `.claude/rules/parallel-dev.m
 - 完了条件: 3領域の検証結果（合格/修正済/該当なし）が `phase-2-execution/set-N/03_worker_report.md` に記載されている
 - 優先度: 高（成果物の最終確認前に完了すること）
 
-**実施ワーカー（l2-worker）向け**（ルール変更施策の場合）:
-- 適用条件: `.claude/skills/`, `.claude/rules/` 配下のファイルを変更する施策
+#### 条件付きタスク（ルール変更施策）
+
+> 適用条件: `.claude/skills/`, `.claude/rules/` 配下のファイルを変更する施策
+
+**実施ワーカー（l2-worker）向け**（rule-change-checklist 確認）:
 - やること: `rule-change-checklist` スキル（`.claude/skills/rule-change-checklist/SKILL.md`）のチェックリスト全7項目を確認する。上記「メタルール横断検証」タスクがカバーしていない項目（パス変更走査対象の網羅性・deny リスト対称性・テンプレート連動更新・コミットメッセージ規約確認）を特に確認すること
 - 完了条件: チェックリストの全7項目（確認済み / 修正済み / 該当なし）の結果が `phase-2-execution/set-N/02_worker_log.md` に記録されている
 - 優先度: 高（コミット前に完了すること）
 
-**実施ワーカー（l2-worker）向け**（プロジェクト紐づけがある施策の場合）:
-- 適用条件: `01_proposal.md` の「プロジェクト紐づけ」が「なし」以外の場合
+#### 条件付きタスク（プロジェクト紐づけ施策）
+
+> 適用条件: `01_proposal.md` の「プロジェクト紐づけ」が「なし」以外の場合
+
+**実施ワーカー（l2-worker）向け**（プロジェクト進捗更新）:
 - やること: 施策クローズ時に以下の3ファイルを更新する
   1. `projects/<name>/todo.md` の該当施策のステータスを `完了` に更新する
   2. 施策レポート（`phase-2-execution/set-N/03_worker_report.md` の「作業中の知見」、`06_eval_report.md` の「評価中の知見」）から知見を抽出し、`projects/<name>/knowledge.md` の「施策別知見ログ」テーブルに追記する
