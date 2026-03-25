@@ -9,7 +9,7 @@
 |-------|-----|----------|------|-----------|------------|---------------|------|
 | Phase 2 | set-1 | plan-worker | 逐次 | 完了 | ✅ | - | BL-054 既存解決・BL-047 欠番を発見 |
 | Phase 3 | set-1 | plan-evaluator | 逐次 | スキップ | - | - | L1 直接確認 |
-| Phase 4 | set-1 | worker | 逐次 | 未着手 | - | - | T-001〜T-009 |
+| Phase 4 | set-1 | worker | 逐次 | 完了 | ✅ | - | T-001〜T-009 全完了 |
 | Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
 
 ## ディスパッチ履歴
@@ -44,19 +44,16 @@
 
 ### Phase 4: 実施ワーカー
 
-<!--
-### [YYYY-MM-DD HH:MM] Phase 4 Worker 起動（Set-N）
-- 指示内容: ...
-- 担当タスク: T-001〜T-XXX
-- 完了条件: ...
-- Worker ID: （並列時のみ）W<N>
+### [2026-03-25] Phase 4 Worker 起動（Set-1）
+- 指示内容: T-001〜T-009 全タスクをバッチ実行
+- 担当タスク: T-001〜T-009
+- 完了条件: 全タスク完了、作業ログ・レポート記載
 
-### [YYYY-MM-DD HH:MM] Phase 4 Worker 完了（Set-N）
-- 結果サマリ: ...
-- 成果物: 03_work_log.md, 04_work_report.md
-- **コストデータ**: input_tokens=_____ output_tokens=_____
-- Evaluator 起動判断: 起動する / 差し戻し
--->
+### [2026-03-25] Phase 4 Worker 完了（Set-1）
+- 結果サマリ: 全9タスク完了。BL-054 既存解決でスキップ、BL-077 部分変換済みで軽量完了。新規3件作成、既存14件更新
+- 成果物: phase-2-execution/set-1/02_worker_log.md, 03_worker_report.md
+- **コストデータ**: input_tokens=104000 output_tokens=34948（概算）
+- Evaluator 起動判断: 起動する（品質良好）
 
 ### Phase 5: 評価ワーカー
 
