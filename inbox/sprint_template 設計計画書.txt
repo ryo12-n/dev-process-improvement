@@ -1,0 +1,357 @@
+# 改善施策提案: sprint_template 設計・作成
+
+## 背景・課題
+
+現在の `dev-process-improvement` リポジトリでは、initiativeセッションごとの作業はL1/L2ロール分担で管理されているが、スプリント単位のライフサイクル（計画→実行→レビュー→知見蒸留）を統一したテンプレート構造で回す仕組みが存在しない。planner/generator/evaluator の3セッションが協調してスプリントを管理するための標準アーティファクトが必要。
+
+## 目標
+
+`templates/sprint_template/` 配下に5ファイルのテンプレートを作成し、planner・generator・evaluator の各セッションが明確な責任分離のもとでスプリントライフサイクルを回せる状態にする。
+
+## スコープ
+
+### やること
+
+- `templates/sprint_template/` ディレクトリの作成
+- `plan.md` / `todo.md` / `work_log.md` / `review.md` / `knowledge.md` の5ファイルを設計・作成
+- 各ファイルの責任マトリクス（誰が作成・更新・読み取りするか）をコメントとして明記
+
+### やらないこと
+
+- 既存の `sessions/initiatives/_template/` の変更
+- CLAUDE.md のL1/L2定義の変更
+- スプリント運用の自動化（GHA連携等）
+
+## 外部リポジトリ
+
+| リポジトリ名 | ローカルパス | 変更内容の概要 |
+|-------------|------------|-------------|
+| なし | - | - |
+
+## プロジェクト紐づけ
+
+| プロジェクト名 | パス |
+|-------------|------|
+| なし | - |
+
+## 期待される効果
+
+- planner・generator・evaluator がどのファイルをいつ・どのように更新すべきかが明確になる
+- スプリントループ（計画→実行→レビュー→修正→再実行）が繰り返し回せる
+- work_log の DEVIATION 通知によって計画と実態の乖離が早期に検出できる
+- knowledge.md への蒸留と `refs/` へのエスカレーションで知見が資産として蓄積される
+
+## リスク
+
+| リスク | 影響度 | 対策 |
+|--------|--------|------|
+| 既存のL1/L2ロール定義と新ロール定義が混在して混乱する | 中 | テンプレートコメントに既存体系との対応を明記する |
+| テンプレートが形骸化し実際に使われない | 低 | 最小限の構造に留め、使いやすさを優先する |
+
+## 壁打ちの背景
+
+今回の設計は壁打ちセッションで以下の意思決定を経て確定した。
+
+**ロール責任分離の決定経緯:**
+- planner / generator / evaluator の3ロールを設定。
+- generator は todo.md の**ステータス更新のみ**可能。plan.md の変更権限は planner が専有する
+- evaluator は review.md を**round別セクション**で追記。plan.md の成功条件を参照して採点する形にする
+- knowledge.md は planner が work_log・review を読んで**定期的に蒸留**する（evaluator ではなく planner が管理）
+
+**各ファイルのフォーマット決定経緯:**
+- `todo.md`: チェックボックスではなくテーブル形式。issueと切り離して完結させる。親タスク(T-XXX)はplanner管理・子タスク(T-XXX-Y)はgenerator管理の2層構造
+- `work_log.md`: タスク単位でセクションを切る。DEVIATION は通常ログの流れの中に混在させる。小見出し（詰まったポイント/判断/参考/結果）を設ける
+- `review.md`: ラウンドをまたいで連番（IMP-001, IMP-002...）。総評はラウンドごとに記載
+- `knowledge.md`: スプリント固有の知見に絞る。完了後は `refs/<リポ名>/knowledge.md` へエスカレーション予定
+
+## 設計詳細
+
+### スプリントループ全体像
+
+```
+        ┌─────────────────────────────────────────┐
+        │              SPRINT LOOP                │
+        │                                         │
+  ┌─────▼──────┐                                  │
+  │  planner   │──── plan.md を起票               │
+  │            │──── todo.md を作成（親タスク）    │
+  └─────┬──────┘                                  │
+        │ reads: plan.md                          │
+  ┌─────▼──────┐                                  │
+  │ generator  │──── todo.md を消化（子タスク展開・ステータス更新）
+  │            │──── work_log.md に記録            │
+  │            │     ┌─────────────────────┐      │
+  │            │     │ 乖離発見 →          │      │
+  │            │     │ DEVIATION記載 +     │      │
+  │            │     │ plannerへ修正依頼   │      │
+  └─────┬──────┘     └──────────┬──────────┘      │
+        │                       │ planner が       │
+        │ 成果物                 │ plan/todo 修正   │
+  ┌─────▼──────┐                │                  │
+  │ evaluator  │◄───────────────┘                  │
+  │            │──── review.md に round別指摘記載  │
+  └─────┬──────┘                                  │
+        │ review.md                               │
+  ┌─────▼──────┐                                  │
+  │  planner   │──── 対応方針決定                  │
+  │            │──── plan.md に詳細追記            │
+  │            │──── todo.md にタスク追加          │
+  │            │──── knowledge.md に定期蒸留       │
+  └─────────────┘                                  │
+        │                                         │
+        └─────────────────────────────────────────┘
+```
+
+### 責任マトリクス（確定版）
+
+| ファイル | planner | generator | evaluator |
+|---|---|---|---|
+| `plan.md` | ✅ 作成・更新・対応方針追記 | 📖 READ ONLY | 📖 READ ONLY |
+| `todo.md` | ✅ 作成・タスク追加・ステータス更新 | ✅ ステータス更新のみ | 📖 READ ONLY |
+| `work_log.md` | 📖 READ ONLY（DEVIATION受信） | ✅ 追記のみ | 📖 READ ONLY |
+| `review.md` | 📖 READ ONLY（次アクション入力） | ❌ 触れない | ✅ round別セクションで追記 |
+| `knowledge.md` | ✅ 定期蒸留・更新・エスカレーション | ❌ 触れない | ❌ 触れない |
+
+## タスク詳細（実施タスクリスト）
+
+### T-001: plan.md テンプレート作成
+
+- 背景: planner が起票するスプリント計画ファイル。タスク詳細・成功条件・対応方針ログを持つ
+- 実施内容: `templates/sprint_template/plan.md` を作成
+- 完了条件: ファイルが作成され、全セクションにコメントが記載されている
+- 制約: タスク詳細セクションに対応方針ログを隣接配置する
+
+### T-002: todo.md テンプレート作成
+
+- 背景: planner 作成・generator がステータス更新するタスクリスト。親/子タスクの2層構造を持つ
+- 実施内容: `templates/sprint_template/todo.md` を作成
+- 完了条件: ファイルが作成され、テーブル形式・ステータス種別・担当カラムが含まれる
+- 制約: ステータスは `todo / in-progress / done / blocked` の4種。`blocked` が DEVIATION トリガー
+
+### T-003: work_log.md テンプレート作成
+
+- 背景: generator が都度追記するタスク単位の日誌。DEVIATION通知もここに記載する
+- 実施内容: `templates/sprint_template/work_log.md` を作成
+- 完了条件: タスク単位セクション・DEVIATION マーカー・小見出し構造が含まれる
+- 制約: 小見出しは「詰まったポイント/判断/参考/結果」の4つ
+
+### T-004: review.md テンプレート作成
+
+- 背景: evaluator が round 別セクションで指摘を記載するファイル
+- 実施内容: `templates/sprint_template/review.md` を作成
+- 完了条件: round別セクション・成功条件チェックテーブル・IMP連番指摘・総評が含まれる
+- 制約: IMP番号はラウンドをまたいで連番（IMP-001, IMP-002...）
+
+### T-005: knowledge.md テンプレート作成
+
+- 背景: planner が定期蒸留する知見蓄積ファイル。スプリント完了後に `refs/` へエスカレーション
+- 実施内容: `templates/sprint_template/knowledge.md` を作成
+- 完了条件: 蒸留ボリューム単位セクション・エスカレーション先メタ情報・エスカレーションログが含まれる
+- 制約: スプリント固有の知見に限定。汎用化は refs 側で行う
+
+## 各ファイルの確定フォーマット
+
+### plan.md
+
+```markdown
+# Sprint Plan: {{sprint_name}}
+
+## メタ情報
+- Sprint ID: {{sprint_id}}
+- 開始日: {{start_date}}
+- 目標完了日: {{due_date}}
+- ステータス: active | done | paused
+
+## 目標
+<!-- このスプリントで何を達成するか。1〜3文で明確に -->
+
+## スコープ
+### In Scope
+-
+
+### Out of Scope
+-
+
+## 成功条件
+<!-- evaluator がこの条件を参照してレビューする -->
+- [ ]
+- [ ]
+
+## タスク詳細
+<!-- todo.md のタスクIDと対応。generatorはここを参照して実施する -->
+<!-- 大きな機能・方針単位で記載。細かいサブタスクは todo.md 側に持つ -->
+
+### T-001: {{task_title}}
+- 背景:
+- 実施内容（方針レベル）:
+- 完了条件:
+- 制約・注意事項:
+
+#### 対応方針ログ
+<!-- evaluatorのreviewやgeneratorのDEVIATIONを受けてplannerが追記 -->
+<!-- | {{date}} | Round {{n}} | 内容 | -->
+
+### T-002: {{task_title}}
+...
+```
+
+### todo.md
+
+```markdown
+# Sprint Todo: {{sprint_name}}
+
+## メタ情報
+- Sprint ID: {{sprint_id}}
+- 最終更新: {{updated_at}}
+
+## タスクリスト
+
+| ID | タスク名 | ステータス | 担当 | 備考 |
+|---|---|---|---|---|
+| T-001 | {{task_title}} | todo | planner | |
+| T-001-1 | {{subtask_title}} | todo | generator | |
+| T-001-2 | {{subtask_title}} | todo | generator | |
+| T-002 | {{task_title}} | todo | planner | |
+| T-002-1 | {{subtask_title}} | todo | generator | |
+
+<!-- ステータス: todo / in-progress / done / blocked -->
+<!-- blocked になった場合は work_log.md に DEVIATION を記載してplannerに通知 -->
+<!-- 担当: planner / generator / evaluator -->
+<!-- 親タスク(T-XXX)はplanner管理、子タスク(T-XXX-Y)はgenerator管理 -->
+```
+
+### work_log.md
+
+```markdown
+# Work Log: {{sprint_name}}
+
+## Sprint ID: {{sprint_id}}
+
+---
+
+## T-001-1: {{subtask_title}}
+
+### 詰まったポイント
+<!-- 想定と違った点・エラー・迷った判断 -->
+
+### 判断
+<!-- どう対応したか・なぜその選択をしたか -->
+
+### 参考
+<!-- 参照したドキュメント・コード・外部リソース -->
+
+### 結果
+<!-- 実施内容のサマリ・成果物へのリンク -->
+
+---
+
+## 🚧 DEVIATION: T-001-1 {{date}}
+
+### 乖離内容
+<!-- plan/todoと実際の状況がどう違うか -->
+
+### planner への依頼
+<!-- 計画修正してほしい内容を明示 -->
+
+---
+
+## T-001-2: {{subtask_title}}
+...
+```
+
+### review.md
+
+```markdown
+# Review: {{sprint_name}}
+
+## Sprint ID: {{sprint_id}}
+
+---
+
+## Round 1 - {{date}}
+
+### 成功条件チェック
+
+| 成功条件 | 結果 | 所見 |
+|---|---|---|
+| {{plan.mdから転記}} | ✅ / ❌ / ⚠️ | |
+
+<!-- ✅ 達成 / ❌ 未達 / ⚠️ 部分達成 -->
+
+### 指摘事項
+
+#### IMP-001: {{指摘タイトル}}
+- 対象: T-XXX
+- 内容:
+- 提案:
+
+### 総評
+<!-- このラウンドのスプリント全体の所見 -->
+
+---
+
+## Round 2 - {{date}}
+
+### 成功条件チェック
+...
+
+### 指摘事項
+
+#### IMP-002: {{指摘タイトル}}
+...
+
+### 総評
+...
+```
+
+### knowledge.md
+
+```markdown
+# Knowledge: {{sprint_name}}
+
+## メタ情報
+- Sprint ID: {{sprint_id}}
+- エスカレーション先: refs/{{repository_name}}/knowledge.md | 未定
+- エスカレーション済み: false
+
+---
+
+## {{date}} - 蒸留 Vol.1
+
+### ソース
+- work_log: T-XXX
+- review: Round {{n}} IMP-XXX
+
+### 知見
+
+#### {{知見タイトル}}
+- 状況: <!-- このスプリントで何が起きたか -->
+- 学び: <!-- そこから何を得たか -->
+- エスカレーション候補: yes | no
+
+---
+
+## {{date}} - 蒸留 Vol.2
+...
+
+---
+
+## エスカレーションログ
+<!-- スプリント完了後にplannerが記載 -->
+
+| 知見タイトル | エスカレーション先 | 日付 |
+|---|---|---|
+| {{知見タイトル}} | refs/{{repo}}/knowledge.md | {{date}} |
+```
+
+## 備考・設計パターン
+
+- 本テンプレートは `templates/sprint_template/` 配下に配置し、既存の `sessions/initiatives/_template/` とは独立した体系として管理する
+- スプリント開始時は `templates/sprint_template/` をコピーして使用する（実際のスプリントフォルダへの展開方法は別途定義）
+- `knowledge.md` のエスカレーション先は `refs/<リポ名>/knowledge.md` を想定するが、対象リポジトリはスプリントごとに決定する
+
+***
+**起票者**: L1  
+**起票日**: 2026-03-25  
+**ステータス**: 起票  
+**backlog元ファイル**: なし（壁打ちセッションから直接施策化）
