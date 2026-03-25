@@ -97,3 +97,96 @@ mappings:
       - category: scope-restriction
         description: "対象リポジトリは dev-process-improvement のみ"
         severity: expected
+
+  - id: initiative-wallbash-gha
+    description: "Initiative 壁打ちフェーズの GHA ワークフロー ↔ スキル定義"
+    gha_source:
+      type: prompt
+      path: .claude/skills/gha-wallbash/SKILL.md
+    skill_source:
+      manager: .claude/skills/l1-manager/SKILL.md
+      agents: []
+      # 壁打ちフェーズは L1 マネージャーの責務。L2 エージェントは不使用
+    checkpoints:
+      - type: file_numbers
+        description: "番号付き出力ファイルの参照一致確認"
+        pattern: "\\d{2}[a]?_\\w+\\.md"
+      - type: workflow_steps
+        description: "壁打ちステップシーケンスの一致確認"
+        keys:
+          - "_template コピー"
+          - "proposal/plan/tasks ドラフト作成"
+          - "wallbash_log 記録"
+          - "施策ブランチ作成"
+          - "コミット・プッシュ"
+      - type: file_templates
+        description: "テンプレートファイル参照の一致確認"
+        pattern: "sessions/initiatives/_template/"
+    inherent_differences:
+      - category: wall-beating-omission
+        description: "GHA 版自体が壁打ちフェーズの実行者であるため、CLI の壁打ちプロトコルは省略"
+        severity: expected
+      - category: single-agent-mode
+        description: "単一エージェントで壁打ちフェーズを実行"
+        severity: expected
+      - category: scope-restriction
+        description: "対象リポジトリは dev-process-improvement のみ"
+        severity: expected
+
+  - id: initiative-close-gha
+    description: "Initiative クローズフェーズの GHA ワークフロー ↔ スキル定義"
+    gha_source:
+      type: prompt
+      path: .claude/skills/gha-close/SKILL.md
+    skill_source:
+      manager: .claude/skills/l1-manager/SKILL.md
+      agents: []
+      # クローズフェーズは L1 マネージャーの責務。L2 エージェントは不使用
+    checkpoints:
+      - type: workflow_steps
+        description: "クローズステップシーケンスの一致確認"
+        keys:
+          - "成果物確認"
+          - "知見ルーティング"
+          - "アーカイブ移動"
+          - "コミット・プッシュ"
+          - "完了サマリー出力"
+      - type: file_templates
+        description: "アーカイブ先パスの一致確認"
+        pattern: "sessions/initiatives/_archive/"
+    inherent_differences:
+      - category: wall-beating-omission
+        description: "自動実行のため壁打ちフェーズを省略"
+        severity: expected
+      - category: single-agent-mode
+        description: "単一エージェントでクローズフェーズを実行"
+        severity: expected
+      - category: scope-restriction
+        description: "対象リポジトリは dev-process-improvement のみ"
+        severity: expected
+
+  - id: initiative-question-gha
+    description: "Initiative 質問回答の GHA ワークフロー ↔ スキル定義"
+    gha_source:
+      type: prompt
+      path: .claude/skills/gha-question/SKILL.md
+    skill_source:
+      manager: .claude/skills/l1-manager/SKILL.md
+      agents: []
+      # 質問回答は読み取り専用。L2 エージェントは不使用
+    checkpoints:
+      - type: workflow_steps
+        description: "質問回答ステップシーケンスの一致確認"
+        keys:
+          - "施策ファイル読み取り"
+          - "回答の標準出力"
+    inherent_differences:
+      - category: read-only-mode
+        description: "読み取り専用モード。ファイル書き込み・git 操作なし"
+        severity: expected
+      - category: single-agent-mode
+        description: "単一エージェントで質問回答を実行"
+        severity: expected
+      - category: no-commit
+        description: "読み取り専用のためコミット不要"
+        severity: expected

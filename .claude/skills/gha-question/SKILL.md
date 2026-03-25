@@ -2,6 +2,7 @@
 name: gha-question
 description: 'GHA initiative-question ワークフロー専用スキル。施策に関する質問に読み取り専用で回答する。'
 user-invocable: false
+disable-model-invocation: true
 ---
 # GHA 質問回答スキル
 

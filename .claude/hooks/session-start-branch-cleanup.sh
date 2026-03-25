@@ -52,6 +52,13 @@ if [ -z "$current_branch" ]; then
   output_result "" "error" "" "$warnings" "$errors"
 fi
 
+# SDK 環境判定: claude/ プレフィックスブランチはブランチ整理をスキップ
+# SDK 環境（Claude Code Web）ではセッションに割り当てられた claude/ ブランチで作業するため、
+# main への切り替えや PR 作成等のブランチ整理は不要かつ有害（他セッションに影響しうる）。
+if [[ "$current_branch" == claude/* ]]; then
+  output_result "$current_branch" "sdk_skip" "" "$warnings" "$errors"
+fi
+
 # main ブランチの場合: git pull のみ
 if [ "$current_branch" = "main" ]; then
   pull_output=$(git pull 2>&1) || {

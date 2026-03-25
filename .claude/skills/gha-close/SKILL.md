@@ -2,6 +2,7 @@
 name: gha-close
 description: 'GHA initiative-close ワークフロー専用スキル。クローズフェーズ（知見ルーティング・アーカイブ移動）を実行する。'
 user-invocable: false
+disable-model-invocation: true
 ---
 # GHA クローズフェーズスキル
 

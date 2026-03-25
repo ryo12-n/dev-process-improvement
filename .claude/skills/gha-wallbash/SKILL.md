@@ -2,6 +2,7 @@
 name: gha-wallbash
 description: 'GHA initiative-wallbash ワークフロー専用スキル。壁打ちフェーズ（init: テンプレートコピー・ドラフト作成 / continue: フィードバック反映・ドラフト更新）を実行する。'
 user-invocable: false
+disable-model-invocation: true
 ---
 # GHA 壁打ちフェーズスキル
 
