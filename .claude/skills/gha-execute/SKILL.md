@@ -2,6 +2,7 @@
 name: gha-execute
 description: 'GHA initiative-execute ワークフロー専用スキル。approve（壁打ち→実行）または reject（ゲート判定差し戻し→修正・再実行）を実行する。'
 user-invocable: false
+disable-model-invocation: true
 ---
 # GHA 実行フェーズスキル
 

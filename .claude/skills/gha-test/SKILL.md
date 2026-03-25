@@ -2,6 +2,7 @@
 name: gha-test
 description: 'GHA 壁打ち相当の動作検証用テストスキル'
 user-invocable: false
+disable-model-invocation: true
 ---
 # GHA テストスキル（壁打ち相当）
 
