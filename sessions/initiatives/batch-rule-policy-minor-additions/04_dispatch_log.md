@@ -8,7 +8,7 @@
 | Phase | Set | 担当タスク | 方式 | ステータス | Worker 完了 | Evaluator 完了 | 備考 |
 |-------|-----|----------|------|-----------|------------|---------------|------|
 | phase-1-planning | set-1 | plan-worker | 逐次 | 完了 | ✅ | - | plan-evaluator 不使用（L1 直接確認） |
-| phase-2-execution | set-1 | worker + evaluator | 逐次 | 未着手 | - | - | |
+| phase-2-execution | set-1 | worker + evaluator | 逐次 | 進行中 | ✅ | - | |
 
 ## ディスパッチ履歴
 
@@ -29,6 +29,17 @@
 （plan-evaluator は使用しない — L1 が直接確認）
 
 ### Phase 4: 実施ワーカー
+
+### [2026-03-25] Phase 4 Worker 起動（Set-1）
+- 指示内容: T-001〜T-013 全タスク実施（Wave 1→2→3 順次）
+- 担当タスク: T-001〜T-013
+- 完了条件: 7件のルール追記 + docs/workflow.md 連動 + 固定タスク + プロジェクト更新
+
+### [2026-03-25] Phase 4 Worker 完了（Set-1）
+- 結果サマリ: 全13タスク計画通り完了。課題なし。知見: セクション番号繰り上げリスク
+- 成果物: 4スキルファイル変更、docs/workflow.md 更新、プロジェクトファイル3件更新
+- **コストデータ**: input_tokens=不明（SDK環境） output_tokens=不明
+- Evaluator 起動判断: 起動する
 
 ### Phase 5: 評価ワーカー
 
