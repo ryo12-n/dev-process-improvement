@@ -10,7 +10,7 @@
 | Phase 2 | set-1 | plan-worker | 逐次 | 完了 | ✅ | - | BL-054 既存解決・BL-047 欠番を発見 |
 | Phase 3 | set-1 | plan-evaluator | 逐次 | スキップ | - | - | L1 直接確認 |
 | Phase 4 | set-1 | worker | 逐次 | 完了 | ✅ | - | T-001〜T-009 全完了 |
-| Phase 5 | set-1 | evaluator | 逐次 | 未着手 | - | - | |
+| Phase 5 | set-1 | evaluator | 逐次 | 完了 | - | ✅ | 全11項目合格 |
 
 ## ディスパッチ履歴
 
