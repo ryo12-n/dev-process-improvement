@@ -115,6 +115,7 @@ GHA スキルが参照される場合、本 CLAUDE.md の CLI セッション向
 | `docs/implementation.md` | 運用ガイド | 実装ガイド |
 | `docs/coordination-protocol-guideline.md` | 参考資料（ドラフト） | 協調プロトコルのガイドライン。一部統合済み |
 | `docs/git-worktree-guideline.md` | 参考資料（ドラフト） | git worktree のガイドライン。一部統合済み |
+| `docs/claude-code-action-version-tracking.md` | 運用ガイド | Claude Code Action のバージョン追跡・更新手順 |
 
 #### 管理ルール
 
