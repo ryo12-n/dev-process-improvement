@@ -1,33 +1,588 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "_comment": "gen-tests が生成するテスト仕様 JSON。このファイルはプレースホルダー。",
   "project": {
-    "name": "",
+    "name": "BookShelf API",
     "version": "0.1.0"
   },
   "test_suites": [
     {
       "id": "TS-001",
-      "name": "",
+      "name": "書籍 CRUD - 単体テスト",
       "type": "unit",
-      "target_component": "",
+      "target_component": "/books, /books/{bookId}",
       "test_cases": [
         {
           "id": "TC-001",
-          "title": "",
-          "description": "",
-          "preconditions": [],
-          "steps": [],
-          "expected_result": "",
+          "title": "ISBN指定で書籍登録し書誌情報が自動取得される",
+          "description": "有効なISBNを指定して書籍を登録し、タイトル・著者・出版社・出版日が外部APIから自動取得されることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "外部API（OpenBD等）が正常稼働している"],
+          "steps": ["POST /books に有効なISBNを含むリクエストボディを送信する", "レスポンスの書誌情報フィールドを確認する"],
+          "expected_result": "201が返り、title・author・publisher・published_dateが自動取得された値で設定されていること",
+          "priority": "high",
+          "related_requirements": ["FR-001"]
+        },
+        {
+          "id": "TC-002",
+          "title": "書籍の一覧取得・個別取得・更新・削除が行える",
+          "description": "書籍のCRUD操作が正常に動作することを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "テスト用書籍が1件以上登録済み"],
+          "steps": ["GET /books で一覧取得する", "GET /books/{bookId} で個別取得する", "PUT /books/{bookId} でタイトルを更新する", "DELETE /books/{bookId} で削除する"],
+          "expected_result": "一覧取得で200・個別取得で200・更新で200・削除で200が返り、各操作が正常に反映されること",
+          "priority": "high",
+          "related_requirements": ["FR-001"]
+        },
+        {
+          "id": "TC-003",
+          "title": "無効なISBNで手動入力にフォールバックできる",
+          "description": "ISBNが無効または外部APIで見つからない場合に、手動入力した書誌情報で登録できることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["POST /books に存在しないISBNとtitle・author等の手動入力値を送信する", "レスポンスを確認する"],
+          "expected_result": "201が返り、手動入力した書誌情報で書籍が登録されること",
           "priority": "high",
           "related_requirements": ["FR-001"]
         }
       ]
+    },
+    {
+      "id": "TS-002",
+      "name": "書籍 CRUD - API統合テスト",
+      "type": "integration",
+      "target_component": "/books, /books/{bookId}",
+      "test_cases": [
+        {
+          "id": "TC-004",
+          "title": "書籍登録のバリデーションエラー",
+          "description": "必須項目（title）が未指定の場合にバリデーションエラーが返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["POST /books にtitleを含まないリクエストボディを送信する"],
+          "expected_result": "400エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-001"]
+        },
+        {
+          "id": "TC-005",
+          "title": "未認証で書籍APIにアクセスすると401",
+          "description": "認証トークンなしで書籍APIにアクセスした場合に401が返ることを確認する。",
+          "preconditions": ["認証トークンなし"],
+          "steps": ["GET /books をAuthorizationヘッダーなしで送信する"],
+          "expected_result": "401エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-001", "FR-007"]
+        },
+        {
+          "id": "TC-006",
+          "title": "存在しない書籍IDで404が返る",
+          "description": "存在しないbookIdを指定した場合に404が返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["GET /books/{存在しないUUID} を送信する"],
+          "expected_result": "404エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-001"]
+        }
+      ]
+    },
+    {
+      "id": "TS-003",
+      "name": "タグ・カテゴリ管理 - 単体テスト",
+      "type": "unit",
+      "target_component": "/books/{bookId}/tags, /tags, /categories",
+      "test_cases": [
+        {
+          "id": "TC-007",
+          "title": "書籍にタグを付与・削除できる",
+          "description": "書籍に複数のタグを付与し、その後タグを変更できることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "テスト用書籍とタグが登録済み"],
+          "steps": ["PUT /books/{bookId}/tags でタグIDの配列を設定する", "GET /books/{bookId}/tags で設定されたタグを確認する", "PUT /books/{bookId}/tags で空配列を設定しタグを削除する"],
+          "expected_result": "タグの付与・確認・削除がすべて正常に動作すること",
+          "priority": "medium",
+          "related_requirements": ["FR-002"]
+        },
+        {
+          "id": "TC-008",
+          "title": "書籍にカテゴリを設定できる",
+          "description": "書籍登録時または更新時にcategory_idを設定できることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "テスト用カテゴリが登録済み"],
+          "steps": ["POST /categories でカテゴリを作成する", "POST /books にcategory_idを指定して書籍を登録する", "GET /books/{bookId} でcategory_idが設定されていることを確認する"],
+          "expected_result": "書籍にカテゴリが正常に設定されること",
+          "priority": "medium",
+          "related_requirements": ["FR-002"]
+        },
+        {
+          "id": "TC-009",
+          "title": "タグ・カテゴリのCRUD操作が行える",
+          "description": "タグとカテゴリの作成・一覧取得・更新・削除がすべて正常に動作することを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["POST /tags でタグを作成する", "GET /tags で一覧取得する", "PUT /tags/{tagId} で更新する", "DELETE /tags/{tagId} で削除する", "POST /categories でカテゴリを作成する", "GET /categories で一覧取得する", "PUT /categories/{categoryId} で更新する", "DELETE /categories/{categoryId} で削除する"],
+          "expected_result": "タグ・カテゴリの全CRUD操作が正常に動作すること",
+          "priority": "medium",
+          "related_requirements": ["FR-002"]
+        }
+      ]
+    },
+    {
+      "id": "TS-004",
+      "name": "タグ・カテゴリ管理 - API統合テスト",
+      "type": "integration",
+      "target_component": "/tags, /tags/{tagId}, /categories, /categories/{categoryId}",
+      "test_cases": [
+        {
+          "id": "TC-010",
+          "title": "タグ作成のバリデーションエラー",
+          "description": "必須項目（name）が未指定の場合にバリデーションエラーが返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["POST /tags にnameを含まないリクエストボディを送信する"],
+          "expected_result": "400エラーが返ること",
+          "priority": "medium",
+          "related_requirements": ["FR-002"]
+        },
+        {
+          "id": "TC-011",
+          "title": "存在しないタグID・カテゴリIDで404が返る",
+          "description": "存在しないIDを指定した場合に404が返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["PUT /tags/{存在しないUUID} を送信する", "DELETE /categories/{存在しないUUID} を送信する"],
+          "expected_result": "両方とも404エラーが返ること",
+          "priority": "medium",
+          "related_requirements": ["FR-002"]
+        }
+      ]
+    },
+    {
+      "id": "TS-005",
+      "name": "書籍検索 - 単体テスト",
+      "type": "unit",
+      "target_component": "/books/search",
+      "test_cases": [
+        {
+          "id": "TC-012",
+          "title": "タイトル・著者・ISBN・タグで部分一致検索できる",
+          "description": "各フィールドで部分一致検索が正常に動作することを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "複数のテスト用書籍が登録済み"],
+          "steps": ["GET /books/search?q=キーワード で検索する", "GET /books/search?title=部分文字列 で検索する", "GET /books/search?author=著者名 で検索する", "GET /books/search?isbn=ISBN部分 で検索する", "GET /books/search?tag=タグ名 で検索する"],
+          "expected_result": "各フィールドで部分一致する書籍のみが返されること",
+          "priority": "high",
+          "related_requirements": ["FR-003"]
+        },
+        {
+          "id": "TC-013",
+          "title": "複数条件のAND検索ができる",
+          "description": "複数の検索条件を同時に指定した場合にAND検索が行われることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "複数のテスト用書籍が登録済み"],
+          "steps": ["GET /books/search?title=XXX&author=YYY で複数条件検索する"],
+          "expected_result": "両方の条件に一致する書籍のみが返されること",
+          "priority": "high",
+          "related_requirements": ["FR-003"]
+        },
+        {
+          "id": "TC-014",
+          "title": "検索結果がページネーション付きで返される",
+          "description": "検索結果にページネーション情報が含まれることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "21件以上のテスト用書籍が登録済み"],
+          "steps": ["GET /books/search?q=テスト&page=1&per_page=20 で検索する", "レスポンスのページネーション情報を確認する"],
+          "expected_result": "total_count・page・per_page・total_pages がレスポンスに含まれること",
+          "priority": "high",
+          "related_requirements": ["FR-003"]
+        }
+      ]
+    },
+    {
+      "id": "TS-006",
+      "name": "貸出リクエスト・承認ワークフロー - 単体テスト",
+      "type": "unit",
+      "target_component": "/loan-requests, /loan-requests/{requestId}/approve, /loan-requests/{requestId}/reject",
+      "test_cases": [
+        {
+          "id": "TC-015",
+          "title": "利用者が貸出リクエストを送信できる",
+          "description": "利用者が書籍を指定して貸出リクエストを送信できることを確認する。",
+          "preconditions": ["一般利用者ロールでログイン済み", "貸出可能な書籍が登録済み"],
+          "steps": ["POST /loan-requests にbook_idを指定して送信する"],
+          "expected_result": "201が返り、status=pendingの貸出リクエストが作成されること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        },
+        {
+          "id": "TC-016",
+          "title": "管理者が貸出リクエスト一覧を確認できる",
+          "description": "管理者がpending状態の貸出リクエスト一覧を取得できることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "pending状態の貸出リクエストが存在する"],
+          "steps": ["GET /loan-requests?status=pending を送信する"],
+          "expected_result": "200が返り、pending状態の貸出リクエスト一覧が返されること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        },
+        {
+          "id": "TC-017",
+          "title": "管理者が貸出リクエストを承認できる",
+          "description": "管理者が貸出リクエストを承認し、貸出レコードが作成されることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "pending状態の貸出リクエストが存在する"],
+          "steps": ["POST /loan-requests/{requestId}/approve を送信する"],
+          "expected_result": "200が返り、貸出レコードが作成され返却期限が設定されていること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        },
+        {
+          "id": "TC-018",
+          "title": "管理者が貸出リクエストを却下できる",
+          "description": "管理者が貸出リクエストを却下できることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "pending状態の貸出リクエストが存在する"],
+          "steps": ["POST /loan-requests/{requestId}/reject にreasonを指定して送信する"],
+          "expected_result": "200が返り、status=rejectedに更新されること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        },
+        {
+          "id": "TC-019",
+          "title": "貸出中の書籍にはリクエストできない",
+          "description": "既に貸出中の書籍に対して貸出リクエストを送信した場合にエラーが返ることを確認する。",
+          "preconditions": ["一般利用者ロールでログイン済み", "貸出中の書籍が存在する"],
+          "steps": ["POST /loan-requests に貸出中の書籍のbook_idを指定して送信する"],
+          "expected_result": "400エラーが返ること（既に貸出中である旨のメッセージを含む）",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        }
+      ]
+    },
+    {
+      "id": "TS-007",
+      "name": "貸出リクエスト - API統合テスト",
+      "type": "integration",
+      "target_component": "/loan-requests, /loan-requests/{requestId}/approve, /loan-requests/{requestId}/reject",
+      "test_cases": [
+        {
+          "id": "TC-020",
+          "title": "存在しない貸出リクエストIDで404が返る",
+          "description": "存在しないrequestIdを指定した場合に404が返ることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み"],
+          "steps": ["POST /loan-requests/{存在しないUUID}/approve を送信する"],
+          "expected_result": "404エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        },
+        {
+          "id": "TC-021",
+          "title": "存在しない書籍への貸出リクエストで404が返る",
+          "description": "存在しないbook_idを指定して貸出リクエストを送信した場合に404が返ることを確認する。",
+          "preconditions": ["一般利用者ロールでログイン済み"],
+          "steps": ["POST /loan-requests に存在しないbook_idを指定して送信する"],
+          "expected_result": "404エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-004"]
+        }
+      ]
+    },
+    {
+      "id": "TS-008",
+      "name": "返却・貸出履歴管理 - 単体テスト",
+      "type": "unit",
+      "target_component": "/loans, /loans/{loanId}/return, /loans/history",
+      "test_cases": [
+        {
+          "id": "TC-022",
+          "title": "利用者が自分の貸出中書籍一覧を取得できる",
+          "description": "利用者が自分の貸出中書籍一覧を取得できることを確認する。",
+          "preconditions": ["一般利用者ロールでログイン済み", "該当ユーザーに貸出中の書籍が存在する"],
+          "steps": ["GET /loans?status=active を送信する"],
+          "expected_result": "200が返り、自分の貸出中書籍一覧が返されること",
+          "priority": "high",
+          "related_requirements": ["FR-005"]
+        },
+        {
+          "id": "TC-023",
+          "title": "貸出中の書籍を返却済みに更新できる",
+          "description": "貸出中の書籍を返却処理できることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "貸出中のレコードが存在する"],
+          "steps": ["POST /loans/{loanId}/return を送信する"],
+          "expected_result": "200が返り、statusがreturnedに更新され、returned_atが設定されること",
+          "priority": "high",
+          "related_requirements": ["FR-005"]
+        },
+        {
+          "id": "TC-024",
+          "title": "過去の貸出履歴を参照できる",
+          "description": "貸出日・返却日・利用者情報を含む貸出履歴を取得できることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "返却済みの貸出レコードが存在する"],
+          "steps": ["GET /loans/history を送信する"],
+          "expected_result": "200が返り、貸出日・返却日・利用者情報を含む履歴が返されること",
+          "priority": "high",
+          "related_requirements": ["FR-005"]
+        }
+      ]
+    },
+    {
+      "id": "TS-009",
+      "name": "返却・貸出履歴 - API統合テスト",
+      "type": "integration",
+      "target_component": "/loans/{loanId}/return",
+      "test_cases": [
+        {
+          "id": "TC-025",
+          "title": "既に返却済みの書籍を再返却すると400が返る",
+          "description": "既に返却済みの貸出レコードに対して返却処理を行うとエラーが返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み", "返却済みの貸出レコードが存在する"],
+          "steps": ["POST /loans/{返却済みloanId}/return を送信する"],
+          "expected_result": "400エラーが返ること（既に返却済みである旨のメッセージを含む）",
+          "priority": "high",
+          "related_requirements": ["FR-005"]
+        },
+        {
+          "id": "TC-026",
+          "title": "存在しない貸出IDで404が返る",
+          "description": "存在しないloanIdを指定した場合に404が返ることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["POST /loans/{存在しないUUID}/return を送信する"],
+          "expected_result": "404エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-005"]
+        }
+      ]
+    },
+    {
+      "id": "TS-010",
+      "name": "延滞アラート - 単体テスト",
+      "type": "unit",
+      "target_component": "/loans/overdue",
+      "test_cases": [
+        {
+          "id": "TC-027",
+          "title": "返却期限超過の貸出一覧をAPIで取得できる",
+          "description": "延滞中の貸出一覧を取得できることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "返却期限超過の貸出レコードが存在する"],
+          "steps": ["GET /loans/overdue を送信する"],
+          "expected_result": "200が返り、延滞中の貸出一覧が返されること",
+          "priority": "medium",
+          "related_requirements": ["FR-006"]
+        },
+        {
+          "id": "TC-028",
+          "title": "延滞日数が計算されて返される",
+          "description": "延滞一覧のレスポンスにoverdue_daysが含まれることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "返却期限超過の貸出レコードが存在する"],
+          "steps": ["GET /loans/overdue を送信する", "レスポンスのoverdue_daysフィールドを確認する"],
+          "expected_result": "各レコードにoverdue_daysが正の整数で含まれること",
+          "priority": "medium",
+          "related_requirements": ["FR-006"]
+        },
+        {
+          "id": "TC-029",
+          "title": "利用者別・書籍別でフィルタリングできる",
+          "description": "延滞一覧をuser_id・book_idでフィルタリングできることを確認する。",
+          "preconditions": ["管理者ロールでログイン済み", "複数ユーザー・書籍の延滞レコードが存在する"],
+          "steps": ["GET /loans/overdue?user_id=XXX でフィルタする", "GET /loans/overdue?book_id=YYY でフィルタする"],
+          "expected_result": "指定した条件に一致する延滞レコードのみが返されること",
+          "priority": "medium",
+          "related_requirements": ["FR-006"]
+        }
+      ]
+    },
+    {
+      "id": "TS-011",
+      "name": "ユーザー管理・認証認可 - 単体テスト",
+      "type": "unit",
+      "target_component": "/auth/register, /auth/login, /auth/logout, /users/me",
+      "test_cases": [
+        {
+          "id": "TC-030",
+          "title": "ユーザー登録・ログイン・ログアウトが行える",
+          "description": "ユーザー登録からログアウトまでの一連のフローが正常に動作することを確認する。",
+          "preconditions": [],
+          "steps": ["POST /auth/register でユーザーを登録する", "POST /auth/login でログインしJWTトークンを取得する", "POST /auth/logout でログアウトする"],
+          "expected_result": "登録で201・ログインで200（JWTトークン付き）・ログアウトで200が返ること",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        },
+        {
+          "id": "TC-031",
+          "title": "JWTトークンによる認証が実装されている",
+          "description": "ログイン成功時にJWTトークンが発行され、そのトークンでAPI認証ができることを確認する。",
+          "preconditions": ["ユーザーが登録済み"],
+          "steps": ["POST /auth/login でJWTトークンを取得する", "取得したトークンをAuthorizationヘッダーに設定してGET /users/me を送信する"],
+          "expected_result": "ログインで有効なJWTトークンが返り、そのトークンで/users/meにアクセスできること",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        },
+        {
+          "id": "TC-032",
+          "title": "管理者・利用者ロールでアクセス制御が行われる",
+          "description": "管理者ロールと利用者ロールでAPIのアクセス制御が正しく行われることを確認する。",
+          "preconditions": ["管理者ユーザーと一般利用者ユーザーが登録済み"],
+          "steps": ["一般利用者でログインし管理者専用API（例: GET /loans/overdue）にアクセスする", "管理者でログインし同じAPIにアクセスする"],
+          "expected_result": "一般利用者は403が返り、管理者は200が返ること",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        },
+        {
+          "id": "TC-033",
+          "title": "パスワードがbcryptでハッシュ化されて保存される",
+          "description": "ユーザー登録時にパスワードがプレーンテキストではなくbcryptハッシュで保存されることを確認する。",
+          "preconditions": [],
+          "steps": ["POST /auth/register でユーザーを登録する", "データベースのusersテーブルでpasswordフィールドを確認する"],
+          "expected_result": "passwordフィールドがbcryptハッシュ形式（$2b$等で始まる文字列）であること",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        }
+      ]
+    },
+    {
+      "id": "TS-012",
+      "name": "認証認可 - API統合テスト",
+      "type": "integration",
+      "target_component": "/auth/register, /auth/login",
+      "test_cases": [
+        {
+          "id": "TC-034",
+          "title": "メールアドレス重複で400が返る",
+          "description": "既に登録済みのメールアドレスで再登録しようとした場合にエラーが返ることを確認する。",
+          "preconditions": ["ユーザーが1人登録済み"],
+          "steps": ["同じメールアドレスでPOST /auth/register を送信する"],
+          "expected_result": "400エラーが返ること（メールアドレス重複の旨のメッセージを含む）",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        },
+        {
+          "id": "TC-035",
+          "title": "不正な認証情報でログイン失敗する",
+          "description": "誤ったパスワードでログインした場合に401が返ることを確認する。",
+          "preconditions": ["ユーザーが登録済み"],
+          "steps": ["POST /auth/login に正しいメールアドレスと誤ったパスワードを送信する"],
+          "expected_result": "401エラーが返ること",
+          "priority": "high",
+          "related_requirements": ["FR-007"]
+        }
+      ]
+    },
+    {
+      "id": "TS-013",
+      "name": "貸出ワークフロー - E2Eテスト",
+      "type": "e2e",
+      "target_component": "/auth, /books, /loan-requests, /loans",
+      "test_cases": [
+        {
+          "id": "TC-036",
+          "title": "貸出リクエスト→承認→返却の完全フロー",
+          "description": "ユーザー登録から貸出リクエスト送信、管理者承認、書籍返却までの完全なワークフローを確認する。",
+          "preconditions": ["テスト用書籍が登録済み"],
+          "steps": ["POST /auth/register で利用者を登録しログインする", "POST /loan-requests で貸出リクエストを送信する", "管理者でログインする", "POST /loan-requests/{requestId}/approve で承認する", "利用者でGET /loans?status=active で貸出中一覧を確認する", "POST /loans/{loanId}/return で返却する", "GET /loans/history で貸出履歴を確認する"],
+          "expected_result": "全ステップが正常に完了し、貸出履歴にレコードが残ること",
+          "priority": "high",
+          "related_requirements": ["FR-004", "FR-005"]
+        },
+        {
+          "id": "TC-037",
+          "title": "書籍検索→貸出→延滞確認の完全フロー",
+          "description": "書籍検索から貸出、延滞発生時のアラート確認までのフローを確認する。",
+          "preconditions": ["テスト用書籍が登録済み", "返却期限が過去日付に設定可能なテスト環境"],
+          "steps": ["GET /books/search?q=キーワード で書籍を検索する", "POST /loan-requests で貸出リクエストを送信する", "管理者が承認し返却期限を過去日付に設定する", "GET /loans/overdue で延滞一覧を確認する"],
+          "expected_result": "延滞一覧に該当レコードが表示され、overdue_daysが正の値であること",
+          "priority": "medium",
+          "related_requirements": ["FR-003", "FR-004", "FR-006"]
+        }
+      ]
+    },
+    {
+      "id": "TS-014",
+      "name": "パフォーマンステスト",
+      "type": "performance",
+      "target_component": "/books/search",
+      "test_cases": [
+        {
+          "id": "TC-038",
+          "title": "1000冊規模で検索レスポンスが500ms以内",
+          "description": "1000冊のデータが登録された状態で検索APIのレスポンスタイムが500ms以内であることを確認する。",
+          "preconditions": ["1000冊以上のテスト用書籍が登録済み"],
+          "steps": ["GET /books/search?q=キーワード を送信する", "レスポンスタイムを計測する"],
+          "expected_result": "レスポンスタイムが500ms以内であること",
+          "priority": "high",
+          "related_requirements": ["FR-003", "NFR-001"]
+        },
+        {
+          "id": "TC-039",
+          "title": "同時50ユーザーアクセスでのスループット",
+          "description": "50ユーザーが同時にAPIにアクセスした場合のスループットとレスポンスタイムを確認する。",
+          "preconditions": ["テスト用データが登録済み", "負荷テストツール（k6等）が利用可能"],
+          "steps": ["50同時ユーザーでGET /books を60秒間リクエストする", "スループットとレスポンスタイムのp95を計測する"],
+          "expected_result": "同時50ユーザーでエラーなく応答し、蔵書10000冊規模でも正常動作すること",
+          "priority": "medium",
+          "related_requirements": ["NFR-004"]
+        }
+      ]
+    },
+    {
+      "id": "TS-015",
+      "name": "セキュリティテスト",
+      "type": "security",
+      "target_component": "/auth, 全エンドポイント",
+      "test_cases": [
+        {
+          "id": "TC-040",
+          "title": "JWT認証・bcryptハッシュのセキュリティ確認",
+          "description": "JWT認証が正しく実装され、パスワードがbcryptでハッシュ化されていることを確認する。",
+          "preconditions": ["テスト用ユーザーが登録済み"],
+          "steps": ["有効期限切れのJWTトークンでAPIにアクセスする", "改ざんされたJWTトークンでAPIにアクセスする", "データベースのパスワードフィールドがbcrypt形式であることを確認する"],
+          "expected_result": "無効なトークンで401が返り、パスワードがbcryptハッシュで保存されていること",
+          "priority": "high",
+          "related_requirements": ["NFR-002"]
+        },
+        {
+          "id": "TC-041",
+          "title": "SQLインジェクション耐性",
+          "description": "検索パラメータにSQLインジェクション文字列を含めた場合にエラーハンドリングされることを確認する。",
+          "preconditions": ["認証済みユーザーでログイン済み"],
+          "steps": ["GET /books/search?q=' OR 1=1 -- を送信する", "POST /auth/login に email: \"' OR 1=1 --\" を送信する"],
+          "expected_result": "SQLインジェクションが実行されず、正常なエラーレスポンスが返ること",
+          "priority": "high",
+          "related_requirements": ["NFR-002"]
+        }
+      ]
+    },
+    {
+      "id": "TS-016",
+      "name": "可用性テスト",
+      "type": "e2e",
+      "target_component": "システム全体",
+      "test_cases": [
+        {
+          "id": "TC-042",
+          "title": "ヘルスチェックエンドポイントの応答確認",
+          "description": "システムが稼働中であることを確認するヘルスチェックが正常に応答することを確認する。",
+          "preconditions": ["アプリケーションが起動済み"],
+          "steps": ["GET /health（または同等のエンドポイント）を送信する"],
+          "expected_result": "200が返り、システムが正常稼働中であることが確認できること",
+          "priority": "medium",
+          "related_requirements": ["NFR-003"]
+        }
+      ]
     }
   ],
-  "coverage_targets": {
-    "unit": "80%",
-    "integration": "60%",
-    "e2e": "critical_paths"
+  "coverage_summary": {
+    "total_test_cases": 42,
+    "by_type": {
+      "unit": 24,
+      "integration": 11,
+      "e2e": 3,
+      "performance": 2,
+      "security": 2
+    },
+    "by_priority": {
+      "high": 31,
+      "medium": 11,
+      "low": 0
+    },
+    "requirement_coverage": {
+      "functional": {
+        "total_requirements": 7,
+        "covered_requirements": 7,
+        "coverage_rate": "100%"
+      },
+      "non_functional": {
+        "total_requirements": 4,
+        "covered_requirements": 4,
+        "coverage_rate": "100%"
+      }
+    },
+    "endpoint_coverage": {
+      "total_endpoints": 28,
+      "covered_endpoints": 28,
+      "coverage_rate": "100%"
+    }
   }
 }
