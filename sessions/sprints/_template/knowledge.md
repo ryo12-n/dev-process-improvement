@@ -38,4 +38,4 @@
 
 | 知見タイトル | エスカレーション先 | 日付 |
 |---|---|---|
-| {{知見タイトル}} | refs/{{repo}}/knowledge.md | {{date}} |
+| {{知見タイトル}} | refs/{{repository_name}}/knowledge.md | {{date}} |
