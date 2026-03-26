@@ -17,7 +17,7 @@ backlog-inventory-batch 施策で棚卸し・分類した78件のバックログ
 | 1 | batch-reference-fix-and-rename | 4件 | 壊れた参照修正・リネーム追従ルール追加 | 高 | 完了 |
 | 2 | batch-gha-minor-fixes | 4件 | GHAスキル設定追加・マッピング登録 | 高 | 完了 |
 | 3 | batch-template-doc-fixes | 6件 | docs/workflow.md更新・テンプレート統一 | 中 | 完了 |
-| 4 | batch-rule-policy-minor-additions | 7件 | ルール・ポリシーへの軽微な追記 | 中 | 未着手 |
+| 4 | batch-rule-policy-minor-additions | 7件 | ルール・ポリシーへの軽微な追記 | 中 | 完了 |
 | 5 | batch-aidd-minor-fixes | 6件 | ai-driven-dev-patterns関連の軽微修正 | 中 | 未着手 |
 | 6 | batch-skill-session-tweaks | 8件 | スキル・セッション定義の微調整 | 低 | 未着手 |
 
