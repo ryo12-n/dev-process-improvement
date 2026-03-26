@@ -43,6 +43,7 @@ L1 マネージャーは以下3パターンの入力を受け付ける:
     + 04_dispatch_log.md に Plan-Worker 完了エントリ（コストデータ含む）を記録
     → 品質不十分なら差し戻し
     → phase-1-planning/set-N/08_task_division.md を参考に 03_tasks.md を作成
+    → テンプレート事前適用の検討（任意）: ワーカーが繰り返し適用する定型テンプレートがあれば、L1 がタスク作成段階で事前展開を検討
     → ドメインエージェント選定（任意）: refs/agency-agents/knowledge.md を参照し、施策タイプに適したエージェントを選定
       → 03_tasks.md の「参照ドメインエージェント」セクションに Worker/Evaluator 別に記載（該当なしなら「なし」）
     ※ 03_tasks.md には CSV 転記の固定タスクを必ず含める（後述）

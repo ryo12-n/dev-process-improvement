@@ -19,7 +19,7 @@ backlog-inventory-batch 施策で棚卸し・分類した78件のバックログ
 | 3 | batch-template-doc-fixes | 6件 | docs/workflow.md更新・テンプレート統一 | 中 | 完了 |
 | 4 | batch-rule-policy-minor-additions | 7件 | ルール・ポリシーへの軽微な追記 | 中 | 完了 |
 | 5 | batch-aidd-minor-fixes | 6件 | ai-driven-dev-patterns関連の軽微修正 | 中 | 未着手 |
-| 6 | batch-skill-session-tweaks | 8件 | スキル・セッション定義の微調整 | 低 | 未着手 |
+| 6 | batch-skill-session-tweaks | 7件 | スキル・セッション定義の微調整 | 低 | 進行中 |
 
 ### M分類 統合候補（3組）
 
@@ -42,4 +42,4 @@ M残り28件、L9件は通常のトリアージ・施策フローで個別対応
 
 ---
 **作成日**: 2026-03-24
-**最終更新**: 2026-03-25
+**最終更新**: 2026-03-26
